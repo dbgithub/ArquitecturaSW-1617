@@ -4,10 +4,10 @@ import java.util.Date;
 
 public class Tarjeta {
 	
-	public enum EnumProveedores {
+	private enum EnumProveedores {
 		Visa,Mastercard; 
 	}
-	public enum TiposTarjeta {
+	private enum TiposTarjeta {
 		Credito,Debito; 
 	}
 	private int numero;

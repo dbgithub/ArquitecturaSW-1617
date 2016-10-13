@@ -3,13 +3,20 @@ package sw;
 import java.util.Date;
 
 public class Operacion {
-	public enum EnumTipoOperacion {
+	private enum EnumTipoOperacion {
 		Ingreso,Extraccion; 
 	}
 	private int id;
 	private Date fecha;
 	private EnumTipoOperacion tipo;
 	private float importe;
+	private Cuenta cuenta;
+	public Cuenta getCuenta() {
+		return cuenta;
+	}
+	public void setCuenta(Cuenta cuenta) {
+		this.cuenta = cuenta;
+	}
 	public int getId() {
 		return id;
 	}
