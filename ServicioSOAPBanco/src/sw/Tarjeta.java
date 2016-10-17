@@ -7,7 +7,7 @@ public class Tarjeta {
 	public enum EnumProveedores {
 		Visa,Mastercard,AmericanExpress; 
 	}
-	public enum TiposTarjeta {
+	private enum TiposTarjeta {
 		Credito,Debito; 
 	}
 	private int numero;
