@@ -5,7 +5,7 @@ import java.util.Date;
 public class Tarjeta {
 	
 	public enum EnumProveedores {
-		Visa,Mastercard; 
+		Visa,Mastercard,AmericanExpress; 
 	}
 	public enum TiposTarjeta {
 		Credito,Debito; 
