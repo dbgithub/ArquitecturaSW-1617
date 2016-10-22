@@ -82,5 +82,31 @@ public class GestorBD {
 		return clientes;
 	}
 
+//	public ArrayList<Cliente> obtenerClientes(String DNI, String nombre, String apellidos, String email, int movil,
+//			boolean empleado) throws SQLException {
+//		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+//		String select = "select * from CLIENTE where nombre like '%?%' and apellidos like '%?%' and email like '%?%' and movil like '%?%' and empleado=?";
+//		PreparedStatement ps = con.prepareStatement(select);
+//		if(DNI==null){
+//			
+//		}
+//		updateemp.setInt(1, 23);
+//		updateemp.setString(2, "Roshan");
+//		updateemp.setString(3, "CEO");
+//		updateemp.executeUpdate();
+//		 ResultSet rs = stmt.executeQuery(select);
+//		 while (rs.next()) {
+//		 Cliente cliente = new Cliente();
+//		 cliente.setDNI(rs.getString("dni"));
+//		 cliente.setNombre(rs.getString("nombre"));
+//		 cliente.setApellidos(rs.getString("apellidos"));
+//		 cliente.setDireccion(rs.getString("direccion"));
+//		 cliente.setEmail(rs.getString("email"));
+//		 clientes.add(cliente);
+//		 }
+//		rs.close();
+//		stmt.close();
+//		return clientes;
+//	}
 
 }
