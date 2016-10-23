@@ -1,4 +1,4 @@
-package sw;
+package es.deusto.arquiSW.classes;
 
 import java.util.Date;
 

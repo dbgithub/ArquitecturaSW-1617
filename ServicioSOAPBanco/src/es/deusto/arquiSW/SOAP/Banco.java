@@ -1,9 +1,13 @@
-package sw;
+package es.deusto.arquiSW.SOAP;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import dao.GestorBD;
+
+import es.deusto.arquiSW.classes.Cliente;
+import es.deusto.arquiSW.classes.Cuenta;
+import es.deusto.arquiSW.classes.Tarjeta;
+import es.deusto.arquiSW.dao.GestorBD;
 
 /**
  * Esta es la clase principal que queremos que haga las veces de Servicio Web

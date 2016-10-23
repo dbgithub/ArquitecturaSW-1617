@@ -1,15 +1,15 @@
-package dao;
+package es.deusto.arquiSW.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-import sw.Cliente;
-import sw.Cuenta;
-import sw.Operacion;
-import sw.Operacion.EnumTipoOperacion;
-import sw.Tarjeta;
-import sw.Tarjeta.EnumProveedores;
-import sw.Tarjeta.TiposTarjeta;
+import es.deusto.arquiSW.classes.Cliente;
+import es.deusto.arquiSW.classes.Cuenta;
+import es.deusto.arquiSW.classes.Operacion;
+import es.deusto.arquiSW.classes.Tarjeta;
+import es.deusto.arquiSW.classes.Operacion.EnumTipoOperacion;
+import es.deusto.arquiSW.classes.Tarjeta.EnumProveedores;
+import es.deusto.arquiSW.classes.Tarjeta.TiposTarjeta;
 
 public class GestorBD {
 	private Connection con;

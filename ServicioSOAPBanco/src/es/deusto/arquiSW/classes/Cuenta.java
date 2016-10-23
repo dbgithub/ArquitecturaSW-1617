@@ -1,8 +1,9 @@
-package sw;
+package es.deusto.arquiSW.classes;
 
 import java.util.ArrayList;
 import java.util.Date;
-import sw.Cliente;
+
+import es.deusto.arquiSW.classes.Cliente;
 
 public class Cuenta {
 	private int IBAN;
