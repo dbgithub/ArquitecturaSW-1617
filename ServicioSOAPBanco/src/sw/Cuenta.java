@@ -1,5 +1,6 @@
 package sw;
 
+import java.util.ArrayList;
 import java.util.Date;
 import sw.Cliente;
 
@@ -11,14 +12,43 @@ public class Cuenta {
 	private float saldoActual;
 	private float interes;
 	private Cliente titular;
-	private Tarjeta tarjeta;
+	private ArrayList<Tarjeta> tarjetas;
+	private ArrayList<Operacion> operaciones;
 	
-	public Tarjeta getTarjeta() {
-		return tarjeta;
+	
+	/**
+	 * Constructor vacio
+	 */
+	public Cuenta() {
+		
 	}
-	public void setTarjeta(Tarjeta tarjeta) {
-		this.tarjeta = tarjeta;
+	/**
+	 * Constructor
+	 * @param IBAN
+	 * @param SWIFT
+	 * @param fechaApertura
+	 * @param activa
+	 * @param saldoActual
+	 * @param interes
+	 * @param titular
+	 * @param tarjetas
+	 * @param operaciones
+	 */
+	public Cuenta(int iBAN, String sWIFT, Date fechaApertura, boolean activa, float saldoActual, float interes,
+			Cliente titular, ArrayList<Tarjeta> tarjetas, ArrayList<Operacion> operaciones) {
+		this.IBAN = iBAN;
+		this.SWIFT = sWIFT;
+		this.fechaApertura = fechaApertura;
+		this.activa = activa;
+		this.saldoActual = saldoActual;
+		this.interes = interes;
+		this.titular = titular;
+		this.tarjetas = tarjetas;
+		this.operaciones = operaciones;
 	}
+	
+	// METHODS & OPERATIONS:
+	
 	public Cliente getTitular() {
 		return titular;
 	}
@@ -60,6 +90,18 @@ public class Cuenta {
 	}
 	public void setInteres(float interes) {
 		this.interes = interes;
+	}
+	public ArrayList<Tarjeta> getTarjetas() {
+		return tarjetas;
+	}
+	public void setTarjetas(ArrayList<Tarjeta> tarjetas) {
+		this.tarjetas = tarjetas;
+	}
+	public ArrayList<Operacion> getOperaciones() {
+		return operaciones;
+	}
+	public void setOperaciones(ArrayList<Operacion> operaciones) {
+		this.operaciones = operaciones;
 	}
 
 	

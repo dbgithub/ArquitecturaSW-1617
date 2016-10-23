@@ -1,6 +1,9 @@
 package sw;
 
+import java.util.ArrayList;
+
 public class Cliente {
+	
 	private String DNI;
 	private String nombre;
 	private String apellidos;
@@ -9,6 +12,42 @@ public class Cliente {
 	private int movil;
 	private boolean empleado;
 	private int PIN;
+	private ArrayList<Cuenta> cuentas;
+	
+	/**
+	 * Constructor vacio
+	 */
+	public Cliente() {
+		
+	}
+	
+	/**
+	 * Constructor
+	 * @param dNI
+	 * @param nombre
+	 * @param apellidos
+	 * @param direccion
+	 * @param email
+	 * @param movil
+	 * @param empleado
+	 * @param pIN
+	 * @param cuentas
+	 */
+	public Cliente(String dNI, String nombre, String apellidos, String direccion, String email, int movil,
+			boolean empleado, int pIN, ArrayList<Cuenta> cuentas) {
+		this.DNI = dNI;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.direccion = direccion;
+		this.email = email;
+		this.movil = movil;
+		this.empleado = empleado;
+		this.PIN = pIN;
+		this.setCuentas(cuentas);
+	}
+	
+	// METHODS & OPERATIONS:
+	
 	public String getDNI() {
 		return DNI;
 	}
@@ -56,6 +95,12 @@ public class Cliente {
 	}
 	public void setPIN(int pIN) {
 		PIN = pIN;
+	}
+	public ArrayList<Cuenta> getCuentas() {
+		return cuentas;
+	}
+	public void setCuentas(ArrayList<Cuenta> cuentas) {
+		this.cuentas = cuentas;
 	}
 	
 }

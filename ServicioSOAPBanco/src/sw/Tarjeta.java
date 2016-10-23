@@ -4,23 +4,60 @@ import java.util.Date;
 
 public class Tarjeta {
 	
+	private int numero;
+	private int limiteExtraccion;
+	private Date fechaCaducidad;
+	private EnumProveedores proveedor;
+	private TiposTarjeta tipo;
+	private Date fechaExpedicion;
 	public enum EnumProveedores {
 		Visa,Mastercard,AmericanExpress; 
 	}
-	private enum TiposTarjeta {
+	public enum TiposTarjeta {
 		Credito,Debito; 
 	}
-	private int numero;
+	private Cuenta cuenta;
+	
+	/**
+	 * Constructor vacio
+	 */
+	public Tarjeta() {
+		
+	}
+	
+	/**
+	 * Constructor
+	 * @param numero
+	 * @param cuenta
+	 * @param limiteExtraccion
+	 * @param fechaCaducidad
+	 * @param proveedor
+	 * @param tipo
+	 * @param fechaExpedicion
+	 */
+	public Tarjeta(int numero, Cuenta cuenta, int limiteExtraccion, Date fechaCaducidad, EnumProveedores proveedor,
+			TiposTarjeta tipo, Date fechaExpedicion) {
+		this.numero = numero;
+		this.cuenta = cuenta;
+		this.limiteExtraccion = limiteExtraccion;
+		this.fechaCaducidad = fechaCaducidad;
+		this.proveedor = proveedor;
+		this.tipo = tipo;
+		this.fechaExpedicion = fechaExpedicion;
+	}
+	
+	// METHODS & OPERATIONS:
+	
 	public int getNumero() {
 		return numero;
 	}
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-	public int getCuenta() {
+	public Cuenta getCuenta() {
 		return cuenta;
 	}
-	public void setCuenta(int cuenta) {
+	public void setCuenta(Cuenta cuenta) {
 		this.cuenta = cuenta;
 	}
 	public int getLimiteExtraccion() {
@@ -53,11 +90,5 @@ public class Tarjeta {
 	public void setFechaExpedicion(Date fechaExpedicion) {
 		this.fechaExpedicion = fechaExpedicion;
 	}
-	private int cuenta;
-	private int limiteExtraccion;
-	private Date fechaCaducidad;
-	private EnumProveedores proveedor;
-	private TiposTarjeta tipo;
-	private Date fechaExpedicion;
 	
 }
