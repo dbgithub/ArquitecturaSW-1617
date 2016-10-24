@@ -99,7 +99,7 @@ public class Banco {
 	/**
 	 * Obtiene todas las tarjetas
 	 */
-	public ArrayList<Tarjeta> obtieneTarjetas() {
+	public ArrayList<Tarjeta> obtenerTarjetas() {
 		try {
 			return gestorbd.obtenerTarjetas();
 		} catch (SQLException e) {
@@ -117,6 +117,11 @@ public class Banco {
 	 * @param t
 	 */
 	public void importar(ArrayList<Cliente> clientes, ArrayList<Cuenta> cuentas, ArrayList<Tarjeta> tarjetas) {
-		gestorbd.importar(clientes, cuentas, tarjetas);
+		try {
+			gestorbd.importar(clientes, cuentas, tarjetas);
+		} catch (SQLException e) {
+			System.out.println("ERROR/EXCEPCION. Error a la hora de importar datos a la BD:");
+			e.printStackTrace();
+		}
 	}
 }
