@@ -2,6 +2,7 @@ package es.deusto.arquiSW.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import es.deusto.arquiSW.classes.Cliente;
 import es.deusto.arquiSW.classes.Cuenta;
@@ -11,6 +12,13 @@ import es.deusto.arquiSW.classes.Operacion.EnumTipoOperacion;
 import es.deusto.arquiSW.classes.Tarjeta.EnumProveedores;
 import es.deusto.arquiSW.classes.Tarjeta.TiposTarjeta;
 
+/**
+ * Esta clase gestiona el acceso a la base de datos, asi como de las operaciones CRUD (Create, Read, Update and Delete)
+ * La principal diferencia entre executeUpdate y executeQuery es que el primero devuelve un int y el segudno un ResultSet
+ * para poder iterar sobre el. Es decir, 'estado de la operacion' y 'conjunto de resultados' respectivamente.
+ * @author aitor & daniel
+ *
+ */
 public class GestorBD {
 	private Connection con;
 
@@ -192,8 +200,9 @@ public class GestorBD {
 	 * @param clientes
 	 * @param cuentas
 	 * @param tarjetas
+	 * @throws SQLException 
 	 */
-	public void importar(ArrayList<Cliente> clientes, ArrayList<Cuenta> cuentas, ArrayList<Tarjeta> tarjetas) {
+	public void importar(ArrayList<Cliente> clientes, ArrayList<Cuenta> cuentas, ArrayList<Tarjeta> tarjetas) throws SQLException {
 		if (!clientes.isEmpty()) {insertarClientes(clientes);}
 		if (!cuentas.isEmpty()) {insertarCuentas(cuentas);}
 		if (!tarjetas.isEmpty()) {insertarTarjetas(tarjetas);}
@@ -202,9 +211,26 @@ public class GestorBD {
 	/**
 	 * Insertamos cliente(s) en la base de datos
 	 * @param clientes
+	 * @throws SQLException 
 	 */
-	public void insertarClientes(ArrayList<Cliente> clientes) {
-		//TODO: Insertar cliente(s) (incluyendo todos los parametros)	
+	public void insertarClientes(ArrayList<Cliente> clientes) throws SQLException {
+		Iterator<Cliente> it = clientes.iterator();
+		Statement statement = con.createStatement();
+		while (it.hasNext()) {
+			Cliente temp = it.next();
+			String sqlString = "INSERT INTO Cliente " +
+					"(DNI, Nombre, Apellidos, Direccion, email, movil, empleado, PIN) " +
+					"VALUES ('" + temp.getDNI() +
+					"','" + temp.getNombre() +
+					"','" + temp.getApellidos() +
+					"','" + temp.getDireccion() +
+					"','" + temp.getEmail() +
+					"'," + temp.getMovil() +
+					"," + ((temp.isEmpleado()) ? 1:0) +
+					",'"  + temp.getPIN() + "')";                        
+			statement.executeUpdate(sqlString);
+		}
+		statement.close();   
 	}
 	
 	/**
@@ -213,27 +239,205 @@ public class GestorBD {
 	 */
 	public void insertarCuentas(ArrayList<Cuenta> cuentas) {
 		//TODO: Insertar cuenta(s) (incluyendo todos los parametros)
+	}
+	
+	/**
+	 * Insertamos operacion(es) en la base de datos
+	 * @param cuentas
+	 */
+	public void insertarOperaciones(ArrayList<Operacion> operaciones) {
 		//TODO: Insertar operacion(s) (incluyendo todos los parametros)
 	}
 	
 	/**
 	 * Insertamos tarjeta(s) en la base de datos
 	 * @param tarjetas
+	 * @throws SQLException 
 	 */
-	public void insertarTarjetas(ArrayList<Tarjeta> tarjetas) {
-		//TODO: Insertar tarjeta(s) (incluyendo todos los parametros)
+	public void insertarTarjetas(ArrayList<Tarjeta> tarjetas) throws SQLException {
+		Iterator<Tarjeta> it = tarjetas.iterator();
+		Statement statement = con.createStatement();
+		while (it.hasNext()) {
+			Tarjeta temp = it.next();
+			String sqlString = "INSERT INTO Tarjeta " +
+					"(Numero, LimiteExtraccion, FechaCaducidad, Proveedor, Tipo, FechaExpedicion, Cuenta) " +
+					"VALUES (" + temp.getNumero() +
+					"," + temp.getLimiteExtraccion() +
+					",'" + temp.getFechaCaducidad().toString() +
+					"','" + temp.getProveedor() +
+					"','" + temp.getTipo() +
+					"','" + temp.getFechaExpedicion().toString() +
+					"'," + temp.getCuenta().getIBAN() + ")";                     
+			statement.executeUpdate(sqlString);
+		}
+		statement.close();  
 	}
 	
-	//TODO: Obtener cliente mediante parametros del filtro
-	//TODO: Obtener cuenta mediante parametros del filtro
+	/**
+	 * Obtiene cliente(s) en base a un filtro establecido en la parte cliente.
+	 * @param DNI
+	 * @param Nombre
+	 * @param Apellidos
+	 * @param email
+	 * @param movil
+	 * @param empleado
+	 * @return
+	 * @throws SQLException
+	 */
+	public ArrayList<Cliente> obtenerCliente(String DNI, String Nombre, String Apellidos, String email, String movil, Boolean empleado) throws SQLException {
+		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+		PreparedStatement statement;
+		String sqlString = "SELECT * FROM Cliente" +
+			" WHERE @1 AND @2 AND @3 AND @4 AND @5 AND @6";
+		if (DNI!=null) {sqlString = sqlString.replace("@1", "Dni="+DNI);} else {sqlString = sqlString.replace("@1", "Dni = Dni");}
+		if (Nombre!=null) {sqlString = sqlString.replace("@2", "Nombre="+Nombre);} else {sqlString = sqlString.replace("@2", "Nombre = Nombre");}
+		if (Apellidos!=null) {sqlString = sqlString.replace("@3", "Apellidos="+Apellidos);} else {sqlString = sqlString.replace("@3", "Apellidos = Apellidos");}
+		if (email!=null) {sqlString = sqlString.replace("@4", "Email="+email);} else {sqlString = sqlString.replace("@4", "Email = Email");}
+		if (movil!=null) {sqlString = sqlString.replace("@5", "Movil="+movil);} else {sqlString = sqlString.replace("@5", "Movil = Movil");}
+		if (empleado!=null) {sqlString = sqlString.replace("@6", (empleado)? "Empleado=1":"Empleado=0");} else {sqlString = sqlString.replace("@6", "Empleado = Empleado");}
+		statement = con.prepareStatement(sqlString);	
+		System.out.println("sql string: " + sqlString);
+		ResultSet rs = statement.executeQuery();
+		while (rs.next()){
+        	Cliente cliente = new Cliente();
+        	cliente.setDNI(rs.getString("dni"));
+        	cliente.setNombre(rs.getString("nombre"));
+        	cliente.setApellidos(rs.getString("apellidos"));
+        	cliente.setDireccion(rs.getString("direccion"));
+        	cliente.setEmail(rs.getString("email"));
+        	cliente.setMovil(rs.getInt("movil"));
+        	cliente.setEmpleado(rs.getBoolean("empleado"));
+        	cliente.setPIN(rs.getInt("pin"));
+        	clientes.add(cliente);
+        }
+        rs.close();
+        statement.close();  
+        return clientes;
+	}
+	
+	/**
+	 * Obtiene cuenta(s) en base a un filtro estableido en la parte cliente.
+	 * @param IBAN
+	 * @param fechaApertura
+	 * @param activa
+	 * @param interes
+	 * @return
+	 * @throws SQLException
+	 */
+	public ArrayList<Cuenta> obtenerCuenta(String IBAN, String DNI, String fechaApertura, Boolean activa, String interes) throws SQLException {
+		ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
+		PreparedStatement statement;
+		String sqlString = "SELECT * FROM Cuenta" +
+			" WHERE @1 AND @2 AND @3 AND @4 AND @5";
+		if (IBAN!=null) {sqlString = sqlString.replace("@1", "IBAN="+IBAN);} else {sqlString = sqlString.replace("@1", "IBAN = IBAN");}
+		if (DNI!=null) {sqlString = sqlString.replace("@2", "Cliente="+DNI);} else {sqlString = sqlString.replace("@2", "Cliente = Cliente");}
+		if (fechaApertura!=null) {sqlString = sqlString.replace("@3", "FechaApertura="+fechaApertura);} else {sqlString = sqlString.replace("@3", "FechaApertura = FechaApertura");}
+		if (activa!=null) {sqlString = sqlString.replace("@4", (activa)? "Activa=1":"Activa=0");} else {sqlString = sqlString.replace("@4", "Activa = Activa");}
+		if (interes!=null) {sqlString = sqlString.replace("@5", "Interes="+Float.parseFloat(interes));} else {sqlString = sqlString.replace("@5", "Interes = Interes");}
+		statement = con.prepareStatement(sqlString);	
+		System.out.println("sql string: " + sqlString);
+		ResultSet rs = statement.executeQuery();
+		while (rs.next()){
+        	Cuenta cuenta = new Cuenta();
+        	cuenta.setIBAN(rs.getInt("iban"));
+        	cuenta.setSWIFT(rs.getString("swift"));
+        	cuenta.setFechaApertura(rs.getDate("fechaapertura"));
+        	cuenta.setActiva(rs.getBoolean("activa"));
+        	cuenta.setSaldoActual(rs.getFloat("saldoactual"));
+        	cuenta.setInteres(rs.getFloat("interes"));
+        	Cliente c = new Cliente();
+        	c.setDNI(rs.getString("Cliente"));
+        	Tarjeta t = new Tarjeta();
+        	t.setNumero(rs.getInt("tarjeta"));
+        	ArrayList<Tarjeta> tarjetas = new ArrayList<Tarjeta>();
+        	tarjetas.add(t);
+        	cuenta.setTitular(c);
+        	cuenta.setTarjetas(tarjetas);
+        	cuentas.add(cuenta);
+        }
+        rs.close();
+        statement.close();  
+        return cuentas;
+	}
+	
+	/**
+	 * Obtiene cuenta(s) en base al IBAN de una cuenta.
+	 * @return una coleccion de operaciones
+	 * @throws SQLException
+	 */
+	public ArrayList<Operacion> obtenerOperacion(String IBAN) throws SQLException{
+		ArrayList<Operacion> operaciones = new ArrayList<Operacion>();
+		Statement statement = con.createStatement();
+		String sqlString = "SELECT * FROM operacion WHERE Cuenta="+IBAN;
+		ResultSet rs = statement.executeQuery(sqlString);
+		while (rs.next()){
+        	Operacion operacion = new Operacion();
+        	operacion.setId(rs.getInt("id"));
+        	operacion.setFecha(rs.getDate("fecha"));
+        	operacion.setTipo(EnumTipoOperacion.valueOf(rs.getString("tipo")));
+        	operacion.setImporte(rs.getFloat("importe"));
+        	Cuenta c = new Cuenta();
+        	c.setIBAN(rs.getInt("cuenta"));
+        	operacion.setCuenta(c);
+        	operaciones.add(operacion);
+        }
+        rs.close();
+        statement.close();  
+        return operaciones;
+	}
+	
+	/**
+	 * Obtiene tarjeta(s) en base a un filtro establecido en la parte del cliente
+	 * @param Numero
+	 * @param proveedor
+	 * @param tipo
+	 * @return
+	 * @throws SQLException
+	 */
+	public ArrayList<Tarjeta> obtenerTarjeta(String Numero, String DNI, String proveedor, String tipo) throws SQLException {
+		ArrayList<Tarjeta> tarjetas = new ArrayList<Tarjeta>();
+		PreparedStatement statement;
+		String sqlString = "SELECT newtable.Numero, newtable.LimiteExtraccion, newtable.FechaCaducidad, newtable.Proveedor, newtable.Tipo, " +
+							"newtable.FechaExpedicion, newtable.Cliente FROM" +
+							"(SELECT * FROM Tarjeta INNER JOIN Cuenta ON Tarjeta.Cuenta = Cuenta.IBAN) as newtable" +
+							" WHERE @1 AND @2 AND @3 AND @4";
+		if (Numero!=null) {sqlString = sqlString.replace("@1", "Numero="+Numero);} else {sqlString = sqlString.replace("@1", "Numero = Numero");}
+		if (DNI!=null) {sqlString = sqlString.replace("@2", "Cliente="+Numero);} else {sqlString = sqlString.replace("@2", "Cliente = Cliente");}
+		if (proveedor!=null) {sqlString = sqlString.replace("@3", "Proveedor="+proveedor);} else {sqlString = sqlString.replace("@3", "Proveedor = Proveedor");}
+		if (tipo!=null) {sqlString = sqlString.replace("@4", "Tipo="+tipo);} else {sqlString = sqlString.replace("@4", "Tipo = Tipo");}
+		statement = con.prepareStatement(sqlString);	
+		System.out.println("sql string: " + sqlString);
+		ResultSet rs = statement.executeQuery(sqlString);
+		while (rs.next()){
+			Tarjeta tarjeta = new Tarjeta();
+        	tarjeta.setNumero(rs.getInt("Numero"));
+        	tarjeta.setLimiteExtraccion(rs.getInt("LimiteExtraccion"));
+        	tarjeta.setFechaCaducidad(rs.getDate("FechaCaducidad"));
+        	tarjeta.setProveedor(EnumProveedores.valueOf(rs.getString("Proveedor")));
+        	tarjeta.setTipo(TiposTarjeta.valueOf(rs.getString("Tipo")));
+        	tarjeta.setFechaExpedicion(rs.getDate("FechaExpedicion"));
+        	Cuenta c = new Cuenta();
+        	c.setIBAN(rs.getInt("cuenta"));
+        	tarjeta.setCuenta(c);
+        	tarjetas.add(tarjeta);
+        }
+        rs.close();
+        statement.close();  
+        return tarjetas;
+	}
+	
+	
 	//TODO: Obtener operacion mediante parameros del filtro
-	//TODO: Obtener tarjeta mediante parametros del filtro
 	
 	
 //	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 //		GestorBD gbd=new GestorBD();
 //		gbd.conectar();
-//		System.out.println(gbd.obtenerDNI());
+//		ArrayList<Cliente> po = gbd.obtenerCliente("8656565", "Pepe", "Perez", "pepe.perez@pepe.com", "69696", false);
+//		ArrayList<Cliente> po = gbd.obtenerCliente("8656565", null, null, null, null, null);
+//		System.out.println(po.get(0).getNombre());
+//		if (po.size() > 1) {System.out.println(po.get(1).getNombre());}
+//		if (po.size() > 2) {System.out.println(po.get(2).getNombre());}
 //		gbd.desconectar();
 //	}
 
@@ -250,23 +454,23 @@ public class GestorBD {
 	// return dni;
 	// }
 	
-	public Cliente obtenerClienteDNI(String dni) throws SQLException {
-		Cliente cliente = null;
-		String select = "select * from CLIENTE where dni='" + dni + "'";
-		Statement stmt = con.createStatement();
-		ResultSet rs = stmt.executeQuery(select);
-		if (rs.next()) {
-			cliente = new Cliente();
-			cliente.setDNI(rs.getString("dni"));
-			cliente.setNombre(rs.getString("nombre"));
-			cliente.setApellidos(rs.getString("apellidos"));
-			cliente.setDireccion(rs.getString("direccion"));
-			cliente.setEmail(rs.getString("email"));
-		}
-		rs.close();
-		stmt.close();
-		return cliente;
-	}
+//	public Cliente obtenerClienteDNI(String dni) throws SQLException {
+//		Cliente cliente = null;
+//		String select = "select * from CLIENTE where dni='" + dni + "'";
+//		Statement stmt = con.createStatement();
+//		ResultSet rs = stmt.executeQuery(select);
+//		if (rs.next()) {
+//			cliente = new Cliente();
+//			cliente.setDNI(rs.getString("dni"));
+//			cliente.setNombre(rs.getString("nombre"));
+//			cliente.setApellidos(rs.getString("apellidos"));
+//			cliente.setDireccion(rs.getString("direccion"));
+//			cliente.setEmail(rs.getString("email"));
+//		}
+//		rs.close();
+//		stmt.close();
+//		return cliente;
+//	}
 
 //	public ArrayList<Cliente> obtenerClientes(String DNI, String nombre, String apellidos, String email, int movil,
 //			boolean empleado) throws SQLException {
