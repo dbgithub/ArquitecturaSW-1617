@@ -41,7 +41,7 @@ CREATE TABLE `Cliente` (
 
 LOCK TABLES `Cliente` WRITE;
 /*!40000 ALTER TABLE `Cliente` DISABLE KEYS */;
-INSERT INTO `Cliente` VALUES ('8656565','Pepe','Perez','C:\\mayor1','pepe.perez@pepe.com',69696,'\0',1234);
+INSERT INTO `Cliente` VALUES ('8656565','Pepe','Perez','C:\\mayor1','pepe.perez@pepe.com',69696,'\0',1234),('9898989','Daniel','Guzman','ColegioMayor','d.g@hola.com',45545445,'\0',4321);
 /*!40000 ALTER TABLE `Cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -55,12 +55,12 @@ DROP TABLE IF EXISTS `Cuenta`;
 CREATE TABLE `Cuenta` (
   `IBAN` int(11) NOT NULL,
   `SWIFT` varchar(45) DEFAULT NULL,
-  `FechaApertura` datetime DEFAULT NULL,
+  `FechaApertura` varchar(45) DEFAULT NULL,
   `Activa` bit(1) DEFAULT NULL,
   `SaldoActual` float DEFAULT NULL,
   `Interes` float DEFAULT NULL,
-  `Cliente` varchar(45) NOT NULL,
-  `Tarjeta` int(11) NOT NULL,
+  `Cliente` varchar(45) DEFAULT NULL,
+  `Tarjeta` int(11) DEFAULT NULL,
   PRIMARY KEY (`IBAN`),
   KEY `fk_DNIcliente_idx` (`Cliente`),
   KEY `fk_NumTarjeta_idx` (`Tarjeta`),
@@ -87,10 +87,10 @@ DROP TABLE IF EXISTS `Operacion`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Operacion` (
   `ID` int(11) NOT NULL,
-  `Fecha` datetime DEFAULT NULL,
+  `Fecha` varchar(45) DEFAULT NULL,
   `Tipo` enum('Ingreso','Extraccion') DEFAULT NULL,
   `Importe` float DEFAULT NULL,
-  `Cuenta` int(11) NOT NULL,
+  `Cuenta` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `fk_IBANcuenta_idx` (`Cuenta`),
   CONSTRAINT `fk_IBANcuenta` FOREIGN KEY (`Cuenta`) REFERENCES `Cuenta` (`IBAN`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -116,11 +116,11 @@ DROP TABLE IF EXISTS `Tarjeta`;
 CREATE TABLE `Tarjeta` (
   `Numero` int(11) NOT NULL,
   `LimiteExtraccion` int(11) DEFAULT NULL,
-  `FechaCaducidad` datetime DEFAULT NULL,
+  `FechaCaducidad` varchar(45) DEFAULT NULL,
   `Proveedor` enum('Visa','Mastercard','AmericanExpress') DEFAULT NULL,
   `Tipo` enum('Debito','Credito') DEFAULT NULL,
-  `FechaExpedicion` datetime DEFAULT NULL,
-  `Cuenta` int(11) NOT NULL,
+  `FechaExpedicion` varchar(45) DEFAULT NULL,
+  `Cuenta` int(11) DEFAULT NULL,
   PRIMARY KEY (`Numero`),
   KEY `fk_Tarjeta_1_idx` (`Cuenta`),
   CONSTRAINT `fk_Tarjeta_1` FOREIGN KEY (`Cuenta`) REFERENCES `Cuenta` (`IBAN`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -145,4 +145,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-23 22:43:17
+-- Dump completed on 2016-10-25 10:02:17

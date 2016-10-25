@@ -6,6 +6,7 @@ import java.util.Date;
 
 import es.deusto.arquiSW.classes.Cliente;
 import es.deusto.arquiSW.classes.Cuenta;
+import es.deusto.arquiSW.classes.Operacion;
 import es.deusto.arquiSW.classes.Tarjeta;
 import es.deusto.arquiSW.dao.GestorBD;
 
@@ -15,9 +16,6 @@ import es.deusto.arquiSW.dao.GestorBD;
  *
  */
 public class Banco {
-	
-//	NOTA! Para los metodos que reciban parametros referentes al filtrado de datos, estos serna
-//	pasados mediante un hash map (coleccion clave-valor)
 	
 	GestorBD gestorbd;
 	
@@ -34,8 +32,11 @@ public class Banco {
 		}
 	}
 	
+	// ****************************
+	// METODOS EXPUESTOS AL CLIENTE:
+	
 	/**
-	 * Obtiene los clientes en base al filtro especificado por los parametros
+	 * Obtiene un(os) cliente(s) en base al filtro especificado por los parametros
 	 * @param DNI
 	 * @param nombre
 	 * @param apellidos
@@ -43,8 +44,14 @@ public class Banco {
 	 * @param movil
 	 * @param empleado
 	 */
-	public void obtenerCliente(String DNI, String nombre, String apellidos, String email, String movil, Boolean empleado) {
-		// TODO obtenerCliente en base al filtro
+	public ArrayList<Cliente> obtenerCliente(String DNI, String nombre, String apellidos, String email, String movil, Boolean empleado) {
+		try {
+			gestorbd.obtenerCliente(DNI, nombre, apellidos, email, movil, empleado);
+		} catch (SQLException e) {
+			System.out.println("ERROR/EXCEPCION. Error a la hora de obtener cliente(s) de la BD:");
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	/**
@@ -61,15 +68,21 @@ public class Banco {
 	}
 	
 	/**
-	 * Las tuplas relacionadas con la tabla Operaciones van incluidas al solicitar la(s) cuenta(s)
+	 * Obtiene una(s) cuenta(s) en base al filtro especificado por los parametros 
 	 * @param IBAN
 	 * @param DNI
 	 * @param fechaApertura
 	 * @param activa
 	 * @param interes
 	 */
-	public void obtenerCuenta(String IBAN, String DNI, Date fechaApertura, Boolean activa, Double interes) {
-		// TODO obtenerCuenta en base al filtro
+	public ArrayList<Cuenta> obtenerCuenta(String IBAN, String DNI, String fechaApertura, Boolean activa, String interes) {
+		try {
+			gestorbd.obtenerCuenta(IBAN, DNI, fechaApertura, activa, interes);
+		} catch (SQLException e) {
+			System.out.println("ERROR/EXCEPCION. Error a la hora de obtener cuenta(s) de la BD:");
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	/**
@@ -86,14 +99,49 @@ public class Banco {
 	}
 	
 	/**
-	 * Obtiene las tarjetas en base al filtro especificado por los parametros
+	 * Obtiene un(as) operacion(es) en base al IBAN especificado por los parametros
+	 * @param IBAN
+	 */
+	public ArrayList<Operacion> obtenerOperacion(String IBAN) {
+		// TODO obtenerOperacions en base al filtro
+		try {
+			return gestorbd.obtenerOperacion(IBAN);
+		} catch (SQLException e) {
+			System.out.println("ERROR/EXCEPCION. Error a la hora de obtener una(s) operacion(es) de la BD:");
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * Obtiene todas las operaciones
+	 */
+	public ArrayList<Operacion> obtenerOperaciones() {
+		try {
+			return gestorbd.obtenerOperaciones();
+		} catch (SQLException e) {
+			System.out.println("ERROR/EXCEPCION. Error a la hora de obtener todos las operaciones de la BD:");
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * Obtiene un(as) tarjeta(s) en base al filtro especificado por los parametros
 	 * @param numero
 	 * @param DNI
 	 * @param proveedor
 	 * @param tipo
 	 */
-	public void obtenerTarjeta(String numero, String DNI, String proveedor, String tipo) {
+	public ArrayList<Tarjeta> obtenerTarjeta(String numero, String DNI, String proveedor, String tipo) {
 		// TODO obtenerTarjeta en base al filtro
+		try {
+			return gestorbd.obtenerTarjeta(numero, DNI, proveedor, tipo);
+		} catch (SQLException e) {
+			System.out.println("ERROR/EXCEPCION. Error a la hora de obtener tarjeta(s) de la BD:");
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	/**
