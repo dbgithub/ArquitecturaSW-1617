@@ -22,11 +22,20 @@ import javax.swing.border.BevelBorder;
 import javax.swing.UIManager;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import javax.swing.JCheckBox;
 
 public class Mainwindow extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
+	private JTextField textFieldDNI;
+	private JTextField textFieldNombre;
+	private JTextField textFieldApellidos;
+	private JTextField textFieldEmail;
+	private JTextField textFieldMovil;
 
 	/**
 	 * Launch the application.
@@ -51,7 +60,7 @@ public class Mainwindow extends JFrame {
 		setTitle("DeustoBank(SOAP)");
 		setMinimumSize(new Dimension(600, 450));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 651, 556);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -144,33 +153,144 @@ public class Mainwindow extends JFrame {
 			}
 		));
 		table.setRowSelectionAllowed(false);
+		
+		JButton btnAplicar = new JButton("Aplicar");
+		btnAplicar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		
+		JLabel lblDNI = new JLabel("DNI");
+		
+		textFieldDNI = new JTextField();
+		textFieldDNI.setColumns(10);
+		
+		JLabel lblNombre = new JLabel("Nombre");
+		
+		JLabel lblApellidos = new JLabel("Apellidos");
+		
+		textFieldNombre = new JTextField();
+		textFieldNombre.setColumns(10);
+		
+		textFieldApellidos = new JTextField();
+		textFieldApellidos.setColumns(10);
+		
+		JLabel lblEmail = new JLabel("Email");
+		
+		textFieldEmail = new JTextField();
+		textFieldEmail.setColumns(10);
+		
+		JLabel lbMovil = new JLabel("M\u00F3vil");
+		
+		textFieldMovil = new JTextField();
+		textFieldMovil.setColumns(10);
+		
+		JCheckBox chckbxEmpleado = new JCheckBox("Empleado");
 		GroupLayout gl_filterpane = new GroupLayout(filterpane);
 		gl_filterpane.setHorizontalGroup(
 			gl_filterpane.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 10, Short.MAX_VALUE)
+				.addGroup(gl_filterpane.createSequentialGroup()
+					.addGap(49)
+					.addGroup(gl_filterpane.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(gl_filterpane.createSequentialGroup()
+							.addComponent(lblEmail)
+							.addPreferredGap(ComponentPlacement.RELATED, 18, Short.MAX_VALUE))
+						.addGroup(gl_filterpane.createSequentialGroup()
+							.addComponent(lblDNI)
+							.addPreferredGap(ComponentPlacement.RELATED, 24, Short.MAX_VALUE))
+						.addGroup(gl_filterpane.createSequentialGroup()
+							.addComponent(lbMovil)
+							.addPreferredGap(ComponentPlacement.RELATED, 18, Short.MAX_VALUE))
+						.addComponent(lblApellidos)
+						.addGroup(gl_filterpane.createSequentialGroup()
+							.addComponent(lblNombre)
+							.addPreferredGap(ComponentPlacement.RELATED, 5, Short.MAX_VALUE)))
+					.addGap(21)
+					.addGroup(gl_filterpane.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.TRAILING, gl_filterpane.createSequentialGroup()
+							.addGroup(gl_filterpane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_filterpane.createSequentialGroup()
+									.addComponent(textFieldEmail, GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+									.addGap(29))
+								.addGroup(gl_filterpane.createSequentialGroup()
+									.addComponent(textFieldMovil, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+									.addGap(61)
+									.addComponent(chckbxEmpleado, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+							.addGap(102)
+							.addComponent(btnAplicar))
+						.addGroup(gl_filterpane.createSequentialGroup()
+							.addComponent(textFieldDNI, GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+							.addGap(258))
+						.addGroup(Alignment.TRAILING, gl_filterpane.createSequentialGroup()
+							.addGroup(gl_filterpane.createParallelGroup(Alignment.TRAILING)
+								.addComponent(textFieldNombre, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+								.addComponent(textFieldApellidos, GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE))
+							.addGap(45)))
+					.addContainerGap())
 		);
 		gl_filterpane.setVerticalGroup(
-			gl_filterpane.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 10, Short.MAX_VALUE)
+			gl_filterpane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_filterpane.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_filterpane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_filterpane.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblDNI)
+							.addComponent(textFieldDNI, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_filterpane.createSequentialGroup()
+							.addGap(31)
+							.addGroup(gl_filterpane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblNombre)
+								.addComponent(textFieldNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+					.addGap(11)
+					.addGroup(gl_filterpane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_filterpane.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+							.addComponent(btnAplicar)
+							.addContainerGap())
+						.addGroup(gl_filterpane.createSequentialGroup()
+							.addGroup(gl_filterpane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblApellidos)
+								.addComponent(textFieldApellidos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_filterpane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblEmail)
+								.addComponent(textFieldEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_filterpane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lbMovil)
+								.addComponent(textFieldMovil, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(chckbxEmpleado))
+							.addContainerGap())))
 		);
 		filterpane.setLayout(gl_filterpane);
+		
+		JButton btnAniadir = new JButton("A\u00F1adir");
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
+			gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(26)
-					.addComponent(filterpane, GroupLayout.PREFERRED_SIZE, 511, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(12)
-					.addComponent(table, GroupLayout.PREFERRED_SIZE, 538, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(485, Short.MAX_VALUE)
+					.addComponent(btnAniadir)
+					.addGap(72))
+				.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+					.addGap(45)
+					.addComponent(filterpane, GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
+					.addGap(64))
+				.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+					.addGap(31)
+					.addComponent(table, GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
+					.addGap(51))
 		);
 		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
+			gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(5)
-					.addComponent(filterpane, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
-					.addGap(15)
-					.addComponent(table, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap()
+					.addComponent(filterpane, GroupLayout.PREFERRED_SIZE, 172, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(table, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnAniadir)
+					.addGap(6))
 		);
 		panel.setLayout(gl_panel);
 		panel_clientes.setLayout(gl_panel_clientes);
