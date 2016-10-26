@@ -27,7 +27,7 @@ public class GestorBD {
 	private String password = "root";
 	private String driver = "com.mysql.jdbc.Driver";
 	private String protocol = "jdbc:mysql";
-
+	// TODO: Estaria bien implementar un Logger???
 	/**
 	 * Constructor vacio con los parametros de conexion por defecto
 	 */
@@ -127,10 +127,8 @@ public class GestorBD {
         	c.setDNI(rs.getString("Cliente"));
         	Tarjeta t = new Tarjeta();
         	t.setNumero(rs.getInt("tarjeta"));
-        	ArrayList<Tarjeta> tarjetas = new ArrayList<Tarjeta>();
-        	tarjetas.add(t);
         	cuenta.setTitular(c);
-        	cuenta.setTarjetas(tarjetas);
+        	cuenta.setTarjeta(t);
         	cuentas.add(cuenta);
         }
         rs.close();
@@ -194,7 +192,7 @@ public class GestorBD {
 	
 	/**
 	 * Desde el lado cliente se carga un XML, este es convertido a objetos Java mediante JAXB
-	 * A continuacion, se quiere importar esos objetos en lado servidor introduciendolos en la base de datos
+	 * A continuacion, se quiere importar esos objetos en lado servidor introduciendolos en la base de datos.
 	 * Si las coleccions de clientes, cuentas y tarjetas no estan vacias, se llamara a los respectivos metodos
 	 * para insertar individualmente las tuplas.
 	 * @param clientes
@@ -236,17 +234,48 @@ public class GestorBD {
 	/**
 	 * Insertamos cuenta(s) en la base de datos
 	 * @param cuentas
+	 * @throws SQLException 
 	 */
-	public void insertarCuentas(ArrayList<Cuenta> cuentas) {
-		//TODO: Insertar cuenta(s) (incluyendo todos los parametros)
+	public void insertarCuentas(ArrayList<Cuenta> cuentas) throws SQLException {
+		Iterator<Cuenta> it = cuentas.iterator();
+		Statement statement = con.createStatement();
+		while (it.hasNext()) {
+			Cuenta temp = it.next();
+			String sqlString = "INSERT INTO Cuenta " +
+					"(IBAN, SWIFT, FechaApertura, Activa, SaldoActual, Interes, Cliente, Tarjeta) " +
+					"VALUES (" + temp.getIBAN() +
+					",'" + temp.getSWIFT() +
+					"','" + temp.getFechaApertura().toString() +
+					"'," + ((temp.isActiva()) ? 1:0) +
+					"," + temp.getSaldoActual() +
+					"," + temp.getInteres() +
+					",'" + temp.getTitular().getDNI() +
+					"',"  + temp.getTarjeta().getNumero() + ")";                        
+			statement.executeUpdate(sqlString);
+		}
+		statement.close(); 
 	}
 	
 	/**
 	 * Insertamos operacion(es) en la base de datos
 	 * @param cuentas
+	 * @throws SQLException 
 	 */
-	public void insertarOperaciones(ArrayList<Operacion> operaciones) {
-		//TODO: Insertar operacion(s) (incluyendo todos los parametros)
+	public void insertarOperaciones(ArrayList<Operacion> operaciones) throws SQLException {
+		Iterator<Operacion> it = operaciones.iterator();
+		Statement statement = con.createStatement();
+		while (it.hasNext()) {
+			Operacion temp = it.next();
+			String sqlString = "INSERT INTO Operacion " +
+					"(ID, Fecha, Tipo, Importe, Cuenta) " +
+					"VALUES (" + temp.getId() +
+					",'" + temp.getFecha().toString() +
+					"','" + temp.getTipo() +
+					"'," + temp.getImporte() +
+					"," + temp.getCuenta().getIBAN() + ")";                        
+			statement.executeUpdate(sqlString);
+		}
+		statement.close(); 
 	}
 	
 	/**
@@ -281,7 +310,7 @@ public class GestorBD {
 	 * @param email
 	 * @param movil
 	 * @param empleado
-	 * @return
+	 * @return una coleccion de clientes
 	 * @throws SQLException
 	 */
 	public ArrayList<Cliente> obtenerCliente(String DNI, String Nombre, String Apellidos, String email, String movil, Boolean empleado) throws SQLException {
@@ -321,7 +350,7 @@ public class GestorBD {
 	 * @param fechaApertura
 	 * @param activa
 	 * @param interes
-	 * @return
+	 * @return una coleccion de cuentas
 	 * @throws SQLException
 	 */
 	public ArrayList<Cuenta> obtenerCuenta(String IBAN, String DNI, String fechaApertura, Boolean activa, String interes) throws SQLException {
@@ -349,10 +378,8 @@ public class GestorBD {
         	c.setDNI(rs.getString("Cliente"));
         	Tarjeta t = new Tarjeta();
         	t.setNumero(rs.getInt("tarjeta"));
-        	ArrayList<Tarjeta> tarjetas = new ArrayList<Tarjeta>();
-        	tarjetas.add(t);
         	cuenta.setTitular(c);
-        	cuenta.setTarjetas(tarjetas);
+        	cuenta.setTarjeta(t);
         	cuentas.add(cuenta);
         }
         rs.close();
@@ -391,7 +418,7 @@ public class GestorBD {
 	 * @param Numero
 	 * @param proveedor
 	 * @param tipo
-	 * @return
+	 * @return una coleccion de tarjetas
 	 * @throws SQLException
 	 */
 	public ArrayList<Tarjeta> obtenerTarjeta(String Numero, String DNI, String proveedor, String tipo) throws SQLException {
@@ -424,10 +451,7 @@ public class GestorBD {
         rs.close();
         statement.close();  
         return tarjetas;
-	}
-	
-	
-	//TODO: Obtener operacion mediante parameros del filtro
+	}	
 	
 	
 //	public static void main(String[] args) throws ClassNotFoundException, SQLException {

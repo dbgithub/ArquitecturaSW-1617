@@ -2,8 +2,6 @@ package es.deusto.arquiSW.SOAP;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
-
 import es.deusto.arquiSW.classes.Cliente;
 import es.deusto.arquiSW.classes.Cuenta;
 import es.deusto.arquiSW.classes.Operacion;
@@ -103,7 +101,6 @@ public class Banco {
 	 * @param IBAN
 	 */
 	public ArrayList<Operacion> obtenerOperacion(String IBAN) {
-		// TODO obtenerOperacions en base al filtro
 		try {
 			return gestorbd.obtenerOperacion(IBAN);
 		} catch (SQLException e) {
@@ -127,14 +124,13 @@ public class Banco {
 	}
 	
 	/**
-	 * Obtiene un(as) tarjeta(s) en base al filtro especificado por los parametros
+	 * Obtiene una(s) tarjeta(s) en base al filtro especificado por los parametros
 	 * @param numero
 	 * @param DNI
 	 * @param proveedor
 	 * @param tipo
 	 */
 	public ArrayList<Tarjeta> obtenerTarjeta(String numero, String DNI, String proveedor, String tipo) {
-		// TODO obtenerTarjeta en base al filtro
 		try {
 			return gestorbd.obtenerTarjeta(numero, DNI, proveedor, tipo);
 		} catch (SQLException e) {
@@ -160,9 +156,9 @@ public class Banco {
 	/**
 	 * Desde el lado cliente se carga un XML, este es convertido a objetos Java mediante JAXB
 	 * A continuacion, se quiere importar esos objetos en lado servidor introduciendolos en la base de datos
-	 * @param c
-	 * @param cu
-	 * @param t
+	 * @param clientes
+	 * @param cuentas
+	 * @param tarjetas
 	 */
 	public void importar(ArrayList<Cliente> clientes, ArrayList<Cuenta> cuentas, ArrayList<Tarjeta> tarjetas) {
 		try {
