@@ -22,11 +22,25 @@ import javax.swing.border.BevelBorder;
 import javax.swing.UIManager;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 
 public class Mainwindow extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
+	private JTable table_1;
+	private JTextField textFieldDNI;
+	private JTextField textFieldNombre;
+	private JTextField textFieldApellidos;
+	private JTextField textFieldEmail;
+	private JTextField textFieldMovil;
+	private JTextField textFieldIBAN;
+	private JTextField textFieldDNICliente;
+	private JTextField textFieldFechaApertura;
 
 	/**
 	 * Launch the application.
@@ -51,7 +65,7 @@ public class Mainwindow extends JFrame {
 		setTitle("DeustoBank(SOAP)");
 		setMinimumSize(new Dimension(600, 450));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 887, 665);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -144,33 +158,138 @@ public class Mainwindow extends JFrame {
 			}
 		));
 		table.setRowSelectionAllowed(false);
+		
+		JButton btnAplicar = new JButton("Aplicar");
+		btnAplicar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		
+		JLabel lblDNI = new JLabel("DNI");
+		
+		textFieldDNI = new JTextField();
+		textFieldDNI.setColumns(10);
+		
+		JLabel lblNombre = new JLabel("Nombre");
+		
+		JLabel lblApellidos = new JLabel("Apellidos");
+		
+		textFieldNombre = new JTextField();
+		textFieldNombre.setColumns(10);
+		
+		textFieldApellidos = new JTextField();
+		textFieldApellidos.setColumns(10);
+		
+		JLabel lblEmail = new JLabel("Email");
+		
+		textFieldEmail = new JTextField();
+		textFieldEmail.setColumns(10);
+		
+		JLabel lbMovil = new JLabel("M\u00F3vil");
+		
+		textFieldMovil = new JTextField();
+		textFieldMovil.setColumns(10);
+		
+		JCheckBox chckbxEmpleado = new JCheckBox("Empleado");
 		GroupLayout gl_filterpane = new GroupLayout(filterpane);
 		gl_filterpane.setHorizontalGroup(
 			gl_filterpane.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 10, Short.MAX_VALUE)
+				.addGroup(gl_filterpane.createSequentialGroup()
+					.addGap(49)
+					.addGroup(gl_filterpane.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(lblEmail)
+						.addComponent(lblDNI)
+						.addComponent(lbMovil)
+						.addComponent(lblApellidos)
+						.addComponent(lblNombre))
+					.addGap(21)
+					.addGroup(gl_filterpane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_filterpane.createSequentialGroup()
+							.addGroup(gl_filterpane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_filterpane.createSequentialGroup()
+									.addComponent(textFieldEmail, GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+									.addGap(29))
+								.addGroup(gl_filterpane.createSequentialGroup()
+									.addComponent(textFieldMovil, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+									.addGap(61)
+									.addComponent(chckbxEmpleado, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+							.addGap(90)
+							.addComponent(btnAplicar, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_filterpane.createSequentialGroup()
+							.addComponent(textFieldDNI, GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+							.addGap(258))
+						.addGroup(gl_filterpane.createSequentialGroup()
+							.addGroup(gl_filterpane.createParallelGroup(Alignment.TRAILING)
+								.addComponent(textFieldNombre, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+								.addComponent(textFieldApellidos, GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE))
+							.addGap(45)))
+					.addContainerGap())
 		);
 		gl_filterpane.setVerticalGroup(
-			gl_filterpane.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 10, Short.MAX_VALUE)
+			gl_filterpane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_filterpane.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_filterpane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_filterpane.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblDNI)
+							.addComponent(textFieldDNI, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_filterpane.createSequentialGroup()
+							.addGap(31)
+							.addGroup(gl_filterpane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblNombre)
+								.addComponent(textFieldNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+					.addGap(11)
+					.addGroup(gl_filterpane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblApellidos)
+						.addComponent(textFieldApellidos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_filterpane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_filterpane.createSequentialGroup()
+							.addGroup(gl_filterpane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblEmail)
+								.addComponent(textFieldEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_filterpane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lbMovil)
+								.addComponent(textFieldMovil, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(chckbxEmpleado)))
+						.addComponent(btnAplicar, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
 		);
 		filterpane.setLayout(gl_filterpane);
+		
+		JButton btnAniadir = new JButton("A\u00F1adir");
+		btnAniadir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
+			gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(26)
-					.addComponent(filterpane, GroupLayout.PREFERRED_SIZE, 511, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(12)
-					.addComponent(table, GroupLayout.PREFERRED_SIZE, 538, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(28)
+							.addComponent(filterpane, GroupLayout.PREFERRED_SIZE, 741, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(696)
+							.addComponent(btnAniadir, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE))
+						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+							.addGap(16)
+							.addComponent(table, GroupLayout.DEFAULT_SIZE, 786, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)))
+					.addGap(296))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(5)
-					.addComponent(filterpane, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
-					.addGap(15)
-					.addComponent(table, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addComponent(filterpane, GroupLayout.PREFERRED_SIZE, 172, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(table, GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+					.addGap(18)
+					.addComponent(btnAniadir, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+					.addGap(66))
 		);
 		panel.setLayout(gl_panel);
 		panel_clientes.setLayout(gl_panel_clientes);
@@ -198,8 +317,8 @@ public class Mainwindow extends JFrame {
 		filterpane2.setBackground(UIManager.getColor("OptionPane.questionDialog.titlePane.shadow"));
 		filterpane2.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
+		table_1 = new JTable();
+		table_1.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null, null},
 			},
@@ -207,35 +326,115 @@ public class Mainwindow extends JFrame {
 				"col4", "col3", "col2", "col1"
 			}
 		));
-		table.setRowSelectionAllowed(false);
+		table_1.setRowSelectionAllowed(false);
+		
+		JLabel lblIban = new JLabel("IBAN");
+		
+		textFieldIBAN = new JTextField();
+		textFieldIBAN.setColumns(10);
+		
+		JLabel lblDniCliente = new JLabel("DNI Cliente");
+		
+		textFieldDNICliente = new JTextField();
+		textFieldDNICliente.setColumns(10);
+		
+		JLabel lblFechaApertura = new JLabel("Fecha Apertura");
+		
+		textFieldFechaApertura = new JTextField();
+		textFieldFechaApertura.setColumns(10);
+		
+		JCheckBox chckbxActiva = new JCheckBox("Activa");
+		
+		JLabel lblInters = new JLabel("Inter\u00E9s");
+		
+		JComboBox comboBox = new JComboBox();
+		
+		JButton btnAplicarCuentas = new JButton("Aplicar");
 
 		GroupLayout gl_filterpane2 = new GroupLayout(filterpane2);
 		gl_filterpane2.setHorizontalGroup(
 			gl_filterpane2.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 10, Short.MAX_VALUE)
+				.addGroup(gl_filterpane2.createSequentialGroup()
+					.addGap(47)
+					.addGroup(gl_filterpane2.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblFechaApertura)
+						.addComponent(lblIban)
+						.addComponent(lblDniCliente)
+						.addComponent(lblInters))
+					.addGap(58)
+					.addGroup(gl_filterpane2.createParallelGroup(Alignment.LEADING)
+						.addComponent(textFieldFechaApertura, GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+						.addGroup(gl_filterpane2.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(textFieldIBAN, GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
+						.addComponent(textFieldDNICliente, GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+						.addGroup(gl_filterpane2.createSequentialGroup()
+							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+							.addComponent(chckbxActiva)))
+					.addGap(18)
+					.addComponent(btnAplicarCuentas, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+					.addGap(20))
 		);
 		gl_filterpane2.setVerticalGroup(
 			gl_filterpane2.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 10, Short.MAX_VALUE)
+				.addGroup(gl_filterpane2.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_filterpane2.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_filterpane2.createSequentialGroup()
+							.addGroup(gl_filterpane2.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblIban)
+								.addComponent(textFieldIBAN, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_filterpane2.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblDniCliente)
+								.addComponent(textFieldDNICliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_filterpane2.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblFechaApertura)
+								.addComponent(textFieldFechaApertura, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_filterpane2.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_filterpane2.createSequentialGroup()
+									.addGroup(gl_filterpane2.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblInters)
+										.addComponent(comboBox))
+									.addGap(3))
+								.addComponent(chckbxActiva))
+							.addGap(7))
+						.addGroup(Alignment.TRAILING, gl_filterpane2.createSequentialGroup()
+							.addComponent(btnAplicarCuentas, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())))
 		);
 		filterpane2.setLayout(gl_filterpane2);
+		
+		JButton btnAniadirCuentas = new JButton("A\u00F1adir");
 		GroupLayout gl_panel2 = new GroupLayout(panel2);
 		gl_panel2.setHorizontalGroup(
-			gl_panel2.createParallelGroup(Alignment.LEADING)
+			gl_panel2.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_panel2.createSequentialGroup()
+					.addGap(35)
+					.addComponent(filterpane2, GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
+					.addGap(50))
+				.addGroup(Alignment.LEADING, gl_panel2.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(table_1, GroupLayout.PREFERRED_SIZE, 808, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(27, Short.MAX_VALUE))
 				.addGroup(gl_panel2.createSequentialGroup()
-					.addGap(26)
-					.addComponent(filterpane2, GroupLayout.PREFERRED_SIZE, 511, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_panel2.createSequentialGroup()
-					.addGap(12)
-					.addComponent(table, GroupLayout.PREFERRED_SIZE, 538, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(699, Short.MAX_VALUE)
+					.addComponent(btnAniadirCuentas, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
+					.addGap(38))
 		);
 		gl_panel2.setVerticalGroup(
 			gl_panel2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel2.createSequentialGroup()
-					.addGap(5)
-					.addComponent(filterpane2, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
-					.addGap(15)
-					.addComponent(table, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE))
+					.addGap(19)
+					.addComponent(filterpane2, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
+					.addGap(13)
+					.addComponent(table_1, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(btnAniadirCuentas, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(68, Short.MAX_VALUE))
 		);
 		panel2.setLayout(gl_panel2);
 		panel_cuentas.setLayout(gl_panel_cuentas);
