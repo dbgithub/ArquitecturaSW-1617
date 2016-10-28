@@ -36,9 +36,13 @@ import javax.xml.bind.Unmarshaller;
 
 import es.deusto.arquiSW.JAXB.classes.Banco;
 import es.deusto.arquiSW.JAXB.classes.Cliente;
+import es.deusto.arquiSW.SOAP.DeustoBankServiceStub;
+import es.deusto.arquiSW.threats.InicializacionThreat;
 
+@SuppressWarnings("serial")
 public class Mainwindow extends JFrame {
 
+	private DeustoBankServiceStub SOAPservice; // Este es la variable del Servicio Web SOAP.
 	private JPanel contentPane;
 	private JTable table;
 	private JTable table_2;
@@ -70,6 +74,12 @@ public class Mainwindow extends JFrame {
 				try {
 					Mainwindow frame = new Mainwindow();
 					frame.setVisible(true);
+					
+					// Lanzamos un Threat para que la inicializacion y la obtencion
+					// de datos del servicio del servicio web se haga en un hilo aparte.
+					InicializacionThreat iniThread = new InicializacionThreat();
+					Thread initializationThreat = new Thread(iniThread);
+					initializationThreat.start();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -872,6 +882,14 @@ public class Mainwindow extends JFrame {
 		panel_resultado.setLayout(gl_panel_resultado);
 		panel_exportar.setLayout(gl_panel_exportar);
 		contentPane.setLayout(gl_contentPane);
+	}
+
+	public DeustoBankServiceStub getSOAPservice() {
+		return SOAPservice;
+	}
+
+	public void setSOAPservice(DeustoBankServiceStub sOAPservice) {
+		SOAPservice = sOAPservice;
 	}
 
 }

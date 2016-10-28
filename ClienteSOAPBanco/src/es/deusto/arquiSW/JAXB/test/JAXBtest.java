@@ -83,6 +83,7 @@ public class JAXBtest {
 				m.marshal(DeustoBankTest, System.out);
 				m.marshal(DeustoBankTest, new File(XML_FILE));
 
+//				Otra manera de hacerlo:
 //				Writer w = null;
 //				try {
 //					w = new FileWriter(XML_FILE_MARSHAL);
@@ -102,8 +103,7 @@ public class JAXBtest {
 	public void unmarshal() throws JAXBException, FileNotFoundException {
 		JAXBContext context = JAXBContext.newInstance(Banco.class);
 		Unmarshaller um = context.createUnmarshaller();
-		Banco banco = (Banco) um.unmarshal(new FileReader(
-				XML_FILE));
+		Banco banco = (Banco) um.unmarshal(new FileReader(XML_FILE));
 		
 		System.out.println("%%%%%%%%%%%%% UNMARSHALLING: %%%%%%%%%%%%%");
 		for (int i = 0; i < banco.getListaClientes().size(); i++) {
