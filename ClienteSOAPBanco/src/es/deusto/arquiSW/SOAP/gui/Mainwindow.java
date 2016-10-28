@@ -1,42 +1,41 @@
 package es.deusto.arquiSW.SOAP.gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-import javax.swing.JTabbedPane;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Color;
 import java.awt.Dimension;
-import javax.swing.JScrollPane;
-import java.awt.Component;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.JButton;
-import javax.swing.border.BevelBorder;
-import javax.swing.UIManager;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.xml.bind.Unmarshaller;
-
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-
-import java.awt.Color;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+
+import es.deusto.arquiSW.JAXB.classes.Banco;
+import es.deusto.arquiSW.JAXB.classes.Cliente;
 
 public class Mainwindow extends JFrame {
 
@@ -141,10 +140,23 @@ public class Mainwindow extends JFrame {
 					// Seleccionamos el fichero
 					File fichero = fc.getSelectedFile();
 
-//					JAXBContext jaxbContext = JAXBContext.newInstance(Banco.class);
-//				    Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+					JAXBContext jaxbContext;
+					try {
+						jaxbContext = JAXBContext.newInstance(Banco.class);
+						Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+						Banco bnc = (Banco) jaxbUnmarshaller.unmarshal(fichero);
+						for (int i = 0; i < bnc.getListaClientes().size(); i++) {
+							Cliente c= bnc.getListaClientes().get(i);
+							DefaultTableModel model = (DefaultTableModel) tableClientes.getModel();
+							model.addRow(new Object[]{c.getDNI(), c.getNombre(),c.getApellidos(),c.getDireccion()});
+							
+						}
+						
 
-					
+					} catch (JAXBException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 
 				}
 
@@ -199,8 +211,13 @@ public class Mainwindow extends JFrame {
 								.addContainerGap()));
 
 		tableClientes = new JTable();
-		tableClientes.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null }, },
-				new String[] { "New column", "New column", "New column", "New column" }));
+		tableClientes.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column"
+			}
+		));
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2
 				.setHorizontalGroup(gl_panel_2.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
