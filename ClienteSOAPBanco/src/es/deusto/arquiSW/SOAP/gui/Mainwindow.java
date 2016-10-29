@@ -76,7 +76,7 @@ public class Mainwindow extends JFrame {
 					frame.setVisible(true);
 					
 					// Lanzamos un Threat para que la inicializacion y la obtencion
-					// de datos del servicio del servicio web se haga en un hilo aparte.
+					// de datos del servicio web se haga en un hilo aparte.
 					InicializacionThreat iniThread = new InicializacionThreat();
 					Thread initializationThreat = new Thread(iniThread);
 					initializationThreat.start();

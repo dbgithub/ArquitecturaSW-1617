@@ -219,7 +219,7 @@
 
                            /**
                            * Auto generated getter method
-                           * @return org.apache.ws.namespaces.axis2.Enum.EnumTipoOperacion
+                           * @return es.deusto.arquiSW.SOAP.ws.namespaces.axis2.Enum.EnumTipoOperacion
                            */
                            public  es.deusto.arquiSW.SOAP.ws.namespaces.axis2.Enum.EnumTipoOperacion getTipo(){
                                return localTipo;

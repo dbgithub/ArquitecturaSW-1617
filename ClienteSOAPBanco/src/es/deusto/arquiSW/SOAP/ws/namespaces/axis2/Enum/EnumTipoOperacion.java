@@ -1,4 +1,5 @@
 
+
 /**
  * EnumTipoOperacion.java
  *

@@ -44,7 +44,7 @@ public class Banco {
 	 */
 	public ArrayList<Cliente> obtenerCliente(String DNI, String nombre, String apellidos, String email, String movil, Boolean empleado) {
 		try {
-			gestorbd.obtenerCliente(DNI, nombre, apellidos, email, movil, empleado);
+			return gestorbd.obtenerCliente(DNI, nombre, apellidos, email, movil, empleado);
 		} catch (SQLException e) {
 			System.out.println("ERROR/EXCEPCION. Error a la hora de obtener cliente(s) de la BD:");
 			e.printStackTrace();
@@ -75,7 +75,7 @@ public class Banco {
 	 */
 	public ArrayList<Cuenta> obtenerCuenta(String IBAN, String DNI, String fechaApertura, Boolean activa, String interes) {
 		try {
-			gestorbd.obtenerCuenta(IBAN, DNI, fechaApertura, activa, interes);
+			return gestorbd.obtenerCuenta(IBAN, DNI, fechaApertura, activa, interes);
 		} catch (SQLException e) {
 			System.out.println("ERROR/EXCEPCION. Error a la hora de obtener cuenta(s) de la BD:");
 			e.printStackTrace();

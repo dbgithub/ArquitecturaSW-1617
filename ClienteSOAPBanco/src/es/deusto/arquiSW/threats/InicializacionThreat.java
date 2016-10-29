@@ -6,9 +6,6 @@ import java.util.Arrays;
 
 import org.apache.axis2.AxisFault;
 
-import es.deusto.arquiSW.SOAP.classes.xsd.Cliente;
-import es.deusto.arquiSW.SOAP.classes.xsd.Cuenta;
-import es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta;
 import es.deusto.arquiSW.SOAP.DeustoBankServiceStub;
 import es.deusto.arquiSW.SOAP.ObtenerClientes;
 import es.deusto.arquiSW.SOAP.ObtenerClientesResponse;
@@ -16,6 +13,9 @@ import es.deusto.arquiSW.SOAP.ObtenerCuentas;
 import es.deusto.arquiSW.SOAP.ObtenerCuentasResponse;
 import es.deusto.arquiSW.SOAP.ObtenerTarjetas;
 import es.deusto.arquiSW.SOAP.ObtenerTarjetasResponse;
+import es.deusto.arquiSW.SOAP.classes.xsd.Cliente;
+import es.deusto.arquiSW.SOAP.classes.xsd.Cuenta;
+import es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta;
 
 public class InicializacionThreat implements Runnable {
 	
@@ -47,7 +47,7 @@ public class InicializacionThreat implements Runnable {
 			boolean bolCuentas = false;
 			boolean bolTarjetas = false;
 			
-			// Instanciacion de los atributos a utillizar de cara al servicio:
+			// Instanciacion de los atributos a utilizar de cara al servicio:
 			obtClientes = new ObtenerClientes();
 			obtCuentas = new ObtenerCuentas();
 			obtTarjetas = new ObtenerTarjetas();
@@ -57,7 +57,7 @@ public class InicializacionThreat implements Runnable {
 				try {
 					obtClientesRes = service.obtenerClientes(obtClientes);
 					arrayClientes = obtClientesRes.get_return();
-					System.out.println("arrayClientes.length() = " + arrayClientes[0].getDNI()); // ESTO DA ERROR! Porbar a exportar el .aar otra vez incluyendo unos metodos que quite de la lista
+					System.out.println("arrayClientes.length() = " + arrayClientes[0].getDNI()); // ESTO DA ERROR!
 					bolClientes = true;
 				} catch (RemoteException e) {
 					System.out.println("[InicializacionThreat] Error en 'obtenerClientes'");
@@ -67,7 +67,7 @@ public class InicializacionThreat implements Runnable {
 				try {
 					obtCuentasRes = service.obtenerCuentas(obtCuentas);
 					arrayCuentas = obtCuentasRes.get_return();
-					System.out.println("arrayCuentas.length() = " + arrayCuentas[0].getIBAN());
+					System.out.println("arrayCuentas.length() = " + arrayCuentas.length); // ESTO DE VUELVE '1' y no tiene sentido porque no hay nada metido en la BD
 					bolCuentas = true;
 				} catch (RemoteException e) {
 					System.out.println("[InicializacionThreat] Error en 'obtenerCuentas'");
@@ -77,7 +77,7 @@ public class InicializacionThreat implements Runnable {
 				try {
 					obtTarjetasRes = service.obtenerTarjetas(obtTarjetas);
 					arrayTarjetas = obtTarjetasRes.get_return();
-					System.out.println("arrayTarjetas.length() = " + arrayTarjetas[0].getNumero());
+					System.out.println("arrayTarjetas.length() = " + arrayTarjetas.length); // ESTO DE VUELVE '1' y no tiene sentido porque no hay nada metido en la BD
 					bolTarjetas = true;
 				} catch (RemoteException e) {
 					System.out.println("[InicializacionThreat] Error en 'obtenerTarjetas'");
@@ -94,7 +94,7 @@ public class InicializacionThreat implements Runnable {
 			// Añadir contenido de la lista de Clientes a la Table model de Clientes
 			// Añadir contenido de la lista de Cuentas a la Table model de Cuentas
 			// Añadir contenido de la lista de Tarjetas a la Table model de Tarjetas
-			// ASIGNAR el servicio que hemoss instaciado al servicio SOAP de la clase principal.
+			// ASIGNAR el servicio que hemoss instaciado en esta clase, al servicio SOAP de la clase principal (Mainwindow.java).
 		}
 		System.out.println("[InicializacionThreat] Bucle WHILE parado. Thread terminado! :)");
 		

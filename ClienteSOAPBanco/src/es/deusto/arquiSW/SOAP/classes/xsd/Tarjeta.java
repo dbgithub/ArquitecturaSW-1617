@@ -261,7 +261,7 @@
 
                            /**
                            * Auto generated getter method
-                           * @return org.apache.ws.namespaces.axis2.Enum.EnumProveedores
+                           * @return es.deusto.arquiSW.SOAP.ws.namespaces.axis2.Enum.EnumProveedores
                            */
                            public  es.deusto.arquiSW.SOAP.ws.namespaces.axis2.Enum.EnumProveedores getProveedor(){
                                return localProveedor;
@@ -303,7 +303,7 @@
 
                            /**
                            * Auto generated getter method
-                           * @return org.apache.ws.namespaces.axis2.Enum.TiposTarjeta
+                           * @return es.deusto.arquiSW.SOAP.ws.namespaces.axis2.Enum.TiposTarjeta
                            */
                            public  es.deusto.arquiSW.SOAP.ws.namespaces.axis2.Enum.TiposTarjeta getTipo(){
                                return localTipo;
