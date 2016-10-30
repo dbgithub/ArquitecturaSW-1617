@@ -40,6 +40,7 @@ import es.deusto.arquiSW.SOAP.DeustoBankServiceStub;
 import es.deusto.arquiSW.threats.InicializacionThreat;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ListSelectionModel;
+import java.awt.BorderLayout;
 
 @SuppressWarnings("serial")
 public class Mainwindow extends JFrame {
@@ -60,15 +61,15 @@ public class Mainwindow extends JFrame {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textFieldSeleccionarArchivo;
-	private JTable tableClientes;
-	private JTable tableCuentas;
-	private JTable tableTarjetas;
 	private JTable tableResultadosClientes;
 	private JTable tableResultadosCuentas;
 	private JTable tableResultadosTarjetas;
 	private JButton btnBorrarClientes;
 	private JButton btnBorrarCuentas;
 	private JButton btnBorrarTarjetas;
+	private JTable tableClientes;
+	private JTable tableCuentas;
+	private JTable tableTarjetas;
 
 	/**
 	 * Launch the application.
@@ -163,7 +164,7 @@ public class Mainwindow extends JFrame {
 						for (int i = 0; i < bnc.getListaClientes().size(); i++) {
 							Cliente c= bnc.getListaClientes().get(i);
 							DefaultTableModel model = (DefaultTableModel) tableClientes.getModel();
-							model.addRow(new Object[]{c.getDNI(), c.getNombre(),c.getApellidos(),c.getDireccion()});
+							model.addRow(new Object[]{c.getDNI(), c.getNombre(),c.getApellidos(),c.getDireccion(),c.getEmail(),c.getMovil(),(c.isEmpleado()) ? "Si" : "No"});
 							
 						}
 						
@@ -213,18 +214,42 @@ public class Mainwindow extends JFrame {
 
 		JPanel panelClientes = new JPanel();
 		tabbedPane_1.addTab("Clientes", null, panelClientes, null);
-
-		JPanel panel_2 = new JPanel();
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
 		GroupLayout gl_panelClientes = new GroupLayout(panelClientes);
-		gl_panelClientes.setHorizontalGroup(gl_panelClientes.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelClientes.createSequentialGroup().addGap(32)
-						.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE).addGap(37)));
-		gl_panelClientes
-				.setVerticalGroup(gl_panelClientes.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelClientes.createSequentialGroup().addContainerGap()
-								.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
-								.addContainerGap()));
-
+		gl_panelClientes.setHorizontalGroup(
+			gl_panelClientes.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panelClientes.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		gl_panelClientes.setVerticalGroup(
+			gl_panelClientes.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelClientes.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+					.addGap(19))
+		);
+		
+		JPanel panel_2 = new JPanel();
+		scrollPane_2.setViewportView(panel_2);
+		
+		JScrollPane scrollPane_3 = new JScrollPane();
+		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
+		gl_panel_2.setHorizontalGroup(
+			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
+					.addComponent(scrollPane_3, GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
+					.addGap(19))
+		);
+		gl_panel_2.setVerticalGroup(
+			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
+					.addComponent(scrollPane_3, GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
+					.addGap(23))
+		);
+		
 		tableClientes = new JTable();
 		tableClientes.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -233,69 +258,103 @@ public class Mainwindow extends JFrame {
 					"DNI", "Nombre", "Apellidos", "Direccion", "Email", "Movil", "Empleado"
 			}
 		));
-		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
-		gl_panel_2
-				.setHorizontalGroup(gl_panel_2.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
-						gl_panel_2.createSequentialGroup().addGap(19)
-								.addComponent(tableClientes, GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
-								.addGap(21)));
-		gl_panel_2.setVerticalGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_2.createSequentialGroup().addGap(5)
-						.addComponent(tableClientes, GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
-						.addContainerGap()));
+		scrollPane_3.setViewportView(tableClientes);
 		panel_2.setLayout(gl_panel_2);
 		panelClientes.setLayout(gl_panelClientes);
 
 		JPanel panelCuentas = new JPanel();
 		tabbedPane_1.addTab("Cuentas", null, panelCuentas, null);
-
-		JPanel panel_3 = new JPanel();
-
-		tableCuentas = new JTable();
-		tableCuentas.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null }, },
-				new String[] { "New column", "New column", "New column", "New column" }));
+		
+		JScrollPane scrollPane_4 = new JScrollPane();
 		GroupLayout gl_panelCuentas = new GroupLayout(panelCuentas);
 		gl_panelCuentas.setHorizontalGroup(
-				gl_panelCuentas.createParallelGroup(Alignment.LEADING).addGroup(gl_panelCuentas.createSequentialGroup()
-						.addGap(31).addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE).addGap(38)));
-		gl_panelCuentas.setVerticalGroup(gl_panelCuentas.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelCuentas.createSequentialGroup().addContainerGap()
-						.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 389, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+			gl_panelCuentas.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelCuentas.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(scrollPane_4, GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		gl_panelCuentas.setVerticalGroup(
+			gl_panelCuentas.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelCuentas.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(scrollPane_4, GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		
+		JPanel panel_3 = new JPanel();
+		scrollPane_4.setViewportView(panel_3);
+		
+		JScrollPane scrollPane_5 = new JScrollPane();
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
 		gl_panel_3.setHorizontalGroup(
-				gl_panel_3.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_3.createSequentialGroup().addGap(18)
-						.addComponent(tableCuentas, GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE).addGap(20)));
+			gl_panel_3.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_3.createSequentialGroup()
+					.addComponent(scrollPane_5, GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
+					.addGap(21))
+		);
 		gl_panel_3.setVerticalGroup(
-				gl_panel_3.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_3.createSequentialGroup().addGap(5)
-						.addComponent(tableCuentas, GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE).addContainerGap()));
+			gl_panel_3.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_3.createSequentialGroup()
+					.addComponent(scrollPane_5, GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+					.addGap(41))
+		);
+		
+		tableCuentas = new JTable();
+		tableCuentas.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+					"IBAN", "SWIFT", "Fecha apertura", "Activa", "Saldo actual", "Interes", "DNI titular", "Tarjeta vinculada"
+			}
+		));
+		scrollPane_5.setViewportView(tableCuentas);
 		panel_3.setLayout(gl_panel_3);
 		panelCuentas.setLayout(gl_panelCuentas);
 
 		JPanel panelTarjetas = new JPanel();
 		tabbedPane_1.addTab("Tarjetas", null, panelTarjetas, null);
-
-		JPanel panel_4 = new JPanel();
-
-		tableTarjetas = new JTable();
-		tableTarjetas.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null }, },
-				new String[] { "New column", "New column", "New column", "New column" }));
+		
+		JScrollPane scrollPane_6 = new JScrollPane();
 		GroupLayout gl_panelTarjetas = new GroupLayout(panelTarjetas);
-		gl_panelTarjetas.setHorizontalGroup(gl_panelTarjetas.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelTarjetas.createSequentialGroup().addGap(33)
-						.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE).addGap(36)));
-		gl_panelTarjetas.setVerticalGroup(gl_panelTarjetas.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelTarjetas.createSequentialGroup().addContainerGap()
-						.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 389, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		gl_panelTarjetas.setHorizontalGroup(
+			gl_panelTarjetas.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panelTarjetas.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(scrollPane_6, GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		gl_panelTarjetas.setVerticalGroup(
+			gl_panelTarjetas.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panelTarjetas.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(scrollPane_6, GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		
+		JPanel panel_4 = new JPanel();
+		scrollPane_6.setViewportView(panel_4);
+		
+		JScrollPane scrollPane_7 = new JScrollPane();
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
-				gl_panel_4.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_4.createSequentialGroup().addGap(19)
-						.addComponent(tableTarjetas, GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE).addGap(20)));
-		gl_panel_4.setVerticalGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_4.createSequentialGroup().addGap(5)
-						.addComponent(tableTarjetas, GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
-						.addContainerGap()));
+			gl_panel_4.createParallelGroup(Alignment.LEADING)
+				.addComponent(scrollPane_7, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE)
+		);
+		gl_panel_4.setVerticalGroup(
+			gl_panel_4.createParallelGroup(Alignment.LEADING)
+				.addComponent(scrollPane_7, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
+		);
+		
+		tableTarjetas = new JTable();
+		tableTarjetas.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+					"Numero", "Fecha caducidad", "Proveedor", "Tipo", "Limite extraccion", "Fecha expedicion", "Cuenta vinculada"
+			}
+		));
+		scrollPane_7.setViewportView(tableTarjetas);
 		panel_4.setLayout(gl_panel_4);
 		panelTarjetas.setLayout(gl_panelTarjetas);
 		panel_importar.setLayout(gl_panel_importar);
@@ -1110,5 +1169,4 @@ public class Mainwindow extends JFrame {
 	public void setSOAPservice(DeustoBankServiceStub sOAPservice) {
 		SOAPservice = sOAPservice;
 	}
-
 }

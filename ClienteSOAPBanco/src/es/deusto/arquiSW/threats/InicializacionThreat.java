@@ -1,10 +1,14 @@
 package es.deusto.arquiSW.threats;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.apache.axis2.AxisFault;
+import org.apache.log4j.FileAppender;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PatternLayout;
 
 import es.deusto.arquiSW.SOAP.DeustoBankServiceStub;
 import es.deusto.arquiSW.SOAP.ObtenerClientes;
@@ -24,6 +28,7 @@ public class InicializacionThreat implements Runnable {
 	
 	public InicializacionThreat() {
 		try {
+			
 			service = new DeustoBankServiceStub("http://localhost:8080/axis2/services/DeustoBankService");
 		} catch (AxisFault e) {
 			System.out.println("[InicializacionThreat] Error a la hora de instanciar el servicio:");
@@ -33,6 +38,7 @@ public class InicializacionThreat implements Runnable {
 	@Override
 	public void run() {
 		while (!stop) {
+			
 			// Declaracion de atributos a utilizar de cara al servicio:
 			Cliente[] arrayClientes;
 			Cuenta[] arrayCuentas;
