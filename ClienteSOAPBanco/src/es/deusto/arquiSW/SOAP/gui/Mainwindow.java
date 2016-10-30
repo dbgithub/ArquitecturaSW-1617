@@ -66,6 +66,9 @@ public class Mainwindow extends JFrame {
 	private JTable tableResultadosClientes;
 	private JTable tableResultadosCuentas;
 	private JTable tableResultadosTarjetas;
+	private JButton btnBorrarClientes;
+	private JButton btnBorrarCuentas;
+	private JButton btnBorrarTarjetas;
 
 	/**
 	 * Launch the application.
@@ -325,14 +328,30 @@ public class Mainwindow extends JFrame {
 		JPanel panel = new JPanel();
 		scrollPane.setViewportView(panel);
 
+		JScrollPane scrollPaneForTableClientesFiltro = new JScrollPane();
 		table = new JTable();
-		table.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null }, },
-				new String[] { "col4", "col3", "col2", "col1" }));
 		table.setRowSelectionAllowed(false);
+		table.setModel(new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"DNI", "Nombre", "Apellidos", "Direccion", "Email", "Movil", "Empleado"
+				}
+			) {
+				boolean[] columnEditables = new boolean[] {
+					false, false, false, false, false, false, false
+				};
+				public boolean isCellEditable(int row, int column) {
+					return columnEditables[column];
+				}
+			});
+		scrollPaneForTableClientesFiltro.setViewportView(table);
 
 		JButton btnAniadir = new JButton("A\u00F1adir");
 		btnAniadir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				btnBorrarClientes.doClick();
+				tableResultadosClientes.setModel(table.getModel());
 			}
 		});
 
@@ -450,7 +469,7 @@ public class Mainwindow extends JFrame {
 								.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 										.addComponent(btnAniadir, GroupLayout.PREFERRED_SIZE, 89,
 												GroupLayout.PREFERRED_SIZE)
-										.addComponent(table, GroupLayout.DEFAULT_SIZE, 813, Short.MAX_VALUE))
+										.addComponent(scrollPaneForTableClientesFiltro, GroupLayout.DEFAULT_SIZE, 813, Short.MAX_VALUE))
 								.addGap(22)));
 		gl_panel.setVerticalGroup(
 				gl_panel.createParallelGroup(Alignment.LEADING)
@@ -459,7 +478,7 @@ public class Mainwindow extends JFrame {
 										.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 172,
 												GroupLayout.PREFERRED_SIZE)
 										.addGap(18)
-										.addComponent(table, GroupLayout.PREFERRED_SIZE, 249,
+										.addComponent(scrollPaneForTableClientesFiltro, GroupLayout.PREFERRED_SIZE, 249,
 												GroupLayout.PREFERRED_SIZE)
 										.addGap(18).addComponent(btnAniadir, GroupLayout.PREFERRED_SIZE, 45,
 												GroupLayout.PREFERRED_SIZE)
@@ -486,10 +505,32 @@ public class Mainwindow extends JFrame {
 		filterpane2.setBackground(UIManager.getColor("OptionPane.questionDialog.titlePane.shadow"));
 		filterpane2.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 
+		JScrollPane scrollPaneForTableCuentasFiltro = new JScrollPane();
 		table_1 = new JTable();
-		table_1.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null }, },
-				new String[] { "col4", "col3", "col2", "col1" }));
 		table_1.setRowSelectionAllowed(false);
+		table_1.setModel(new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"IBAN", "SWIFT", "Fecha apertura", "Activa", "Saldo actual", "Interes", "DNI titular", "Tarjeta vinculada"
+				}
+			) {
+				boolean[] columnEditables = new boolean[] {
+					false, false, false, false, false, false, false, false
+				};
+				public boolean isCellEditable(int row, int column) {
+					return columnEditables[column];
+				}
+			});
+		table_1.getColumnModel().getColumn(0).setPreferredWidth(59);
+		table_1.getColumnModel().getColumn(1).setPreferredWidth(57);
+		table_1.getColumnModel().getColumn(2).setPreferredWidth(111);
+		table_1.getColumnModel().getColumn(3).setPreferredWidth(63);
+		table_1.getColumnModel().getColumn(4).setPreferredWidth(100);
+		table_1.getColumnModel().getColumn(5).setPreferredWidth(63);
+		table_1.getColumnModel().getColumn(6).setPreferredWidth(79);
+		table_1.getColumnModel().getColumn(7).setPreferredWidth(120);
+		scrollPaneForTableCuentasFiltro.setViewportView(table_1);
 
 		JLabel lblIban = new JLabel("IBAN");
 		lblIban.setForeground(Color.WHITE);
@@ -570,6 +611,8 @@ public class Mainwindow extends JFrame {
 		JButton btnAniadirCuentas = new JButton("A\u00F1adir");
 		btnAniadirCuentas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				btnBorrarCuentas.doClick();
+				tableResultadosCuentas.setModel(table_1.getModel());
 			}
 		});
 		GroupLayout gl_panel2 = new GroupLayout(panel2);
@@ -578,7 +621,7 @@ public class Mainwindow extends JFrame {
 						.addGroup(gl_panel2.createParallelGroup(Alignment.TRAILING)
 								.addComponent(btnAniadirCuentas, GroupLayout.PREFERRED_SIZE, 108,
 										GroupLayout.PREFERRED_SIZE)
-								.addComponent(table_1, GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE))
+								.addComponent(scrollPaneForTableCuentasFiltro, GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE))
 						.addGap(27))
 				.addGroup(Alignment.LEADING, gl_panel2.createSequentialGroup().addGap(35)
 						.addComponent(filterpane2, GroupLayout.DEFAULT_SIZE, 911, Short.MAX_VALUE).addGap(41)));
@@ -589,7 +632,7 @@ public class Mainwindow extends JFrame {
 										.addComponent(filterpane2, GroupLayout.PREFERRED_SIZE, 154,
 												GroupLayout.PREFERRED_SIZE)
 										.addGap(18)
-										.addComponent(table_1, GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+										.addComponent(scrollPaneForTableCuentasFiltro, GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
 										.addGap(18).addComponent(btnAniadirCuentas, GroupLayout.PREFERRED_SIZE, 39,
 												GroupLayout.PREFERRED_SIZE)
 										.addGap(47)));
@@ -615,10 +658,30 @@ public class Mainwindow extends JFrame {
 		filterpane3.setBackground(UIManager.getColor("OptionPane.questionDialog.titlePane.shadow"));
 		filterpane3.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 
+		JScrollPane scrollPaneForTableTarjetasFiltro = new JScrollPane();
 		table_2 = new JTable();
-		table_2.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null }, },
-				new String[] { "col4", "col3", "col2", "col1" }));
 		table_2.setRowSelectionAllowed(false);
+		table_2.setModel(new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"Numero", "Fecha caducidad", "Proveedor", "Tipo", "Limite extraccion", "Fecha expedicion", "Cuenta vinculada"
+				}
+			) {
+				boolean[] columnEditables = new boolean[] {
+					false, false, false, false, false, false, false
+				};
+				public boolean isCellEditable(int row, int column) {
+					return columnEditables[column];
+				}
+			});
+		table_2.getColumnModel().getColumn(0).setPreferredWidth(66);
+		table_2.getColumnModel().getColumn(1).setPreferredWidth(125);
+		table_2.getColumnModel().getColumn(3).setPreferredWidth(64);
+		table_2.getColumnModel().getColumn(4).setPreferredWidth(114);
+		table_2.getColumnModel().getColumn(5).setPreferredWidth(120);
+		table_2.getColumnModel().getColumn(6).setPreferredWidth(112);
+		scrollPaneForTableTarjetasFiltro.setViewportView(table_2);
 
 		JLabel lblNumero = new JLabel("N\u00FAmero");
 		lblNumero.setForeground(Color.WHITE);
@@ -722,6 +785,12 @@ public class Mainwindow extends JFrame {
 		filterpane3.setLayout(gl_filterpane3);
 
 		JButton button = new JButton("A\u00F1adir");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnBorrarTarjetas.doClick();
+				tableResultadosTarjetas.setModel(table_2.getModel());
+			}
+		});
 		GroupLayout gl_panel3 = new GroupLayout(panel3);
 		gl_panel3.setHorizontalGroup(
 			gl_panel3.createParallelGroup(Alignment.TRAILING)
@@ -735,7 +804,7 @@ public class Mainwindow extends JFrame {
 					.addGap(48))
 				.addGroup(Alignment.LEADING, gl_panel3.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(table_2, GroupLayout.DEFAULT_SIZE, 970, Short.MAX_VALUE)
+					.addComponent(scrollPaneForTableTarjetasFiltro, GroupLayout.DEFAULT_SIZE, 970, Short.MAX_VALUE)
 					.addGap(48))
 		);
 		gl_panel3.setVerticalGroup(
@@ -744,7 +813,7 @@ public class Mainwindow extends JFrame {
 					.addContainerGap()
 					.addComponent(filterpane3, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
 					.addGap(38)
-					.addComponent(table_2, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+					.addComponent(scrollPaneForTableTarjetasFiltro, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(button, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
 					.addGap(80))
@@ -863,7 +932,7 @@ public class Mainwindow extends JFrame {
 
 		JButton btnExportarTarjetas = new JButton("Exportar");
 
-		JButton btnBorrarTarjetas = new JButton("Borrar");
+		btnBorrarTarjetas = new JButton("Borrar");
 		btnBorrarTarjetas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				tableResultadosTarjetas.setRowSelectionAllowed(false);
@@ -892,7 +961,7 @@ public class Mainwindow extends JFrame {
 
 		JButton buttonExportarCuentas = new JButton("Exportar");
 
-		JButton btnBorrarCuentas = new JButton("Borrar");
+		btnBorrarCuentas = new JButton("Borrar");
 		btnBorrarCuentas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tableResultadosCuentas.setRowSelectionAllowed(false);
@@ -923,9 +992,10 @@ public class Mainwindow extends JFrame {
 
 		JButton buttonExportarClientes = new JButton("Exportar");
 
-		JButton btnBorrarClientes = new JButton("Borrar");
+		btnBorrarClientes = new JButton("Borrar");
 		btnBorrarClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				tableResultadosClientes.setRowSelectionAllowed(false);
 				tableResultadosClientes.setModel(new DefaultTableModel(
 						new Object[][] {
 						},
