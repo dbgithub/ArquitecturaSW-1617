@@ -39,6 +39,7 @@ import es.deusto.arquiSW.JAXB.classes.Cliente;
 import es.deusto.arquiSW.SOAP.DeustoBankServiceStub;
 import es.deusto.arquiSW.threats.InicializacionThreat;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ListSelectionModel;
 
 @SuppressWarnings("serial")
 public class Mainwindow extends JFrame {
@@ -778,17 +779,40 @@ public class Mainwindow extends JFrame {
 		panel_7.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Cuentas", TitledBorder.LEADING,
 				TitledBorder.TOP, null, new Color(0, 0, 0)));
 
+		JScrollPane scrollPaneForTableCuentas = new JScrollPane();
 		tableResultadosCuentas = new JTable();
-		tableResultadosCuentas.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null }, },
-				new String[] { "New column", "New column", "New column", "New column" }));
+		tableResultadosCuentas.setRowSelectionAllowed(false);
+		tableResultadosCuentas.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"IBAN", "SWIFT", "Fecha apertura", "Activa", "Saldo actual", "Interes", "DNI titular", "Tarjeta vinculada"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		tableResultadosCuentas.getColumnModel().getColumn(0).setPreferredWidth(59);
+		tableResultadosCuentas.getColumnModel().getColumn(1).setPreferredWidth(57);
+		tableResultadosCuentas.getColumnModel().getColumn(2).setPreferredWidth(111);
+		tableResultadosCuentas.getColumnModel().getColumn(3).setPreferredWidth(63);
+		tableResultadosCuentas.getColumnModel().getColumn(4).setPreferredWidth(100);
+		tableResultadosCuentas.getColumnModel().getColumn(5).setPreferredWidth(63);
+		tableResultadosCuentas.getColumnModel().getColumn(6).setPreferredWidth(79);
+		tableResultadosCuentas.getColumnModel().getColumn(7).setPreferredWidth(120);
+		scrollPaneForTableCuentas.setViewportView(tableResultadosCuentas);
 		GroupLayout gl_panel_7 = new GroupLayout(panel_7);
 		gl_panel_7.setHorizontalGroup(gl_panel_7.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_7.createSequentialGroup().addContainerGap()
-						.addComponent(tableResultadosCuentas, GroupLayout.DEFAULT_SIZE, 765, Short.MAX_VALUE)
+						.addComponent(scrollPaneForTableCuentas, GroupLayout.DEFAULT_SIZE, 765, Short.MAX_VALUE)
 						.addContainerGap()));
 		gl_panel_7.setVerticalGroup(gl_panel_7.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_7.createSequentialGroup()
-						.addComponent(tableResultadosCuentas, GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+						.addComponent(scrollPaneForTableCuentas, GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
 						.addGap(4)));
 		panel_7.setLayout(gl_panel_7);
 
@@ -796,17 +820,38 @@ public class Mainwindow extends JFrame {
 		panel_8.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Tarjetas", TitledBorder.LEADING,
 				TitledBorder.TOP, null, new Color(0, 0, 0)));
 
+		JScrollPane scrollPaneForTableTarjetas = new JScrollPane();
 		tableResultadosTarjetas = new JTable();
-		tableResultadosTarjetas.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null }, },
-				new String[] { "New column", "New column", "New column", "New column" }));
+		tableResultadosTarjetas.setRowSelectionAllowed(false);
+		tableResultadosTarjetas.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Numero", "Fecha caducidad", "Proveedor", "Tipo", "Limite extraccion", "Fecha expedicion", "Cuenta vinculada"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		tableResultadosTarjetas.getColumnModel().getColumn(0).setPreferredWidth(66);
+		tableResultadosTarjetas.getColumnModel().getColumn(1).setPreferredWidth(125);
+		tableResultadosTarjetas.getColumnModel().getColumn(3).setPreferredWidth(64);
+		tableResultadosTarjetas.getColumnModel().getColumn(4).setPreferredWidth(114);
+		tableResultadosTarjetas.getColumnModel().getColumn(5).setPreferredWidth(120);
+		tableResultadosTarjetas.getColumnModel().getColumn(6).setPreferredWidth(112);
+		scrollPaneForTableTarjetas.setViewportView(tableResultadosTarjetas);
 		GroupLayout gl_panel_8 = new GroupLayout(panel_8);
 		gl_panel_8.setHorizontalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_8.createSequentialGroup().addContainerGap()
-						.addComponent(tableResultadosTarjetas, GroupLayout.DEFAULT_SIZE, 805, Short.MAX_VALUE)
+						.addComponent(scrollPaneForTableTarjetas, GroupLayout.DEFAULT_SIZE, 805, Short.MAX_VALUE)
 						.addGap(7)));
 		gl_panel_8.setVerticalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_8.createSequentialGroup()
-						.addComponent(tableResultadosTarjetas, GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+						.addComponent(scrollPaneForTableTarjetas, GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
 						.addGap(4)));
 		panel_8.setLayout(gl_panel_8);
 
@@ -821,7 +866,27 @@ public class Mainwindow extends JFrame {
 		JButton btnBorrarTarjetas = new JButton("Borrar");
 		btnBorrarTarjetas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				tableResultadosTarjetas.setModel(new DefaultTableModel(0, 0));
+				tableResultadosTarjetas.setRowSelectionAllowed(false);
+				tableResultadosTarjetas.setModel(new DefaultTableModel(
+						new Object[][] {
+						},
+						new String[] {
+							"Numero", "Fecha caducidad", "Proveedor", "Tipo", "Limite extraccion", "Fecha expedicion", "Cuenta vinculada"
+						}
+					) {
+						boolean[] columnEditables = new boolean[] {
+							false, false, false, false, false, false, false
+						};
+						public boolean isCellEditable(int row, int column) {
+							return columnEditables[column];
+						}
+					});
+					tableResultadosTarjetas.getColumnModel().getColumn(0).setPreferredWidth(66);
+					tableResultadosTarjetas.getColumnModel().getColumn(1).setPreferredWidth(125);
+					tableResultadosTarjetas.getColumnModel().getColumn(3).setPreferredWidth(64);
+					tableResultadosTarjetas.getColumnModel().getColumn(4).setPreferredWidth(114);
+					tableResultadosTarjetas.getColumnModel().getColumn(5).setPreferredWidth(120);
+					tableResultadosTarjetas.getColumnModel().getColumn(6).setPreferredWidth(112);
 			}
 		});
 
@@ -830,7 +895,29 @@ public class Mainwindow extends JFrame {
 		JButton btnBorrarCuentas = new JButton("Borrar");
 		btnBorrarCuentas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tableResultadosCuentas.setModel(new DefaultTableModel(0, 0));
+				tableResultadosCuentas.setRowSelectionAllowed(false);
+				tableResultadosCuentas.setModel(new DefaultTableModel(
+					new Object[][] {
+					},
+					new String[] {
+						"IBAN", "SWIFT", "Fecha apertura", "Activa", "Saldo actual", "Interes", "DNI titular", "Tarjeta vinculada"
+					}
+				) {
+					boolean[] columnEditables = new boolean[] {
+						false, false, false, false, false, false, false, false
+					};
+					public boolean isCellEditable(int row, int column) {
+						return columnEditables[column];
+					}
+				});
+				tableResultadosCuentas.getColumnModel().getColumn(0).setPreferredWidth(59);
+				tableResultadosCuentas.getColumnModel().getColumn(1).setPreferredWidth(57);
+				tableResultadosCuentas.getColumnModel().getColumn(2).setPreferredWidth(111);
+				tableResultadosCuentas.getColumnModel().getColumn(3).setPreferredWidth(63);
+				tableResultadosCuentas.getColumnModel().getColumn(4).setPreferredWidth(100);
+				tableResultadosCuentas.getColumnModel().getColumn(5).setPreferredWidth(63);
+				tableResultadosCuentas.getColumnModel().getColumn(6).setPreferredWidth(79);
+				tableResultadosCuentas.getColumnModel().getColumn(7).setPreferredWidth(120);
 			}
 		});
 
@@ -839,7 +926,20 @@ public class Mainwindow extends JFrame {
 		JButton btnBorrarClientes = new JButton("Borrar");
 		btnBorrarClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tableResultadosClientes.setModel(new DefaultTableModel(0, 0));
+				tableResultadosClientes.setModel(new DefaultTableModel(
+						new Object[][] {
+						},
+						new String[] {
+							"DNI", "Nombre", "Apellidos", "Direccion", "Email", "Movil", "Empleado"
+						}
+					) {
+						boolean[] columnEditables = new boolean[] {
+							false, false, false, false, false, false, false
+						};
+						public boolean isCellEditable(int row, int column) {
+							return columnEditables[column];
+						}
+					});
 			}
 		});
 		GroupLayout gl_panel_5 = new GroupLayout(panel_5);
@@ -899,17 +999,32 @@ public class Mainwindow extends JFrame {
 					.addGap(56))
 		);
 
+		JScrollPane scrollPaneForTableClientes = new JScrollPane();
 		tableResultadosClientes = new JTable();
-		tableResultadosClientes.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null }, },
-				new String[] { "New column", "New column", "New column", "New column" }));
+		tableResultadosClientes.setRowSelectionAllowed(false);
+		tableResultadosClientes.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"DNI", "Nombre", "Apellidos", "Direccion", "Email", "Movil", "Empleado"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		scrollPaneForTableClientes.setViewportView(tableResultadosClientes);
 		GroupLayout gl_panel_6 = new GroupLayout(panel_6);
 		gl_panel_6.setHorizontalGroup(gl_panel_6.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_6.createSequentialGroup().addContainerGap()
-						.addComponent(tableResultadosClientes, GroupLayout.DEFAULT_SIZE, 727, Short.MAX_VALUE)
+						.addComponent(scrollPaneForTableClientes, GroupLayout.DEFAULT_SIZE, 727, Short.MAX_VALUE)
 						.addContainerGap()));
 		gl_panel_6.setVerticalGroup(gl_panel_6.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_6.createSequentialGroup()
-						.addComponent(tableResultadosClientes, GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+						.addComponent(scrollPaneForTableClientes, GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
 						.addContainerGap()));
 		panel_6.setLayout(gl_panel_6);
 		panel_5.setLayout(gl_panel_5);
