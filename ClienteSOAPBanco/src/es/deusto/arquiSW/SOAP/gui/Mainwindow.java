@@ -227,7 +227,7 @@ public class Mainwindow extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column"
+					"DNI", "Nombre", "Apellidos", "Direccion", "Email", "Movil", "Empleado"
 			}
 		));
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
