@@ -38,6 +38,7 @@ import es.deusto.arquiSW.JAXB.classes.Banco;
 import es.deusto.arquiSW.JAXB.classes.Cliente;
 import es.deusto.arquiSW.SOAP.DeustoBankServiceStub;
 import es.deusto.arquiSW.threats.InicializacionThreat;
+import javax.swing.DefaultComboBoxModel;
 
 @SuppressWarnings("serial")
 public class Mainwindow extends JFrame {
@@ -77,9 +78,9 @@ public class Mainwindow extends JFrame {
 					
 					// Lanzamos un Threat para que la inicializacion y la obtencion
 					// de datos del servicio web se haga en un hilo aparte.
-					InicializacionThreat iniThread = new InicializacionThreat();
-					Thread initializationThreat = new Thread(iniThread);
-					initializationThreat.start();
+//					InicializacionThreat iniThread = new InicializacionThreat();
+//					Thread initializationThreat = new Thread(iniThread);
+//					initializationThreat.start();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -335,18 +336,23 @@ public class Mainwindow extends JFrame {
 		});
 
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(UIManager.getColor("OptionPane.questionDialog.titlePane.shadow"));
 		panel_1.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		panel_1.setBackground((Color) null);
 
 		JLabel label = new JLabel("Email");
+		label.setForeground(Color.WHITE);
 
 		JLabel label_1 = new JLabel("DNI");
+		label_1.setForeground(Color.WHITE);
 
 		JLabel label_2 = new JLabel("M\u00F3vil");
+		label_2.setForeground(Color.WHITE);
 
 		JLabel label_3 = new JLabel("Apellidos");
+		label_3.setForeground(Color.WHITE);
 
 		JLabel label_4 = new JLabel("Nombre");
+		label_4.setForeground(Color.WHITE);
 
 		textField = new JTextField();
 		textField.setColumns(10);
@@ -355,6 +361,8 @@ public class Mainwindow extends JFrame {
 		textField_1.setColumns(10);
 
 		JCheckBox checkBox = new JCheckBox("Empleado");
+		checkBox.setForeground(Color.WHITE);
+		checkBox.setBackground((Color)null);
 
 		JButton button_1 = new JButton("Aplicar");
 
@@ -483,25 +491,32 @@ public class Mainwindow extends JFrame {
 		table_1.setRowSelectionAllowed(false);
 
 		JLabel lblIban = new JLabel("IBAN");
+		lblIban.setForeground(Color.WHITE);
 
 		textFieldIBAN = new JTextField();
 		textFieldIBAN.setColumns(10);
 
 		JLabel lblDniCliente = new JLabel("DNI Cliente");
+		lblDniCliente.setForeground(Color.WHITE);
 
 		textFieldDNICliente = new JTextField();
 		textFieldDNICliente.setColumns(10);
 
 		JLabel lblFechaApertura = new JLabel("Fecha Apertura");
+		lblFechaApertura.setForeground(Color.WHITE);
 
 		textFieldFechaApertura = new JTextField();
 		textFieldFechaApertura.setColumns(10);
 
 		JCheckBox chckbxActiva = new JCheckBox("Activa");
+		chckbxActiva.setForeground(Color.WHITE);
+		chckbxActiva.setBackground((Color)null);
 
 		JLabel lblInters = new JLabel("Inter\u00E9s");
+		lblInters.setForeground(Color.WHITE);
 
-		JComboBox comboBox = new JComboBox();
+		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {null, "0.1", "0.5", "1.2", "5"}));
 
 		JButton btnAplicarCuentas = new JButton("Aplicar");
 
@@ -605,22 +620,28 @@ public class Mainwindow extends JFrame {
 		table_2.setRowSelectionAllowed(false);
 
 		JLabel lblNumero = new JLabel("N\u00FAmero");
+		lblNumero.setForeground(Color.WHITE);
 
 		textFieldNumeroTarjeta = new JTextField();
 		textFieldNumeroTarjeta.setColumns(10);
 
 		JLabel lblDNIcliente = new JLabel("DNI Cliente");
+		lblDNIcliente.setForeground(Color.WHITE);
 
 		textFieldDNIClienteTarjeta = new JTextField();
 		textFieldDNIClienteTarjeta.setColumns(10);
 
 		JLabel lblProveedor = new JLabel("Proveedor");
+		lblProveedor.setForeground(Color.WHITE);
 
 		JComboBox comboBoxProveedor = new JComboBox();
+		comboBoxProveedor.setModel(new DefaultComboBoxModel(new String[] {"Visa", "MasterCard", "AmericanExpress"}));
 
 		JLabel lblTipo = new JLabel("Tipo");
+		lblTipo.setForeground(Color.WHITE);
 
 		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Debito", "Credito"}));
 
 		JButton buttonAplicarTarjetas = new JButton("Aplicar");
 
@@ -701,28 +722,32 @@ public class Mainwindow extends JFrame {
 
 		JButton button = new JButton("A\u00F1adir");
 		GroupLayout gl_panel3 = new GroupLayout(panel3);
-		gl_panel3.setHorizontalGroup(gl_panel3.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel3.createSequentialGroup().addGap(26)
-						.addComponent(filterpane3, GroupLayout.DEFAULT_SIZE, 928, Short.MAX_VALUE).addGap(74))
-				.addGroup(Alignment.TRAILING,
-						gl_panel3.createSequentialGroup().addContainerGap()
-								.addGroup(gl_panel3.createParallelGroup(Alignment.TRAILING)
-										.addComponent(table_2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 970,
-												Short.MAX_VALUE)
-										.addComponent(button, GroupLayout.PREFERRED_SIZE, 108,
-												GroupLayout.PREFERRED_SIZE))
-								.addGap(48)));
-		gl_panel3
-				.setVerticalGroup(
-						gl_panel3.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel3.createSequentialGroup().addContainerGap()
-										.addComponent(filterpane3, GroupLayout.PREFERRED_SIZE, 134,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(26)
-										.addComponent(table_2, GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-										.addGap(18).addComponent(button, GroupLayout.PREFERRED_SIZE, 39,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(80)));
+		gl_panel3.setHorizontalGroup(
+			gl_panel3.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel3.createSequentialGroup()
+					.addGap(26)
+					.addComponent(filterpane3, GroupLayout.DEFAULT_SIZE, 930, Short.MAX_VALUE)
+					.addGap(74))
+				.addGroup(gl_panel3.createSequentialGroup()
+					.addContainerGap(874, Short.MAX_VALUE)
+					.addComponent(button, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
+					.addGap(48))
+				.addGroup(Alignment.LEADING, gl_panel3.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(table_2, GroupLayout.DEFAULT_SIZE, 970, Short.MAX_VALUE)
+					.addGap(48))
+		);
+		gl_panel3.setVerticalGroup(
+			gl_panel3.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel3.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(filterpane3, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
+					.addGap(38)
+					.addComponent(table_2, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(button, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+					.addGap(80))
+		);
 		panel3.setLayout(gl_panel3);
 		panel_tarjetas.setLayout(gl_panel_tarjetas);
 
@@ -794,76 +819,85 @@ public class Mainwindow extends JFrame {
 		JButton btnExportarTarjetas = new JButton("Exportar");
 
 		JButton btnBorrarTarjetas = new JButton("Borrar");
+		btnBorrarTarjetas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				tableResultadosTarjetas.setModel(new DefaultTableModel(0, 0));
+			}
+		});
 
 		JButton buttonExportarCuentas = new JButton("Exportar");
 
 		JButton btnBorrarCuentas = new JButton("Borrar");
+		btnBorrarCuentas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tableResultadosCuentas.setModel(new DefaultTableModel(0, 0));
+			}
+		});
 
 		JButton buttonExportarClientes = new JButton("Exportar");
 
 		JButton btnBorrarClientes = new JButton("Borrar");
 		btnBorrarClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				tableResultadosClientes.setModel(new DefaultTableModel(0, 0));
 			}
 		});
 		GroupLayout gl_panel_5 = new GroupLayout(panel_5);
-		gl_panel_5.setHorizontalGroup(gl_panel_5.createParallelGroup(Alignment.TRAILING)
+		gl_panel_5.setHorizontalGroup(
+			gl_panel_5.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel_5.createSequentialGroup()
-						.addGroup(gl_panel_5.createParallelGroup(Alignment.TRAILING)
-								.addGroup(gl_panel_5.createSequentialGroup().addContainerGap().addComponent(
-										btnExportarTodo, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_panel_5.createSequentialGroup().addGap(38)
-										.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
-												.addComponent(panel_8, GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
-												.addComponent(panel_6, GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
-												.addComponent(
-														panel_7, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 820,
-														Short.MAX_VALUE))))
-						.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_5
-								.createSequentialGroup().addGap(18).addGroup(
-										gl_panel_5.createParallelGroup(Alignment.LEADING, false)
-												.addComponent(btnBorrarTarjetas, GroupLayout.DEFAULT_SIZE, 81,
-														Short.MAX_VALUE)
-												.addComponent(btnBorrarCuentas, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addComponent(buttonExportarCuentas, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addComponent(btnExportarTarjetas, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-								.addGroup(gl_panel_5.createSequentialGroup().addGap(18)
-										.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING, false)
-												.addComponent(buttonExportarClientes, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addComponent(btnBorrarClientes, GroupLayout.DEFAULT_SIZE, 81,
-														Short.MAX_VALUE))))
-						.addContainerGap()));
-		gl_panel_5
-				.setVerticalGroup(
-						gl_panel_5.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel_5.createSequentialGroup()
-										.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
-												.addGroup(gl_panel_5.createSequentialGroup().addContainerGap()
-														.addComponent(panel_6, GroupLayout.DEFAULT_SIZE, 145,
-																Short.MAX_VALUE)
-														.addGap(18)
-														.addComponent(panel_7, GroupLayout.DEFAULT_SIZE, 138,
-																Short.MAX_VALUE)
-														.addGap(18)
-														.addComponent(panel_8, GroupLayout.DEFAULT_SIZE, 138,
-																Short.MAX_VALUE)
-														.addGap(6))
-												.addGroup(gl_panel_5.createSequentialGroup().addGap(57)
-														.addComponent(buttonExportarClientes).addGap(18)
-														.addComponent(btnBorrarClientes).addGap(96)
-														.addComponent(buttonExportarCuentas)
-														.addPreferredGap(ComponentPlacement.RELATED, 18,
-																Short.MAX_VALUE)
-														.addComponent(btnBorrarCuentas).addGap(85)
-														.addComponent(btnExportarTarjetas).addGap(18)
-														.addComponent(btnBorrarTarjetas).addGap(44)))
-										.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(btnExportarTodo,
-												GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-										.addGap(56)));
+					.addGroup(gl_panel_5.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel_5.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(btnExportarTodo, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_5.createSequentialGroup()
+							.addGap(20)
+							.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
+								.addComponent(panel_8, GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
+								.addComponent(panel_6, GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
+								.addComponent(panel_7, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE))))
+					.addGap(18)
+					.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(btnBorrarTarjetas, GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
+							.addComponent(btnBorrarCuentas, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(buttonExportarCuentas, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnExportarTarjetas, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(buttonExportarClientes, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnBorrarClientes, GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)))
+					.addContainerGap())
+		);
+		gl_panel_5.setVerticalGroup(
+			gl_panel_5.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_5.createSequentialGroup()
+					.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_5.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(panel_6, GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+							.addGap(18)
+							.addComponent(panel_7, GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+							.addGap(18)
+							.addComponent(panel_8, GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+							.addGap(6))
+						.addGroup(gl_panel_5.createSequentialGroup()
+							.addGap(57)
+							.addComponent(buttonExportarClientes)
+							.addGap(18)
+							.addComponent(btnBorrarClientes)
+							.addGap(96)
+							.addComponent(buttonExportarCuentas)
+							.addPreferredGap(ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+							.addComponent(btnBorrarCuentas)
+							.addGap(85)
+							.addComponent(btnExportarTarjetas)
+							.addGap(18)
+							.addComponent(btnBorrarTarjetas)
+							.addGap(44)))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnExportarTodo, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+					.addGap(56))
+		);
 
 		tableResultadosClientes = new JTable();
 		tableResultadosClientes.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null }, },
