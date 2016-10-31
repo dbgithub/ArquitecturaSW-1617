@@ -125,10 +125,7 @@ public class GestorBD {
         	cuenta.setInteres(rs.getFloat("interes"));
         	Cliente c = new Cliente();
         	c.setDNI(rs.getString("Cliente"));
-        	Tarjeta t = new Tarjeta();
-        	t.setNumero(rs.getInt("tarjeta"));
         	cuenta.setTitular(c);
-        	cuenta.setTarjeta(t);
         	cuentas.add(cuenta);
         }
         rs.close();
@@ -242,15 +239,14 @@ public class GestorBD {
 		while (it.hasNext()) {
 			Cuenta temp = it.next();
 			String sqlString = "INSERT INTO Cuenta " +
-					"(IBAN, SWIFT, FechaApertura, Activa, SaldoActual, Interes, Cliente, Tarjeta) " +
+					"(IBAN, SWIFT, FechaApertura, Activa, SaldoActual, Interes, Cliente) " +
 					"VALUES (" + temp.getIBAN() +
 					",'" + temp.getSWIFT() +
 					"','" + temp.getFechaApertura().toString() +
 					"'," + ((temp.isActiva()) ? 1:0) +
 					"," + temp.getSaldoActual() +
 					"," + temp.getInteres() +
-					",'" + temp.getTitular().getDNI() +
-					"',"  + temp.getTarjeta().getNumero() + ")";                        
+					",'" + temp.getTitular().getDNI() + ")";                        
 			statement.executeUpdate(sqlString);
 		}
 		statement.close(); 
@@ -376,10 +372,7 @@ public class GestorBD {
         	cuenta.setInteres(rs.getFloat("interes"));
         	Cliente c = new Cliente();
         	c.setDNI(rs.getString("Cliente"));
-        	Tarjeta t = new Tarjeta();
-        	t.setNumero(rs.getInt("tarjeta"));
         	cuenta.setTitular(c);
-        	cuenta.setTarjeta(t);
         	cuentas.add(cuenta);
         }
         rs.close();
@@ -462,65 +455,11 @@ public class GestorBD {
 //		System.out.println(po.get(0).getNombre());
 //		if (po.size() > 1) {System.out.println(po.get(1).getNombre());}
 //		if (po.size() > 2) {System.out.println(po.get(2).getNombre());}
+//		ArrayList<Cuenta> cu = gbd.obtenerCuentas();
+//		System.out.println("Cuantas cuentas?" + cu.size());
+//		System.out.println("Cuenta: " + cu.get(0).getIBAN());
 //		gbd.desconectar();
 //	}
 
-	// public String obtenerDNI() throws SQLException {
-	// String select = "select * from CLIENTE";
-	// Statement stmt = con.createStatement();
-	// ResultSet rs = stmt.executeQuery(select);
-	// String dni = null;
-	// if (rs.next()) {
-	// dni = rs.getString("dni");
-	// }
-	// rs.close();
-	// stmt.close();
-	// return dni;
-	// }
-	
-//	public Cliente obtenerClienteDNI(String dni) throws SQLException {
-//		Cliente cliente = null;
-//		String select = "select * from CLIENTE where dni='" + dni + "'";
-//		Statement stmt = con.createStatement();
-//		ResultSet rs = stmt.executeQuery(select);
-//		if (rs.next()) {
-//			cliente = new Cliente();
-//			cliente.setDNI(rs.getString("dni"));
-//			cliente.setNombre(rs.getString("nombre"));
-//			cliente.setApellidos(rs.getString("apellidos"));
-//			cliente.setDireccion(rs.getString("direccion"));
-//			cliente.setEmail(rs.getString("email"));
-//		}
-//		rs.close();
-//		stmt.close();
-//		return cliente;
-//	}
-
-//	public ArrayList<Cliente> obtenerClientes(String DNI, String nombre, String apellidos, String email, int movil,
-//			boolean empleado) throws SQLException {
-//		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-//		String select = "select * from CLIENTE where nombre like '%?%' and apellidos like '%?%' and email like '%?%' and movil like '%?%' and empleado=?";
-//		PreparedStatement ps = con.prepareStatement(select);
-//		if(DNI==null){
-//			
-//		}
-//		updateemp.setInt(1, 23);
-//		updateemp.setString(2, "Roshan");
-//		updateemp.setString(3, "CEO");
-//		updateemp.executeUpdate();
-//		 ResultSet rs = stmt.executeQuery(select);
-//		 while (rs.next()) {
-//		 Cliente cliente = new Cliente();
-//		 cliente.setDNI(rs.getString("dni"));
-//		 cliente.setNombre(rs.getString("nombre"));
-//		 cliente.setApellidos(rs.getString("apellidos"));
-//		 cliente.setDireccion(rs.getString("direccion"));
-//		 cliente.setEmail(rs.getString("email"));
-//		 clientes.add(cliente);
-//		 }
-//		rs.close();
-//		stmt.close();
-//		return clientes;
-//	}
 
 }
