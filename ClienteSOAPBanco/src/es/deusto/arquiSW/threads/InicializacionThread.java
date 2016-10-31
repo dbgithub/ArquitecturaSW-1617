@@ -17,6 +17,7 @@ import es.deusto.arquiSW.SOAP.classes.xsd.Cuenta;
 import es.deusto.arquiSW.SOAP.classes.xsd.Operacion;
 import es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta;
 import es.deusto.arquiSW.SOAP.gui.Mainwindow;
+import es.deusto.arquiSW.SOAP.ws.namespaces.axis2.Enum.EnumTipoOperacion;
 
 /**
  * Clase runnable que ejecuta una serie de instrucciones y metodos relacionados
@@ -247,5 +248,142 @@ public class InicializacionThread implements Runnable {
 		return colleccion;
 
 	}
+	/**
+	 * Convierte del tipo Cliente de SOAP al tipo Cliente de JAXB
+	 * 
+	 * @param clientes
+	 * @return
+	 */
+	private es.deusto.arquiSW.SOAP.classes.xsd.Cliente[] convertFromJAXBclienteToSOAPcliente(es.deusto.arquiSW.JAXB.classes.Cliente[] clientes) {
+
+		es.deusto.arquiSW.SOAP.classes.xsd.Cliente[] colleccion = new es.deusto.arquiSW.SOAP.classes.xsd.Cliente[clientes.length];
+
+		for (int i = 0; i < clientes.length; i++) {
+			es.deusto.arquiSW.SOAP.classes.xsd.Cliente aux= new es.deusto.arquiSW.SOAP.classes.xsd.Cliente();
+			aux.setDNI(clientes[i].getDNI());
+			aux.setNombre(clientes[i].getNombre());
+			aux.setApellidos(clientes[i].getApellidos());
+			aux.setDireccion(clientes[i].getDireccion());
+			aux.setEmail(clientes[i].getEmail());
+			aux.setMovil(clientes[i].getMovil());
+			aux.setEmpleado(clientes[i].isEmpleado());
+			aux.setPIN(clientes[i].getPIN());
+			colleccion[i] = aux;
+		}
+		return colleccion;
+	}
+
+	/**
+	 * Convierte del tipo Cuenta de SOAP al tipo Cuenta de JAXB
+	 * 
+	 * @param cuentas
+	 * @return
+	 */
+//	private es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[] convertFromJAXBcuentaToSOAPcuenta(es.deusto.arquiSW.JAXB.classes.Cuenta[] cuentas) {
+//		// ArrayList<es.deusto.arquiSW.JAXB.classes.Cuenta> tempcoleccion = new
+//		// ArrayList<es.deusto.arquiSW.JAXB.classes.Cuenta>();
+//		// for (Cuenta c : cuentas) {
+//		// es.deusto.arquiSW.JAXB.classes.Operacion[] operaciones =
+//		// convertFromSOAPoperacionToJAXBoperacion(
+//		// c.getOperaciones());
+//		// tempcoleccion.add(new
+//		// es.deusto.arquiSW.JAXB.classes.Cuenta(c.getIBAN(), c.getSWIFT(),
+//		// c.getFechaApertura(),
+//		// c.getActiva(), c.getSaldoActual(), c.getInteres(),
+//		// c.getTitular().getDNI(),
+//		// new
+//		// ArrayList<es.deusto.arquiSW.JAXB.classes.Operacion>(Arrays.asList(operaciones))));
+//		// }
+//		// return (es.deusto.arquiSW.JAXB.classes.Cuenta[])
+//		// tempcoleccion.toArray();
+//		es.deusto.arquiSW.JAXB.classes.Cuenta[] colleccion = new es.deusto.arquiSW.JAXB.classes.Cuenta[cuentas.length];
+//		for (int i = 0; i < cuentas.length; i++) {
+//			es.deusto.arquiSW.JAXB.classes.Operacion[] operaciones = convertFromSOAPoperacionToJAXBoperacion(
+//					cuentas[i].getOperaciones());
+//			colleccion[i] = new es.deusto.arquiSW.JAXB.classes.Cuenta(cuentas[i].getIBAN(), cuentas[i].getSWIFT(),
+//					cuentas[i].getFechaApertura(), cuentas[i].getActiva(), cuentas[i].getSaldoActual(),
+//					cuentas[i].getInteres(), cuentas[i].getTitular().getDNI(),
+//					new ArrayList<es.deusto.arquiSW.JAXB.classes.Operacion>(Arrays.asList(operaciones)));
+//			
+//		}
+//		return colleccion;
+//
+//	}
+
+	/**
+	 * Convierte del tipo Operacion de SOAP al tipo Operacion de JAXB
+	 * 
+	 * @param operaciones
+	 * @return
+	 */
+	private es.deusto.arquiSW.SOAP.classes.xsd.Operacion[] convertFromJAXBoperacionToSOAPoperacion(
+			es.deusto.arquiSW.JAXB.classes.Operacion[] operaciones) {
+		// ArrayList<es.deusto.arquiSW.JAXB.classes.Operacion> tempcoleccion =
+		// new ArrayList<es.deusto.arquiSW.JAXB.classes.Operacion>();
+		// for (Operacion o : operaciones) {
+		// tempcoleccion.add(new
+		// es.deusto.arquiSW.JAXB.classes.Operacion(o.getId(), o.getFecha(),
+		// es.deusto.arquiSW.JAXB.classes.Operacion.EnumTipoOperacion.valueOf(o.getTipo().getValue()),
+		// o.getImporte(), o.getCuenta().getIBAN()));
+		// }
+		// return (es.deusto.arquiSW.JAXB.classes.Operacion[])
+		// tempcoleccion.toArray();
+
+		es.deusto.arquiSW.SOAP.classes.xsd.Operacion[] colleccion = new es.deusto.arquiSW.SOAP.classes.xsd.Operacion[operaciones.length];
+
+		for (int i = 0; i < operaciones.length; i++) {
+			es.deusto.arquiSW.SOAP.classes.xsd.Operacion aux= new es.deusto.arquiSW.SOAP.classes.xsd.Operacion();
+			aux.setId(operaciones[i].getId());
+			aux.setFecha(operaciones[i].getFecha());
+			aux.setImporte(operaciones[i].getImporte());
+			
+//			operaciones[i].getTipo().valueOf(es.deusto.arquiSW.SOAP.classes.xsd.EnumTipoOperacion.class);
+//			
+//			aux.setTipo(new es.deusto.arquiSW.SOAP.ws.namespaces.axis2.Enum.EnumTipoOperacion(operaciones[i].getTipo().name()));
+//			colleccion[i] = new es.deusto.arquiSW.JAXB.classes.Operacion(operaciones[i].getId(),
+//					operaciones[i].getFecha(),
+//					es.deusto.arquiSW.JAXB.classes.Operacion.EnumTipoOperacion
+//							.valueOf(operaciones[i].getTipo().getValue()),
+//					operaciones[i].getImporte(), operaciones[i].getCuenta().getIBAN());
+		}
+		return colleccion;
+
+	}
+
+	/**
+	 * Convierte del tipo Tarjeta de SOAP al tipo Tarjeta de JAXB
+	 * 
+	 * @param tarjetas
+	 * @return
+	 */
+//	private es.deusto.arquiSW.JAXB.classes.Tarjeta[] convertFromSOAPtarjetaToJAXBtarjeta(Tarjeta[] tarjetas) {
+//		// ArrayList<es.deusto.arquiSW.JAXB.classes.Tarjeta> tempcoleccion = new
+//		// ArrayList<es.deusto.arquiSW.JAXB.classes.Tarjeta>();
+//		// for (Tarjeta t : tarjetas) {
+//		// tempcoleccion.add(new
+//		// es.deusto.arquiSW.JAXB.classes.Tarjeta(t.getNumero(),
+//		// t.getCuenta().getIBAN(),
+//		// t.getLimiteExtraccion(), t.getFechaCaducidad(),
+//		// es.deusto.arquiSW.JAXB.classes.Tarjeta.EnumProveedores.valueOf(t.getProveedor().getValue()),
+//		// es.deusto.arquiSW.JAXB.classes.Tarjeta.TiposTarjeta.valueOf(t.getTipo().getValue()),
+//		// t.getFechaExpedicion()));
+//		// }
+//		// return (es.deusto.arquiSW.JAXB.classes.Tarjeta[])
+//		// tempcoleccion.toArray();
+//		es.deusto.arquiSW.JAXB.classes.Tarjeta[] colleccion = new es.deusto.arquiSW.JAXB.classes.Tarjeta[tarjetas.length];
+//
+//		for (int i = 0; i < tarjetas.length; i++) {
+//
+//			colleccion[i] = new es.deusto.arquiSW.JAXB.classes.Tarjeta(tarjetas[i].getNumero(),
+//					tarjetas[i].getCuenta().getIBAN(),
+//					tarjetas[i].getLimiteExtraccion(), tarjetas[i].getFechaCaducidad(),
+//					 es.deusto.arquiSW.JAXB.classes.Tarjeta.EnumProveedores.valueOf(tarjetas[i].getProveedor().getValue()),
+//					 es.deusto.arquiSW.JAXB.classes.Tarjeta.TiposTarjeta.valueOf(tarjetas[i].getTipo().getValue()),
+//					 tarjetas[i].getFechaExpedicion());
+//		}
+//		return colleccion;
+//
+//	}
+	
 
 }

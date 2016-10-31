@@ -219,9 +219,16 @@ public class Mainwindow extends JFrame {
 		btnImportar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Importar im = new Importar();
-				Cliente[] arrayClientes;
-				Cuenta[] arrayCuentas;
-				Tarjeta[] arrayTarjetas;
+				Cliente[] arrayClientes = (Cliente[])bnc.getListaClientes().toArray() ;
+				Cuenta[] arrayCuentas = (Cuenta[])bnc.getListaCuentas().toArray();
+				Tarjeta[] arrayTarjetas = (Tarjeta[])bnc.getListaTarjetas().toArray();
+				
+				
+//				im.setClientes(arrayClientes);
+//				im.setCuentas(arrayCuentas);
+//				im.setTarjetas(arrayTarjetas);
+//				
+			
 				
 			}
 		});
