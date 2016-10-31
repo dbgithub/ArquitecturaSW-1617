@@ -32,6 +32,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import es.deusto.arquiSW.JAXB.classes.Banco;
@@ -83,9 +84,9 @@ public class Mainwindow extends JFrame {
 					
 					// Lanzamos un Threat para que la inicializacion y la obtencion
 					// de datos del servicio web se haga en un hilo aparte.
-//					InicializacionThreat iniThread = new InicializacionThreat();
-//					Thread initializationThreat = new Thread(iniThread);
-//					initializationThreat.start();
+					InicializacionThreat iniThread = new InicializacionThreat();
+					Thread initializationThreat = new Thread(iniThread);
+					initializationThreat.start();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -1050,6 +1051,22 @@ public class Mainwindow extends JFrame {
 		});
 
 		JButton buttonExportarClientes = new JButton("Exportar");
+		buttonExportarClientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Creamos el objeto JFileChooser
+//				JFileChooser fc = new JFileChooser();
+//				fc.setDialogTitle("Guardar archivo xml...");  
+//				int seleccion = fc.showOpenDialog(contentPane);
+//				if (seleccion == JFileChooser.APPROVE_OPTION) {
+//					File fichero = fc.getSelectedFile();
+//					JAXBContext context = JAXBContext.newInstance(Banco.class);
+//					Marshaller m = context.createMarshaller();
+//					m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+//					m.marshal(DeustoBankTest, System.out);
+//					m.marshal(DeustoBankTest, fichero);
+//				}
+			}
+		});
 
 		btnBorrarClientes = new JButton("Borrar");
 		btnBorrarClientes.addActionListener(new ActionListener() {
