@@ -532,11 +532,12 @@ public class Mainwindow extends JFrame {
 				obtCliente.setApellidos((textField_4.getText() != "") ? textField_4.getText() : null);
 				obtCliente.setEmail((textField.getText() != "") ? textField.getText() : null);
 				obtCliente.setMovil((textField_1.getText() != "") ? textField_1.getText() : null);
-				obtCliente.setEmpleado((checkBox.isSelected()) ? checkBox.isSelected() : null);
+				obtCliente.setEmpleado((checkBox.isSelected()) ? checkBox.isSelected() : false);
 				ObtenerClienteResponse obtCienteRes;
 				try {
 					obtCienteRes = SOAPservice.obtenerCliente(obtCliente);
 					arrayCliente = obtCienteRes.get_return();
+					System.out.println("length!: " + arrayCliente.length);
 					DefaultTableModel model = (DefaultTableModel) table.getModel();
 					for (es.deusto.arquiSW.SOAP.classes.xsd.Cliente c : arrayCliente) {
 						model.addRow(new Object[]{c.getDNI(), c.getNombre(),c.getApellidos(),c.getDireccion(),c.getEmail(),c.getMovil(),(c.getEmpleado()) ? "Si" : "No"});
@@ -731,7 +732,7 @@ public class Mainwindow extends JFrame {
 				obtCuenta.setDNI((textFieldDNICliente.getText() != "") ? textFieldDNICliente.getText() : null);
 				obtCuenta.setFechaApertura((textFieldFechaApertura.getText() != "") ? textFieldFechaApertura.getText() : null);
 				obtCuenta.setInteres((comboBox.getSelectedItem() != "") ? (String)comboBox.getSelectedItem() : null);
-				obtCuenta.setActiva((chckbxActiva.isSelected()) ? chckbxActiva.isSelected() : null);
+				obtCuenta.setActiva((chckbxActiva.isSelected()) ? chckbxActiva.isSelected() : false);
 				ObtenerCuentaResponse obtCuentaRes;
 				try {
 					obtCuentaRes = SOAPservice.obtenerCuenta(obtCuenta);
@@ -1062,11 +1063,11 @@ public class Mainwindow extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"IBAN", "SWIFT", "Fecha apertura", "Activa", "Saldo actual", "Interes", "DNI titular", "Tarjeta vinculada"
+				"IBAN", "SWIFT", "Fecha apertura", "Activa", "Saldo actual", "Interes", "DNI titular"
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false, false, false
+				false, false, false, false, false, false, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
@@ -1079,7 +1080,6 @@ public class Mainwindow extends JFrame {
 		tableResultadosCuentas.getColumnModel().getColumn(4).setPreferredWidth(100);
 		tableResultadosCuentas.getColumnModel().getColumn(5).setPreferredWidth(63);
 		tableResultadosCuentas.getColumnModel().getColumn(6).setPreferredWidth(79);
-		tableResultadosCuentas.getColumnModel().getColumn(7).setPreferredWidth(120);
 		scrollPaneForTableCuentas.setViewportView(tableResultadosCuentas);
 		GroupLayout gl_panel_7 = new GroupLayout(panel_7);
 		gl_panel_7.setHorizontalGroup(gl_panel_7.createParallelGroup(Alignment.LEADING)
@@ -1348,7 +1348,10 @@ public class Mainwindow extends JFrame {
 		
 		// Creamos el objeto JFileChooser
 		JFileChooser fc = new JFileChooser();
-		fc.setDialogTitle("Guardar archivo xml...");  
+		fc.setDialogTitle("Guardar archivo xml...");
+		fc.setApproveButtonText("Guardar");
+		FileNameExtensionFilter xmlfilter = new FileNameExtensionFilter("xml files (*.xml)", "xml");
+		fc.setFileFilter(xmlfilter);
 		int seleccion = fc.showOpenDialog(contentPane);
 		if (seleccion == JFileChooser.APPROVE_OPTION) {
 			File fichero = fc.getSelectedFile();
