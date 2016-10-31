@@ -61,7 +61,11 @@ public class ConversorJAXBtoSOAP {
 				}
 			}
 			
-			aux.setOperaciones((Operacion[])cuentas[i].getOperaciones().toArray());
+			Operacion[] operaciones= new Operacion[cuentas[i].getOperaciones().size()];
+			int j=0;
+//			for(es.deusto.arquiSW.JAXB.classes.Operacion o: cuentas[i].getOperaciones()){
+//				operaciones[j]=;
+//			}
 			colleccion[i]=aux;
 			
 			

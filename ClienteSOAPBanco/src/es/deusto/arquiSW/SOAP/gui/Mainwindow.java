@@ -223,9 +223,25 @@ public class Mainwindow extends JFrame {
 		btnImportar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Importar im = new Importar();
-				Cliente[] arrayClientes = (Cliente[])bnc.getListaClientes().toArray() ;
-				Cuenta[] arrayCuentas = (Cuenta[])bnc.getListaCuentas().toArray();
-				Tarjeta[] arrayTarjetas = (Tarjeta[])bnc.getListaTarjetas().toArray();
+				Cliente[] arrayClientes= new Cliente[bnc.getListaClientes().size()];
+				int i=0;
+				for(Cliente c: bnc.getListaClientes()){
+					arrayClientes[i]=c;
+					i++;
+				}
+				Cuenta[] arrayCuentas= new Cuenta[bnc.getListaCuentas().size()];
+				i=0;
+				for(Cuenta c: bnc.getListaCuentas()){
+					arrayCuentas[i]=c;
+					i++;
+				}
+				
+				Tarjeta[] arrayTarjetas = new Tarjeta[bnc.getListaTarjetas().size()];
+				i=0;
+				for(Tarjeta t: bnc.getListaTarjetas()){
+					arrayTarjetas[i]=t;
+					i++;
+				}
 				ConversorJAXBtoSOAP co= new ConversorJAXBtoSOAP();
 				im.setClientes(co.convertFromJAXBclienteToSOAPcliente(arrayClientes));
 				im.setCuentas(co.convertFromJAXBcuentaToSOAPcuenta(arrayCuentas, arrayClientes));
