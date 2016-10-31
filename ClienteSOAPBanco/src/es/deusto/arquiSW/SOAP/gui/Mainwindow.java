@@ -7,8 +7,9 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
-
+import java.util.Arrays;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -35,27 +36,25 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-
-import org.apache.axis2.databinding.types.soapencoding.Array;
-
 import es.deusto.arquiSW.JAXB.classes.Banco;
 import es.deusto.arquiSW.JAXB.classes.Cliente;
 import es.deusto.arquiSW.JAXB.classes.Cuenta;
 import es.deusto.arquiSW.JAXB.classes.Tarjeta;
 import es.deusto.arquiSW.SOAP.DeustoBankServiceStub;
 import es.deusto.arquiSW.SOAP.Importar;
-import es.deusto.arquiSW.threats.InicializacionThreat;
+import es.deusto.arquiSW.SOAP.ObtenerCliente;
+import es.deusto.arquiSW.SOAP.ObtenerClienteResponse;
+import es.deusto.arquiSW.threads.InicializacionThread;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ListSelectionModel;
-import java.awt.BorderLayout;
 
 @SuppressWarnings("serial")
 public class Mainwindow extends JFrame {
 
 	private DeustoBankServiceStub SOAPservice; // Este es la variable del Servicio Web SOAP.
-//	private ArrayList<Cliente> coleccionClientes;
-//	private ArrayList<Cuenta> coleccionCuentas;
-//	private ArrayList<Tarjeta> coleccionTarjetas;
+	private Banco bnc; // Variable que se utiliza en el proceso de IMPORTAR y EXPORTAR datos desde un XML (JAXB)
+	private Cliente[] tempClientes; // Este array temporal de CLIENTES guarda todos los clientes obtenidos desde el servicio SOAP
+	private Cuenta[] tempCuentas; // Este array temporal de CUENTAS guarda todos los clientes obtenidos desde el servicio SOAP
+	private Tarjeta[] tempTarjetas; // Este array temporal de TARJETAS guarda todos los clientes obtenidos desde el servicio SOAP
 	private JPanel contentPane;
 	private JTable table;
 	private JTable table_2;
@@ -80,7 +79,6 @@ public class Mainwindow extends JFrame {
 	private JTable tableClientes;
 	private JTable tableCuentas;
 	private JTable tableTarjetas;
-	private Banco bnc;
 
 	/**
 	 * Launch the application.
@@ -91,12 +89,6 @@ public class Mainwindow extends JFrame {
 				try {
 					Mainwindow frame = new Mainwindow();
 					frame.setVisible(true);
-					
-					// Lanzamos un Threat para que la inicializacion y la obtencion
-					// de datos del servicio web se haga en un hilo aparte.
-					InicializacionThreat iniThread = new InicializacionThreat();
-					Thread initializationThreat = new Thread(iniThread);
-					initializationThreat.start();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -108,6 +100,12 @@ public class Mainwindow extends JFrame {
 	 * Create the frame.
 	 */
 	public Mainwindow() {
+		// Lanzamos un Thread para que la inicializacion y la obtencion
+		// de datos del servicio web se haga en un hilo aparte.
+		InicializacionThread iniThread = new InicializacionThread(this);
+		Thread initializationThreat = new Thread(iniThread);
+		initializationThreat.start();
+		
 		setTitle("DeustoBank(SOAP)");
 		setMinimumSize(new Dimension(600, 450));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -220,7 +218,6 @@ public class Mainwindow extends JFrame {
 				Cliente[] arrayClientes;
 				Cuenta[] arrayCuentas;
 				Tarjeta[] arrayTarjetas;
-				
 				
 			}
 		});
@@ -515,6 +512,21 @@ public class Mainwindow extends JFrame {
 		checkBox.setBackground((Color)null);
 
 		JButton button_1 = new JButton("Aplicar");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// NO ESTA TERMINADO TODAVIA:
+//				es.deusto.arquiSW.SOAP.classes.xsd.Cliente[] arrayCliente;
+//				ObtenerCliente obtCliente = new ObtenerCliente();
+//				ObtenerClienteResponse obtCienteRes;
+//				try {
+//					obtCienteRes = SOAPservice.obtenerCliente(obtCliente);
+//					arrayCliente = obtCienteRes.get_return();
+//				} catch (RemoteException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+			}
+		});
 
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
@@ -691,6 +703,11 @@ public class Mainwindow extends JFrame {
 		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {null, "0.1", "0.5", "1.2", "5"}));
 
 		JButton btnAplicarCuentas = new JButton("Aplicar");
+		btnAplicarCuentas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 
 		GroupLayout gl_filterpane2 = new GroupLayout(filterpane2);
 		gl_filterpane2.setHorizontalGroup(gl_filterpane2.createParallelGroup(Alignment.LEADING).addGroup(gl_filterpane2
@@ -828,16 +845,21 @@ public class Mainwindow extends JFrame {
 		JLabel lblProveedor = new JLabel("Proveedor");
 		lblProveedor.setForeground(Color.WHITE);
 
-		JComboBox comboBoxProveedor = new JComboBox();
-		comboBoxProveedor.setModel(new DefaultComboBoxModel(new String[] {"Visa", "MasterCard", "AmericanExpress"}));
+		JComboBox<String> comboBoxProveedor = new JComboBox<String>();
+		comboBoxProveedor.setModel(new DefaultComboBoxModel<String>(new String[] {"Visa", "MasterCard", "AmericanExpress"}));
 
 		JLabel lblTipo = new JLabel("Tipo");
 		lblTipo.setForeground(Color.WHITE);
 
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Debito", "Credito"}));
+		JComboBox<String> comboBox_1 = new JComboBox<String>();
+		comboBox_1.setModel(new DefaultComboBoxModel<String>(new String[] {"Debito", "Credito"}));
 
 		JButton buttonAplicarTarjetas = new JButton("Aplicar");
+		buttonAplicarTarjetas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 
 		GroupLayout gl_filterpane3 = new GroupLayout(filterpane3);
 		gl_filterpane3.setHorizontalGroup(gl_filterpane3.createParallelGroup(Alignment.TRAILING)
@@ -1249,10 +1271,6 @@ public class Mainwindow extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 
-	public DeustoBankServiceStub getSOAPservice() {
-		return SOAPservice;
-	}
-
 	public void setSOAPservice(DeustoBankServiceStub sOAPservice) {
 		SOAPservice = sOAPservice;
 	}
@@ -1260,10 +1278,17 @@ public class Mainwindow extends JFrame {
 	private void exportar(boolean clientes, boolean cuentas, boolean tarjetas, boolean todo) {
 		Banco b = new Banco();
 		
-		if(clientes) {
-			// Iteramos sobre la JTable de clientes y creamos los objetos dinamicamente:
-//			tableResultadosClientes.getModel().
-			
+		if(clientes || todo) {
+			// Añadimos la lista de clientes a nuestra clase Banco que sera la que luego serialicemos como XML
+			b.setListaClientes((ArrayList<Cliente>) Arrays.asList(tempClientes));
+		}
+		if (cuentas || todo) {
+			// Añadimos la lista de cuentas a nuestra clase Banco que sera la que luego serialicemos como XML
+			b.setListaCuentas((ArrayList<Cuenta>) Arrays.asList(tempCuentas));
+		}
+		if (tarjetas || todo) {
+			// Añadimos la lista de tarjetas a nuestra clase Banco que sera la que luego serialicemos como XML
+			b.setListaTarjetas((ArrayList<Tarjeta>) Arrays.asList(tempTarjetas));
 		}
 		
 		// Creamos el objeto JFileChooser
@@ -1277,12 +1302,45 @@ public class Mainwindow extends JFrame {
 				context = JAXBContext.newInstance(Banco.class);
 				Marshaller m = context.createMarshaller();
 				m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-				m.marshal(b, System.out);
 				m.marshal(b, fichero);
+				System.out.println("[Mainwindow] Marshal realizado satisfactoriamente! :)");
 			} catch (JAXBException e) {
 				System.out.println("[Mainwindow] Error al hacer el marshal en el metodod 'exportar'");
 				e.printStackTrace();
 			}
+		}
+	}
+
+	public void setTempClientes(Cliente[] tempClientes) {
+		this.tempClientes = tempClientes;
+	}
+
+	public void setTempCuentas(Cuenta[] tempCuentas) {
+		this.tempCuentas = tempCuentas;
+	}
+
+	public void setTempTarjetas(Tarjeta[] tempTarjetas) {
+		this.tempTarjetas = tempTarjetas;
+	}
+	
+	public void loadClientes() {
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		for (Cliente c : tempClientes) {
+			model.addRow(new Object[]{c.getDNI(), c.getNombre(),c.getApellidos(),c.getDireccion(),c.getEmail(),c.getMovil(),(c.isEmpleado()) ? "Si" : "No"});
+		}
+	}
+	
+	public void loadCuentas() {
+		DefaultTableModel model = (DefaultTableModel) table_1.getModel();
+		for (Cuenta cu : tempCuentas) {
+			model.addRow(new Object[]{cu.getIBAN(),cu.getSWIFT(),cu.getFechaApertura(),(cu.isActiva())?"Si":"No",cu.getSaldoActual(),cu.getInteres(),cu.getTitular()});
+		}
+	}
+	
+	public void loadTarjetas() {
+		DefaultTableModel model = (DefaultTableModel) table_2.getModel();
+		for (Tarjeta t: tempTarjetas) {
+			model.addRow(new Object[]{t.getNumero(),t.getLimiteExtraccion(),t.getFechaCaducidad(),t.getProveedor(),t.getTipo(),t.getFechaExpedicion(),t.getCuenta()});
 		}
 	}
 }
