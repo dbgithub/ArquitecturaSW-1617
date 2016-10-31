@@ -40,6 +40,7 @@ import es.deusto.arquiSW.JAXB.classes.Banco;
 import es.deusto.arquiSW.JAXB.classes.Cliente;
 import es.deusto.arquiSW.JAXB.classes.Cuenta;
 import es.deusto.arquiSW.JAXB.classes.Tarjeta;
+import es.deusto.arquiSW.JAXB.util.ConversorJAXBtoSOAP;
 import es.deusto.arquiSW.SOAP.DeustoBankServiceStub;
 import es.deusto.arquiSW.SOAP.Importar;
 import es.deusto.arquiSW.SOAP.ObtenerCliente;
@@ -178,6 +179,7 @@ public class Mainwindow extends JFrame {
 							for (int i = 0; i < bnc.getListaClientes().size(); i++) {
 								Cliente c= bnc.getListaClientes().get(i);
 								DefaultTableModel model = (DefaultTableModel) tableClientes.getModel();
+								limpiarJTable(model);
 								model.addRow(new Object[]{c.getDNI(), c.getNombre(),c.getApellidos(),c.getDireccion(),c.getEmail(),c.getMovil(),(c.isEmpleado()) ? "Si" : "No"});
 								
 							}
@@ -187,6 +189,7 @@ public class Mainwindow extends JFrame {
 							for (int i = 0; i < bnc.getListaCuentas().size(); i++) {
 								Cuenta cu= bnc.getListaCuentas().get(i);
 								DefaultTableModel model = (DefaultTableModel) tableCuentas.getModel();
+								limpiarJTable(model);
 								model.addRow(new Object[]{cu.getIBAN(),cu.getSWIFT(),cu.getFechaApertura(),(cu.isActiva())?"Si":"No",cu.getSaldoActual(),cu.getInteres(),cu.getTitular()});
 							}
 							
@@ -196,6 +199,7 @@ public class Mainwindow extends JFrame {
 							for (int i = 0; i < bnc.getListaTarjetas().size(); i++) {
 								Tarjeta t= bnc.getListaTarjetas().get(i);
 								DefaultTableModel model = (DefaultTableModel) tableTarjetas.getModel();
+								limpiarJTable(model);
 								model.addRow(new Object[]{t.getNumero(),t.getLimiteExtraccion(),t.getFechaCaducidad(),t.getProveedor(),t.getTipo(),t.getFechaExpedicion(),t.getCuenta()});
 							}
 							
@@ -222,12 +226,16 @@ public class Mainwindow extends JFrame {
 				Cliente[] arrayClientes = (Cliente[])bnc.getListaClientes().toArray() ;
 				Cuenta[] arrayCuentas = (Cuenta[])bnc.getListaCuentas().toArray();
 				Tarjeta[] arrayTarjetas = (Tarjeta[])bnc.getListaTarjetas().toArray();
-				
-				
-//				im.setClientes(arrayClientes);
-//				im.setCuentas(arrayCuentas);
-//				im.setTarjetas(arrayTarjetas);
-//				
+				ConversorJAXBtoSOAP co= new ConversorJAXBtoSOAP();
+				im.setClientes(co.convertFromJAXBclienteToSOAPcliente(arrayClientes));
+				im.setCuentas(co.convertFromJAXBcuentaToSOAPcuenta(arrayCuentas, arrayClientes));
+				im.setTarjetas(co.convertFromJAXBtarjetaToSOAPtarjeta(arrayTarjetas));
+				DefaultTableModel model = (DefaultTableModel) tableClientes.getModel();
+				limpiarJTable(model);
+				model =(DefaultTableModel) tableCuentas.getModel();
+				limpiarJTable(model);
+				model =(DefaultTableModel) tableTarjetas.getModel();
+				limpiarJTable(model);
 			
 				
 			}
@@ -1397,5 +1405,14 @@ public class Mainwindow extends JFrame {
 		for (Tarjeta t: tempTarjetas) {
 			model.addRow(new Object[]{t.getNumero(),t.getLimiteExtraccion(),t.getFechaCaducidad(),t.getProveedor(),t.getTipo(),t.getFechaExpedicion(),t.getCuenta()});
 		}
+	}
+	
+	private void limpiarJTable(DefaultTableModel model){
+		int rowCount = model.getRowCount();
+		
+		for (int j = rowCount - 1; j >= 0; j--) {
+			model.removeRow(j);
+		}
+		
 	}
 }
