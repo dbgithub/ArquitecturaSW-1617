@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -47,6 +48,9 @@ import java.awt.BorderLayout;
 public class Mainwindow extends JFrame {
 
 	private DeustoBankServiceStub SOAPservice; // Este es la variable del Servicio Web SOAP.
+//	private ArrayList<Cliente> coleccionClientes;
+//	private ArrayList<Cuenta> coleccionCuentas;
+//	private ArrayList<Tarjeta> coleccionTarjetas;
 	private JPanel contentPane;
 	private JTable table;
 	private JTable table_2;
@@ -1017,10 +1021,16 @@ public class Mainwindow extends JFrame {
 		JButton btnExportarTodo = new JButton("Exportar todo");
 		btnExportarTodo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				exportar(false,false,false,true);
 			}
 		});
 
 		JButton btnExportarTarjetas = new JButton("Exportar");
+		btnExportarTarjetas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				exportar(false,false,true,false);
+			}
+		});
 
 		btnBorrarTarjetas = new JButton("Borrar");
 		btnBorrarTarjetas.addActionListener(new ActionListener() {
@@ -1050,6 +1060,11 @@ public class Mainwindow extends JFrame {
 		});
 
 		JButton buttonExportarCuentas = new JButton("Exportar");
+		buttonExportarCuentas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				exportar(false,true,false,false);
+			}
+		});
 
 		btnBorrarCuentas = new JButton("Borrar");
 		btnBorrarCuentas.addActionListener(new ActionListener() {
@@ -1083,18 +1098,7 @@ public class Mainwindow extends JFrame {
 		JButton buttonExportarClientes = new JButton("Exportar");
 		buttonExportarClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Creamos el objeto JFileChooser
-//				JFileChooser fc = new JFileChooser();
-//				fc.setDialogTitle("Guardar archivo xml...");  
-//				int seleccion = fc.showOpenDialog(contentPane);
-//				if (seleccion == JFileChooser.APPROVE_OPTION) {
-//					File fichero = fc.getSelectedFile();
-//					JAXBContext context = JAXBContext.newInstance(Banco.class);
-//					Marshaller m = context.createMarshaller();
-//					m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-//					m.marshal(DeustoBankTest, System.out);
-//					m.marshal(DeustoBankTest, fichero);
-//				}
+				exportar(true,false,false,false);
 			}
 		});
 
@@ -1215,5 +1219,34 @@ public class Mainwindow extends JFrame {
 
 	public void setSOAPservice(DeustoBankServiceStub sOAPservice) {
 		SOAPservice = sOAPservice;
+	}
+	
+	private void exportar(boolean clientes, boolean cuentas, boolean tarjetas, boolean todo) {
+		Banco b = new Banco();
+		
+		if(clientes) {
+			// Iteramos sobre la JTable de clientes y creamos los objetos dinamicamente:
+//			tableResultadosClientes.getModel().
+			
+		}
+		
+		// Creamos el objeto JFileChooser
+		JFileChooser fc = new JFileChooser();
+		fc.setDialogTitle("Guardar archivo xml...");  
+		int seleccion = fc.showOpenDialog(contentPane);
+		if (seleccion == JFileChooser.APPROVE_OPTION) {
+			File fichero = fc.getSelectedFile();
+			JAXBContext context;
+			try {
+				context = JAXBContext.newInstance(Banco.class);
+				Marshaller m = context.createMarshaller();
+				m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+				m.marshal(b, System.out);
+				m.marshal(b, fichero);
+			} catch (JAXBException e) {
+				System.out.println("[Mainwindow] Error al hacer el marshal en el metodod 'exportar'");
+				e.printStackTrace();
+			}
+		}
 	}
 }

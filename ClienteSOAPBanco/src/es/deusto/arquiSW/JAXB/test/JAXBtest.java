@@ -47,6 +47,7 @@ public class JAXBtest {
 		cli = new Cliente("7979797979", "Aitor", "DB", "C/ avenida de las universidades, 24", "aitor@thebest.com", 69696969, true, 1234);
 		ArrayList<Cliente> colecionClientes = new ArrayList<Cliente>();
 		colecionClientes.add(cli);
+		// Lista de operaciones:
 		ArrayList<Operacion> operaciones = new ArrayList<Operacion>();
 		// Cuentas:
 		cuenta = new Cuenta(45454548, "SXXKUTXA-09", new Date(System.currentTimeMillis()), true, 500f, 0.5f, cli.getDNI(), operaciones);
