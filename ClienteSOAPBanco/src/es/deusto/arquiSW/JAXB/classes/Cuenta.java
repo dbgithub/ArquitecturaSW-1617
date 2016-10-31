@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import es.deusto.arquiSW.JAXB.classes.Cliente;
 
-@XmlType(propOrder = { "IBAN", "SWIFT", "fechaApertura", "activa", "saldoActual", "interes", "titular", "tarjeta", "operaciones" }) // opcional
+@XmlType(propOrder = { "IBAN", "SWIFT", "fechaApertura", "activa", "saldoActual", "interes", "titular", "operaciones" }) // opcional
 public class Cuenta {
 	private int IBAN;
 	private String SWIFT;
@@ -17,8 +17,8 @@ public class Cuenta {
 	private boolean activa;
 	private float saldoActual;
 	private float interes;
-	private Cliente titular;
-	private Tarjeta tarjeta;
+	private String titular;
+	
 	private ArrayList<Operacion> operaciones;
 	
 	
@@ -41,7 +41,7 @@ public class Cuenta {
 	 * @param operaciones
 	 */
 	public Cuenta(int iBAN, String sWIFT, Date fechaApertura, boolean activa, float saldoActual, float interes,
-			Cliente titular, Tarjeta tarjeta, ArrayList<Operacion> operaciones) {
+			String titular, ArrayList<Operacion> operaciones) {
 		this.IBAN = iBAN;
 		this.SWIFT = sWIFT;
 		this.fechaApertura = fechaApertura;
@@ -49,16 +49,16 @@ public class Cuenta {
 		this.saldoActual = saldoActual;
 		this.interes = interes;
 		this.titular = titular;
-		this.tarjeta = tarjeta;
+		
 		this.operaciones = operaciones;
 	}
 	
 	// METHODS & OPERATIONS:
 	
-	public Cliente getTitular() {
+	public String getTitular() {
 		return titular;
 	}
-	public void setTitular(Cliente titular) {
+	public void setTitular(String titular) {
 		this.titular = titular;
 	}
 	public int getIBAN() {
@@ -106,12 +106,7 @@ public class Cuenta {
 	public void setOperaciones(ArrayList<Operacion> operaciones) {
 		this.operaciones = operaciones;
 	}
-	public Tarjeta getTarjeta() {
-		return tarjeta;
-	}
-	public void setTarjeta(Tarjeta tarjeta) {
-		this.tarjeta = tarjeta;
-	}
+	
 
 	
 }

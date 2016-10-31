@@ -79,7 +79,7 @@ public class InicializacionThreat implements Runnable {
 					System.out.println("[InicializacionThreat] Error en 'obtenerCuentas'");
 					e.printStackTrace();
 				}
-				// Obtener todas las tarjetas:
+//				// Obtener todas las tarjetas:
 				try {
 					obtTarjetasRes = service.obtenerTarjetas(obtTarjetas);
 					arrayTarjetas = obtTarjetasRes.get_return();
@@ -91,10 +91,10 @@ public class InicializacionThreat implements Runnable {
 				}
 					
 			// Paramos el Thread:
-			if (bolClientes && bolCuentas && bolTarjetas) {
+//			if (bolClientes && bolCuentas && bolTarjetas) {
+//				stop = true;
+//			}
 				stop = true;
-			}
-			
 			
 			// Pasos a seguir:
 			// Añadir contenido de la lista de Clientes a la Table model de Clientes

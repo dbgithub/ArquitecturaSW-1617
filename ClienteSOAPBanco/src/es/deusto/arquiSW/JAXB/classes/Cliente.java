@@ -17,7 +17,6 @@ public class Cliente {
 	private int movil;
 	private boolean empleado;
 	private int PIN;
-	private ArrayList<Cuenta> cuentas;
 	
 	/**
 	 * Constructor vacio
@@ -39,7 +38,7 @@ public class Cliente {
 	 * @param cuentas
 	 */
 	public Cliente(String dNI, String nombre, String apellidos, String direccion, String email, int movil,
-			boolean empleado, int pIN, ArrayList<Cuenta> cuentas) {
+			boolean empleado, int pIN) {
 		this.DNI = dNI;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -48,7 +47,7 @@ public class Cliente {
 		this.movil = movil;
 		this.empleado = empleado;
 		this.PIN = pIN;
-		this.setCuentas(cuentas);
+		
 	}
 	
 	// METHODS & OPERATIONS:
@@ -102,12 +101,6 @@ public class Cliente {
 	public void setPIN(int pIN) {
 		PIN = pIN;
 	}
-	@XmlTransient
-	public ArrayList<Cuenta> getCuentas() {
-		return cuentas;
-	}
-	public void setCuentas(ArrayList<Cuenta> cuentas) {
-		this.cuentas = cuentas;
-	}
+	
 	
 }
