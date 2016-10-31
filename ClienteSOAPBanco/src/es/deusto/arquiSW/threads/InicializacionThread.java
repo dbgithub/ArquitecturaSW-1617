@@ -355,7 +355,7 @@ public class InicializacionThread implements Runnable {
 			aux.setImporte(operaciones[i].getImporte());
 			
 //			operaciones[i].getTipo().valueOf(es.deusto.arquiSW.SOAP.classes.xsd.EnumTipoOperacion.class);
-//			
+			aux.setTipo(es.deusto.arquiSW.SOAP.ws.namespaces.axis2.Enum.EnumTipoOperacion.Factory.fromValue(operaciones[i].getTipo().name()));
 //			aux.setTipo(new es.deusto.arquiSW.SOAP.ws.namespaces.axis2.Enum.EnumTipoOperacion(operaciones[i].getTipo().name()));
 //			colleccion[i] = new es.deusto.arquiSW.JAXB.classes.Operacion(operaciones[i].getId(),
 //					operaciones[i].getFecha(),
