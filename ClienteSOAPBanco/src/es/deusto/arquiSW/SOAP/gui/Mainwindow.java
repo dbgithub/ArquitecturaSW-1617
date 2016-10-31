@@ -36,9 +36,14 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import org.apache.axis2.databinding.types.soapencoding.Array;
+
 import es.deusto.arquiSW.JAXB.classes.Banco;
 import es.deusto.arquiSW.JAXB.classes.Cliente;
+import es.deusto.arquiSW.JAXB.classes.Cuenta;
+import es.deusto.arquiSW.JAXB.classes.Tarjeta;
 import es.deusto.arquiSW.SOAP.DeustoBankServiceStub;
+import es.deusto.arquiSW.SOAP.Importar;
 import es.deusto.arquiSW.threats.InicializacionThreat;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ListSelectionModel;
@@ -75,6 +80,7 @@ public class Mainwindow extends JFrame {
 	private JTable tableClientes;
 	private JTable tableCuentas;
 	private JTable tableTarjetas;
+	private Banco bnc;
 
 	/**
 	 * Launch the application.
@@ -165,13 +171,34 @@ public class Mainwindow extends JFrame {
 					try {
 						jaxbContext = JAXBContext.newInstance(Banco.class);
 						Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-						Banco bnc = (Banco) jaxbUnmarshaller.unmarshal(fichero);
-						for (int i = 0; i < bnc.getListaClientes().size(); i++) {
-							Cliente c= bnc.getListaClientes().get(i);
-							DefaultTableModel model = (DefaultTableModel) tableClientes.getModel();
-							model.addRow(new Object[]{c.getDNI(), c.getNombre(),c.getApellidos(),c.getDireccion(),c.getEmail(),c.getMovil(),(c.isEmpleado()) ? "Si" : "No"});
+						bnc = (Banco) jaxbUnmarshaller.unmarshal(fichero);
+						if(bnc.getListaClientes().size()!=0){
+							for (int i = 0; i < bnc.getListaClientes().size(); i++) {
+								Cliente c= bnc.getListaClientes().get(i);
+								DefaultTableModel model = (DefaultTableModel) tableClientes.getModel();
+								model.addRow(new Object[]{c.getDNI(), c.getNombre(),c.getApellidos(),c.getDireccion(),c.getEmail(),c.getMovil(),(c.isEmpleado()) ? "Si" : "No"});
+								
+							}
+						}
+						
+						if(bnc.getListaCuentas().size()!=0){
+							for (int i = 0; i < bnc.getListaCuentas().size(); i++) {
+								Cuenta cu= bnc.getListaCuentas().get(i);
+								DefaultTableModel model = (DefaultTableModel) tableCuentas.getModel();
+								model.addRow(new Object[]{cu.getIBAN(),cu.getSWIFT(),cu.getFechaApertura(),(cu.isActiva())?"Si":"No",cu.getSaldoActual(),cu.getInteres(),cu.getTitular()});
+							}
 							
 						}
+						
+						if(bnc.getListaTarjetas().size()!=0){
+							for (int i = 0; i < bnc.getListaTarjetas().size(); i++) {
+								Tarjeta t= bnc.getListaTarjetas().get(i);
+								DefaultTableModel model = (DefaultTableModel) tableTarjetas.getModel();
+								model.addRow(new Object[]{t.getNumero(),t.getLimiteExtraccion(),t.getFechaCaducidad(),t.getProveedor(),t.getTipo(),t.getFechaExpedicion(),t.getCuenta()});
+							}
+							
+						}
+						
 						
 
 					} catch (JAXBException e1) {
@@ -187,6 +214,16 @@ public class Mainwindow extends JFrame {
 		JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
 
 		JButton btnImportar = new JButton("Importar");
+		btnImportar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Importar im = new Importar();
+				Cliente[] arrayClientes;
+				Cuenta[] arrayCuentas;
+				Tarjeta[] arrayTarjetas;
+				
+				
+			}
+		});
 		GroupLayout gl_panel_importar = new GroupLayout(panel_importar);
 		gl_panel_importar.setHorizontalGroup(gl_panel_importar.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel_importar.createSequentialGroup()
@@ -319,18 +356,17 @@ public class Mainwindow extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"IBAN", "SWIFT", "Fecha apertura", "Activa", "Saldo actual", "Interes", "DNI titular", "Tarjeta vinculada"
+				"IBAN", "SWIFT", "Fecha apertura", "Activa", "Saldo actual", "Interes", "DNI titular"
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false, false, false
+				false, false, false, false, false, false, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
 		});
 		tableCuentas.getColumnModel().getColumn(2).setPreferredWidth(90);
-		tableCuentas.getColumnModel().getColumn(7).setPreferredWidth(97);
 		scrollPane_5.setViewportView(tableCuentas);
 		panel_3.setLayout(gl_panel_3);
 		panelCuentas.setLayout(gl_panelCuentas);
