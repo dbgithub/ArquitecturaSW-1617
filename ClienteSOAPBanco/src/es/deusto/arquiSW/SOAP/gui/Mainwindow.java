@@ -1328,15 +1328,15 @@ public class Mainwindow extends JFrame {
 		
 		if(clientes || todo) {
 			// Añadimos la lista de clientes a nuestra clase Banco que sera la que luego serialicemos como XML
-			b.setListaClientes((ArrayList<Cliente>) Arrays.asList(tempClientes));
+			b.setListaClientes(new ArrayList<Cliente>(Arrays.asList(tempClientes)));
 		}
 		if (cuentas || todo) {
 			// Añadimos la lista de cuentas a nuestra clase Banco que sera la que luego serialicemos como XML
-			b.setListaCuentas((ArrayList<Cuenta>) Arrays.asList(tempCuentas));
+			b.setListaCuentas(new ArrayList<Cuenta>(Arrays.asList(tempCuentas)));
 		}
 		if (tarjetas || todo) {
 			// Añadimos la lista de tarjetas a nuestra clase Banco que sera la que luego serialicemos como XML
-			b.setListaTarjetas((ArrayList<Tarjeta>) Arrays.asList(tempTarjetas));
+			b.setListaTarjetas(new ArrayList<Tarjeta>(Arrays.asList(tempTarjetas)));
 		}
 		
 		// Creamos el objeto JFileChooser

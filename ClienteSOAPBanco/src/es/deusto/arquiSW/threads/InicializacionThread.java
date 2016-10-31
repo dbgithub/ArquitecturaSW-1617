@@ -10,6 +10,10 @@ import es.deusto.arquiSW.SOAP.ObtenerClientes;
 import es.deusto.arquiSW.SOAP.ObtenerClientesResponse;
 import es.deusto.arquiSW.SOAP.ObtenerCuentas;
 import es.deusto.arquiSW.SOAP.ObtenerCuentasResponse;
+import es.deusto.arquiSW.SOAP.ObtenerOperacion;
+import es.deusto.arquiSW.SOAP.ObtenerOperacionResponse;
+import es.deusto.arquiSW.SOAP.ObtenerOperaciones;
+import es.deusto.arquiSW.SOAP.ObtenerOperacionesResponse;
 import es.deusto.arquiSW.SOAP.ObtenerTarjetas;
 import es.deusto.arquiSW.SOAP.ObtenerTarjetasResponse;
 import es.deusto.arquiSW.SOAP.classes.xsd.Cliente;
@@ -53,12 +57,15 @@ public class InicializacionThread implements Runnable {
 			Cliente[] arrayClientes;
 			Cuenta[] arrayCuentas;
 			Tarjeta[] arrayTarjetas;
+			Operacion[] arrayOperacion;
 			ObtenerClientes obtClientes;
 			ObtenerCuentas obtCuentas;
 			ObtenerTarjetas obtTarjetas;
+			ObtenerOperacion obtOperacion;
 			ObtenerClientesResponse obtClientesRes;
 			ObtenerCuentasResponse obtCuentasRes;
 			ObtenerTarjetasResponse obtTarjetasRes;
+			ObtenerOperacionResponse obtOperacionRes;
 			boolean bolClientes = false;
 			boolean bolCuentas = false;
 			boolean bolTarjetas = false;
@@ -67,6 +74,7 @@ public class InicializacionThread implements Runnable {
 			obtClientes = new ObtenerClientes();
 			obtCuentas = new ObtenerCuentas();
 			obtTarjetas = new ObtenerTarjetas();
+			obtOperacion = new ObtenerOperacion();
 
 			// Llamadas a metodos del servicio:
 			// Obtener todos los clientes:
@@ -81,10 +89,19 @@ public class InicializacionThread implements Runnable {
 				System.out.println("[InicializacionThreat] Error en 'obtenerClientes'");
 				e.printStackTrace();
 			}
-			// Obtener todas las cuentas.
+			// Obtener todas las cuentas + sus operaciones
 			try {
+				// En relacion a cuentas:
 				obtCuentasRes = service.obtenerCuentas(obtCuentas);
 				arrayCuentas = obtCuentasRes.get_return();
+				System.out.println("arrayCuentas: " + arrayCuentas[0].getIBAN());
+				// En relacion a operaciones:
+				for (Cuenta cu : arrayCuentas) {
+					obtOperacion.setIBAN(Integer.toString(cu.getIBAN()));
+					obtOperacionRes = service.obtenerOperacion(obtOperacion);
+					arrayOperacion = obtOperacionRes.get_return();
+					cu.setOperaciones(arrayOperacion);
+				}		
 				mw.setTempCuentas(convertFromSOAPcuentaToJAXBcuenta(arrayCuentas));
 				mw.loadCuentas();
 				System.out.println("[InicializacionThreat] coleccion de cuentas obtenida y añadida con exito! :)");
