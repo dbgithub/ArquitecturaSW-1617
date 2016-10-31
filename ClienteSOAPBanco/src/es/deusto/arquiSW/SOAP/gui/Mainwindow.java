@@ -44,6 +44,10 @@ import es.deusto.arquiSW.SOAP.DeustoBankServiceStub;
 import es.deusto.arquiSW.SOAP.Importar;
 import es.deusto.arquiSW.SOAP.ObtenerCliente;
 import es.deusto.arquiSW.SOAP.ObtenerClienteResponse;
+import es.deusto.arquiSW.SOAP.ObtenerCuenta;
+import es.deusto.arquiSW.SOAP.ObtenerCuentaResponse;
+import es.deusto.arquiSW.SOAP.ObtenerTarjeta;
+import es.deusto.arquiSW.SOAP.ObtenerTarjetaResponse;
 import es.deusto.arquiSW.threads.InicializacionThread;
 import javax.swing.DefaultComboBoxModel;
 
@@ -514,17 +518,26 @@ public class Mainwindow extends JFrame {
 		JButton button_1 = new JButton("Aplicar");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// NO ESTA TERMINADO TODAVIA:
-//				es.deusto.arquiSW.SOAP.classes.xsd.Cliente[] arrayCliente;
-//				ObtenerCliente obtCliente = new ObtenerCliente();
-//				ObtenerClienteResponse obtCienteRes;
-//				try {
-//					obtCienteRes = SOAPservice.obtenerCliente(obtCliente);
-//					arrayCliente = obtCienteRes.get_return();
-//				} catch (RemoteException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
+				es.deusto.arquiSW.SOAP.classes.xsd.Cliente[] arrayCliente;
+				ObtenerCliente obtCliente = new ObtenerCliente();
+				obtCliente.setDNI((textField_2.getText() != "") ? textField_2.getText() : null);
+				obtCliente.setNombre((textField_3.getText() != "") ? textField_3.getText() : null);
+				obtCliente.setApellidos((textField_4.getText() != "") ? textField_4.getText() : null);
+				obtCliente.setEmail((textField.getText() != "") ? textField.getText() : null);
+				obtCliente.setMovil((textField_1.getText() != "") ? textField_1.getText() : null);
+				obtCliente.setEmpleado((checkBox.isSelected()) ? checkBox.isSelected() : null);
+				ObtenerClienteResponse obtCienteRes;
+				try {
+					obtCienteRes = SOAPservice.obtenerCliente(obtCliente);
+					arrayCliente = obtCienteRes.get_return();
+					DefaultTableModel model = (DefaultTableModel) table.getModel();
+					for (es.deusto.arquiSW.SOAP.classes.xsd.Cliente c : arrayCliente) {
+						model.addRow(new Object[]{c.getDNI(), c.getNombre(),c.getApellidos(),c.getDireccion(),c.getEmail(),c.getMovil(),(c.getEmpleado()) ? "Si" : "No"});
+					}
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 
@@ -705,7 +718,25 @@ public class Mainwindow extends JFrame {
 		JButton btnAplicarCuentas = new JButton("Aplicar");
 		btnAplicarCuentas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[] arrayCuenta;
+				ObtenerCuenta obtCuenta = new ObtenerCuenta();
+				obtCuenta.setIBAN((textFieldIBAN.getText() != "") ? textFieldIBAN.getText() : null);
+				obtCuenta.setDNI((textFieldDNICliente.getText() != "") ? textFieldDNICliente.getText() : null);
+				obtCuenta.setFechaApertura((textFieldFechaApertura.getText() != "") ? textFieldFechaApertura.getText() : null);
+				obtCuenta.setInteres((comboBox.getSelectedItem() != "") ? (String)comboBox.getSelectedItem() : null);
+				obtCuenta.setActiva((chckbxActiva.isSelected()) ? chckbxActiva.isSelected() : null);
+				ObtenerCuentaResponse obtCuentaRes;
+				try {
+					obtCuentaRes = SOAPservice.obtenerCuenta(obtCuenta);
+					arrayCuenta = obtCuentaRes.get_return();
+					DefaultTableModel model = (DefaultTableModel) table_1.getModel();
+					for (es.deusto.arquiSW.SOAP.classes.xsd.Cuenta cu : arrayCuenta) {
+						model.addRow(new Object[]{cu.getIBAN(),cu.getSWIFT(),cu.getFechaApertura(),(cu.getActiva())?"Si":"No",cu.getSaldoActual(),cu.getInteres(),cu.getTitular()});
+					}
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 
@@ -846,18 +877,35 @@ public class Mainwindow extends JFrame {
 		lblProveedor.setForeground(Color.WHITE);
 
 		JComboBox<String> comboBoxProveedor = new JComboBox<String>();
-		comboBoxProveedor.setModel(new DefaultComboBoxModel<String>(new String[] {"Visa", "MasterCard", "AmericanExpress"}));
+		comboBoxProveedor.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Visa", "MasterCard", "AmericanExpress"}));
 
 		JLabel lblTipo = new JLabel("Tipo");
 		lblTipo.setForeground(Color.WHITE);
 
 		JComboBox<String> comboBox_1 = new JComboBox<String>();
-		comboBox_1.setModel(new DefaultComboBoxModel<String>(new String[] {"Debito", "Credito"}));
+		comboBox_1.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Debito", "Credito"}));
 
 		JButton buttonAplicarTarjetas = new JButton("Aplicar");
 		buttonAplicarTarjetas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[] arrayTarjeta;
+				ObtenerTarjeta obtTarjeta = new ObtenerTarjeta();
+				obtTarjeta.setNumero((textFieldNumeroTarjeta.getText() != "") ? textFieldNumeroTarjeta.getText() : null);
+				obtTarjeta.setDNI((textFieldDNIClienteTarjeta.getText() != "") ? textFieldDNIClienteTarjeta.getText() : null);
+				obtTarjeta.setProveedor((comboBoxProveedor.getSelectedItem() != "") ? (String)comboBoxProveedor.getSelectedItem() : null);
+				obtTarjeta.setTipo((comboBox_1.getSelectedItem() != "") ? (String)comboBox_1.getSelectedItem() : null);
+				ObtenerTarjetaResponse obtTarjetaRes;
+				try {
+					obtTarjetaRes = SOAPservice.obtenerTarjeta(obtTarjeta);
+					arrayTarjeta = obtTarjetaRes.get_return();
+					DefaultTableModel model = (DefaultTableModel) table_2.getModel();
+					for (es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta t : arrayTarjeta) {
+						model.addRow(new Object[]{t.getNumero(),t.getLimiteExtraccion(),t.getFechaCaducidad(),t.getProveedor(),t.getTipo(),t.getFechaExpedicion(),t.getCuenta()});
+					}
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 
