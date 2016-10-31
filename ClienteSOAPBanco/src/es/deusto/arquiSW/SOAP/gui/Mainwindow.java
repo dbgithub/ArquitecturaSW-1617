@@ -252,13 +252,21 @@ public class Mainwindow extends JFrame {
 		);
 		
 		tableClientes = new JTable();
+		tableClientes.setRowSelectionAllowed(false);
 		tableClientes.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-					"DNI", "Nombre", "Apellidos", "Direccion", "Email", "Movil", "Empleado"
+				"DNI", "Nombre", "Apellidos", "Direccion", "Email", "Movil", "Empleado"
 			}
-		));
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false, false, false, true
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		scrollPane_3.setViewportView(tableClientes);
 		panel_2.setLayout(gl_panel_2);
 		panelClientes.setLayout(gl_panelClientes);
@@ -302,13 +310,23 @@ public class Mainwindow extends JFrame {
 		);
 		
 		tableCuentas = new JTable();
+		tableCuentas.setRowSelectionAllowed(false);
 		tableCuentas.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-					"IBAN", "SWIFT", "Fecha apertura", "Activa", "Saldo actual", "Interes", "DNI titular", "Tarjeta vinculada"
+				"IBAN", "SWIFT", "Fecha apertura", "Activa", "Saldo actual", "Interes", "DNI titular", "Tarjeta vinculada"
 			}
-		));
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		tableCuentas.getColumnModel().getColumn(2).setPreferredWidth(90);
+		tableCuentas.getColumnModel().getColumn(7).setPreferredWidth(97);
 		scrollPane_5.setViewportView(tableCuentas);
 		panel_3.setLayout(gl_panel_3);
 		panelCuentas.setLayout(gl_panelCuentas);
@@ -348,13 +366,25 @@ public class Mainwindow extends JFrame {
 		);
 		
 		tableTarjetas = new JTable();
+		tableTarjetas.setRowSelectionAllowed(false);
 		tableTarjetas.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-					"Numero", "Fecha caducidad", "Proveedor", "Tipo", "Limite extraccion", "Fecha expedicion", "Cuenta vinculada"
+				"Numero", "Fecha caducidad", "Proveedor", "Tipo", "Limite extraccion", "Fecha expedicion", "Cuenta vinculada"
 			}
-		));
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		tableTarjetas.getColumnModel().getColumn(1).setPreferredWidth(97);
+		tableTarjetas.getColumnModel().getColumn(4).setPreferredWidth(93);
+		tableTarjetas.getColumnModel().getColumn(5).setPreferredWidth(95);
+		tableTarjetas.getColumnModel().getColumn(6).setPreferredWidth(96);
 		scrollPane_7.setViewportView(tableTarjetas);
 		panel_4.setLayout(gl_panel_4);
 		panelTarjetas.setLayout(gl_panelTarjetas);

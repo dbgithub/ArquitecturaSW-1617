@@ -19,7 +19,7 @@ public class Tarjeta {
 	public enum TiposTarjeta {
 		Credito,Debito; 
 	}
-	private Cuenta cuenta;
+	private int cuenta;
 	
 	/**
 	 * Constructor vacio
@@ -38,7 +38,7 @@ public class Tarjeta {
 	 * @param tipo
 	 * @param fechaExpedicion
 	 */
-	public Tarjeta(int numero, Cuenta cuenta, int limiteExtraccion, Date fechaCaducidad, EnumProveedores proveedor,
+	public Tarjeta(int numero, int cuenta, int limiteExtraccion, Date fechaCaducidad, EnumProveedores proveedor,
 			TiposTarjeta tipo, Date fechaExpedicion) {
 		this.numero = numero;
 		this.cuenta = cuenta;
@@ -57,10 +57,10 @@ public class Tarjeta {
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-	public Cuenta getCuenta() {
+	public int getCuenta() {
 		return cuenta;
 	}
-	public void setCuenta(Cuenta cuenta) {
+	public void setCuenta(int cuenta) {
 		this.cuenta = cuenta;
 	}
 	public int getLimiteExtraccion() {

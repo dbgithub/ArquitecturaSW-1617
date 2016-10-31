@@ -44,23 +44,23 @@ public class JAXBtest {
 	@Before
 	public void setUp() throws Exception {
 		// Clientes:
-		cli = new Cliente("7979797979", "Aitor", "DB", "C/ avenida de las universidades, 24", "aitor@thebest.com", 69696969, true, 1234, null);
+		cli = new Cliente("7979797979", "Aitor", "DB", "C/ avenida de las universidades, 24", "aitor@thebest.com", 69696969, true, 1234);
 		ArrayList<Cliente> colecionClientes = new ArrayList<Cliente>();
 		colecionClientes.add(cli);
-		// Operaciones:
-		o1 = new Operacion(0001, new Date(System.currentTimeMillis()-10000), Operacion.EnumTipoOperacion.Ingreso, 250, cuenta);
-		o2 = new Operacion(0002, new Date(System.currentTimeMillis()-20000), Operacion.EnumTipoOperacion.Ingreso, 100, cuenta);
-		o3 = new Operacion(0003, new Date(System.currentTimeMillis()-1500), Operacion.EnumTipoOperacion.Ingreso, 150, cuenta);
 		ArrayList<Operacion> operaciones = new ArrayList<Operacion>();
-		operaciones.add(o1); operaciones.add(o2); operaciones.add(o3);
-		// Tarjetas:
-		t = new Tarjeta(555556, null, 1200, new Date(System.currentTimeMillis()+50000), Tarjeta.EnumProveedores.Visa, Tarjeta.TiposTarjeta.Debito, new Date(System.currentTimeMillis()-100000));
-		ArrayList<Tarjeta> colecionTarjetas = new ArrayList<Tarjeta>();
-		colecionTarjetas.add(t);
 		// Cuentas:
-		cuenta = new Cuenta(45454548, "SXXKUTXA-09", new Date(System.currentTimeMillis()), true, 500f, 0.5f, cli, t, operaciones);
+		cuenta = new Cuenta(45454548, "SXXKUTXA-09", new Date(System.currentTimeMillis()), true, 500f, 0.5f, cli.getDNI(), operaciones);
 		ArrayList<Cuenta> colecionCuentas = new ArrayList<Cuenta>();
 		colecionCuentas.add(cuenta);
+		// Operaciones:
+		o1 = new Operacion(0001, new Date(System.currentTimeMillis()-10000), Operacion.EnumTipoOperacion.Ingreso, 250, cuenta.getIBAN());
+		o2 = new Operacion(0002, new Date(System.currentTimeMillis()-20000), Operacion.EnumTipoOperacion.Ingreso, 100, cuenta.getIBAN());
+		o3 = new Operacion(0003, new Date(System.currentTimeMillis()-1500), Operacion.EnumTipoOperacion.Ingreso, 150, cuenta.getIBAN());
+		operaciones.add(o1); operaciones.add(o2); operaciones.add(o3);
+		// Tarjetas:
+		t = new Tarjeta(555556, cuenta.getIBAN(), 1200, new Date(System.currentTimeMillis()+50000), Tarjeta.EnumProveedores.Visa, Tarjeta.TiposTarjeta.Debito, new Date(System.currentTimeMillis()-100000));
+		ArrayList<Tarjeta> colecionTarjetas = new ArrayList<Tarjeta>();
+		colecionTarjetas.add(t);
 		// Banco:
 		DeustoBankTest = new Banco();
 		DeustoBankTest.setListaClientes(colecionClientes);
