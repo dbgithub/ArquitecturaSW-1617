@@ -16,7 +16,7 @@
         <cuenta>
             <IBAN>45454548</IBAN>
             <SWIFT>SXXKUTXA-09</SWIFT>
-            <fechaApertura>2016-10-31T01:36:38.958+01:00</fechaApertura>
+            <fechaApertura>2016-10-31T01:43:52.501+01:00</fechaApertura>
             <estaActiva>true</estaActiva>
             <saldoActual>500.0</saldoActual>
             <interes>0.5</interes>
@@ -24,21 +24,21 @@
             <lista_operaciones>
                 <operacion>
                     <id>1</id>
-                    <fecha>2016-10-31T01:36:28.958+01:00</fecha>
+                    <fecha>2016-10-31T01:43:42.501+01:00</fecha>
                     <tipo>Ingreso</tipo>
                     <importe>250.0</importe>
                     <cuenta>45454548</cuenta>
                 </operacion>
                 <operacion>
                     <id>2</id>
-                    <fecha>2016-10-31T01:36:18.958+01:00</fecha>
+                    <fecha>2016-10-31T01:43:32.501+01:00</fecha>
                     <tipo>Ingreso</tipo>
                     <importe>100.0</importe>
                     <cuenta>45454548</cuenta>
                 </operacion>
                 <operacion>
                     <id>3</id>
-                    <fecha>2016-10-31T01:36:37.458+01:00</fecha>
+                    <fecha>2016-10-31T01:43:51.001+01:00</fecha>
                     <tipo>Ingreso</tipo>
                     <importe>150.0</importe>
                     <cuenta>45454548</cuenta>
@@ -50,10 +50,10 @@
         <tarjeta>
             <numero>555556</numero>
             <limiteExtraccion>1200</limiteExtraccion>
-            <fechaCaducidad>2016-10-31T01:37:28.958+01:00</fechaCaducidad>
+            <fechaCaducidad>2016-10-31T01:44:42.501+01:00</fechaCaducidad>
             <proveedor>Visa</proveedor>
             <tipo>Debito</tipo>
-            <fechaExpedicion>2016-10-31T01:34:58.958+01:00</fechaExpedicion>
+            <fechaExpedicion>2016-10-31T01:42:12.501+01:00</fechaExpedicion>
             <cuenta>45454548</cuenta>
         </tarjeta>
     </lista_tarjetas>
