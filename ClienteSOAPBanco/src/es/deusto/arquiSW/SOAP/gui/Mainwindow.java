@@ -84,6 +84,8 @@ public class Mainwindow extends JFrame {
 	private JTable tableClientes;
 	private JTable tableCuentas;
 	private JTable tableTarjetas;
+	
+	
 
 	/**
 	 * Launch the application.
