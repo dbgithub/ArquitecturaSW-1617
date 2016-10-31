@@ -95,7 +95,6 @@ public class InicializacionThread implements Runnable {
 				// En relacion a cuentas:
 				obtCuentasRes = service.obtenerCuentas(obtCuentas);
 				arrayCuentas = obtCuentasRes.get_return();
-				System.out.println("arrayCuentas: " + arrayCuentas[0].getIBAN());
 				// En relacion a operaciones:
 				for (Cuenta cu : arrayCuentas) {
 					obtOperacion.setIBAN(Integer.toString(cu.getIBAN()));
