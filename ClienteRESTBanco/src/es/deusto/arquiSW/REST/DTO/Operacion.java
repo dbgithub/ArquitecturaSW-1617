@@ -1,7 +1,20 @@
-package es.deusto.arquiSW.REST.classes;
+package es.deusto.arquiSW.REST.DTO;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+/**
+ * This DTO, in this occasion, is identical to the real domain class. That's the reason why object of this type
+ * are not converted to an original class.
+ * JAXB annotations are used to make the class seriazable and to be able to send it over Internet through the
+ * REST architecture. 
+ * @author aitor & daniel
+ *
+ */
+@XmlRootElement
+@XmlType(propOrder = { "id", "fecha", "tipo", "importe", "cuenta" }) // opcional
 public class Operacion {
 	
 	private int id;
@@ -11,7 +24,7 @@ public class Operacion {
 	public enum EnumTipoOperacion {
 		Ingreso,Extraccion; 
 	}
-	private Cuenta cuenta;
+	private int cuenta;
 	
 	/**
 	 * Constructor vacio
@@ -28,7 +41,7 @@ public class Operacion {
 	 * @param importe
 	 * @param cuenta
 	 */
-	public Operacion(int id, Date fecha, EnumTipoOperacion tipo, float importe, Cuenta cuenta) {
+	public Operacion(int id, Date fecha, EnumTipoOperacion tipo, float importe, int cuenta) {
 		this.id = id;
 		this.fecha = fecha;
 		this.tipo = tipo;
@@ -39,10 +52,10 @@ public class Operacion {
 	// METHODS & OPERATIONS:
 		
 		
-	public Cuenta getCuenta() {
+	public int getCuenta() {
 		return cuenta;
 	}
-	public void setCuenta(Cuenta cuenta) {
+	public void setCuenta(int cuenta) {
 		this.cuenta = cuenta;
 	}
 	public int getId() {

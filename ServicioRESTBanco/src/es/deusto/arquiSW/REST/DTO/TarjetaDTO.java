@@ -1,8 +1,20 @@
-package es.deusto.arquiSW.REST.classes;
+package es.deusto.arquiSW.REST.DTO;
 
 import java.util.Date;
 
-public class Tarjeta {
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+/**
+ * This DTO, represents the data that will flow between the Client and the REST service.
+ * JAXB annotations are used to make the class seriazable and to be able to send it over Internet through the
+ * REST architecture. 
+ * @author aitor & daniel
+ *
+ */
+@XmlRootElement
+@XmlType(propOrder = { "numero", "limiteExtraccion", "fechaCaducidad", "proveedor", "tipo", "fechaExpedicion", "cuenta" }) // opcional
+public class TarjetaDTO {
 	
 	private int numero;
 	private int limiteExtraccion;
@@ -16,12 +28,12 @@ public class Tarjeta {
 	public enum TiposTarjeta {
 		Credito,Debito; 
 	}
-	private Cuenta cuenta;
+	private int cuenta;
 	
 	/**
 	 * Constructor vacio
 	 */
-	public Tarjeta() {
+	public TarjetaDTO() {
 		
 	}
 	
@@ -35,7 +47,7 @@ public class Tarjeta {
 	 * @param tipo
 	 * @param fechaExpedicion
 	 */
-	public Tarjeta(int numero, Cuenta cuenta, int limiteExtraccion, Date fechaCaducidad, EnumProveedores proveedor,
+	public TarjetaDTO(int numero, int cuenta, int limiteExtraccion, Date fechaCaducidad, EnumProveedores proveedor,
 			TiposTarjeta tipo, Date fechaExpedicion) {
 		this.numero = numero;
 		this.cuenta = cuenta;
@@ -54,10 +66,10 @@ public class Tarjeta {
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-	public Cuenta getCuenta() {
+	public int getCuenta() {
 		return cuenta;
 	}
-	public void setCuenta(Cuenta cuenta) {
+	public void setCuenta(int cuenta) {
 		this.cuenta = cuenta;
 	}
 	public int getLimiteExtraccion() {

@@ -11,7 +11,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import es.deusto.arquiSW.REST.classes.Cuenta;
+
+import es.deusto.arquiSW.REST.DTO.CuentaDTO;
 
 //Sets the path to base URL + /cuentas
 @Path("/cuentas")
@@ -19,7 +20,7 @@ public class CuentasROA {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
-	public ArrayList<Cuenta> getCuentas() {
+	public ArrayList<CuentaDTO> getCuentas() {
 		// TODO
 		return null;
 	}
@@ -27,20 +28,20 @@ public class CuentasROA {
 	@GET
 	@Path("/{cuenta}")
 	@Produces(MediaType.APPLICATION_XML)
-	public Cuenta getCuenta(@PathParam("cuenta") String IBAN) {
+	public CuentaDTO getCuenta(@PathParam("cuenta") String IBAN) {
 		// TODO
 		return null;
 	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_XML)
-	public void postCuenta(Cuenta cu) {
+	public void postCuenta(CuentaDTO cu) {
 		// TODO
 	}
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_XML)
-	public void putCuenta(Cuenta cu) {
+	public void putCuenta(CuentaDTO cu) {
 		// TODO
 	}
 	

@@ -1,26 +1,40 @@
-package es.deusto.arquiSW.REST.classes;
+package es.deusto.arquiSW.REST.DTO;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-import es.deusto.arquiSW.REST.classes.Cliente;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
-public class Cuenta {
+import es.deusto.arquiSW.REST.DTO.ClienteDTO;
+
+/**
+ * This DTO, represents the data that will flow between the Client and the REST service.
+ * JAXB annotations are used to make the class seriazable and to be able to send it over Internet through the
+ * REST architecture. 
+ * @author aitor & daniel
+ *
+ */
+@XmlRootElement
+@XmlType(propOrder = { "IBAN", "SWIFT", "fechaApertura", "activa", "saldoActual", "interes", "titular", "operaciones" }) // opcional
+public class CuentaDTO {
 	private int IBAN;
 	private String SWIFT;
 	private Date fechaApertura;
 	private boolean activa;
 	private float saldoActual;
 	private float interes;
-	private Cliente titular;
-	private Tarjeta tarjeta;
-	private ArrayList<Operacion> operaciones;
+	private String titular;
+	
+	private ArrayList<OperacionDTO> operaciones;
 	
 	
 	/**
 	 * Constructor vacio
 	 */
-	public Cuenta() {
+	public CuentaDTO() {
 		
 	}
 	/**
@@ -35,8 +49,8 @@ public class Cuenta {
 	 * @param tarjeta
 	 * @param operaciones
 	 */
-	public Cuenta(int iBAN, String sWIFT, Date fechaApertura, boolean activa, float saldoActual, float interes,
-			Cliente titular, Tarjeta tarjeta, ArrayList<Operacion> operaciones) {
+	public CuentaDTO(int iBAN, String sWIFT, Date fechaApertura, boolean activa, float saldoActual, float interes,
+			String titular, ArrayList<OperacionDTO> operaciones) {
 		this.IBAN = iBAN;
 		this.SWIFT = sWIFT;
 		this.fechaApertura = fechaApertura;
@@ -44,16 +58,16 @@ public class Cuenta {
 		this.saldoActual = saldoActual;
 		this.interes = interes;
 		this.titular = titular;
-		this.tarjeta = tarjeta;
+		
 		this.operaciones = operaciones;
 	}
 	
 	// METHODS & OPERATIONS:
 	
-	public Cliente getTitular() {
+	public String getTitular() {
 		return titular;
 	}
-	public void setTitular(Cliente titular) {
+	public void setTitular(String titular) {
 		this.titular = titular;
 	}
 	public int getIBAN() {
@@ -74,6 +88,7 @@ public class Cuenta {
 	public void setFechaApertura(Date fechaApertura) {
 		this.fechaApertura = fechaApertura;
 	}
+	@XmlElement(name = "estaActiva")
 	public boolean isActiva() {
 		return activa;
 	}
@@ -92,18 +107,15 @@ public class Cuenta {
 	public void setInteres(float interes) {
 		this.interes = interes;
 	}
-	public ArrayList<Operacion> getOperaciones() {
+	@XmlElementWrapper(name = "lista_operaciones")
+	@XmlElement(name = "operacion") // XmlElement especifica el nombre de las entidades
+	public ArrayList<OperacionDTO> getOperaciones() {
 		return operaciones;
 	}
-	public void setOperaciones(ArrayList<Operacion> operaciones) {
+	public void setOperaciones(ArrayList<OperacionDTO> operaciones) {
 		this.operaciones = operaciones;
 	}
-	public Tarjeta getTarjeta() {
-		return tarjeta;
-	}
-	public void setTarjeta(Tarjeta tarjeta) {
-		this.tarjeta = tarjeta;
-	}
+	
 
 	
 }

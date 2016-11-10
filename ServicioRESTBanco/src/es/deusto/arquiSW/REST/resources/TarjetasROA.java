@@ -11,7 +11,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import es.deusto.arquiSW.REST.classes.Tarjeta;
+
+import es.deusto.arquiSW.REST.DTO.TarjetaDTO;
 
 //Sets the path to base URL + /tarjetas
 @Path("/tarjetas")
@@ -19,7 +20,7 @@ public class TarjetasROA {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
-	public ArrayList<Tarjeta> getTarjetas() {
+	public ArrayList<TarjetaDTO> getTarjetas() {
 		// TODO
 		return null;
 	}
@@ -27,20 +28,20 @@ public class TarjetasROA {
 	@GET
 	@Path("/{tarjeta}")
 	@Produces(MediaType.APPLICATION_XML)
-	public Tarjeta getTarjeta(@PathParam("tarjeta") String num) {
+	public TarjetaDTO getTarjeta(@PathParam("tarjeta") String num) {
 		// TODO
 		return null;
 	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_XML)
-	public void postTarjeta(Tarjeta t) {
+	public void postTarjeta(TarjetaDTO t) {
 		// TODO
 	}
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_XML)
-	public void putTarjeta(Tarjeta t) {
+	public void putTarjeta(TarjetaDTO t) {
 		// TODO
 	}
 	

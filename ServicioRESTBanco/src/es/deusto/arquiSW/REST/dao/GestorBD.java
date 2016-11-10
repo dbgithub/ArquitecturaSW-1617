@@ -4,13 +4,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import es.deusto.arquiSW.classes.Cliente;
-import es.deusto.arquiSW.classes.Cuenta;
-import es.deusto.arquiSW.classes.Operacion;
-import es.deusto.arquiSW.classes.Tarjeta;
-import es.deusto.arquiSW.classes.Operacion.EnumTipoOperacion;
-import es.deusto.arquiSW.classes.Tarjeta.EnumProveedores;
-import es.deusto.arquiSW.classes.Tarjeta.TiposTarjeta;
+import es.deusto.arquiSW.REST.classes.Cliente;
+import es.deusto.arquiSW.REST.classes.Cuenta;
+import es.deusto.arquiSW.REST.classes.Operacion;
+import es.deusto.arquiSW.REST.classes.Tarjeta;
+import es.deusto.arquiSW.REST.classes.Operacion.EnumTipoOperacion;
+import es.deusto.arquiSW.REST.classes.Tarjeta.EnumProveedores;
+import es.deusto.arquiSW.REST.classes.Tarjeta.TiposTarjeta;
 
 /**
  * Esta clase gestiona el acceso a la base de datos, asi como de las operaciones CRUD (Create, Read, Update and Delete)

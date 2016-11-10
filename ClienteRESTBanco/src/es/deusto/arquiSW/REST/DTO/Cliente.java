@@ -1,7 +1,22 @@
-package es.deusto.arquiSW.REST.classes;
+package es.deusto.arquiSW.REST.DTO;
 
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
+/**
+ * This DTO, in this occasion, is identical to the real domain class. That's the reason why object of this type
+ * are not converted to an original class.
+ * JAXB annotations are used to make the class seriazable and to be able to send it over Internet through the
+ * REST architecture. 
+ * @author aitor & daniel
+ *
+ */
+@XmlRootElement
+@XmlType(propOrder = { "DNI", "nombre", "apellidos", "direccion", "email", "movil", "empleado", "PIN" }) // opcional
 public class Cliente {
 	
 	private String DNI;
@@ -12,7 +27,6 @@ public class Cliente {
 	private int movil;
 	private boolean empleado;
 	private int PIN;
-	private ArrayList<Cuenta> cuentas;
 	
 	/**
 	 * Constructor vacio
@@ -34,7 +48,7 @@ public class Cliente {
 	 * @param cuentas
 	 */
 	public Cliente(String dNI, String nombre, String apellidos, String direccion, String email, int movil,
-			boolean empleado, int pIN, ArrayList<Cuenta> cuentas) {
+			boolean empleado, int pIN) {
 		this.DNI = dNI;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -43,7 +57,7 @@ public class Cliente {
 		this.movil = movil;
 		this.empleado = empleado;
 		this.PIN = pIN;
-		this.setCuentas(cuentas);
+		
 	}
 	
 	// METHODS & OPERATIONS:
@@ -84,6 +98,7 @@ public class Cliente {
 	public void setMovil(int movil) {
 		this.movil = movil;
 	}
+	@XmlElement(name = "esEmpleado")
 	public boolean isEmpleado() {
 		return empleado;
 	}
@@ -96,11 +111,6 @@ public class Cliente {
 	public void setPIN(int pIN) {
 		PIN = pIN;
 	}
-	public ArrayList<Cuenta> getCuentas() {
-		return cuentas;
-	}
-	public void setCuentas(ArrayList<Cuenta> cuentas) {
-		this.cuentas = cuentas;
-	}
+	
 	
 }

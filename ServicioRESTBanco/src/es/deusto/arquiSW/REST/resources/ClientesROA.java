@@ -12,7 +12,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import es.deusto.arquiSW.REST.classes.Cliente;
+import es.deusto.arquiSW.REST.DTO.ClienteDTO;
 
 //Sets the path to base URL + /clientes
 @Path("/clientes")
@@ -20,7 +20,7 @@ public class ClientesROA {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
-	public ArrayList<Cliente> getClientes() {
+	public ArrayList<ClienteDTO> getClientes() {
 		// TODO
 		return null;
 	}
@@ -28,20 +28,20 @@ public class ClientesROA {
 	@GET
 	@Path("/{cliente}")
 	@Produces(MediaType.APPLICATION_XML)
-	public Cliente getCliente(@PathParam("cliente") String DNI) {
+	public ClienteDTO getCliente(@PathParam("cliente") String DNI) {
 		// TODO
 		return null;
 	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_XML)
-	public void postCliente(Cliente c) {
+	public void postCliente(ClienteDTO c) {
 		// TODO
 	}
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_XML)
-	public void putCliente(Cliente c) {
+	public void putCliente(ClienteDTO c) {
 		// TODO
 	}
 	
