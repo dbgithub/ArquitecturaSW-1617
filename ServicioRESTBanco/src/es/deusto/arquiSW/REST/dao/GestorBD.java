@@ -66,6 +66,15 @@ public class GestorBD {
 	}
 	
 	/**
+	 * Comprueba si la conexion está abierta o cerrada
+	 * @return
+	 * @throws SQLException
+	 */
+	public boolean conexionAbierta() throws SQLException {
+		return !con.isClosed();
+	}
+	
+	/**
 	 * Resetear todas las bases de datos eliminando todos los datos dejandolos limpios.
 	 * @throws SQLException
 	 */
@@ -445,6 +454,36 @@ public class GestorBD {
         statement.close();  
         return tarjetas;
 	}	
+	
+	// TODO: Implementar metodos update para CLIENTES, CUENTAS, TARJETAS
+	// TODO: Implementar metodos de delete para CLIENTES, CUENTAS, TARJETAS
+	
+	public void updateCliente(Cliente c) throws SQLException {
+		Statement statement = con.createStatement();
+		String sqlquery = "...";
+		statement.executeUpdate(sqlquery);
+		// TODO
+	}
+	
+	public void updateCuenta(Cuenta cu) {
+		
+	}
+	
+	public void updateTarjeta(Tarjeta t) {
+		
+	}
+	
+	public void deleteCliente(String DNI) {
+		
+	}
+	
+	public void deleteCuenta(String IBAN) {
+		
+	}
+	
+	public void deleteTarjeta(String num) {
+		
+	}
 	
 	
 //	public static void main(String[] args) throws ClassNotFoundException, SQLException {
