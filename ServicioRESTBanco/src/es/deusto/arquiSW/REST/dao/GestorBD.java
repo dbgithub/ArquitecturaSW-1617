@@ -2,6 +2,7 @@ package es.deusto.arquiSW.REST.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 
 import es.deusto.arquiSW.REST.classes.Cliente;
@@ -86,6 +87,9 @@ public class GestorBD {
 		statement.executeUpdate("DROP TABLE IF EXISTS tarjeta");
 		System.out.println("[GestorDB] tablas reseteadas satisfactoriamente");
 	}
+	
+	// ****************************************
+	// SELECT queries sin FILTRO (todas las tuplas)
 	
 	/**
 	 * Obtiene una coleccion de clientes de la base de datos
@@ -196,6 +200,9 @@ public class GestorBD {
         return tarjetas;
 	}
 	
+	// ****************************************
+	// INSERT queries
+	
 	/**
 	 * Desde el lado cliente se carga un XML, este es convertido a objetos Java mediante JAXB
 	 * A continuacion, se quiere importar esos objetos en lado servidor introduciendolos en la base de datos.
@@ -275,7 +282,7 @@ public class GestorBD {
 					"(ID, Fecha, Tipo, Importe, Cuenta) " +
 					"VALUES (" + temp.getId() +
 					",'" + temp.getFecha().toString() +
-					"','" + temp.getTipo() +
+					"','" + temp.getTipo().name() +
 					"'," + temp.getImporte() +
 					"," + temp.getCuenta().getIBAN() + ")";                        
 			statement.executeUpdate(sqlString);
@@ -298,14 +305,17 @@ public class GestorBD {
 					"VALUES (" + temp.getNumero() +
 					"," + temp.getLimiteExtraccion() +
 					",'" + temp.getFechaCaducidad().toString() +
-					"','" + temp.getProveedor() +
-					"','" + temp.getTipo() +
+					"','" + temp.getProveedor().name() +
+					"','" + temp.getTipo().name() +
 					"','" + temp.getFechaExpedicion().toString() +
 					"'," + temp.getCuenta().getIBAN() + ")";                     
 			statement.executeUpdate(sqlString);
 		}
 		statement.close();  
 	}
+	
+	// ****************************************
+	// SELECT queries con FILTRO
 	
 	/**
 	 * Obtiene cliente(s) en base a un filtro establecido en la parte cliente.
@@ -455,50 +465,126 @@ public class GestorBD {
         return tarjetas;
 	}	
 	
-	// TODO: Implementar metodos update para CLIENTES, CUENTAS, TARJETAS
-	// TODO: Implementar metodos de delete para CLIENTES, CUENTAS, TARJETAS
+	// ****************************************
+	// UPDATE queries
 	
+	/**
+	 * Actualiza el cliente con el determinado DNI y los campos correspondientes al cliente
+	 * @param c
+	 * @throws SQLException
+	 */
 	public void updateCliente(Cliente c) throws SQLException {
+		String sqlupdate = "UPDATE cliente SET Nombre = ?, Apellidos = ?, Direccion = ?, Email = ?, Movil = ?, Empleado = ?, PIN = ? " +
+							"WHERE DNI = " + c.getDNI();
+		PreparedStatement statement = con.prepareStatement(sqlupdate);
+		statement.setString(1, c.getNombre());
+		statement.setString(2, c.getApellidos());
+		statement.setString(3, c.getDireccion());
+		statement.setString(4, c.getEmail());
+		statement.setInt(5, c.getMovil());
+		statement.setBoolean(6, c.isEmpleado());
+		statement.setInt(7, c.getPIN());
+		statement.executeUpdate();
+		statement.close();
+	}
+	
+	/**
+	 * Actualiza la cuenta con el determinado IBAN y los campos correspondientes a la cuenta
+	 * @param cu
+	 * @throws SQLException
+	 */
+	public void updateCuenta(Cuenta cu) throws SQLException {
+		String sqlupdate = "UPDATE cuenta SET SWIFT = ?, FechaApertura = ?, Activa = ?, SaldoActual = ?, Interes = ?, Cliente = ? " +
+				"WHERE IBAN = " + cu.getIBAN();
+		PreparedStatement statement = con.prepareStatement(sqlupdate);
+		statement.setString(1, cu.getSWIFT());
+		statement.setString(2, cu.getFechaApertura().toString());
+		statement.setBoolean(3, cu.isActiva());
+		statement.setFloat(4, cu.getSaldoActual());
+		statement.setFloat(5, cu.getInteres());
+		statement.setString(6, cu.getTitular().getDNI());
+		statement.executeUpdate();
+		statement.close();
+	}
+	
+	/**
+	 * Actualiza la tarjeta con el determinado Numero de tarjeta y los campos correspondientes a la tarjeta
+	 * @param t
+	 * @throws SQLException
+	 */
+	public void updateTarjeta(Tarjeta t) throws SQLException {
+		String sqlupdate = "UPDATE tarjeta SET LimiteExtraccion = ?, FechaCaducidad = ?, Proveedor = ?, Tipo = ?, FechaExpedicion = ?, Cuenta = ? " +
+				"WHERE Numero = " + t.getNumero();
+		PreparedStatement statement = con.prepareStatement(sqlupdate);
+		statement.setInt(1, t.getLimiteExtraccion());
+		statement.setString(2, t.getFechaCaducidad().toString());
+		statement.setString(3, t.getProveedor().name());
+		statement.setString(4, t.getTipo().name());
+		statement.setString(5, t.getFechaExpedicion().toString());
+		statement.setInt(6, t.getCuenta().getIBAN());
+		statement.executeUpdate();
+		statement.close();
+	}
+	
+	
+	// ****************************************
+	// DELETE queries
+	
+	/**
+	 * Elimina el cliente con el correspondiente DNI
+	 * @param DNI
+	 * @throws SQLException
+	 */
+	public void deleteCliente(String DNI) throws SQLException {
 		Statement statement = con.createStatement();
-		String sqlquery = "...";
-		statement.executeUpdate(sqlquery);
-		// TODO
+		String sqldelete = "DELETE FROM Cliente WHERE DNI = "+DNI;
+		statement.executeUpdate(sqldelete);
 	}
 	
-	public void updateCuenta(Cuenta cu) {
-		
+	/**
+	 * Elimina la cuenta con el correspondiente IBAN
+	 * @param IBAN
+	 * @throws SQLException
+	 */
+	public void deleteCuenta(String IBAN) throws SQLException {
+		Statement statement = con.createStatement();
+		String sqldelete = "DELETE FROM Cuenta WHERE IBAN = "+IBAN;
+		statement.executeUpdate(sqldelete);
 	}
 	
-	public void updateTarjeta(Tarjeta t) {
-		
-	}
-	
-	public void deleteCliente(String DNI) {
-		
-	}
-	
-	public void deleteCuenta(String IBAN) {
-		
-	}
-	
-	public void deleteTarjeta(String num) {
-		
+	/**
+	 * Elimina la tarjeta con el correspondiente numero de tarjeta
+	 * @param num
+	 * @throws SQLException
+	 */
+	public void deleteTarjeta(String num) throws SQLException {
+		Statement statement = con.createStatement();
+		String sqldelete = "DELETE FROM Tarjeta WHERE Numero = "+num;
+		statement.executeUpdate(sqldelete);
 	}
 	
 	
-//	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-//		GestorBD gbd=new GestorBD();
-//		gbd.conectar();
-//		ArrayList<Cliente> po = gbd.obtenerCliente("8656565", "Pepe", "Perez", "pepe.perez@pepe.com", "69696", false);
-//		ArrayList<Cliente> po = gbd.obtenerCliente("8656565", null, null, null, null, null);
-//		System.out.println(po.get(0).getNombre());
-//		if (po.size() > 1) {System.out.println(po.get(1).getNombre());}
-//		if (po.size() > 2) {System.out.println(po.get(2).getNombre());}
-//		ArrayList<Cuenta> cu = gbd.obtenerCuentas();
-//		System.out.println("Cuantas cuentas?" + cu.size());
-//		System.out.println("Cuenta: " + cu.get(0).getIBAN());
-//		gbd.desconectar();
-//	}
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		GestorBD gbd=new GestorBD();
+		gbd.conectar();
+			// Variables auxiliares
+			Cuenta aux = new Cuenta();
+			aux.setIBAN(454545);
+			ArrayList<Cuenta> auxlista = new ArrayList<Cuenta>();
+			auxlista.add(aux);
+		Cliente tempc = new Cliente("9898989", "Danielo", "Guzman", "Colegio mayor Deusto", "d.g@hola.com", 69455454,false,9876,auxlista);
+		gbd.updateCliente(tempc);
+		Cuenta tempcu = new Cuenta(454545, "SXXKUTXA-09", new Date(2016,11,17), true, 2122f, 0.7f, tempc, null, null);
+		gbd.updateCuenta(tempcu);
+			// Aux
+			Calendar calen1 = Calendar.getInstance();
+			calen1.set(2020, 11, 17);
+			Calendar calen2 = Calendar.getInstance();
+			calen2.set(2016, 11, 17);
+		Tarjeta tempt = new Tarjeta(555556,tempcu,1300,calen2.getTime(),EnumProveedores.AmericanExpress,TiposTarjeta.Credito,calen2.getTime());
+		gbd.updateTarjeta(tempt);
+		gbd.desconectar();
+	}
 
 
 }

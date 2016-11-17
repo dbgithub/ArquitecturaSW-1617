@@ -66,6 +66,15 @@ public class GestorBD {
 	}
 	
 	/**
+	 * Comprueba si la conexion está abierta o cerrada
+	 * @return
+	 * @throws SQLException
+	 */
+	public boolean conexionAbierta() throws SQLException {
+		return !con.isClosed();
+	}
+	
+	/**
 	 * Resetear todas las bases de datos eliminando todos los datos dejandolos limpios.
 	 * @throws SQLException
 	 */
@@ -77,6 +86,9 @@ public class GestorBD {
 		statement.executeUpdate("DROP TABLE IF EXISTS tarjeta");
 		System.out.println("[GestorDB] tablas reseteadas satisfactoriamente");
 	}
+	
+	// ****************************************
+	// SELECT queries sin FILTRO (todas las tuplas)
 	
 	/**
 	 * Obtiene una coleccion de clientes de la base de datos
@@ -187,6 +199,9 @@ public class GestorBD {
         return tarjetas;
 	}
 	
+	// ****************************************
+	// INSERT queries
+	
 	/**
 	 * Desde el lado cliente se carga un XML, este es convertido a objetos Java mediante JAXB
 	 * A continuacion, se quiere importar esos objetos en lado servidor introduciendolos en la base de datos.
@@ -266,7 +281,7 @@ public class GestorBD {
 					"(ID, Fecha, Tipo, Importe, Cuenta) " +
 					"VALUES (" + temp.getId() +
 					",'" + temp.getFecha().toString() +
-					"','" + temp.getTipo() +
+					"','" + temp.getTipo().name() +
 					"'," + temp.getImporte() +
 					"," + temp.getCuenta().getIBAN() + ")";                        
 			statement.executeUpdate(sqlString);
@@ -289,14 +304,17 @@ public class GestorBD {
 					"VALUES (" + temp.getNumero() +
 					"," + temp.getLimiteExtraccion() +
 					",'" + temp.getFechaCaducidad().toString() +
-					"','" + temp.getProveedor() +
-					"','" + temp.getTipo() +
+					"','" + temp.getProveedor().name() +
+					"','" + temp.getTipo().name() +
 					"','" + temp.getFechaExpedicion().toString() +
 					"'," + temp.getCuenta().getIBAN() + ")";                     
 			statement.executeUpdate(sqlString);
 		}
 		statement.close();  
 	}
+	
+	// ****************************************
+	// SELECT queries con FILTRO
 	
 	/**
 	 * Obtiene cliente(s) en base a un filtro establecido en la parte cliente.
