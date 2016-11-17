@@ -55,11 +55,19 @@ import javax.swing.DefaultComboBoxModel;
 @SuppressWarnings("serial")
 public class Mainwindow extends JFrame {
 
-	private DeustoBankServiceStub SOAPservice; // Este es la variable del Servicio Web SOAP.
-	private Banco bnc; // Variable que se utiliza en el proceso de IMPORTAR y EXPORTAR datos desde un XML (JAXB)
-	private Cliente[] tempClientes; // Este array temporal de CLIENTES guarda todos los clientes obtenidos desde el servicio SOAP
-	private Cuenta[] tempCuentas; // Este array temporal de CUENTAS guarda todos los clientes obtenidos desde el servicio SOAP
-	private Tarjeta[] tempTarjetas; // Este array temporal de TARJETAS guarda todos los clientes obtenidos desde el servicio SOAP
+	private DeustoBankServiceStub SOAPservice; // Este es la variable del
+												// Servicio Web SOAP.
+	private Banco bnc; // Variable que se utiliza en el proceso de IMPORTAR y
+						// EXPORTAR datos desde un XML (JAXB)
+	private Cliente[] tempClientes; // Este array temporal de CLIENTES guarda
+									// todos los clientes obtenidos desde el
+									// servicio SOAP
+	private Cuenta[] tempCuentas; // Este array temporal de CUENTAS guarda todos
+									// los clientes obtenidos desde el servicio
+									// SOAP
+	private Tarjeta[] tempTarjetas; // Este array temporal de TARJETAS guarda
+									// todos los clientes obtenidos desde el
+									// servicio SOAP
 	private JPanel contentPane;
 	private JTable table;
 	private JTable table_2;
@@ -84,8 +92,6 @@ public class Mainwindow extends JFrame {
 	private JTable tableClientes;
 	private JTable tableCuentas;
 	private JTable tableTarjetas;
-	
-	
 
 	/**
 	 * Launch the application.
@@ -112,7 +118,7 @@ public class Mainwindow extends JFrame {
 		InicializacionThread iniThread = new InicializacionThread(this);
 		Thread initializationThreat = new Thread(iniThread);
 		initializationThreat.start();
-		
+
 		setTitle("DeustoBank(SOAP)");
 		setMinimumSize(new Dimension(600, 450));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -177,37 +183,40 @@ public class Mainwindow extends JFrame {
 						jaxbContext = JAXBContext.newInstance(Banco.class);
 						Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 						bnc = (Banco) jaxbUnmarshaller.unmarshal(fichero);
-						if(bnc.getListaClientes().size()!=0){
+						if (bnc.getListaClientes().size() != 0) {
 							for (int i = 0; i < bnc.getListaClientes().size(); i++) {
-								Cliente c= bnc.getListaClientes().get(i);
+								Cliente c = bnc.getListaClientes().get(i);
 								DefaultTableModel model = (DefaultTableModel) tableClientes.getModel();
 								limpiarJTable(model);
-								model.addRow(new Object[]{c.getDNI(), c.getNombre(),c.getApellidos(),c.getDireccion(),c.getEmail(),c.getMovil(),(c.isEmpleado()) ? "Si" : "No"});
-								
+								model.addRow(new Object[] { c.getDNI(), c.getNombre(), c.getApellidos(),
+										c.getDireccion(), c.getEmail(), c.getMovil(), (c.isEmpleado()) ? "Si" : "No" });
+
 							}
 						}
-						
-						if(bnc.getListaCuentas().size()!=0){
+
+						if (bnc.getListaCuentas().size() != 0) {
 							for (int i = 0; i < bnc.getListaCuentas().size(); i++) {
-								Cuenta cu= bnc.getListaCuentas().get(i);
+								Cuenta cu = bnc.getListaCuentas().get(i);
 								DefaultTableModel model = (DefaultTableModel) tableCuentas.getModel();
 								limpiarJTable(model);
-								model.addRow(new Object[]{cu.getIBAN(),cu.getSWIFT(),cu.getFechaApertura(),(cu.isActiva())?"Si":"No",cu.getSaldoActual(),cu.getInteres(),cu.getTitular()});
+								model.addRow(new Object[] { cu.getIBAN(), cu.getSWIFT(), cu.getFechaApertura(),
+										(cu.isActiva()) ? "Si" : "No", cu.getSaldoActual(), cu.getInteres(),
+										cu.getTitular() });
 							}
-							
+
 						}
-						
-						if(bnc.getListaTarjetas().size()!=0){
+
+						if (bnc.getListaTarjetas().size() != 0) {
 							for (int i = 0; i < bnc.getListaTarjetas().size(); i++) {
-								Tarjeta t= bnc.getListaTarjetas().get(i);
+								Tarjeta t = bnc.getListaTarjetas().get(i);
 								DefaultTableModel model = (DefaultTableModel) tableTarjetas.getModel();
 								limpiarJTable(model);
-								model.addRow(new Object[]{t.getNumero(),t.getLimiteExtraccion(),t.getFechaCaducidad(),t.getProveedor(),t.getTipo(),t.getFechaExpedicion(),t.getCuenta()});
+								model.addRow(
+										new Object[] { t.getNumero(), t.getLimiteExtraccion(), t.getFechaCaducidad(),
+												t.getProveedor(), t.getTipo(), t.getFechaExpedicion(), t.getCuenta() });
 							}
-							
+
 						}
-						
-						
 
 					} catch (JAXBException e1) {
 						// TODO Auto-generated catch block
@@ -224,38 +233,46 @@ public class Mainwindow extends JFrame {
 		JButton btnImportar = new JButton("Importar");
 		btnImportar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Importar im = new Importar();
-				Cliente[] arrayClientes= new Cliente[bnc.getListaClientes().size()];
-				int i=0;
-				for(Cliente c: bnc.getListaClientes()){
-					arrayClientes[i]=c;
-					i++;
+				try {
+					Cliente[] arrayClientes = new Cliente[bnc.getListaClientes().size()];
+					int i = 0;
+					for (Cliente c : bnc.getListaClientes()) {
+						arrayClientes[i] = c;
+						i++;
+					}
+					Cuenta[] arrayCuentas = new Cuenta[bnc.getListaCuentas().size()];
+					i = 0;
+					for (Cuenta c : bnc.getListaCuentas()) {
+						arrayCuentas[i] = c;
+						i++;
+					}
+
+					Tarjeta[] arrayTarjetas = new Tarjeta[bnc.getListaTarjetas().size()];
+					i = 0;
+					for (Tarjeta t : bnc.getListaTarjetas()) {
+						arrayTarjetas[i] = t;
+						i++;
+					}
+					ConversorJAXBtoSOAP co = new ConversorJAXBtoSOAP();
+
+					Importar im = new Importar();
+					
+					im.setClientes(co.convertFromJAXBclienteToSOAPcliente(arrayClientes));
+					im.setCuentas(co.convertFromJAXBcuentaToSOAPcuenta(arrayCuentas, arrayClientes));
+					im.setTarjetas(co.convertFromJAXBtarjetaToSOAPtarjeta(arrayTarjetas));
+					
+					SOAPservice.importar(im);
+					DefaultTableModel model = (DefaultTableModel) tableClientes.getModel();
+					limpiarJTable(model);
+					model = (DefaultTableModel) tableCuentas.getModel();
+					limpiarJTable(model);
+					model = (DefaultTableModel) tableTarjetas.getModel();
+					limpiarJTable(model);
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				Cuenta[] arrayCuentas= new Cuenta[bnc.getListaCuentas().size()];
-				i=0;
-				for(Cuenta c: bnc.getListaCuentas()){
-					arrayCuentas[i]=c;
-					i++;
-				}
-				
-				Tarjeta[] arrayTarjetas = new Tarjeta[bnc.getListaTarjetas().size()];
-				i=0;
-				for(Tarjeta t: bnc.getListaTarjetas()){
-					arrayTarjetas[i]=t;
-					i++;
-				}
-				ConversorJAXBtoSOAP co= new ConversorJAXBtoSOAP();
-				im.setClientes(co.convertFromJAXBclienteToSOAPcliente(arrayClientes));
-				im.setCuentas(co.convertFromJAXBcuentaToSOAPcuenta(arrayCuentas, arrayClientes));
-				im.setTarjetas(co.convertFromJAXBtarjetaToSOAPtarjeta(arrayTarjetas));
-				DefaultTableModel model = (DefaultTableModel) tableClientes.getModel();
-				limpiarJTable(model);
-				model =(DefaultTableModel) tableCuentas.getModel();
-				limpiarJTable(model);
-				model =(DefaultTableModel) tableTarjetas.getModel();
-				limpiarJTable(model);
-			
-				
+
 			}
 		});
 		GroupLayout gl_panel_importar = new GroupLayout(panel_importar);
@@ -290,54 +307,42 @@ public class Mainwindow extends JFrame {
 
 		JPanel panelClientes = new JPanel();
 		tabbedPane_1.addTab("Clientes", null, panelClientes, null);
-		
+
 		JScrollPane scrollPane_2 = new JScrollPane();
 		GroupLayout gl_panelClientes = new GroupLayout(panelClientes);
-		gl_panelClientes.setHorizontalGroup(
-			gl_panelClientes.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panelClientes.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
-					.addContainerGap())
-		);
-		gl_panelClientes.setVerticalGroup(
-			gl_panelClientes.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelClientes.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
-					.addGap(19))
-		);
-		
+		gl_panelClientes
+				.setHorizontalGroup(gl_panelClientes.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
+						gl_panelClientes.createSequentialGroup().addContainerGap()
+								.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
+								.addContainerGap()));
+		gl_panelClientes
+				.setVerticalGroup(gl_panelClientes.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelClientes.createSequentialGroup().addContainerGap()
+								.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+								.addGap(19)));
+
 		JPanel panel_2 = new JPanel();
 		scrollPane_2.setViewportView(panel_2);
-		
+
 		JScrollPane scrollPane_3 = new JScrollPane();
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
-		gl_panel_2.setHorizontalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
-					.addComponent(scrollPane_3, GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
-					.addGap(19))
-		);
-		gl_panel_2.setVerticalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
-					.addComponent(scrollPane_3, GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
-					.addGap(23))
-		);
-		
+		gl_panel_2
+				.setHorizontalGroup(gl_panel_2.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
+						gl_panel_2.createSequentialGroup()
+								.addComponent(scrollPane_3, GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
+								.addGap(19)));
+		gl_panel_2
+				.setVerticalGroup(gl_panel_2.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
+						gl_panel_2.createSequentialGroup()
+								.addComponent(scrollPane_3, GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
+								.addGap(23)));
+
 		tableClientes = new JTable();
 		tableClientes.setRowSelectionAllowed(false);
-		tableClientes.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"DNI", "Nombre", "Apellidos", "Direccion", "Email", "Movil", "Empleado"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false, true
-			};
+		tableClientes.setModel(new DefaultTableModel(new Object[][] {},
+				new String[] { "DNI", "Nombre", "Apellidos", "Direccion", "Email", "Movil", "Empleado" }) {
+			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, true };
+
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
@@ -348,54 +353,38 @@ public class Mainwindow extends JFrame {
 
 		JPanel panelCuentas = new JPanel();
 		tabbedPane_1.addTab("Cuentas", null, panelCuentas, null);
-		
+
 		JScrollPane scrollPane_4 = new JScrollPane();
 		GroupLayout gl_panelCuentas = new GroupLayout(panelCuentas);
-		gl_panelCuentas.setHorizontalGroup(
-			gl_panelCuentas.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelCuentas.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(scrollPane_4, GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
-					.addContainerGap())
-		);
-		gl_panelCuentas.setVerticalGroup(
-			gl_panelCuentas.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelCuentas.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(scrollPane_4, GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
-					.addContainerGap())
-		);
-		
+		gl_panelCuentas
+				.setHorizontalGroup(gl_panelCuentas.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelCuentas.createSequentialGroup().addContainerGap()
+								.addComponent(scrollPane_4, GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
+								.addContainerGap()));
+		gl_panelCuentas
+				.setVerticalGroup(gl_panelCuentas.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelCuentas.createSequentialGroup().addContainerGap()
+								.addComponent(scrollPane_4, GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+								.addContainerGap()));
+
 		JPanel panel_3 = new JPanel();
 		scrollPane_4.setViewportView(panel_3);
-		
+
 		JScrollPane scrollPane_5 = new JScrollPane();
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
 		gl_panel_3.setHorizontalGroup(
-			gl_panel_3.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_3.createSequentialGroup()
-					.addComponent(scrollPane_5, GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
-					.addGap(21))
-		);
+				gl_panel_3.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_3.createSequentialGroup()
+						.addComponent(scrollPane_5, GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE).addGap(21)));
 		gl_panel_3.setVerticalGroup(
-			gl_panel_3.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel_3.createSequentialGroup()
-					.addComponent(scrollPane_5, GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
-					.addGap(41))
-		);
-		
+				gl_panel_3.createParallelGroup(Alignment.TRAILING).addGroup(gl_panel_3.createSequentialGroup()
+						.addComponent(scrollPane_5, GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE).addGap(41)));
+
 		tableCuentas = new JTable();
 		tableCuentas.setRowSelectionAllowed(false);
-		tableCuentas.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"IBAN", "SWIFT", "Fecha apertura", "Activa", "Saldo actual", "Interes", "DNI titular"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false, false
-			};
+		tableCuentas.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "IBAN", "SWIFT", "Fecha apertura",
+				"Activa", "Saldo actual", "Interes", "DNI titular" }) {
+			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false };
+
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
@@ -407,50 +396,36 @@ public class Mainwindow extends JFrame {
 
 		JPanel panelTarjetas = new JPanel();
 		tabbedPane_1.addTab("Tarjetas", null, panelTarjetas, null);
-		
+
 		JScrollPane scrollPane_6 = new JScrollPane();
 		GroupLayout gl_panelTarjetas = new GroupLayout(panelTarjetas);
-		gl_panelTarjetas.setHorizontalGroup(
-			gl_panelTarjetas.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panelTarjetas.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(scrollPane_6, GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
-					.addContainerGap())
-		);
-		gl_panelTarjetas.setVerticalGroup(
-			gl_panelTarjetas.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panelTarjetas.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(scrollPane_6, GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
-					.addContainerGap())
-		);
-		
+		gl_panelTarjetas
+				.setHorizontalGroup(gl_panelTarjetas.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
+						gl_panelTarjetas.createSequentialGroup().addContainerGap()
+								.addComponent(scrollPane_6, GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
+								.addContainerGap()));
+		gl_panelTarjetas
+				.setVerticalGroup(gl_panelTarjetas.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
+						gl_panelTarjetas.createSequentialGroup().addContainerGap()
+								.addComponent(scrollPane_6, GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+								.addContainerGap()));
+
 		JPanel panel_4 = new JPanel();
 		scrollPane_6.setViewportView(panel_4);
-		
+
 		JScrollPane scrollPane_7 = new JScrollPane();
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
-		gl_panel_4.setHorizontalGroup(
-			gl_panel_4.createParallelGroup(Alignment.LEADING)
-				.addComponent(scrollPane_7, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE)
-		);
-		gl_panel_4.setVerticalGroup(
-			gl_panel_4.createParallelGroup(Alignment.LEADING)
-				.addComponent(scrollPane_7, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
-		);
-		
+		gl_panel_4.setHorizontalGroup(gl_panel_4.createParallelGroup(Alignment.LEADING).addComponent(scrollPane_7,
+				Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE));
+		gl_panel_4.setVerticalGroup(gl_panel_4.createParallelGroup(Alignment.LEADING).addComponent(scrollPane_7,
+				Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE));
+
 		tableTarjetas = new JTable();
 		tableTarjetas.setRowSelectionAllowed(false);
-		tableTarjetas.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Numero", "Fecha caducidad", "Proveedor", "Tipo", "Limite extraccion", "Fecha expedicion", "Cuenta vinculada"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false, false
-			};
+		tableTarjetas.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Numero", "Fecha caducidad",
+				"Proveedor", "Tipo", "Limite extraccion", "Fecha expedicion", "Cuenta vinculada" }) {
+			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false };
+
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
@@ -495,20 +470,14 @@ public class Mainwindow extends JFrame {
 		JScrollPane scrollPaneForTableClientesFiltro = new JScrollPane();
 		table = new JTable();
 		table.setRowSelectionAllowed(false);
-		table.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"DNI", "Nombre", "Apellidos", "Direccion", "Email", "Movil", "Empleado"
-				}
-			) {
-				boolean[] columnEditables = new boolean[] {
-					false, false, false, false, false, false, false
-				};
-				public boolean isCellEditable(int row, int column) {
-					return columnEditables[column];
-				}
-			});
+		table.setModel(new DefaultTableModel(new Object[][] {},
+				new String[] { "DNI", "Nombre", "Apellidos", "Direccion", "Email", "Movil", "Empleado" }) {
+			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false };
+
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		scrollPaneForTableClientesFiltro.setViewportView(table);
 
 		JButton btnAniadir = new JButton("A\u00F1adir");
@@ -546,7 +515,7 @@ public class Mainwindow extends JFrame {
 
 		JCheckBox checkBox = new JCheckBox("Empleado");
 		checkBox.setForeground(Color.WHITE);
-		checkBox.setBackground((Color)null);
+		checkBox.setBackground((Color) null);
 
 		JButton button_1 = new JButton("Aplicar");
 		button_1.addActionListener(new ActionListener() {
@@ -566,7 +535,8 @@ public class Mainwindow extends JFrame {
 					System.out.println("length!: " + arrayCliente.length);
 					DefaultTableModel model = (DefaultTableModel) table.getModel();
 					for (es.deusto.arquiSW.SOAP.classes.xsd.Cliente c : arrayCliente) {
-						model.addRow(new Object[]{c.getDNI(), c.getNombre(),c.getApellidos(),c.getDireccion(),c.getEmail(),c.getMovil(),(c.getEmpleado()) ? "Si" : "No"});
+						model.addRow(new Object[] { c.getDNI(), c.getNombre(), c.getApellidos(), c.getDireccion(),
+								c.getEmail(), c.getMovil(), (c.getEmpleado()) ? "Si" : "No" });
 					}
 				} catch (RemoteException e1) {
 					// TODO Auto-generated catch block
@@ -658,7 +628,8 @@ public class Mainwindow extends JFrame {
 								.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 										.addComponent(btnAniadir, GroupLayout.PREFERRED_SIZE, 89,
 												GroupLayout.PREFERRED_SIZE)
-										.addComponent(scrollPaneForTableClientesFiltro, GroupLayout.DEFAULT_SIZE, 813, Short.MAX_VALUE))
+										.addComponent(scrollPaneForTableClientesFiltro, GroupLayout.DEFAULT_SIZE, 813,
+												Short.MAX_VALUE))
 								.addGap(22)));
 		gl_panel.setVerticalGroup(
 				gl_panel.createParallelGroup(Alignment.LEADING)
@@ -697,20 +668,14 @@ public class Mainwindow extends JFrame {
 		JScrollPane scrollPaneForTableCuentasFiltro = new JScrollPane();
 		table_1 = new JTable();
 		table_1.setRowSelectionAllowed(false);
-		table_1.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"IBAN", "SWIFT", "Fecha apertura", "Activa", "Saldo actual", "Interes", "DNI titular", "Tarjeta vinculada"
-				}
-			) {
-				boolean[] columnEditables = new boolean[] {
-					false, false, false, false, false, false, false, false
-				};
-				public boolean isCellEditable(int row, int column) {
-					return columnEditables[column];
-				}
-			});
+		table_1.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "IBAN", "SWIFT", "Fecha apertura",
+				"Activa", "Saldo actual", "Interes", "DNI titular", "Tarjeta vinculada" }) {
+			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false, false };
+
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		table_1.getColumnModel().getColumn(0).setPreferredWidth(59);
 		table_1.getColumnModel().getColumn(1).setPreferredWidth(57);
 		table_1.getColumnModel().getColumn(2).setPreferredWidth(111);
@@ -741,13 +706,13 @@ public class Mainwindow extends JFrame {
 
 		JCheckBox chckbxActiva = new JCheckBox("Activa");
 		chckbxActiva.setForeground(Color.WHITE);
-		chckbxActiva.setBackground((Color)null);
+		chckbxActiva.setBackground((Color) null);
 
 		JLabel lblInters = new JLabel("Inter\u00E9s");
 		lblInters.setForeground(Color.WHITE);
 
 		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {null, "0.1", "0.5", "1.2", "5"}));
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] { null, "0.1", "0.5", "1.2", "5" }));
 
 		JButton btnAplicarCuentas = new JButton("Aplicar");
 		btnAplicarCuentas.addActionListener(new ActionListener() {
@@ -756,8 +721,9 @@ public class Mainwindow extends JFrame {
 				ObtenerCuenta obtCuenta = new ObtenerCuenta();
 				obtCuenta.setIBAN((textFieldIBAN.getText() != "") ? textFieldIBAN.getText() : null);
 				obtCuenta.setDNI((textFieldDNICliente.getText() != "") ? textFieldDNICliente.getText() : null);
-				obtCuenta.setFechaApertura((textFieldFechaApertura.getText() != "") ? textFieldFechaApertura.getText() : null);
-				obtCuenta.setInteres((comboBox.getSelectedItem() != "") ? (String)comboBox.getSelectedItem() : null);
+				obtCuenta.setFechaApertura(
+						(textFieldFechaApertura.getText() != "") ? textFieldFechaApertura.getText() : null);
+				obtCuenta.setInteres((comboBox.getSelectedItem() != "") ? (String) comboBox.getSelectedItem() : null);
 				obtCuenta.setActiva((chckbxActiva.isSelected()) ? chckbxActiva.isSelected() : false);
 				ObtenerCuentaResponse obtCuentaRes;
 				try {
@@ -765,7 +731,9 @@ public class Mainwindow extends JFrame {
 					arrayCuenta = obtCuentaRes.get_return();
 					DefaultTableModel model = (DefaultTableModel) table_1.getModel();
 					for (es.deusto.arquiSW.SOAP.classes.xsd.Cuenta cu : arrayCuenta) {
-						model.addRow(new Object[]{cu.getIBAN(),cu.getSWIFT(),cu.getFechaApertura(),(cu.getActiva())?"Si":"No",cu.getSaldoActual(),cu.getInteres(),cu.getTitular()});
+						model.addRow(new Object[] { cu.getIBAN(), cu.getSWIFT(), cu.getFechaApertura(),
+								(cu.getActiva()) ? "Si" : "No", cu.getSaldoActual(), cu.getInteres(),
+								cu.getTitular() });
 					}
 				} catch (RemoteException e1) {
 					// TODO Auto-generated catch block
@@ -833,7 +801,8 @@ public class Mainwindow extends JFrame {
 						.addGroup(gl_panel2.createParallelGroup(Alignment.TRAILING)
 								.addComponent(btnAniadirCuentas, GroupLayout.PREFERRED_SIZE, 108,
 										GroupLayout.PREFERRED_SIZE)
-								.addComponent(scrollPaneForTableCuentasFiltro, GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE))
+								.addComponent(scrollPaneForTableCuentasFiltro, GroupLayout.DEFAULT_SIZE, 950,
+										Short.MAX_VALUE))
 						.addGap(27))
 				.addGroup(Alignment.LEADING, gl_panel2.createSequentialGroup().addGap(35)
 						.addComponent(filterpane2, GroupLayout.DEFAULT_SIZE, 911, Short.MAX_VALUE).addGap(41)));
@@ -844,7 +813,8 @@ public class Mainwindow extends JFrame {
 										.addComponent(filterpane2, GroupLayout.PREFERRED_SIZE, 154,
 												GroupLayout.PREFERRED_SIZE)
 										.addGap(18)
-										.addComponent(scrollPaneForTableCuentasFiltro, GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+										.addComponent(scrollPaneForTableCuentasFiltro, GroupLayout.DEFAULT_SIZE, 274,
+												Short.MAX_VALUE)
 										.addGap(18).addComponent(btnAniadirCuentas, GroupLayout.PREFERRED_SIZE, 39,
 												GroupLayout.PREFERRED_SIZE)
 										.addGap(47)));
@@ -873,20 +843,14 @@ public class Mainwindow extends JFrame {
 		JScrollPane scrollPaneForTableTarjetasFiltro = new JScrollPane();
 		table_2 = new JTable();
 		table_2.setRowSelectionAllowed(false);
-		table_2.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"Numero", "Fecha caducidad", "Proveedor", "Tipo", "Limite extraccion", "Fecha expedicion", "Cuenta vinculada"
-				}
-			) {
-				boolean[] columnEditables = new boolean[] {
-					false, false, false, false, false, false, false
-				};
-				public boolean isCellEditable(int row, int column) {
-					return columnEditables[column];
-				}
-			});
+		table_2.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Numero", "Fecha caducidad",
+				"Proveedor", "Tipo", "Limite extraccion", "Fecha expedicion", "Cuenta vinculada" }) {
+			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false };
+
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		table_2.getColumnModel().getColumn(0).setPreferredWidth(66);
 		table_2.getColumnModel().getColumn(1).setPreferredWidth(125);
 		table_2.getColumnModel().getColumn(3).setPreferredWidth(64);
@@ -911,30 +875,35 @@ public class Mainwindow extends JFrame {
 		lblProveedor.setForeground(Color.WHITE);
 
 		JComboBox<String> comboBoxProveedor = new JComboBox<String>();
-		comboBoxProveedor.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Visa", "MasterCard", "AmericanExpress"}));
+		comboBoxProveedor.setModel(
+				new DefaultComboBoxModel<String>(new String[] { "", "Visa", "MasterCard", "AmericanExpress" }));
 
 		JLabel lblTipo = new JLabel("Tipo");
 		lblTipo.setForeground(Color.WHITE);
 
 		JComboBox<String> comboBox_1 = new JComboBox<String>();
-		comboBox_1.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Debito", "Credito"}));
+		comboBox_1.setModel(new DefaultComboBoxModel<String>(new String[] { "", "Debito", "Credito" }));
 
 		JButton buttonAplicarTarjetas = new JButton("Aplicar");
 		buttonAplicarTarjetas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[] arrayTarjeta;
 				ObtenerTarjeta obtTarjeta = new ObtenerTarjeta();
-				obtTarjeta.setNumero((textFieldNumeroTarjeta.getText() != "") ? textFieldNumeroTarjeta.getText() : null);
-				obtTarjeta.setDNI((textFieldDNIClienteTarjeta.getText() != "") ? textFieldDNIClienteTarjeta.getText() : null);
-				obtTarjeta.setProveedor((comboBoxProveedor.getSelectedItem() != "") ? (String)comboBoxProveedor.getSelectedItem() : null);
-				obtTarjeta.setTipo((comboBox_1.getSelectedItem() != "") ? (String)comboBox_1.getSelectedItem() : null);
+				obtTarjeta
+						.setNumero((textFieldNumeroTarjeta.getText() != "") ? textFieldNumeroTarjeta.getText() : null);
+				obtTarjeta.setDNI(
+						(textFieldDNIClienteTarjeta.getText() != "") ? textFieldDNIClienteTarjeta.getText() : null);
+				obtTarjeta.setProveedor((comboBoxProveedor.getSelectedItem() != "")
+						? (String) comboBoxProveedor.getSelectedItem() : null);
+				obtTarjeta.setTipo((comboBox_1.getSelectedItem() != "") ? (String) comboBox_1.getSelectedItem() : null);
 				ObtenerTarjetaResponse obtTarjetaRes;
 				try {
 					obtTarjetaRes = SOAPservice.obtenerTarjeta(obtTarjeta);
 					arrayTarjeta = obtTarjetaRes.get_return();
 					DefaultTableModel model = (DefaultTableModel) table_2.getModel();
 					for (es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta t : arrayTarjeta) {
-						model.addRow(new Object[]{t.getNumero(),t.getLimiteExtraccion(),t.getFechaCaducidad(),t.getProveedor(),t.getTipo(),t.getFechaExpedicion(),t.getCuenta()});
+						model.addRow(new Object[] { t.getNumero(), t.getLimiteExtraccion(), t.getFechaCaducidad(),
+								t.getProveedor(), t.getTipo(), t.getFechaExpedicion(), t.getCuenta() });
 					}
 				} catch (RemoteException e1) {
 					// TODO Auto-generated catch block
@@ -1026,32 +995,26 @@ public class Mainwindow extends JFrame {
 			}
 		});
 		GroupLayout gl_panel3 = new GroupLayout(panel3);
-		gl_panel3.setHorizontalGroup(
-			gl_panel3.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel3.createSequentialGroup()
-					.addGap(26)
-					.addComponent(filterpane3, GroupLayout.DEFAULT_SIZE, 930, Short.MAX_VALUE)
-					.addGap(74))
-				.addGroup(gl_panel3.createSequentialGroup()
-					.addContainerGap(874, Short.MAX_VALUE)
-					.addComponent(button, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
-					.addGap(48))
-				.addGroup(Alignment.LEADING, gl_panel3.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(scrollPaneForTableTarjetasFiltro, GroupLayout.DEFAULT_SIZE, 970, Short.MAX_VALUE)
-					.addGap(48))
-		);
-		gl_panel3.setVerticalGroup(
-			gl_panel3.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel3.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(filterpane3, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
-					.addGap(38)
-					.addComponent(scrollPaneForTableTarjetasFiltro, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(button, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-					.addGap(80))
-		);
+		gl_panel3.setHorizontalGroup(gl_panel3.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel3.createSequentialGroup().addGap(26)
+						.addComponent(filterpane3, GroupLayout.DEFAULT_SIZE, 930, Short.MAX_VALUE).addGap(74))
+				.addGroup(gl_panel3.createSequentialGroup().addContainerGap(874, Short.MAX_VALUE)
+						.addComponent(button, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE).addGap(48))
+				.addGroup(Alignment.LEADING, gl_panel3.createSequentialGroup().addContainerGap()
+						.addComponent(scrollPaneForTableTarjetasFiltro, GroupLayout.DEFAULT_SIZE, 970, Short.MAX_VALUE)
+						.addGap(48)));
+		gl_panel3
+				.setVerticalGroup(
+						gl_panel3.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel3.createSequentialGroup().addContainerGap()
+										.addComponent(filterpane3, GroupLayout.PREFERRED_SIZE, 134,
+												GroupLayout.PREFERRED_SIZE)
+										.addGap(38)
+										.addComponent(scrollPaneForTableTarjetasFiltro, GroupLayout.DEFAULT_SIZE, 300,
+												Short.MAX_VALUE)
+										.addPreferredGap(ComponentPlacement.RELATED).addComponent(button,
+												GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+										.addGap(80)));
 		panel3.setLayout(gl_panel3);
 		panel_tarjetas.setLayout(gl_panel_tarjetas);
 
@@ -1085,16 +1048,10 @@ public class Mainwindow extends JFrame {
 		JScrollPane scrollPaneForTableCuentas = new JScrollPane();
 		tableResultadosCuentas = new JTable();
 		tableResultadosCuentas.setRowSelectionAllowed(false);
-		tableResultadosCuentas.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"IBAN", "SWIFT", "Fecha apertura", "Activa", "Saldo actual", "Interes", "DNI titular"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false, false
-			};
+		tableResultadosCuentas.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "IBAN", "SWIFT",
+				"Fecha apertura", "Activa", "Saldo actual", "Interes", "DNI titular" }) {
+			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false };
+
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
@@ -1125,16 +1082,10 @@ public class Mainwindow extends JFrame {
 		JScrollPane scrollPaneForTableTarjetas = new JScrollPane();
 		tableResultadosTarjetas = new JTable();
 		tableResultadosTarjetas.setRowSelectionAllowed(false);
-		tableResultadosTarjetas.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Numero", "Fecha caducidad", "Proveedor", "Tipo", "Limite extraccion", "Fecha expedicion", "Cuenta vinculada"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false, false
-			};
+		tableResultadosTarjetas.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Numero",
+				"Fecha caducidad", "Proveedor", "Tipo", "Limite extraccion", "Fecha expedicion", "Cuenta vinculada" }) {
+			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false };
+
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
@@ -1160,14 +1111,14 @@ public class Mainwindow extends JFrame {
 		JButton btnExportarTodo = new JButton("Exportar todo");
 		btnExportarTodo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				exportar(false,false,false,true);
+				exportar(false, false, false, true);
 			}
 		});
 
 		JButton btnExportarTarjetas = new JButton("Exportar");
 		btnExportarTarjetas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				exportar(false,false,true,false);
+				exportar(false, false, true, false);
 			}
 		});
 
@@ -1175,33 +1126,29 @@ public class Mainwindow extends JFrame {
 		btnBorrarTarjetas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				tableResultadosTarjetas.setRowSelectionAllowed(false);
-				tableResultadosTarjetas.setModel(new DefaultTableModel(
-						new Object[][] {
-						},
-						new String[] {
-							"Numero", "Fecha caducidad", "Proveedor", "Tipo", "Limite extraccion", "Fecha expedicion", "Cuenta vinculada"
-						}
-					) {
-						boolean[] columnEditables = new boolean[] {
-							false, false, false, false, false, false, false
-						};
-						public boolean isCellEditable(int row, int column) {
-							return columnEditables[column];
-						}
-					});
-					tableResultadosTarjetas.getColumnModel().getColumn(0).setPreferredWidth(66);
-					tableResultadosTarjetas.getColumnModel().getColumn(1).setPreferredWidth(125);
-					tableResultadosTarjetas.getColumnModel().getColumn(3).setPreferredWidth(64);
-					tableResultadosTarjetas.getColumnModel().getColumn(4).setPreferredWidth(114);
-					tableResultadosTarjetas.getColumnModel().getColumn(5).setPreferredWidth(120);
-					tableResultadosTarjetas.getColumnModel().getColumn(6).setPreferredWidth(112);
+				tableResultadosTarjetas
+						.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Numero", "Fecha caducidad",
+								"Proveedor", "Tipo", "Limite extraccion", "Fecha expedicion", "Cuenta vinculada" }) {
+							boolean[] columnEditables = new boolean[] { false, false, false, false, false, false,
+									false };
+
+							public boolean isCellEditable(int row, int column) {
+								return columnEditables[column];
+							}
+						});
+				tableResultadosTarjetas.getColumnModel().getColumn(0).setPreferredWidth(66);
+				tableResultadosTarjetas.getColumnModel().getColumn(1).setPreferredWidth(125);
+				tableResultadosTarjetas.getColumnModel().getColumn(3).setPreferredWidth(64);
+				tableResultadosTarjetas.getColumnModel().getColumn(4).setPreferredWidth(114);
+				tableResultadosTarjetas.getColumnModel().getColumn(5).setPreferredWidth(120);
+				tableResultadosTarjetas.getColumnModel().getColumn(6).setPreferredWidth(112);
 			}
 		});
 
 		JButton buttonExportarCuentas = new JButton("Exportar");
 		buttonExportarCuentas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				exportar(false,true,false,false);
+				exportar(false, true, false, false);
 			}
 		});
 
@@ -1209,16 +1156,11 @@ public class Mainwindow extends JFrame {
 		btnBorrarCuentas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tableResultadosCuentas.setRowSelectionAllowed(false);
-				tableResultadosCuentas.setModel(new DefaultTableModel(
-					new Object[][] {
-					},
-					new String[] {
-						"IBAN", "SWIFT", "Fecha apertura", "Activa", "Saldo actual", "Interes", "DNI titular", "Tarjeta vinculada"
-					}
-				) {
-					boolean[] columnEditables = new boolean[] {
-						false, false, false, false, false, false, false, false
-					};
+				tableResultadosCuentas.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "IBAN", "SWIFT",
+						"Fecha apertura", "Activa", "Saldo actual", "Interes", "DNI titular", "Tarjeta vinculada" }) {
+					boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false,
+							false };
+
 					public boolean isCellEditable(int row, int column) {
 						return columnEditables[column];
 					}
@@ -1237,7 +1179,7 @@ public class Mainwindow extends JFrame {
 		JButton buttonExportarClientes = new JButton("Exportar");
 		buttonExportarClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				exportar(true,false,false,false);
+				exportar(true, false, false, false);
 			}
 		});
 
@@ -1245,92 +1187,81 @@ public class Mainwindow extends JFrame {
 		btnBorrarClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tableResultadosClientes.setRowSelectionAllowed(false);
-				tableResultadosClientes.setModel(new DefaultTableModel(
-						new Object[][] {
-						},
-						new String[] {
-							"DNI", "Nombre", "Apellidos", "Direccion", "Email", "Movil", "Empleado"
-						}
-					) {
-						boolean[] columnEditables = new boolean[] {
-							false, false, false, false, false, false, false
-						};
-						public boolean isCellEditable(int row, int column) {
-							return columnEditables[column];
-						}
-					});
+				tableResultadosClientes.setModel(new DefaultTableModel(new Object[][] {},
+						new String[] { "DNI", "Nombre", "Apellidos", "Direccion", "Email", "Movil", "Empleado" }) {
+					boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false };
+
+					public boolean isCellEditable(int row, int column) {
+						return columnEditables[column];
+					}
+				});
 			}
 		});
 		GroupLayout gl_panel_5 = new GroupLayout(panel_5);
-		gl_panel_5.setHorizontalGroup(
-			gl_panel_5.createParallelGroup(Alignment.TRAILING)
+		gl_panel_5.setHorizontalGroup(gl_panel_5.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel_5.createSequentialGroup()
-					.addGroup(gl_panel_5.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_panel_5.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(btnExportarTodo, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel_5.createSequentialGroup()
-							.addGap(20)
-							.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
-								.addComponent(panel_8, GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
-								.addComponent(panel_6, GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
-								.addComponent(panel_7, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE))))
-					.addGap(18)
-					.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING, false)
-							.addComponent(btnBorrarTarjetas, GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
-							.addComponent(btnBorrarCuentas, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(buttonExportarCuentas, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnExportarTarjetas, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING, false)
-							.addComponent(buttonExportarClientes, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnBorrarClientes, GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)))
-					.addContainerGap())
-		);
-		gl_panel_5.setVerticalGroup(
-			gl_panel_5.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_5.createSequentialGroup()
-					.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_5.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(panel_6, GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-							.addGap(18)
-							.addComponent(panel_7, GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
-							.addGap(18)
-							.addComponent(panel_8, GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-							.addGap(6))
-						.addGroup(gl_panel_5.createSequentialGroup()
-							.addGap(57)
-							.addComponent(buttonExportarClientes)
-							.addGap(18)
-							.addComponent(btnBorrarClientes)
-							.addGap(96)
-							.addComponent(buttonExportarCuentas)
-							.addPreferredGap(ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-							.addComponent(btnBorrarCuentas)
-							.addGap(85)
-							.addComponent(btnExportarTarjetas)
-							.addGap(18)
-							.addComponent(btnBorrarTarjetas)
-							.addGap(44)))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnExportarTodo, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-					.addGap(56))
-		);
+						.addGroup(gl_panel_5
+								.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_panel_5.createSequentialGroup()
+										.addContainerGap().addComponent(btnExportarTodo, GroupLayout.PREFERRED_SIZE,
+												150, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panel_5.createSequentialGroup().addGap(20)
+										.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
+												.addComponent(panel_8, GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
+												.addComponent(panel_6, GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
+												.addComponent(panel_7, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE,
+														820, Short.MAX_VALUE))))
+						.addGap(18)
+						.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(btnBorrarTarjetas, GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
+										.addComponent(btnBorrarCuentas, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(buttonExportarCuentas, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(btnExportarTarjetas, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(buttonExportarClientes, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(btnBorrarClientes, GroupLayout.DEFAULT_SIZE, 81,
+												Short.MAX_VALUE)))
+						.addContainerGap()));
+		gl_panel_5
+				.setVerticalGroup(
+						gl_panel_5.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel_5.createSequentialGroup()
+										.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
+												.addGroup(gl_panel_5.createSequentialGroup().addContainerGap()
+														.addComponent(panel_6, GroupLayout.DEFAULT_SIZE, 148,
+																Short.MAX_VALUE)
+														.addGap(18)
+														.addComponent(panel_7, GroupLayout.DEFAULT_SIZE, 141,
+																Short.MAX_VALUE)
+														.addGap(18)
+														.addComponent(panel_8, GroupLayout.DEFAULT_SIZE, 143,
+																Short.MAX_VALUE)
+														.addGap(6))
+												.addGroup(gl_panel_5.createSequentialGroup().addGap(57)
+														.addComponent(buttonExportarClientes).addGap(18)
+														.addComponent(btnBorrarClientes).addGap(96)
+														.addComponent(buttonExportarCuentas)
+														.addPreferredGap(ComponentPlacement.RELATED, 18,
+																Short.MAX_VALUE)
+														.addComponent(btnBorrarCuentas).addGap(85)
+														.addComponent(btnExportarTarjetas).addGap(18)
+														.addComponent(btnBorrarTarjetas).addGap(44)))
+										.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(btnExportarTodo,
+												GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+										.addGap(56)));
 
 		JScrollPane scrollPaneForTableClientes = new JScrollPane();
 		tableResultadosClientes = new JTable();
 		tableResultadosClientes.setRowSelectionAllowed(false);
-		tableResultadosClientes.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"DNI", "Nombre", "Apellidos", "Direccion", "Email", "Movil", "Empleado"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false, false
-			};
+		tableResultadosClientes.setModel(new DefaultTableModel(new Object[][] {},
+				new String[] { "DNI", "Nombre", "Apellidos", "Direccion", "Email", "Movil", "Empleado" }) {
+			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false };
+
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
@@ -1355,23 +1286,26 @@ public class Mainwindow extends JFrame {
 	public void setSOAPservice(DeustoBankServiceStub sOAPservice) {
 		SOAPservice = sOAPservice;
 	}
-	
+
 	private void exportar(boolean clientes, boolean cuentas, boolean tarjetas, boolean todo) {
 		Banco b = new Banco();
-		
-		if(clientes || todo) {
-			// Añadimos la lista de clientes a nuestra clase Banco que sera la que luego serialicemos como XML
+
+		if (clientes || todo) {
+			// Añadimos la lista de clientes a nuestra clase Banco que sera la
+			// que luego serialicemos como XML
 			b.setListaClientes(new ArrayList<Cliente>(Arrays.asList(tempClientes)));
 		}
 		if (cuentas || todo) {
-			// Añadimos la lista de cuentas a nuestra clase Banco que sera la que luego serialicemos como XML
+			// Añadimos la lista de cuentas a nuestra clase Banco que sera la
+			// que luego serialicemos como XML
 			b.setListaCuentas(new ArrayList<Cuenta>(Arrays.asList(tempCuentas)));
 		}
 		if (tarjetas || todo) {
-			// Añadimos la lista de tarjetas a nuestra clase Banco que sera la que luego serialicemos como XML
+			// Añadimos la lista de tarjetas a nuestra clase Banco que sera la
+			// que luego serialicemos como XML
 			b.setListaTarjetas(new ArrayList<Tarjeta>(Arrays.asList(tempTarjetas)));
 		}
-		
+
 		// Creamos el objeto JFileChooser
 		JFileChooser fc = new JFileChooser();
 		fc.setDialogTitle("Guardar archivo xml...");
@@ -1406,34 +1340,37 @@ public class Mainwindow extends JFrame {
 	public void setTempTarjetas(Tarjeta[] tempTarjetas) {
 		this.tempTarjetas = tempTarjetas;
 	}
-	
+
 	public void loadClientes() {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		for (Cliente c : tempClientes) {
-			model.addRow(new Object[]{c.getDNI(), c.getNombre(),c.getApellidos(),c.getDireccion(),c.getEmail(),c.getMovil(),(c.isEmpleado()) ? "Si" : "No"});
+			model.addRow(new Object[] { c.getDNI(), c.getNombre(), c.getApellidos(), c.getDireccion(), c.getEmail(),
+					c.getMovil(), (c.isEmpleado()) ? "Si" : "No" });
 		}
 	}
-	
+
 	public void loadCuentas() {
 		DefaultTableModel model = (DefaultTableModel) table_1.getModel();
 		for (Cuenta cu : tempCuentas) {
-			model.addRow(new Object[]{cu.getIBAN(),cu.getSWIFT(),cu.getFechaApertura(),(cu.isActiva())?"Si":"No",cu.getSaldoActual(),cu.getInteres(),cu.getTitular()});
+			model.addRow(new Object[] { cu.getIBAN(), cu.getSWIFT(), cu.getFechaApertura(),
+					(cu.isActiva()) ? "Si" : "No", cu.getSaldoActual(), cu.getInteres(), cu.getTitular() });
 		}
 	}
-	
+
 	public void loadTarjetas() {
 		DefaultTableModel model = (DefaultTableModel) table_2.getModel();
-		for (Tarjeta t: tempTarjetas) {
-			model.addRow(new Object[]{t.getNumero(),t.getLimiteExtraccion(),t.getFechaCaducidad(),t.getProveedor(),t.getTipo(),t.getFechaExpedicion(),t.getCuenta()});
+		for (Tarjeta t : tempTarjetas) {
+			model.addRow(new Object[] { t.getNumero(), t.getLimiteExtraccion(), t.getFechaCaducidad(), t.getProveedor(),
+					t.getTipo(), t.getFechaExpedicion(), t.getCuenta() });
 		}
 	}
-	
-	private void limpiarJTable(DefaultTableModel model){
+
+	private void limpiarJTable(DefaultTableModel model) {
 		int rowCount = model.getRowCount();
-		
+
 		for (int j = rowCount - 1; j >= 0; j--) {
 			model.removeRow(j);
 		}
-		
+
 	}
 }
