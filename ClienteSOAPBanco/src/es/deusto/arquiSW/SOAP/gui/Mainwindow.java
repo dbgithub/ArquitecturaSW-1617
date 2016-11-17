@@ -843,7 +843,7 @@ public class Mainwindow extends JFrame {
 		JScrollPane scrollPaneForTableTarjetasFiltro = new JScrollPane();
 		table_2 = new JTable();
 		table_2.setRowSelectionAllowed(false);
-		table_2.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Numero", "Fecha caducidad",
+		table_2.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Número", "Fecha caducidad",
 				"Proveedor", "Tipo", "Limite extraccion", "Fecha expedicion", "Cuenta vinculada" }) {
 			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false };
 
