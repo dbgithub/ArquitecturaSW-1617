@@ -72,7 +72,8 @@ public class GestorBD {
 	 * @throws SQLException
 	 */
 	public boolean conexionAbierta() throws SQLException {
-		return !con.isClosed();
+//		return con.isValid(8000);
+		return (!con.isClosed() || con!=null);
 	}
 	
 	/**
@@ -229,7 +230,7 @@ public class GestorBD {
 		Statement statement = con.createStatement();
 		while (it.hasNext()) {
 			Cliente temp = it.next();
-			String sqlString = "INSERT INTO Cliente " +
+			String sqlString = "INSERT INTO cliente " +
 					"(DNI, Nombre, Apellidos, Direccion, email, movil, empleado, PIN) " +
 					"VALUES ('" + temp.getDNI() +
 					"','" + temp.getNombre() +
@@ -254,7 +255,7 @@ public class GestorBD {
 		Statement statement = con.createStatement();
 		while (it.hasNext()) {
 			Cuenta temp = it.next();
-			String sqlString = "INSERT INTO Cuenta " +
+			String sqlString = "INSERT INTO cuenta " +
 					"(IBAN, SWIFT, FechaApertura, Activa, SaldoActual, Interes, Cliente) " +
 					"VALUES (" + temp.getIBAN() +
 					",'" + temp.getSWIFT() +
@@ -278,7 +279,7 @@ public class GestorBD {
 		Statement statement = con.createStatement();
 		while (it.hasNext()) {
 			Operacion temp = it.next();
-			String sqlString = "INSERT INTO Operacion " +
+			String sqlString = "INSERT INTO operacion " +
 					"(ID, Fecha, Tipo, Importe, Cuenta) " +
 					"VALUES (" + temp.getId() +
 					",'" + temp.getFecha().toString() +
@@ -300,7 +301,7 @@ public class GestorBD {
 		Statement statement = con.createStatement();
 		while (it.hasNext()) {
 			Tarjeta temp = it.next();
-			String sqlString = "INSERT INTO Tarjeta " +
+			String sqlString = "INSERT INTO tarjeta " +
 					"(Numero, LimiteExtraccion, FechaCaducidad, Proveedor, Tipo, FechaExpedicion, Cuenta) " +
 					"VALUES (" + temp.getNumero() +
 					"," + temp.getLimiteExtraccion() +
@@ -331,7 +332,7 @@ public class GestorBD {
 	public ArrayList<Cliente> obtenerCliente(String DNI, String Nombre, String Apellidos, String email, String movil, Boolean empleado) throws SQLException {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 		PreparedStatement statement;
-		String sqlString = "SELECT * FROM Cliente" +
+		String sqlString = "SELECT * FROM cliente" +
 			" WHERE @1 AND @2 AND @3 AND @4 AND @5 AND @6";
 		if (DNI!=null) {sqlString = sqlString.replace("@1", "Dni="+DNI);} else {sqlString = sqlString.replace("@1", "Dni = Dni");}
 		if (Nombre!=null) {sqlString = sqlString.replace("@2", "Nombre="+Nombre);} else {sqlString = sqlString.replace("@2", "Nombre = Nombre");}
@@ -371,7 +372,7 @@ public class GestorBD {
 	public ArrayList<Cuenta> obtenerCuenta(String IBAN, String DNI, String fechaApertura, Boolean activa, String interes) throws SQLException {
 		ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
 		PreparedStatement statement;
-		String sqlString = "SELECT * FROM Cuenta" +
+		String sqlString = "SELECT * FROM cuenta" +
 			" WHERE @1 AND @2 AND @3 AND @4 AND @5";
 		if (IBAN!=null) {sqlString = sqlString.replace("@1", "IBAN="+IBAN);} else {sqlString = sqlString.replace("@1", "IBAN = IBAN");}
 		if (DNI!=null) {sqlString = sqlString.replace("@2", "Cliente="+DNI);} else {sqlString = sqlString.replace("@2", "Cliente = Cliente");}
@@ -438,7 +439,7 @@ public class GestorBD {
 		PreparedStatement statement;
 		String sqlString = "SELECT newtable.Numero, newtable.LimiteExtraccion, newtable.FechaCaducidad, newtable.Proveedor, newtable.Tipo, " +
 							"newtable.FechaExpedicion, newtable.Cliente FROM" +
-							"(SELECT * FROM Tarjeta INNER JOIN Cuenta ON Tarjeta.Cuenta = Cuenta.IBAN) as newtable" +
+							"(SELECT * FROM tarjeta INNER JOIN cuenta ON tarjeta.Cuenta = cuenta.IBAN) as newtable" +
 							" WHERE @1 AND @2 AND @3 AND @4";
 		if (Numero!=null) {sqlString = sqlString.replace("@1", "Numero="+Numero);} else {sqlString = sqlString.replace("@1", "Numero = Numero");}
 		if (DNI!=null) {sqlString = sqlString.replace("@2", "Cliente="+Numero);} else {sqlString = sqlString.replace("@2", "Cliente = Cliente");}
@@ -537,7 +538,7 @@ public class GestorBD {
 	 */
 	public void deleteCliente(String DNI) throws SQLException {
 		Statement statement = con.createStatement();
-		String sqldelete = "DELETE FROM Cliente WHERE DNI = "+DNI;
+		String sqldelete = "DELETE FROM cliente WHERE DNI = "+DNI;
 		statement.executeUpdate(sqldelete);
 	}
 	
@@ -548,7 +549,7 @@ public class GestorBD {
 	 */
 	public void deleteCuenta(String IBAN) throws SQLException {
 		Statement statement = con.createStatement();
-		String sqldelete = "DELETE FROM Cuenta WHERE IBAN = "+IBAN;
+		String sqldelete = "DELETE FROM cuenta WHERE IBAN = "+IBAN;
 		statement.executeUpdate(sqldelete);
 	}
 	
@@ -559,32 +560,32 @@ public class GestorBD {
 	 */
 	public void deleteTarjeta(String num) throws SQLException {
 		Statement statement = con.createStatement();
-		String sqldelete = "DELETE FROM Tarjeta WHERE Numero = "+num;
+		String sqldelete = "DELETE FROM tarjeta WHERE Numero = "+num;
 		statement.executeUpdate(sqldelete);
 	}
 	
 	
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		GestorBD gbd=new GestorBD();
-		gbd.conectar();
-			// Variables auxiliares
-			Cuenta aux = new Cuenta();
-			aux.setIBAN(454545);
-			ArrayList<Cuenta> auxlista = new ArrayList<Cuenta>();
-			auxlista.add(aux);
-		Cliente tempc = new Cliente("9898989", "Danielo", "Guzman", "Colegio mayor Deusto", "d.g@hola.com", 69455454,false,9876,auxlista);
-		gbd.updateCliente(tempc);
-		Cuenta tempcu = new Cuenta(454545, "SXXKUTXA-09", new Date(2016,11,17), true, 2122f, 0.7f, tempc, null, null);
-		gbd.updateCuenta(tempcu);
-			// Aux
-			Calendar calen1 = Calendar.getInstance();
-			calen1.set(2020, 11, 17);
-			Calendar calen2 = Calendar.getInstance();
-			calen2.set(2016, 11, 17);
-		Tarjeta tempt = new Tarjeta(555556,tempcu,1300,calen2.getTime(),EnumProveedores.AmericanExpress,TiposTarjeta.Credito,calen2.getTime());
-		gbd.updateTarjeta(tempt);
-		gbd.desconectar();
-	}
+//	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+//		GestorBD gbd=new GestorBD();
+//		gbd.conectar();
+//			// Variables auxiliares
+//			Cuenta aux = new Cuenta();
+//			aux.setIBAN(454545);
+//			ArrayList<Cuenta> auxlista = new ArrayList<Cuenta>();
+//			auxlista.add(aux);
+//		Cliente tempc = new Cliente("9898989", "Danielo", "Guzman", "Colegio mayor Deusto", "d.g@hola.com", 69455454,false,9876,auxlista);
+//		gbd.updateCliente(tempc);
+//		Cuenta tempcu = new Cuenta(454545, "SXXKUTXA-09", new Date(2016,11,17), true, 2122f, 0.7f, tempc, null, null);
+//		gbd.updateCuenta(tempcu);
+//			// Aux
+//			Calendar calen1 = Calendar.getInstance();
+//			calen1.set(2020, 11, 17);
+//			Calendar calen2 = Calendar.getInstance();
+//			calen2.set(2016, 11, 17);
+//		Tarjeta tempt = new Tarjeta(555556,tempcu,1300,calen2.getTime(),EnumProveedores.AmericanExpress,TiposTarjeta.Credito,calen2.getTime());
+//		gbd.updateTarjeta(tempt);
+//		gbd.desconectar();
+//	}
 
 
 }

@@ -28,8 +28,13 @@ public class TarjetasROA {
 	
 	@Context
 	UriInfo uriInfo; // Variable que nos ayuda a obtener informacio sobre la URI de la peticion REST
-	private GestorBD dbmanager = new GestorBD();
-	private DTOClassesConversor dcc = new DTOClassesConversor();
+	private GestorBD dbmanager;
+	private DTOClassesConversor dcc;
+	
+	public TarjetasROA() {
+		dbmanager = new GestorBD();
+		dcc = new DTOClassesConversor();
+	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
@@ -125,9 +130,9 @@ public class TarjetasROA {
 	
 	public void establecerConexionBD() {
 		try {
-			if (!dbmanager.conexionAbierta()) {
+//			if (!dbmanager.conexionAbierta()) {
 				dbmanager.conectar();
-			}
+//			}
 		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
