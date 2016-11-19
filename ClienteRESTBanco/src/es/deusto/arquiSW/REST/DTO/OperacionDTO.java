@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlRootElement
 @XmlType(propOrder = { "id", "fecha", "tipo", "importe", "cuenta" }) // opcional
-public class Operacion {
+public class OperacionDTO {
 	
 	private int id;
 	private Date fecha;
@@ -29,7 +29,7 @@ public class Operacion {
 	/**
 	 * Constructor vacio
 	 */
-	public Operacion() {
+	public OperacionDTO() {
 		
 	}
 	
@@ -41,7 +41,7 @@ public class Operacion {
 	 * @param importe
 	 * @param cuenta
 	 */
-	public Operacion(int id, Date fecha, EnumTipoOperacion tipo, float importe, int cuenta) {
+	public OperacionDTO(int id, Date fecha, EnumTipoOperacion tipo, float importe, int cuenta) {
 		this.id = id;
 		this.fecha = fecha;
 		this.tipo = tipo;

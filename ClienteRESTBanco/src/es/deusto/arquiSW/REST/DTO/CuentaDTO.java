@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import es.deusto.arquiSW.REST.DTO.Cliente;
+import es.deusto.arquiSW.REST.DTO.ClienteDTO;
 
 /**
  * This DTO, in this occasion, is identical to the real domain class. That's the reason why object of this type
@@ -20,7 +20,7 @@ import es.deusto.arquiSW.REST.DTO.Cliente;
  */
 @XmlRootElement
 @XmlType(propOrder = { "IBAN", "SWIFT", "fechaApertura", "activa", "saldoActual", "interes", "titular", "operaciones" }) // opcional
-public class Cuenta {
+public class CuentaDTO {
 	private int IBAN;
 	private String SWIFT;
 	private Date fechaApertura;
@@ -29,13 +29,13 @@ public class Cuenta {
 	private float interes;
 	private String titular;
 	
-	private ArrayList<Operacion> operaciones;
+	private ArrayList<OperacionDTO> operaciones;
 	
 	
 	/**
 	 * Constructor vacio
 	 */
-	public Cuenta() {
+	public CuentaDTO() {
 		
 	}
 	/**
@@ -50,8 +50,8 @@ public class Cuenta {
 	 * @param tarjeta
 	 * @param operaciones
 	 */
-	public Cuenta(int iBAN, String sWIFT, Date fechaApertura, boolean activa, float saldoActual, float interes,
-			String titular, ArrayList<Operacion> operaciones) {
+	public CuentaDTO(int iBAN, String sWIFT, Date fechaApertura, boolean activa, float saldoActual, float interes,
+			String titular, ArrayList<OperacionDTO> operaciones) {
 		this.IBAN = iBAN;
 		this.SWIFT = sWIFT;
 		this.fechaApertura = fechaApertura;
@@ -110,10 +110,10 @@ public class Cuenta {
 	}
 	@XmlElementWrapper(name = "lista_operaciones")
 	@XmlElement(name = "operacion") // XmlElement especifica el nombre de las entidades
-	public ArrayList<Operacion> getOperaciones() {
+	public ArrayList<OperacionDTO> getOperaciones() {
 		return operaciones;
 	}
-	public void setOperaciones(ArrayList<Operacion> operaciones) {
+	public void setOperaciones(ArrayList<OperacionDTO> operaciones) {
 		this.operaciones = operaciones;
 	}
 	

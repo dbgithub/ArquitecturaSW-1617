@@ -18,7 +18,16 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import es.deusto.arquiSW.REST.Controller.Controller;
+import es.deusto.arquiSW.REST.DTO.ClienteDTO;
+import es.deusto.arquiSW.REST.DTO.CuentaDTO;
+import es.deusto.arquiSW.REST.DTO.TarjetaDTO;
+import es.deusto.arquiSW.REST.DTO.TarjetaDTO.EnumProveedores;
+import es.deusto.arquiSW.REST.DTO.TarjetaDTO.TiposTarjeta;
+
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 public class MainWindow {
@@ -30,6 +39,7 @@ public class MainWindow {
 	private JTable tableCuentas;
 	private JTextField textField_NumeroTarjeta;
 	private JTable tableTarjetas;
+	private Controller controller;
 
 	/**
 	 * Launch the application.
@@ -52,12 +62,30 @@ public class MainWindow {
 	 */
 	public MainWindow() {
 		initialize();
+		// PRUEBAS:
+//		this.controller.obtenerClientes();  // FUNCIONA!
+//		this.controller.obtenerCuentas(); // FALLA 
+//		this.controller.obtenerTarjetas();  // FUNCIONA!
+//		this.controller.obtenerCliente("8656565"); // FUNCIONA!
+//		this.controller.obtenerCuenta("454545"); // FALLA 
+//		this.controller.obtenerTarjeta("555556"); // FUNCIONA!
+//		this.controller.crearCliente(new ClienteDTO("123456789","PRUEBA NOMBRE","PRUEBA APELLIDOS","PRUEBA DIR","prueba@gmail.prueba",79797979,true,5665)); // FUNCIONA!
+//		this.controller.modificarCliente(new ClienteDTO("123456789","PRUEBA","PRUEBA","PRUEBA","prueba@gmail.prueba",97979797,false,6556)); // FUNCIONA!
+//		this.controller.eliminarCiente("123456789"); // FUNCIONA!
+//		this.controller.crearCuenta(new CuentaDTO(62811149, "SWIF-XXC", new Date(System.currentTimeMillis()), true, 10587f, 0.1f, "123456789", null)); // FALLA ?
+//		this.controller.modificarCuenta(new CuentaDTO(94111826, "SW-56TT", new Date(System.currentTimeMillis()), false, 100f, 0.15f, "123456789", null)); // FALLA ?
+//		this.controller.eliminarCuenta(String.valueOf(94111826)); // FALLA ?
+//		this.controller.crearTarjeta(new TarjetaDTO(3333336,454545,3000, new Date(System.currentTimeMillis()+100000),EnumProveedores.Mastercard,TiposTarjeta.Credito,new Date(System.currentTimeMillis()))); // FUNCIONA!
+//		this.controller.modificarTarjeta(new TarjetaDTO(3333336,454545,1500, new Date(System.currentTimeMillis()+200000),EnumProveedores.Mastercard,TiposTarjeta.Debito,new Date(System.currentTimeMillis()))); // FUNCIONA!
+//		this.controller.eliminarTarjeta(String.valueOf(3333336)); // FUNCIONA!
+//		this.controller.probarhola(); // FUNCIONA!
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		this.controller = new Controller();
 		frmDeustobankrest = new JFrame();
 		frmDeustobankrest.setTitle("DeustoBank(REST)");
 		frmDeustobankrest.setBounds(100, 100, 837, 610);
@@ -324,7 +352,7 @@ public class MainWindow {
 			new Object[][] {
 			},
 			new String[] {
-					"Número", "Fecha caducidad",
+					"Nï¿½mero", "Fecha caducidad",
 					"Proveedor", "Tipo", "Limite extraccion", "Fecha expedicion", "Cuenta vinculada"
 			}
 		));
