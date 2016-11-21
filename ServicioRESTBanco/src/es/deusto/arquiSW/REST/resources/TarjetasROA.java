@@ -57,6 +57,7 @@ public class TarjetasROA {
 	@Produces(MediaType.APPLICATION_XML)
 	public TarjetaDTO getTarjeta(@PathParam("tarjeta") String num) {
 		establecerConexionBD();
+		System.out.println(num);
 		TarjetaDTO resul = new TarjetaDTO();
 		try {
 			resul = dcc.TarjetaToDTOTarjeta(dbmanager.obtenerTarjeta(num, null, null, null).get(0));

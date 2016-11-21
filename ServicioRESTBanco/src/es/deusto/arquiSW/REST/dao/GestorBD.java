@@ -565,9 +565,9 @@ public class GestorBD {
 	}
 	
 	
-//	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-//		GestorBD gbd=new GestorBD();
-//		gbd.conectar();
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		GestorBD gbd=new GestorBD();
+		gbd.conectar();
 //			// Variables auxiliares
 //			Cuenta aux = new Cuenta();
 //			aux.setIBAN(454545);
@@ -584,8 +584,12 @@ public class GestorBD {
 //			calen2.set(2016, 11, 17);
 //		Tarjeta tempt = new Tarjeta(555556,tempcu,1300,calen2.getTime(),EnumProveedores.AmericanExpress,TiposTarjeta.Credito,calen2.getTime());
 //		gbd.updateTarjeta(tempt);
-//		gbd.desconectar();
-//	}
+//		System.out.println(gbd.obtenerTarjeta("555556",null,null,null));
+		
+		System.out.println(gbd.obtenerTarjeta("555556", null, null, null).size());
+		
+		gbd.desconectar();
+	}
 
 
 }

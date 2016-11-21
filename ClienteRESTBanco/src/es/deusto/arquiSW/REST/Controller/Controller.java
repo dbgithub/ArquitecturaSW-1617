@@ -181,7 +181,7 @@ public class Controller {
 	// ******************************
 	// ELIMINAR recursos
 	
-	public void eliminarCiente(String DNI) {
+	public void eliminarCliente(String DNI) {
 		ClientResponse res = service.path("clientes").path(DNI).delete(ClientResponse.class);
 		if (res.getStatus() == 200) { // 200: OK
 			System.out.println("Cliente eliminado satisfactoriamente! (status:"+res.getStatus()+") DNI:"+DNI);
