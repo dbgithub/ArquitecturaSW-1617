@@ -59,10 +59,16 @@ public class ClientesROA {
 		establecerConexionBD();
 		ClienteDTO resul = new ClienteDTO();
 		try {
-			resul = dcc.ClienteToDTOCliente(dbmanager.obtenerCliente(DNI, null, null, null, null, null).get(0));
+			ArrayList<Cliente> tmp = dbmanager.obtenerCliente(DNI, null, null, null, null, null);
+			if (tmp.size() != 0) {
+				resul = dcc.ClienteToDTOCliente(tmp.get(0));
+			} else {
+				return null;
+			}
 		} catch (SQLException e) {
 			System.out.println("ERROR getting a single Cliente in 'ClientesROA'");
-			e.printStackTrace();
+//			e.printStackTrace();
+			return null;
 		}
 		return resul;
 	}

@@ -59,10 +59,16 @@ public class CuentasROA {
 		establecerConexionBD();
 		CuentaDTO resul = new CuentaDTO();
 		try {
-			resul = dcc.CuentaToDTOCuenta(dbmanager.obtenerCuenta(IBAN, null, null, null, null).get(0));
+			ArrayList<Cuenta> tmp = dbmanager.obtenerCuenta(IBAN, null, null, null, null);
+			if (tmp.size() != 0) {
+				resul = dcc.CuentaToDTOCuenta(tmp.get(0));
+			} else {
+				return null;
+			}
 		} catch (SQLException e) {
 			System.out.println("ERROR getting a single Cuenta in 'CuentasROA'");
-			e.printStackTrace();
+//			e.printStackTrace();
+			return null;
 		}
 		return resul;
 	}

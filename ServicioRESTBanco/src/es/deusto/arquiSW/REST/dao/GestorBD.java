@@ -442,7 +442,7 @@ public class GestorBD {
 							"(SELECT * FROM tarjeta INNER JOIN cuenta ON tarjeta.Cuenta = cuenta.IBAN) as newtable" +
 							" WHERE @1 AND @2 AND @3 AND @4";
 		if (Numero!=null) {sqlString = sqlString.replace("@1", "Numero="+Numero);} else {sqlString = sqlString.replace("@1", "Numero = Numero");}
-		if (DNI!=null) {sqlString = sqlString.replace("@2", "Cliente="+Numero);} else {sqlString = sqlString.replace("@2", "Cliente = Cliente");}
+		if (DNI!=null) {sqlString = sqlString.replace("@2", "Cliente="+DNI);} else {sqlString = sqlString.replace("@2", "Cliente = Cliente");}
 		if (proveedor!=null) {sqlString = sqlString.replace("@3", "Proveedor="+proveedor);} else {sqlString = sqlString.replace("@3", "Proveedor = Proveedor");}
 		if (tipo!=null) {sqlString = sqlString.replace("@4", "Tipo="+tipo);} else {sqlString = sqlString.replace("@4", "Tipo = Tipo");}
 		statement = con.prepareStatement(sqlString);	

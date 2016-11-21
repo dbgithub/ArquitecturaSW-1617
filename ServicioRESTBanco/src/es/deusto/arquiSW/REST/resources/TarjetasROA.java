@@ -60,10 +60,16 @@ public class TarjetasROA {
 		System.out.println(num);
 		TarjetaDTO resul = new TarjetaDTO();
 		try {
-			resul = dcc.TarjetaToDTOTarjeta(dbmanager.obtenerTarjeta(num, null, null, null).get(0));
+			ArrayList<Tarjeta> tmp = dbmanager.obtenerTarjeta(num, null, null, null);
+			if (tmp.size() != 0) {
+				resul = dcc.TarjetaToDTOTarjeta(tmp.get(0));
+			} else {
+				return null;
+			}
 		} catch (SQLException e) {
 			System.out.println("ERROR getting a single Tarjeta in 'TarjetasROA'");
-			e.printStackTrace();
+//			e.printStackTrace();
+			return null;
 		}
 		return resul;
 	}

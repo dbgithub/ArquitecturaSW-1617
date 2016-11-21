@@ -7,6 +7,7 @@ import javax.ws.rs.core.UriBuilder;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.GenericType;
+import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
@@ -74,10 +75,18 @@ public class Controller {
 	 * @param DNI
 	 */
 	public void obtenerCliente(String DNI) {
-		ArrayList<ClienteDTO> clientes = new ArrayList<ClienteDTO>();
-		clientes.add(service.path("clientes").path(DNI).accept(MediaType.APPLICATION_XML).get(ClienteDTO.class));
-		setColeccionClientes(clientes);
-		System.out.println("CLIENTE obtenido!, size=" + clientes.size());
+		try {
+			ArrayList<ClienteDTO> clientes = new ArrayList<ClienteDTO>();
+			clientes.add(service.path("clientes").path(DNI).accept(MediaType.APPLICATION_XML).get(ClienteDTO.class));
+			setColeccionClientes(clientes);
+			System.out.println("CLIENTE obtenido!, size=" + clientes.size());	
+		} catch(UniformInterfaceException e){ // if the returned response is an error from server side, this probably means that there was not any item to retrieve
+			ClientResponse r = e.getResponse();
+			if (r.getStatus() == 500) {
+				System.out.println("Warning! (status: " + r.getStatus() + "), apparently it doesn't exist any record with the information provided");
+			}
+			setColeccionClientes(null);
+		}
 	}
 	
 	/**
@@ -85,10 +94,18 @@ public class Controller {
 	 * @param IBAN
 	 */
 	public void obtenerCuenta(String IBAN) {
-		ArrayList<CuentaDTO> cuentas = new ArrayList<CuentaDTO>();
-		cuentas.add(service.path("cuentas").path(IBAN).accept(MediaType.APPLICATION_XML).get(CuentaDTO.class));
-		setColeccionCuentas(cuentas);
-		System.out.println("CUENTA obtenido!, size=" + cuentas.size());
+		try {
+			ArrayList<CuentaDTO> cuentas = new ArrayList<CuentaDTO>();
+			cuentas.add(service.path("cuentas").path(IBAN).accept(MediaType.APPLICATION_XML).get(CuentaDTO.class));
+			setColeccionCuentas(cuentas);
+			System.out.println("CUENTA obtenido!, size=" + cuentas.size());
+		} catch(UniformInterfaceException e){ // if the returned response is an error from server side, this probably means that there was not any item to retrieve
+			ClientResponse r = e.getResponse();
+			if (r.getStatus() == 500) {
+				System.out.println("Warning! (status: " + r.getStatus() + "), apparently it doesn't exist any record with the information provided");
+			}
+			setColeccionCuentas(null);
+		}
 	}
 	
 	/**
@@ -96,10 +113,18 @@ public class Controller {
 	 * @param NUM
 	 */
 	public void obtenerTarjeta(String NUM) {
-		ArrayList<TarjetaDTO> tarjetas = new ArrayList<TarjetaDTO>();
-		tarjetas.add(service.path("tarjetas").path(NUM).accept(MediaType.APPLICATION_XML).get(TarjetaDTO.class));
-		setColeccionTarjetas(tarjetas);
-		System.out.println("TARJETA obtenido!, size=" + tarjetas.size());
+		try {
+			ArrayList<TarjetaDTO> tarjetas = new ArrayList<TarjetaDTO>();
+			tarjetas.add(service.path("tarjetas").path(NUM).accept(MediaType.APPLICATION_XML).get(TarjetaDTO.class));
+			setColeccionTarjetas(tarjetas);
+			System.out.println("TARJETA obtenido!, size=" + tarjetas.size());
+		} catch(UniformInterfaceException e){ // if the returned response is an error from server side, this probably means that there was not any item to retrieve
+			ClientResponse r = e.getResponse();
+			if (r.getStatus() == 500) {
+				System.out.println("Warning! (status: " + r.getStatus() + "), apparently it doesn't exist any record with the information provided");
+			}
+			setColeccionTarjetas(null);
+		}
 	}
 	
 	// ******************************

@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 
 import es.deusto.arquiSW.REST.Controller.Controller;
 import es.deusto.arquiSW.REST.DTO.ClienteDTO;
+import es.deusto.arquiSW.REST.DTO.CuentaDTO;
 import es.deusto.arquiSW.REST.DTO.TarjetaDTO;
 
 public class MainWindow {
@@ -63,10 +64,12 @@ public class MainWindow {
 		if (controller.getColeccionClientes().size() > 0) {
 			loadClientes();
 		}
-		// this.controller.obtenerCuentas(); // FALLA
+		this.controller.obtenerCuentas();
+		if (controller.getColeccionCuentas().size() > 0) {
+			loadCuentas();
+		}
 		this.controller.obtenerTarjetas();
 		if (controller.getColeccionTarjetas().size() > 0) {
-
 			loadTarjetas();
 		}
 
@@ -102,29 +105,35 @@ public class MainWindow {
 	public void loadClientes() {
 		DefaultTableModel model = (DefaultTableModel) tableClientes.getModel();
 		limpiarJTable(model);
-		for (ClienteDTO c : controller.getColeccionClientes()) {
-			model.addRow(new Object[] { c.getDNI(), c.getNombre(), c.getApellidos(), c.getDireccion(), c.getEmail(),
-					c.getMovil(), (c.isEmpleado()) ? "Si" : "No" });
+		if (controller.getColeccionClientes() != null) {
+			for (ClienteDTO c : controller.getColeccionClientes()) {
+				model.addRow(new Object[] { c.getDNI(), c.getNombre(), c.getApellidos(), c.getDireccion(), c.getEmail(),
+						c.getMovil(), (c.isEmpleado()) ? "Si" : "No" });
+			}		
 		}
 	}
 
-	// public void loadCuentas() {
-	// DefaultTableModel model = (DefaultTableModel) tableCuentas.getModel();
-	// limpiarJTable(model);
-	// for (CuentaDTO cu : tempCuentas) {
-	// model.addRow(new Object[] { cu.getIBAN(), cu.getSWIFT(),
-	// cu.getFechaApertura(),
-	// (cu.isActiva()) ? "Si" : "No", cu.getSaldoActual(), cu.getInteres(),
-	// cu.getTitular() });
-	// }
-	// }
+	 public void loadCuentas() {
+		 DefaultTableModel model = (DefaultTableModel) tableCuentas.getModel();
+		 limpiarJTable(model);
+		 if (controller.getColeccionCuentas() != null) {
+			 for (CuentaDTO cu : controller.getColeccionCuentas()) {
+				 model.addRow(new Object[] { cu.getIBAN(), cu.getSWIFT(),
+						 cu.getFechaApertura(),
+						 (cu.isActiva()) ? "Si" : "No", cu.getSaldoActual(), cu.getInteres(),
+								 cu.getTitular() });
+			 } 
+		 }
+	 }
 
 	public void loadTarjetas() {
 		DefaultTableModel model = (DefaultTableModel) tableTarjetas.getModel();
 		limpiarJTable(model);
-		for (TarjetaDTO t : controller.getColeccionTarjetas()) {
-			model.addRow(new Object[] { t.getNumero(), t.getLimiteExtraccion(), t.getFechaCaducidad(), t.getProveedor(),
-					t.getTipo(), t.getFechaExpedicion(), t.getCuenta() });
+		if (controller.getColeccionTarjetas() != null) {
+			for (TarjetaDTO t : controller.getColeccionTarjetas()) {
+				model.addRow(new Object[] { t.getNumero(), t.getLimiteExtraccion(), t.getFechaCaducidad(), t.getProveedor(),
+						t.getTipo(), t.getFechaExpedicion(), t.getCuenta() });
+			}
 		}
 	}
 
@@ -164,7 +173,7 @@ public class MainWindow {
 					if (o instanceof String) {
 						String dni = (String) o;
 						int dialogbutton = JOptionPane.showConfirmDialog(null,
-								"¿Desea eliminar realmente eliminar el cliente con DNI " + dni + " ?",
+								"Â¿Desea eliminar realmente el cliente con DNI " + dni + " ?",
 								"Eliminar cliente", JOptionPane.YES_NO_OPTION);
 						if (dialogbutton == JOptionPane.YES_OPTION) {
 							controller.eliminarCliente(dni);
@@ -179,7 +188,19 @@ public class MainWindow {
 
 				// Eliminacion de cuentas
 				case 1:
-
+					o = tableCuentas.getValueAt(tableCuentas.getSelectedRow(), 0);
+					if (o instanceof Integer) {
+						int iban = (Integer) o;
+						int dialogbutton = JOptionPane.showConfirmDialog(null,
+								"Â¿Desea eliminar realmente la cuenta con IBAN " + iban + " ?",
+								"Eliminar cuenta", JOptionPane.YES_NO_OPTION);
+						if (dialogbutton == JOptionPane.YES_OPTION) {
+							controller.eliminarCuenta(String.valueOf(iban));
+							textField_IBAN.setText(null);
+							controller.obtenerCuentas();
+							loadCuentas();
+						}
+					}
 					break;
 
 				// Eliminacion de tarjetas
@@ -188,7 +209,7 @@ public class MainWindow {
 					if (o instanceof Integer) {
 						int numero = (Integer) o;
 						int dialogbutton = JOptionPane.showConfirmDialog(null,
-								"¿Desea eliminar realmente eliminar la tarjeta con número " + numero + " ?",
+								"Â¿Desea eliminar realmente la tarjeta con nÃºmero " + numero + " ?",
 								"Eliminar tarjeta", JOptionPane.YES_NO_OPTION);
 						if (dialogbutton == JOptionPane.YES_OPTION) {
 							controller.eliminarTarjeta(String.valueOf(numero));
@@ -196,7 +217,6 @@ public class MainWindow {
 							controller.obtenerTarjetas();
 							loadTarjetas();
 						}
-
 					}
 					break;
 				}
@@ -210,17 +230,17 @@ public class MainWindow {
 			public void actionPerformed(ActionEvent arg0) {
 				switch (tabbedPane.getSelectedIndex()) {
 
-				// Añadir clientes
+				// Annadir clientes
 				case 0:
 
 					break;
 
-				// Añadir Cuentas
+				// Annadir Cuentas
 				case 1:
 
 					break;
 
-				// Añadir tarjetas
+				// Annadir tarjetas
 				default:
 
 					break;
@@ -341,6 +361,13 @@ public class MainWindow {
 		JButton buttonBuscarCuentas = new JButton("Buscar");
 		buttonBuscarCuentas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if (!textField_IBAN.getText().isEmpty()) {
+					controller.obtenerCuenta(textField_IBAN.getText());
+					loadCuentas();
+				} else {
+					controller.obtenerCuentas();
+					loadCuentas();
+				}
 			}
 		});
 
@@ -453,7 +480,7 @@ public class MainWindow {
 								.addContainerGap()));
 
 		tableTarjetas = new JTable();
-		tableTarjetas.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Número", "Limite extraccion",
+		tableTarjetas.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "NÃºmero", "Limite extraccion",
 				"Fecha caducidad", "Proveedor", "Tipo", "Fecha expedicion", "Cuenta vinculada" }));
 		scrollPane_5.setViewportView(tableTarjetas);
 		panel_2.setLayout(gl_panel_2);
