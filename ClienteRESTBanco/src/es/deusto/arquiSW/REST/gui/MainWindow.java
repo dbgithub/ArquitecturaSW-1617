@@ -34,6 +34,9 @@ public class MainWindow {
 	private JTextField textField_NumeroTarjeta;
 	private JTable tableTarjetas;
 	private Controller controller;
+	private FormularioDatosCliente formCliente;
+	private FormularioDatosCuentas formCuentas;
+	private FormularioDatosTarjetas formTarjetas;
 
 	/**
 	 * Launch the application.
@@ -208,21 +211,25 @@ public class MainWindow {
 		JButton btnAniadir = new JButton("A\u00F1adir");
 		btnAniadir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				formCliente=new FormularioDatosCliente();
+				formCuentas= new FormularioDatosCuentas();
+				formTarjetas= new FormularioDatosTarjetas();
 				switch (tabbedPane.getSelectedIndex()) {
 
 				// Añadir clientes
 				case 0:
-
+					formCliente.setVisible(true);
+					
 					break;
 
 				// Añadir Cuentas
 				case 1:
-
+					formCuentas.setVisible(true);
 					break;
 
 				// Añadir tarjetas
 				default:
-
+					formTarjetas.setVisible(true);
 					break;
 				}
 			}
