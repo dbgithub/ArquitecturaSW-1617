@@ -57,8 +57,10 @@ public class DTOClassesConversor {
 
 	public CuentaDTO CuentaToDTOCuenta(Cuenta cu) {
 		ArrayList<OperacionDTO> listaOperaciones = new ArrayList<OperacionDTO>();
-		for (Operacion o : cu.getOperaciones()) {
-			listaOperaciones.add(this.OperacionToDTOOperacion(o));
+		if (cu.getOperaciones() != null) {
+			for (Operacion o : cu.getOperaciones()) {
+				listaOperaciones.add(this.OperacionToDTOOperacion(o));
+			}			
 		}
 		return new CuentaDTO(cu.getIBAN(), cu.getSWIFT(), cu.getFechaApertura(), cu.isActiva(), cu.getSaldoActual(),
 				cu.getInteres(), cu.getTitular().getDNI(), listaOperaciones);

@@ -438,7 +438,7 @@ public class GestorBD {
 		ArrayList<Tarjeta> tarjetas = new ArrayList<Tarjeta>();
 		PreparedStatement statement;
 		String sqlString = "SELECT newtable.Numero, newtable.LimiteExtraccion, newtable.FechaCaducidad, newtable.Proveedor, newtable.Tipo, " +
-							"newtable.FechaExpedicion, newtable.Cliente FROM" +
+							"newtable.FechaExpedicion, newtable.Cuenta FROM" +
 							"(SELECT * FROM tarjeta INNER JOIN cuenta ON tarjeta.Cuenta = cuenta.IBAN) as newtable" +
 							" WHERE @1 AND @2 AND @3 AND @4";
 		if (Numero!=null) {sqlString = sqlString.replace("@1", "Numero="+Numero);} else {sqlString = sqlString.replace("@1", "Numero = Numero");}
@@ -457,7 +457,7 @@ public class GestorBD {
         	tarjeta.setTipo(TiposTarjeta.valueOf(rs.getString("Tipo")));
         	tarjeta.setFechaExpedicion(rs.getDate("FechaExpedicion"));
         	Cuenta c = new Cuenta();
-        	c.setIBAN(rs.getInt("cuenta"));
+        	c.setIBAN(rs.getInt("Cuenta"));
         	tarjeta.setCuenta(c);
         	tarjetas.add(tarjeta);
         }
