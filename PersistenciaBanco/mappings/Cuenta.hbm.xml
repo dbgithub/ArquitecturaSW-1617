@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="es.deusto.hibernate.example.plus.model.Direccion" table="DIRECCION">
+
+        <id name="id" column="DIR_ID">
+            <generator class="native"/>
+        </id>
+
+        <property name="desc" column="DIR_DESC" not-null="true"/>
+		<property name="cp" column="DIR_CP" not-null="true"/>
+		
+		<set name="empleados" table="DOMICILIOS" lazy="true" inverse="true">
+			<key column="DIR_ID"/>
+			<many-to-many column="EM_NIF" class="es.deusto.hibernate.example.plus.model.Empleado"/>
+		</set>
+		
+		<!-- Esto estaba en otro .xml -->
+		<set name="empleados" lazy="true" cascade="all" inverse="true">
+			<key column="DEP_ID"/>
+			<one-to-many class="es.deusto.hibernate.example.plus.model.Empleado"/>
+		</set>
+
+    </class>
+
+</hibernate-mapping>

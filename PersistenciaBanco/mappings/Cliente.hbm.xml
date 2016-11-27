@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="es.deusto.arquiSW.classes.Cliente" table="cliente">
+
+        <id name="dni" column="DNI">
+            <generator class="native"/> <!-- Mas informacion sobre 'generators' en: http://www.javatpoint.com/generator-classes -->
+        </id>
+
+        <property name="nombre" column="Nombre" />
+		<property name="apellidos" column="Apellidos" />
+		<property name="direccion" column="Direccion" />
+		<property name="email" column="Email" />
+		<property name="movil" column="Movil" />
+		<property name="empleado" column="Empleado" type="boolean"/>
+		<property name="pin" column="PIN" />
+
+    </class>
+
+</hibernate-mapping>

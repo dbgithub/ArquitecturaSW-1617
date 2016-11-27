@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="es.deusto.hibernate.example.plus.model.Empleado" table="EMPLEADO">
+
+        <id name="nif" column="EM_NIF">
+            <generator class="assigned"/>
+        </id>
+
+        <property name="nombre" column="EM_NOMBRE" unique="true" not-null="true"/>
+		<property name="puesto" column="EM_PUESTO"/>
+		<property name="email" column="EM_EMAIL"/> 
+		
+		<many-to-one name="departamento" column="DEP_ID" not-null="true"/>
+		
+		<set name="direcciones" table="DOMICILIOS" lazy="true">
+			<key column="EM_NIF"/>
+			<many-to-many column="DIR_ID" class="es.deusto.hibernate.example.plus.model.Direccion"/>
+		</set>
+		
+		<joined-subclass name="es.deusto.hibernate.example.plus.model.Externo" table="EXTERNO">
+			<key column="EM_NIF"/>
+			<property name="empresa" column="EX_EMPRESA" />
+			<property name="emailAlt" column="EX_EMAILALT" />
+			<property name="descColaboracion" column="EX_DESCCOLABORACION" />
+
+
+		</joined-subclass>
+		
+   </class>
+   
+</hibernate-mapping>
