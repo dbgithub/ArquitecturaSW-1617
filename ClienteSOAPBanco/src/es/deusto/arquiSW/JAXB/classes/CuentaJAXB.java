@@ -7,10 +7,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlType;
 
-import es.deusto.arquiSW.JAXB.classes.Cliente;
+import es.deusto.arquiSW.JAXB.classes.ClienteJAXB;
 
 @XmlType(propOrder = { "IBAN", "SWIFT", "fechaApertura", "activa", "saldoActual", "interes", "titular", "operaciones" }) // opcional
-public class Cuenta {
+public class CuentaJAXB {
 	private int IBAN;
 	private String SWIFT;
 	private Date fechaApertura;
@@ -19,13 +19,13 @@ public class Cuenta {
 	private float interes;
 	private String titular;
 	
-	private ArrayList<Operacion> operaciones;
+	private ArrayList<OperacionJAXB> operaciones;
 	
 	
 	/**
 	 * Constructor vacio
 	 */
-	public Cuenta() {
+	public CuentaJAXB() {
 		
 	}
 	/**
@@ -40,8 +40,8 @@ public class Cuenta {
 	 * @param tarjeta
 	 * @param operaciones
 	 */
-	public Cuenta(int iBAN, String sWIFT, Date fechaApertura, boolean activa, float saldoActual, float interes,
-			String titular, ArrayList<Operacion> operaciones) {
+	public CuentaJAXB(int iBAN, String sWIFT, Date fechaApertura, boolean activa, float saldoActual, float interes,
+			String titular, ArrayList<OperacionJAXB> operaciones) {
 		this.IBAN = iBAN;
 		this.SWIFT = sWIFT;
 		this.fechaApertura = fechaApertura;
@@ -100,10 +100,10 @@ public class Cuenta {
 	}
 	@XmlElementWrapper(name = "lista_operaciones")
 	@XmlElement(name = "operacion") // XmlElement especifica el nombre de las entidades
-	public ArrayList<Operacion> getOperaciones() {
+	public ArrayList<OperacionJAXB> getOperaciones() {
 		return operaciones;
 	}
-	public void setOperaciones(ArrayList<Operacion> operaciones) {
+	public void setOperaciones(ArrayList<OperacionJAXB> operaciones) {
 		this.operaciones = operaciones;
 	}
 	

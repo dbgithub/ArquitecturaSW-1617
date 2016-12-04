@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.16, for Linux (x86_64)
 --
--- Host: localhost    Database: arquitecturasw
+-- Host: localhost    Database: ArquitecturaSW
 -- ------------------------------------------------------
--- Server version	5.7.15-log
+-- Server version	5.7.16-0ubuntu0.16.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -41,7 +41,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES ('8656565','Pepe','Perez','C:\\mayor1','pepe.perez@pepe.com',69696,'\0',1234),('9898989','Daniel','Guzman','ColegioMayor','d.g@hola.com',45545445,'\0',4321);
+INSERT INTO `cliente` VALUES ('123456789','PRUEBA NOMBRE','PRUEBA APELLIDOS','PRUEBA DIR','prueba@gmail.prueba',79797979,'',5665),('8656565','Pepe','Perez','C:\\mayor1','pepe.perez@pepe.com',69696,'\0',1234),('9898989','Danielo','Guzman','Colegio mayor Deusto','d.g@hola.com',69455454,'\0',9876);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -72,7 +72,7 @@ CREATE TABLE `cuenta` (
 
 LOCK TABLES `cuenta` WRITE;
 /*!40000 ALTER TABLE `cuenta` DISABLE KEYS */;
-INSERT INTO `cuenta` VALUES (45454548,'SXXKUTXA-09','2016-10-28T11:41:03.711+02:00','\0',500,0.5,'8656565');
+INSERT INTO `cuenta` VALUES (454545,'SXXKUTXA-09','3916-12-17','',2122,0.7,'9898989');
 /*!40000 ALTER TABLE `cuenta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -101,7 +101,7 @@ CREATE TABLE `operacion` (
 
 LOCK TABLES `operacion` WRITE;
 /*!40000 ALTER TABLE `operacion` DISABLE KEYS */;
-INSERT INTO `operacion` VALUES (1,'2016-10-28T11:40:53.711+02:00','Ingreso',250,45454548),(2,'2016-10-28T11:40:43.711+02:00','Ingreso',100,45454548),(3,'2016-10-28T11:41:02.211+02:00','Ingreso',150,45454548);
+INSERT INTO `operacion` VALUES (1,'2016-10-28T11:40:53.711+02:00','Ingreso',250,454545),(2,'2016-10-28T11:40:43.711+02:00','Ingreso',100,454545),(3,'2016-10-28T11:41:02.211+02:00','Ingreso',150,454545);
 /*!40000 ALTER TABLE `operacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,7 +132,7 @@ CREATE TABLE `tarjeta` (
 
 LOCK TABLES `tarjeta` WRITE;
 /*!40000 ALTER TABLE `tarjeta` DISABLE KEYS */;
-INSERT INTO `tarjeta` VALUES (555556,1200,'2016-10-28T11:41:53.711+02:00','Visa','Debito','2016-10-28T11:39:23.711+02:00',NULL);
+INSERT INTO `tarjeta` VALUES (555556,1300,'2017-11-18','AmericanExpress','Credito','2016-11-17',454545);
 /*!40000 ALTER TABLE `tarjeta` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -145,4 +145,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-31  1:40:11
+-- Dump completed on 2016-12-04 20:34:41

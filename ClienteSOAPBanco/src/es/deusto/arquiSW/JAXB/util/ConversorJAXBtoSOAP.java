@@ -1,5 +1,11 @@
 package es.deusto.arquiSW.JAXB.util;
 
+import es.deusto.arquiSW.JAXB.classes.ClienteJAXB;
+import es.deusto.arquiSW.JAXB.classes.CuentaJAXB;
+import es.deusto.arquiSW.JAXB.classes.OperacionJAXB;
+import es.deusto.arquiSW.JAXB.classes.TarjetaJAXB;
+import es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta;
+import es.deusto.arquiSW.SOAP.classes.xsd.Cliente;
 import es.deusto.arquiSW.SOAP.classes.xsd.Cuenta;
 import es.deusto.arquiSW.SOAP.classes.xsd.Operacion;
 
@@ -10,12 +16,12 @@ public class ConversorJAXBtoSOAP {
 	 * @param clientes
 	 * @return
 	 */
-	public es.deusto.arquiSW.SOAP.classes.xsd.Cliente[] convertFromJAXBclienteToSOAPcliente(es.deusto.arquiSW.JAXB.classes.Cliente[] clientes) {
+	public Cliente[] convertFromJAXBclienteToSOAPcliente(ClienteJAXB[] clientes) {
 
-		es.deusto.arquiSW.SOAP.classes.xsd.Cliente[] colleccion = new es.deusto.arquiSW.SOAP.classes.xsd.Cliente[clientes.length];
+		Cliente[] colleccion = new Cliente[clientes.length];
 
 		for (int i = 0; i < clientes.length; i++) {
-			es.deusto.arquiSW.SOAP.classes.xsd.Cliente aux= new es.deusto.arquiSW.SOAP.classes.xsd.Cliente();
+			Cliente aux= new Cliente();
 			aux.setDNI(clientes[i].getDNI());
 			aux.setNombre(clientes[i].getNombre());
 			aux.setApellidos(clientes[i].getApellidos());
@@ -35,20 +41,20 @@ public class ConversorJAXBtoSOAP {
 	 * @param cuentas
 	 * @return
 	 */
-	public es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[] convertFromJAXBcuentaToSOAPcuenta(es.deusto.arquiSW.JAXB.classes.Cuenta[] cuentas, es.deusto.arquiSW.JAXB.classes.Cliente[] clientes) {
+	public Cuenta[] convertFromJAXBcuentaToSOAPcuenta(CuentaJAXB[] cuentas, ClienteJAXB[] clientes) {
 		
-		es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[] colleccion = new es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[cuentas.length];
+		Cuenta[] colleccion = new Cuenta[cuentas.length];
 		for (int i = 0; i < cuentas.length; i++) {
-			es.deusto.arquiSW.SOAP.classes.xsd.Cuenta aux= new es.deusto.arquiSW.SOAP.classes.xsd.Cuenta();
+			Cuenta aux= new Cuenta();
 			aux.setIBAN(cuentas[i].getIBAN());
 			aux.setSWIFT(cuentas[i].getSWIFT());
 			aux.setActiva(cuentas[i].isActiva());
 			aux.setFechaApertura(cuentas[i].getFechaApertura());
 			aux.setSaldoActual(cuentas[i].getSaldoActual());
 			aux.setInteres(cuentas[i].getInteres());
-			for(es.deusto.arquiSW.JAXB.classes.Cliente c: clientes){
+			for(ClienteJAXB c: clientes){
 				if(cuentas[i].getTitular()== c.getDNI()){
-					es.deusto.arquiSW.SOAP.classes.xsd.Cliente auxc= new es.deusto.arquiSW.SOAP.classes.xsd.Cliente();
+					Cliente auxc= new Cliente();
 					auxc.setDNI(clientes[i].getDNI());
 					auxc.setNombre(clientes[i].getNombre());
 					auxc.setApellidos(clientes[i].getApellidos());
@@ -63,18 +69,12 @@ public class ConversorJAXBtoSOAP {
 			
 			Operacion[] operaciones= new Operacion[cuentas[i].getOperaciones().size()];
 			int j=0;
-//			for(es.deusto.arquiSW.JAXB.classes.Operacion o: cuentas[i].getOperaciones()){
+//			for(Operacion o: cuentas[i].getOperaciones()){
 //				operaciones[j]=;
 //			}
-			colleccion[i]=aux;
-			
-			
+			colleccion[i]=aux;	
 		}
-//		
 		return colleccion;
-		
-		
-//
 	}
 
 	/**
@@ -83,13 +83,13 @@ public class ConversorJAXBtoSOAP {
 	 * @param operaciones
 	 * @return
 	 */
-	public es.deusto.arquiSW.SOAP.classes.xsd.Operacion[] convertFromJAXBoperacionToSOAPoperacion(
-			es.deusto.arquiSW.JAXB.classes.Operacion[] operaciones) {
+	public Operacion[] convertFromJAXBoperacionToSOAPoperacion(
+			OperacionJAXB[] operaciones) {
 
-		es.deusto.arquiSW.SOAP.classes.xsd.Operacion[] colleccion = new es.deusto.arquiSW.SOAP.classes.xsd.Operacion[operaciones.length];
+		Operacion[] colleccion = new Operacion[operaciones.length];
 
 		for (int i = 0; i < operaciones.length; i++) {
-			es.deusto.arquiSW.SOAP.classes.xsd.Operacion aux= new es.deusto.arquiSW.SOAP.classes.xsd.Operacion();
+			Operacion aux= new Operacion();
 			aux.setId(operaciones[i].getId());
 			aux.setFecha(operaciones[i].getFecha());
 			aux.setImporte(operaciones[i].getImporte());
@@ -110,11 +110,11 @@ public class ConversorJAXBtoSOAP {
 	 * @param tarjetas
 	 * @return
 	 */
-	public es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[] convertFromJAXBtarjetaToSOAPtarjeta(es.deusto.arquiSW.JAXB.classes.Tarjeta[] tarjetas) {
+	public Tarjeta[] convertFromJAXBtarjetaToSOAPtarjeta(TarjetaJAXB[] tarjetas) {
 		
-		es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[] colleccion = new es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[tarjetas.length];
+		Tarjeta[] colleccion = new Tarjeta[tarjetas.length];
 		for (int i = 0; i < tarjetas.length; i++) {
-			es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta aux= new es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta();
+			Tarjeta aux= new Tarjeta();
 			aux.setNumero(tarjetas[i].getNumero());
 			aux.setLimiteExtraccion(tarjetas[i].getLimiteExtraccion());
 			aux.setFechaCaducidad(tarjetas[i].getFechaCaducidad());

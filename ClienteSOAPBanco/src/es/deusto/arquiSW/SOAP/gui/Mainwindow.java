@@ -36,10 +36,10 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import es.deusto.arquiSW.JAXB.classes.Banco;
-import es.deusto.arquiSW.JAXB.classes.Cliente;
-import es.deusto.arquiSW.JAXB.classes.Cuenta;
-import es.deusto.arquiSW.JAXB.classes.Tarjeta;
+import es.deusto.arquiSW.JAXB.classes.BancoJAXB;
+import es.deusto.arquiSW.JAXB.classes.ClienteJAXB;
+import es.deusto.arquiSW.JAXB.classes.CuentaJAXB;
+import es.deusto.arquiSW.JAXB.classes.TarjetaJAXB;
 import es.deusto.arquiSW.JAXB.util.ConversorJAXBtoSOAP;
 import es.deusto.arquiSW.SOAP.DeustoBankServiceStub;
 import es.deusto.arquiSW.SOAP.Importar;
@@ -49,25 +49,21 @@ import es.deusto.arquiSW.SOAP.ObtenerCuenta;
 import es.deusto.arquiSW.SOAP.ObtenerCuentaResponse;
 import es.deusto.arquiSW.SOAP.ObtenerTarjeta;
 import es.deusto.arquiSW.SOAP.ObtenerTarjetaResponse;
+import es.deusto.arquiSW.SOAP.classes.xsd.Cliente;
+import es.deusto.arquiSW.SOAP.classes.xsd.Cuenta;
+import es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta;
 import es.deusto.arquiSW.threads.InicializacionThread;
 import javax.swing.DefaultComboBoxModel;
 
 @SuppressWarnings("serial")
 public class Mainwindow extends JFrame {
 
-	private DeustoBankServiceStub SOAPservice; // Este es la variable del
-												// Servicio Web SOAP.
-	private Banco bnc; // Variable que se utiliza en el proceso de IMPORTAR y
-						// EXPORTAR datos desde un XML (JAXB)
-	private Cliente[] tempClientes; // Este array temporal de CLIENTES guarda
-									// todos los clientes obtenidos desde el
-									// servicio SOAP
-	private Cuenta[] tempCuentas; // Este array temporal de CUENTAS guarda todos
-									// los clientes obtenidos desde el servicio
-									// SOAP
-	private Tarjeta[] tempTarjetas; // Este array temporal de TARJETAS guarda
-									// todos los clientes obtenidos desde el
-									// servicio SOAP
+	private DeustoBankServiceStub SOAPservice; // Este es la variable del Servicio Web SOAP.
+	private BancoJAXB bnc; // Variable que se utiliza en el proceso de IMPORTAR y EXPORTAR datos desde un XML (JAXB)
+	private ClienteJAXB[] tempClientes; // Este array temporal de CLIENTES guarda todos los clientes obtenidos desde el servicio SOAP
+	private CuentaJAXB[] tempCuentas; // Este array temporal de CUENTAS guarda todos los clientes obtenidos desde el servicio SOAP
+	private TarjetaJAXB[] tempTarjetas; // Este array temporal de TARJETAS guarda todos los clientes obtenidos desde el servicio SOAP
+	
 	private JPanel contentPane;
 	private JTable table;
 	private JTable table_2;
@@ -168,8 +164,7 @@ public class Mainwindow extends JFrame {
 				// Elegimos como extension predeterminada .xml
 				FileNameExtensionFilter xmlfilter = new FileNameExtensionFilter("xml files (*.xml)", "xml");
 				fc.setFileFilter(xmlfilter);
-				// Abrimos la ventana, guardamos la opcion seleccionada por el
-				// usuario
+				// Abrimos la ventana, guardamos la opcion seleccionada por el usuario
 				int seleccion = fc.showOpenDialog(contentPane);
 
 				// Si el usuario, pincha en aceptar
@@ -180,14 +175,14 @@ public class Mainwindow extends JFrame {
 
 					JAXBContext jaxbContext;
 					try {
-						jaxbContext = JAXBContext.newInstance(Banco.class);
+						jaxbContext = JAXBContext.newInstance(BancoJAXB.class);
 						Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-						bnc = (Banco) jaxbUnmarshaller.unmarshal(fichero);
+						bnc = (BancoJAXB) jaxbUnmarshaller.unmarshal(fichero);
 						if (bnc.getListaClientes().size() != 0) {
+							DefaultTableModel model = (DefaultTableModel) tableClientes.getModel();
+							limpiarJTable(model);
 							for (int i = 0; i < bnc.getListaClientes().size(); i++) {
-								Cliente c = bnc.getListaClientes().get(i);
-								DefaultTableModel model = (DefaultTableModel) tableClientes.getModel();
-								limpiarJTable(model);
+								ClienteJAXB c = bnc.getListaClientes().get(i);
 								model.addRow(new Object[] { c.getDNI(), c.getNombre(), c.getApellidos(),
 										c.getDireccion(), c.getEmail(), c.getMovil(), (c.isEmpleado()) ? "Si" : "No" });
 
@@ -195,10 +190,10 @@ public class Mainwindow extends JFrame {
 						}
 
 						if (bnc.getListaCuentas().size() != 0) {
+							DefaultTableModel model = (DefaultTableModel) tableCuentas.getModel();
+							limpiarJTable(model);
 							for (int i = 0; i < bnc.getListaCuentas().size(); i++) {
-								Cuenta cu = bnc.getListaCuentas().get(i);
-								DefaultTableModel model = (DefaultTableModel) tableCuentas.getModel();
-								limpiarJTable(model);
+								CuentaJAXB cu = bnc.getListaCuentas().get(i);
 								model.addRow(new Object[] { cu.getIBAN(), cu.getSWIFT(), cu.getFechaApertura(),
 										(cu.isActiva()) ? "Si" : "No", cu.getSaldoActual(), cu.getInteres(),
 										cu.getTitular() });
@@ -207,17 +202,15 @@ public class Mainwindow extends JFrame {
 						}
 
 						if (bnc.getListaTarjetas().size() != 0) {
+							DefaultTableModel model = (DefaultTableModel) tableTarjetas.getModel();
+							limpiarJTable(model);
 							for (int i = 0; i < bnc.getListaTarjetas().size(); i++) {
-								Tarjeta t = bnc.getListaTarjetas().get(i);
-								DefaultTableModel model = (DefaultTableModel) tableTarjetas.getModel();
-								limpiarJTable(model);
+								TarjetaJAXB t = bnc.getListaTarjetas().get(i);
 								model.addRow(
 										new Object[] { t.getNumero(), t.getLimiteExtraccion(), t.getFechaCaducidad(),
 												t.getProveedor(), t.getTipo(), t.getFechaExpedicion(), t.getCuenta() });
 							}
-
 						}
-
 					} catch (JAXBException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -234,22 +227,25 @@ public class Mainwindow extends JFrame {
 		btnImportar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					Cliente[] arrayClientes = new Cliente[bnc.getListaClientes().size()];
+					ClienteJAXB[] arrayClientes = new ClienteJAXB[bnc.getListaClientes().size()];
 					int i = 0;
-					for (Cliente c : bnc.getListaClientes()) {
+					for (ClienteJAXB c : bnc.getListaClientes()) {
+						System.out.println("cliente metido");
 						arrayClientes[i] = c;
 						i++;
 					}
-					Cuenta[] arrayCuentas = new Cuenta[bnc.getListaCuentas().size()];
+					CuentaJAXB[] arrayCuentas = new CuentaJAXB[bnc.getListaCuentas().size()];
 					i = 0;
-					for (Cuenta c : bnc.getListaCuentas()) {
+					for (CuentaJAXB c : bnc.getListaCuentas()) {
+						System.out.println("cuenta metido");
 						arrayCuentas[i] = c;
 						i++;
 					}
 
-					Tarjeta[] arrayTarjetas = new Tarjeta[bnc.getListaTarjetas().size()];
+					TarjetaJAXB[] arrayTarjetas = new TarjetaJAXB[bnc.getListaTarjetas().size()];
 					i = 0;
-					for (Tarjeta t : bnc.getListaTarjetas()) {
+					for (TarjetaJAXB t : bnc.getListaTarjetas()) {
+						System.out.println("tarjeta metido");
 						arrayTarjetas[i] = t;
 						i++;
 					}
@@ -262,6 +258,7 @@ public class Mainwindow extends JFrame {
 					im.setTarjetas(co.convertFromJAXBtarjetaToSOAPtarjeta(arrayTarjetas));
 					
 					SOAPservice.importar(im);
+					System.out.println("[Mainwindow] Datos importados satisfactoriamente! :)");
 					DefaultTableModel model = (DefaultTableModel) tableClientes.getModel();
 					limpiarJTable(model);
 					model = (DefaultTableModel) tableCuentas.getModel();
@@ -520,7 +517,7 @@ public class Mainwindow extends JFrame {
 		JButton button_1 = new JButton("Aplicar");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				es.deusto.arquiSW.SOAP.classes.xsd.Cliente[] arrayCliente;
+				Cliente[] arrayCliente;
 				ObtenerCliente obtCliente = new ObtenerCliente();
 				obtCliente.setDNI((textField_2.getText() != "") ? textField_2.getText() : null);
 				obtCliente.setNombre((textField_3.getText() != "") ? textField_3.getText() : null);
@@ -532,9 +529,9 @@ public class Mainwindow extends JFrame {
 				try {
 					obtCienteRes = SOAPservice.obtenerCliente(obtCliente);
 					arrayCliente = obtCienteRes.get_return();
-					System.out.println("length!: " + arrayCliente.length);
 					DefaultTableModel model = (DefaultTableModel) table.getModel();
-					for (es.deusto.arquiSW.SOAP.classes.xsd.Cliente c : arrayCliente) {
+					limpiarJTable(model);
+					for (Cliente c : arrayCliente) {
 						model.addRow(new Object[] { c.getDNI(), c.getNombre(), c.getApellidos(), c.getDireccion(),
 								c.getEmail(), c.getMovil(), (c.getEmpleado()) ? "Si" : "No" });
 					}
@@ -717,7 +714,7 @@ public class Mainwindow extends JFrame {
 		JButton btnAplicarCuentas = new JButton("Aplicar");
 		btnAplicarCuentas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[] arrayCuenta;
+				Cuenta[] arrayCuenta;
 				ObtenerCuenta obtCuenta = new ObtenerCuenta();
 				obtCuenta.setIBAN((textFieldIBAN.getText() != "") ? textFieldIBAN.getText() : null);
 				obtCuenta.setDNI((textFieldDNICliente.getText() != "") ? textFieldDNICliente.getText() : null);
@@ -730,7 +727,8 @@ public class Mainwindow extends JFrame {
 					obtCuentaRes = SOAPservice.obtenerCuenta(obtCuenta);
 					arrayCuenta = obtCuentaRes.get_return();
 					DefaultTableModel model = (DefaultTableModel) table_1.getModel();
-					for (es.deusto.arquiSW.SOAP.classes.xsd.Cuenta cu : arrayCuenta) {
+					limpiarJTable(model);
+					for (Cuenta cu : arrayCuenta) {
 						model.addRow(new Object[] { cu.getIBAN(), cu.getSWIFT(), cu.getFechaApertura(),
 								(cu.getActiva()) ? "Si" : "No", cu.getSaldoActual(), cu.getInteres(),
 								cu.getTitular() });
@@ -843,7 +841,7 @@ public class Mainwindow extends JFrame {
 		JScrollPane scrollPaneForTableTarjetasFiltro = new JScrollPane();
 		table_2 = new JTable();
 		table_2.setRowSelectionAllowed(false);
-		table_2.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "N�mero", "Fecha caducidad",
+		table_2.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "N�mero", "Fecha caducidad",
 				"Proveedor", "Tipo", "Limite extraccion", "Fecha expedicion", "Cuenta vinculada" }) {
 			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false };
 
@@ -887,7 +885,7 @@ public class Mainwindow extends JFrame {
 		JButton buttonAplicarTarjetas = new JButton("Aplicar");
 		buttonAplicarTarjetas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[] arrayTarjeta;
+				Tarjeta[] arrayTarjeta;
 				ObtenerTarjeta obtTarjeta = new ObtenerTarjeta();
 				obtTarjeta
 						.setNumero((textFieldNumeroTarjeta.getText() != "") ? textFieldNumeroTarjeta.getText() : null);
@@ -901,7 +899,8 @@ public class Mainwindow extends JFrame {
 					obtTarjetaRes = SOAPservice.obtenerTarjeta(obtTarjeta);
 					arrayTarjeta = obtTarjetaRes.get_return();
 					DefaultTableModel model = (DefaultTableModel) table_2.getModel();
-					for (es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta t : arrayTarjeta) {
+					limpiarJTable(model);
+					for (Tarjeta t : arrayTarjeta) {
 						model.addRow(new Object[] { t.getNumero(), t.getLimiteExtraccion(), t.getFechaCaducidad(),
 								t.getProveedor(), t.getTipo(), t.getFechaExpedicion(), t.getCuenta() });
 					}
@@ -1288,22 +1287,22 @@ public class Mainwindow extends JFrame {
 	}
 
 	private void exportar(boolean clientes, boolean cuentas, boolean tarjetas, boolean todo) {
-		Banco b = new Banco();
+		BancoJAXB b = new BancoJAXB();
 
 		if (clientes || todo) {
 			// Añadimos la lista de clientes a nuestra clase Banco que sera la
 			// que luego serialicemos como XML
-			b.setListaClientes(new ArrayList<Cliente>(Arrays.asList(tempClientes)));
+			b.setListaClientes(new ArrayList<ClienteJAXB>(Arrays.asList(tempClientes)));
 		}
 		if (cuentas || todo) {
 			// Añadimos la lista de cuentas a nuestra clase Banco que sera la
 			// que luego serialicemos como XML
-			b.setListaCuentas(new ArrayList<Cuenta>(Arrays.asList(tempCuentas)));
+			b.setListaCuentas(new ArrayList<CuentaJAXB>(Arrays.asList(tempCuentas)));
 		}
 		if (tarjetas || todo) {
 			// Añadimos la lista de tarjetas a nuestra clase Banco que sera la
 			// que luego serialicemos como XML
-			b.setListaTarjetas(new ArrayList<Tarjeta>(Arrays.asList(tempTarjetas)));
+			b.setListaTarjetas(new ArrayList<TarjetaJAXB>(Arrays.asList(tempTarjetas)));
 		}
 
 		// Creamos el objeto JFileChooser
@@ -1317,7 +1316,7 @@ public class Mainwindow extends JFrame {
 			File fichero = fc.getSelectedFile();
 			JAXBContext context;
 			try {
-				context = JAXBContext.newInstance(Banco.class);
+				context = JAXBContext.newInstance(BancoJAXB.class);
 				Marshaller m = context.createMarshaller();
 				m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 				m.marshal(b, fichero);
@@ -1329,21 +1328,21 @@ public class Mainwindow extends JFrame {
 		}
 	}
 
-	public void setTempClientes(Cliente[] tempClientes) {
+	public void setTempClientes(ClienteJAXB[] tempClientes) {
 		this.tempClientes = tempClientes;
 	}
 
-	public void setTempCuentas(Cuenta[] tempCuentas) {
+	public void setTempCuentas(CuentaJAXB[] tempCuentas) {
 		this.tempCuentas = tempCuentas;
 	}
 
-	public void setTempTarjetas(Tarjeta[] tempTarjetas) {
+	public void setTempTarjetas(TarjetaJAXB[] tempTarjetas) {
 		this.tempTarjetas = tempTarjetas;
 	}
 
 	public void loadClientes() {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		for (Cliente c : tempClientes) {
+		for (ClienteJAXB c : tempClientes) {
 			model.addRow(new Object[] { c.getDNI(), c.getNombre(), c.getApellidos(), c.getDireccion(), c.getEmail(),
 					c.getMovil(), (c.isEmpleado()) ? "Si" : "No" });
 		}
@@ -1351,7 +1350,7 @@ public class Mainwindow extends JFrame {
 
 	public void loadCuentas() {
 		DefaultTableModel model = (DefaultTableModel) table_1.getModel();
-		for (Cuenta cu : tempCuentas) {
+		for (CuentaJAXB cu : tempCuentas) {
 			model.addRow(new Object[] { cu.getIBAN(), cu.getSWIFT(), cu.getFechaApertura(),
 					(cu.isActiva()) ? "Si" : "No", cu.getSaldoActual(), cu.getInteres(), cu.getTitular() });
 		}
@@ -1359,7 +1358,7 @@ public class Mainwindow extends JFrame {
 
 	public void loadTarjetas() {
 		DefaultTableModel model = (DefaultTableModel) table_2.getModel();
-		for (Tarjeta t : tempTarjetas) {
+		for (TarjetaJAXB t : tempTarjetas) {
 			model.addRow(new Object[] { t.getNumero(), t.getLimiteExtraccion(), t.getFechaCaducidad(), t.getProveedor(),
 					t.getTipo(), t.getFechaExpedicion(), t.getCuenta() });
 		}

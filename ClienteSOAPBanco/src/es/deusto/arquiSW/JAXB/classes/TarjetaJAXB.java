@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlType(propOrder = { "numero", "limiteExtraccion", "fechaCaducidad", "proveedor", "tipo", "fechaExpedicion", "cuenta" }) // opcional
-public class Tarjeta {
+public class TarjetaJAXB {
 	
 	private int numero;
 	private int limiteExtraccion;
@@ -24,7 +24,7 @@ public class Tarjeta {
 	/**
 	 * Constructor vacio
 	 */
-	public Tarjeta() {
+	public TarjetaJAXB() {
 		
 	}
 	
@@ -38,7 +38,7 @@ public class Tarjeta {
 	 * @param tipo
 	 * @param fechaExpedicion
 	 */
-	public Tarjeta(int numero, int cuenta, int limiteExtraccion, Date fechaCaducidad, EnumProveedores proveedor,
+	public TarjetaJAXB(int numero, int cuenta, int limiteExtraccion, Date fechaCaducidad, EnumProveedores proveedor,
 			TiposTarjeta tipo, Date fechaExpedicion) {
 		this.numero = numero;
 		this.cuenta = cuenta;

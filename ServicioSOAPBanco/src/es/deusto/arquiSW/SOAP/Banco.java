@@ -10,7 +10,7 @@ import es.deusto.arquiSW.dao.GestorBD;
 
 /**
  * Esta es la clase principal que queremos que haga las veces de Servicio Web
- * @author aitor
+ * @author aitor & daniel
  *
  */
 public class Banco {
@@ -154,6 +154,7 @@ public class Banco {
 	}
 	
 	/**
+	 * Importar datos del lado cliente al lado servidor.
 	 * Desde el lado cliente se carga un XML, este es convertido a objetos Java mediante JAXB
 	 * A continuacion, se quiere importar esos objetos en lado servidor introduciendolos en la base de datos
 	 * @param clientes

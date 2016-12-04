@@ -7,38 +7,38 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class Banco {
+public class BancoJAXB {
 
-	ArrayList<Cliente> listaClientes;
-	ArrayList<Cuenta> listaCuentas;
-	ArrayList<Tarjeta> listaTarjetas;
+	ArrayList<ClienteJAXB> listaClientes;
+	ArrayList<CuentaJAXB> listaCuentas;
+	ArrayList<TarjetaJAXB> listaTarjetas;
 	
-	public Banco() {
+	public BancoJAXB() {
 		
 	}
 	
 	@XmlElementWrapper(name = "lista_clientes")
 	@XmlElement(name = "cliente") // XmlElement especifica el nombre de las entidades
-	public ArrayList<Cliente> getListaClientes() {
+	public ArrayList<ClienteJAXB> getListaClientes() {
 		return listaClientes;
 	}
-	public void setListaClientes(ArrayList<Cliente> listaClientes) {
+	public void setListaClientes(ArrayList<ClienteJAXB> listaClientes) {
 		this.listaClientes = listaClientes;
 	}
 	@XmlElementWrapper(name = "lista_cuentas")
 	@XmlElement(name = "cuenta") // XmlElement especifica el nombre de las entidades
-	public ArrayList<Cuenta> getListaCuentas() {
+	public ArrayList<CuentaJAXB> getListaCuentas() {
 		return listaCuentas;
 	}
-	public void setListaCuentas(ArrayList<Cuenta> listaCuentas) {
+	public void setListaCuentas(ArrayList<CuentaJAXB> listaCuentas) {
 		this.listaCuentas = listaCuentas;
 	}
 	@XmlElementWrapper(name = "lista_tarjetas")
 	@XmlElement(name = "tarjeta") // XmlElement especifica el nombre de las entidades
-	public ArrayList<Tarjeta> getListaTarjetas() {
+	public ArrayList<TarjetaJAXB> getListaTarjetas() {
 		return listaTarjetas;
 	}
-	public void setListaTarjetas(ArrayList<Tarjeta> listaTarjetas) {
+	public void setListaTarjetas(ArrayList<TarjetaJAXB> listaTarjetas) {
 		this.listaTarjetas = listaTarjetas;
 	}
 	

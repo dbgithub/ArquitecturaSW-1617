@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlType(propOrder = { "id", "fecha", "tipo", "importe", "cuenta" }) // opcional
-public class Operacion {
+public class OperacionJAXB {
 	
 	private int id;
 	private Date fecha;
@@ -19,7 +19,7 @@ public class Operacion {
 	/**
 	 * Constructor vacio
 	 */
-	public Operacion() {
+	public OperacionJAXB() {
 		
 	}
 	
@@ -31,7 +31,7 @@ public class Operacion {
 	 * @param importe
 	 * @param cuenta
 	 */
-	public Operacion(int id, Date fecha, EnumTipoOperacion tipo, float importe, int cuenta) {
+	public OperacionJAXB(int id, Date fecha, EnumTipoOperacion tipo, float importe, int cuenta) {
 		this.id = id;
 		this.fecha = fecha;
 		this.tipo = tipo;

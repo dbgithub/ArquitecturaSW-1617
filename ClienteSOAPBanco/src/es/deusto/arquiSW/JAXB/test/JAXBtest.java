@@ -18,20 +18,20 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import es.deusto.arquiSW.JAXB.classes.Banco;
-import es.deusto.arquiSW.JAXB.classes.Cliente;
-import es.deusto.arquiSW.JAXB.classes.Cuenta;
-import es.deusto.arquiSW.JAXB.classes.Operacion;
-import es.deusto.arquiSW.JAXB.classes.Tarjeta;
+import es.deusto.arquiSW.JAXB.classes.BancoJAXB;
+import es.deusto.arquiSW.JAXB.classes.ClienteJAXB;
+import es.deusto.arquiSW.JAXB.classes.CuentaJAXB;
+import es.deusto.arquiSW.JAXB.classes.OperacionJAXB;
+import es.deusto.arquiSW.JAXB.classes.TarjetaJAXB;
 
 public class JAXBtest {
 
 	static final String XML_FILE = "src/es/deusto/arquiSW/JAXB/test/marshallingXML.xml";
-	Banco DeustoBankTest;
-	Cliente cli;
-	Cuenta cuenta;
-	Operacion o1, o2, o3;
-	Tarjeta t;
+	BancoJAXB DeustoBankTest;
+	ClienteJAXB cli;
+	CuentaJAXB cuenta;
+	OperacionJAXB o1, o2, o3;
+	TarjetaJAXB t;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -44,26 +44,26 @@ public class JAXBtest {
 	@Before
 	public void setUp() throws Exception {
 		// Clientes:
-		cli = new Cliente("7979797979", "Aitor", "DB", "C/ avenida de las universidades, 24", "aitor@thebest.com", 69696969, true, 1234);
-		ArrayList<Cliente> colecionClientes = new ArrayList<Cliente>();
+		cli = new ClienteJAXB("7979797979", "Aitor", "DB", "C/ avenida de las universidades, 24", "aitor@thebest.com", 69696969, true, 1234);
+		ArrayList<ClienteJAXB> colecionClientes = new ArrayList<ClienteJAXB>();
 		colecionClientes.add(cli);
 		// Lista de operaciones:
-		ArrayList<Operacion> operaciones = new ArrayList<Operacion>();
+		ArrayList<OperacionJAXB> operaciones = new ArrayList<OperacionJAXB>();
 		// Cuentas:
-		cuenta = new Cuenta(45454548, "SXXKUTXA-09", new Date(System.currentTimeMillis()), true, 500f, 0.5f, cli.getDNI(), operaciones);
-		ArrayList<Cuenta> colecionCuentas = new ArrayList<Cuenta>();
+		cuenta = new CuentaJAXB(45454548, "SXXKUTXA-09", new Date(System.currentTimeMillis()), true, 500f, 0.5f, cli.getDNI(), operaciones);
+		ArrayList<CuentaJAXB> colecionCuentas = new ArrayList<CuentaJAXB>();
 		colecionCuentas.add(cuenta);
 		// Operaciones:
-		o1 = new Operacion(0001, new Date(System.currentTimeMillis()-10000), Operacion.EnumTipoOperacion.Ingreso, 250, cuenta.getIBAN());
-		o2 = new Operacion(0002, new Date(System.currentTimeMillis()-20000), Operacion.EnumTipoOperacion.Ingreso, 100, cuenta.getIBAN());
-		o3 = new Operacion(0003, new Date(System.currentTimeMillis()-1500), Operacion.EnumTipoOperacion.Ingreso, 150, cuenta.getIBAN());
+		o1 = new OperacionJAXB(0001, new Date(System.currentTimeMillis()-10000), OperacionJAXB.EnumTipoOperacion.Ingreso, 250, cuenta.getIBAN());
+		o2 = new OperacionJAXB(0002, new Date(System.currentTimeMillis()-20000), OperacionJAXB.EnumTipoOperacion.Ingreso, 100, cuenta.getIBAN());
+		o3 = new OperacionJAXB(0003, new Date(System.currentTimeMillis()-1500), OperacionJAXB.EnumTipoOperacion.Ingreso, 150, cuenta.getIBAN());
 		operaciones.add(o1); operaciones.add(o2); operaciones.add(o3);
 		// Tarjetas:
-		t = new Tarjeta(555556, cuenta.getIBAN(), 1200, new Date(System.currentTimeMillis()+50000), Tarjeta.EnumProveedores.Visa, Tarjeta.TiposTarjeta.Debito, new Date(System.currentTimeMillis()-100000));
-		ArrayList<Tarjeta> colecionTarjetas = new ArrayList<Tarjeta>();
+		t = new TarjetaJAXB(555556, cuenta.getIBAN(), 1200, new Date(System.currentTimeMillis()+50000), TarjetaJAXB.EnumProveedores.Visa, TarjetaJAXB.TiposTarjeta.Debito, new Date(System.currentTimeMillis()-100000));
+		ArrayList<TarjetaJAXB> colecionTarjetas = new ArrayList<TarjetaJAXB>();
 		colecionTarjetas.add(t);
 		// Banco:
-		DeustoBankTest = new Banco();
+		DeustoBankTest = new BancoJAXB();
 		DeustoBankTest.setListaClientes(colecionClientes);
 		DeustoBankTest.setListaCuentas(colecionCuentas);
 		DeustoBankTest.setListaTarjetas(colecionTarjetas);
@@ -77,7 +77,7 @@ public class JAXBtest {
 	@Test
 	public void marshal() throws JAXBException, IOException {
 		// create JAXB context and instantiate marshaller
-				JAXBContext context = JAXBContext.newInstance(Banco.class);
+				JAXBContext context = JAXBContext.newInstance(BancoJAXB.class);
 				Marshaller m = context.createMarshaller();
 				m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 				System.out.println("%%%%%%%%%%%%% MARSHALLING: %%%%%%%%%%%%%");
@@ -102,9 +102,9 @@ public class JAXBtest {
 	
 	@Test
 	public void unmarshal() throws JAXBException, FileNotFoundException {
-		JAXBContext context = JAXBContext.newInstance(Banco.class);
+		JAXBContext context = JAXBContext.newInstance(BancoJAXB.class);
 		Unmarshaller um = context.createUnmarshaller();
-		Banco banco = (Banco) um.unmarshal(new FileReader(XML_FILE));
+		BancoJAXB banco = (BancoJAXB) um.unmarshal(new FileReader(XML_FILE));
 		
 		System.out.println("%%%%%%%%%%%%% UNMARSHALLING: %%%%%%%%%%%%%");
 		for (int i = 0; i < banco.getListaClientes().size(); i++) {

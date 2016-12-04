@@ -13,8 +13,8 @@ import es.deusto.arquiSW.classes.Tarjeta.EnumProveedores;
 import es.deusto.arquiSW.classes.Tarjeta.TiposTarjeta;
 
 /**
- * Esta clase gestiona el acceso a la base de datos, asi como de las operaciones CRUD (Create, Read, Update and Delete)
- * La principal diferencia entre executeUpdate y executeQuery es que el primero devuelve un int y el segudno un ResultSet
+ * Esta clase gestiona el acceso a la base de datos, asi como las operaciones CRUD (Create, Read, Update and Delete)
+ * La principal diferencia entre executeUpdate y executeQuery es que el primero devuelve un int y el segundo un ResultSet
  * para poder iterar sobre el. Es decir, 'estado de la operacion' y 'conjunto de resultados' respectivamente.
  * @author aitor & daniel
  *
@@ -27,7 +27,7 @@ public class GestorBD {
 	private String password = "root";
 	private String driver = "com.mysql.jdbc.Driver";
 	private String protocol = "jdbc:mysql";
-	// TODO: Estaria bien implementar un Logger???
+	
 	/**
 	 * Constructor vacio con los parametros de conexion por defecto
 	 */
@@ -330,7 +330,7 @@ public class GestorBD {
 	public ArrayList<Cliente> obtenerCliente(String DNI, String Nombre, String Apellidos, String email, String movil, Boolean empleado) throws SQLException {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 		PreparedStatement statement;
-		String sqlString = "SELECT * FROM Cliente" +
+		String sqlString = "SELECT * FROM cliente" +
 			" WHERE @1 AND @2 AND @3 AND @4 AND @5 AND @6";
 		if (DNI!=null) {sqlString = sqlString.replace("@1", "Dni="+DNI);} else {sqlString = sqlString.replace("@1", "Dni = Dni");}
 		if (Nombre!=null) {sqlString = sqlString.replace("@2", "Nombre="+Nombre);} else {sqlString = sqlString.replace("@2", "Nombre = Nombre");}
@@ -370,7 +370,7 @@ public class GestorBD {
 	public ArrayList<Cuenta> obtenerCuenta(String IBAN, String DNI, String fechaApertura, Boolean activa, String interes) throws SQLException {
 		ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
 		PreparedStatement statement;
-		String sqlString = "SELECT * FROM Cuenta" +
+		String sqlString = "SELECT * FROM cuenta" +
 			" WHERE @1 AND @2 AND @3 AND @4 AND @5";
 		if (IBAN!=null) {sqlString = sqlString.replace("@1", "IBAN="+IBAN);} else {sqlString = sqlString.replace("@1", "IBAN = IBAN");}
 		if (DNI!=null) {sqlString = sqlString.replace("@2", "Cliente="+DNI);} else {sqlString = sqlString.replace("@2", "Cliente = Cliente");}
@@ -437,7 +437,7 @@ public class GestorBD {
 		PreparedStatement statement;
 		String sqlString = "SELECT newtable.Numero, newtable.LimiteExtraccion, newtable.FechaCaducidad, newtable.Proveedor, newtable.Tipo, " +
 							"newtable.FechaExpedicion, newtable.Cliente FROM" +
-							"(SELECT * FROM Tarjeta INNER JOIN Cuenta ON Tarjeta.Cuenta = Cuenta.IBAN) as newtable" +
+							"(SELECT * FROM tarjeta INNER JOIN cuenta ON tarjeta.Cuenta = cuenta.IBAN) as newtable" +
 							" WHERE @1 AND @2 AND @3 AND @4";
 		if (Numero!=null) {sqlString = sqlString.replace("@1", "Numero="+Numero);} else {sqlString = sqlString.replace("@1", "Numero = Numero");}
 		if (DNI!=null) {sqlString = sqlString.replace("@2", "Cliente="+Numero);} else {sqlString = sqlString.replace("@2", "Cliente = Cliente");}
@@ -476,6 +476,8 @@ public class GestorBD {
 //		ArrayList<Cuenta> cu = gbd.obtenerCuentas();
 //		System.out.println("Cuantas cuentas?" + cu.size());
 //		System.out.println("Cuenta: " + cu.get(0).getIBAN());
+//		ArrayList<Cliente> hola = gbd.obtenerCliente("123456789", null, null, null, null, null);
+//		System.out.println(hola.get(0).getDNI());
 //		gbd.desconectar();
 //	}
 

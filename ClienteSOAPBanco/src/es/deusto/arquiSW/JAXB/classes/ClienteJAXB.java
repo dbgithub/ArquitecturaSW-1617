@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlType(propOrder = { "DNI", "nombre", "apellidos", "direccion", "email", "movil", "empleado", "PIN" }) // opcional
-public class Cliente {
+public class ClienteJAXB {
 	
 	private String DNI;
 	private String nombre;
@@ -21,7 +21,7 @@ public class Cliente {
 	/**
 	 * Constructor vacio
 	 */
-	public Cliente() {
+	public ClienteJAXB() {
 		
 	}
 	
@@ -37,7 +37,7 @@ public class Cliente {
 	 * @param pIN
 	 * @param cuentas
 	 */
-	public Cliente(String dNI, String nombre, String apellidos, String direccion, String email, int movil,
+	public ClienteJAXB(String dNI, String nombre, String apellidos, String direccion, String email, int movil,
 			boolean empleado, int pIN) {
 		this.DNI = dNI;
 		this.nombre = nombre;
