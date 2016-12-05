@@ -75,6 +75,7 @@ public class FormularioDatosCliente {
 					int pin = Integer.valueOf(textFieldPIN.getText());
 					ClienteDTO c = new ClienteDTO(dni, nombre, apellidos, direccion, correo, movil, empleado, pin);
 					controller.crearCliente(c);
+					controller.obtenerClientes();					
 					setVisible(false);
 
 				}
@@ -114,7 +115,9 @@ public class FormularioDatosCliente {
 					int pin = Integer.valueOf(textFieldPIN.getText());
 					ClienteDTO c = new ClienteDTO(dni, nombre, apellidos, direccion, correo, movil, empleado, pin);
 					controller.modificarCliente(c);
+					controller.obtenerClientes();
 					setVisible(false);
+					
 				}
 			}
 		});

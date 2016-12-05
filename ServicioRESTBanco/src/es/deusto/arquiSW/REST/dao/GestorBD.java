@@ -155,7 +155,7 @@ public class GestorBD {
 			cuenta.setIBAN(rs.getInt("iban"));
 			cuenta.setSWIFT(rs.getString("swift"));
 			String date = rs.getString("fechaapertura");
-			SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.US);
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 			java.util.Date utildate = formatter.parse(date);
 			cuenta.setFechaApertura(utildate);
 			cuenta.setActiva(rs.getBoolean("activa"));
@@ -214,7 +214,7 @@ public class GestorBD {
 			Tarjeta tarjeta = new Tarjeta();
 			tarjeta.setNumero(rs.getInt("numero"));
 			tarjeta.setLimiteExtraccion(rs.getInt("limiteextraccion"));
-			SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.US);
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 			String datecaducidad = rs.getString("fechacaducidad");
 			java.util.Date utildatecaducidad = formatter.parse(datecaducidad);
 			tarjeta.setFechaCaducidad(utildatecaducidad);
@@ -293,9 +293,11 @@ public class GestorBD {
 		Statement statement = con.createStatement();
 		while (it.hasNext()) {
 			Cuenta temp = it.next();
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			String fecha= df.format(temp.getFechaApertura());
 			String sqlString = "INSERT INTO cuenta "
 					+ "(IBAN, SWIFT, FechaApertura, Activa, SaldoActual, Interes, Cliente) " + "VALUES ("
-					+ temp.getIBAN() + ",'" + temp.getSWIFT() + "','" + temp.getFechaApertura().toString() + "',"
+					+ temp.getIBAN() + ",'" + temp.getSWIFT() + "','" + fecha + "',"
 					+ ((temp.isActiva()) ? 1 : 0) + "," + temp.getSaldoActual() + "," + temp.getInteres() + ",'"
 					+ temp.getTitular().getDNI() + "')";
 			statement.executeUpdate(sqlString);
@@ -333,11 +335,14 @@ public class GestorBD {
 		Statement statement = con.createStatement();
 		while (it.hasNext()) {
 			Tarjeta temp = it.next();
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			String fechaca= df.format(temp.getFechaCaducidad());
+			String fechaex= df.format(temp.getFechaExpedicion());
 			String sqlString = "INSERT INTO tarjeta "
 					+ "(Numero, LimiteExtraccion, FechaCaducidad, Proveedor, Tipo, FechaExpedicion, Cuenta) "
 					+ "VALUES (" + temp.getNumero() + "," + temp.getLimiteExtraccion() + ",'"
-					+ temp.getFechaCaducidad().toString() + "','" + temp.getProveedor().name() + "','"
-					+ temp.getTipo().name() + "','" + temp.getFechaExpedicion().toString() + "',"
+					+ fechaca + "','" + temp.getProveedor().name() + "','"
+					+ temp.getTipo().name() + "','" + fechaex + "',"
 					+ temp.getCuenta().getIBAN() + ")";
 			statement.executeUpdate(sqlString);
 		}
@@ -463,7 +468,7 @@ public class GestorBD {
 			cuenta.setIBAN(rs.getInt("iban"));
 			cuenta.setSWIFT(rs.getString("swift"));
 			String date = rs.getString("fechaapertura");
-			SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.US);
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			java.util.Date utildate = formatter.parse(date);
 			cuenta.setFechaApertura(utildate);
 			cuenta.setActiva(rs.getBoolean("activa"));
@@ -552,7 +557,7 @@ public class GestorBD {
 			Tarjeta tarjeta = new Tarjeta();
 			tarjeta.setNumero(rs.getInt("Numero"));
 			tarjeta.setLimiteExtraccion(rs.getInt("LimiteExtraccion"));
-			SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.US);
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			String datecaducidad = rs.getString("fechacaducidad");
 			java.util.Date utildatecaducidad = formatter.parse(datecaducidad);
 			tarjeta.setFechaCaducidad(utildatecaducidad);
@@ -608,7 +613,9 @@ public class GestorBD {
 				+ "WHERE IBAN = " + cu.getIBAN();
 		PreparedStatement statement = con.prepareStatement(sqlupdate);
 		statement.setString(1, cu.getSWIFT());
-		statement.setString(2, cu.getFechaApertura().toString());
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		String fecha= df.format(cu.getFechaApertura());
+		statement.setString(2, fecha);
 		statement.setBoolean(3, cu.isActiva());
 		statement.setFloat(4, cu.getSaldoActual());
 		statement.setFloat(5, cu.getInteres());
@@ -629,10 +636,13 @@ public class GestorBD {
 				+ "WHERE Numero = " + t.getNumero();
 		PreparedStatement statement = con.prepareStatement(sqlupdate);
 		statement.setInt(1, t.getLimiteExtraccion());
-		statement.setString(2, t.getFechaCaducidad().toString());
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		String fechaca= df.format(t.getFechaCaducidad());
+		statement.setString(2, fechaca);
 		statement.setString(3, t.getProveedor().name());
 		statement.setString(4, t.getTipo().name());
-		statement.setString(5, t.getFechaExpedicion().toString());
+		String fechaex= df.format(t.getFechaExpedicion());
+		statement.setString(5, fechaex);
 		statement.setInt(6, t.getCuenta().getIBAN());
 		statement.executeUpdate();
 		statement.close();

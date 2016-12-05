@@ -90,6 +90,7 @@ public class FormularioDatosCuentas {
 								Float.parseFloat(Saldo), Float.parseFloat(interes), DNICliente,
 								new ArrayList<OperacionDTO>());
 						controlador.crearCuenta(cuenta);
+						controlador.obtenerCuentas();
 						setVisible(false);
 					} catch (ParseException e1) {
 						// TODO Auto-generated catch block
@@ -147,6 +148,7 @@ public class FormularioDatosCuentas {
 								Float.parseFloat(Saldo), Float.parseFloat(interes), DNICliente,
 								new ArrayList<OperacionDTO>());
 						controlador.modificarCuenta(cuenta);
+						controlador.obtenerCuentas();
 						setVisible(false);
 					} catch (ParseException e1) {
 						// TODO Auto-generated catch block

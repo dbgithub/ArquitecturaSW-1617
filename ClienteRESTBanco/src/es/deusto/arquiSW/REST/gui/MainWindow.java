@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -151,6 +153,8 @@ public class MainWindow {
 		}
 
 	}
+	
+	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -160,8 +164,53 @@ public class MainWindow {
 		frmDeustobankrest = new JFrame();
 		frmDeustobankrest.setTitle("DeustoBank(REST)");
 		frmDeustobankrest.setBounds(100, 100, 837, 610);
-		frmDeustobankrest.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		frmDeustobankrest.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
+		frmDeustobankrest.addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				loadClientes();
+				loadCuentas();
+				loadTarjetas();
+			}
+		});
 		JLabel lblDeustobankrest = new JLabel("DeustoBank (REST)");
 		lblDeustobankrest.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDeustobankrest.setFont(new Font("Dialog", Font.BOLD, 23));

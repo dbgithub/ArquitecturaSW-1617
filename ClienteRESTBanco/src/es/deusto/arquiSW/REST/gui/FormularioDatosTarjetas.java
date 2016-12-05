@@ -93,6 +93,8 @@ public class FormularioDatosTarjetas {
 						TarjetaDTO tar = new TarjetaDTO(Integer.parseInt(numero), Integer.parseInt(cuenta),
 								Integer.parseInt(limite), dateca, proveedor, tipot, dateex);
 						controlador.crearTarjeta(tar);
+						controlador.obtenerTarjetas();
+						
 						setVisible(false);
 					} catch (ParseException e1) {
 						// TODO Auto-generated catch block
@@ -157,6 +159,7 @@ public class FormularioDatosTarjetas {
 						TarjetaDTO tarjeta = new TarjetaDTO(Integer.parseInt(numero), Integer.parseInt(cuenta),
 								Integer.parseInt(limite), dateca, proveedor, tipot, dateex);
 						controlador.modificarTarjeta(tarjeta);
+						controlador.obtenerTarjetas();
 						setVisible(false);
 					} catch (ParseException e1) {
 						// TODO Auto-generated catch block
