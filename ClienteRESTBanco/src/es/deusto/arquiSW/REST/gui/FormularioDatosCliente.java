@@ -1,25 +1,23 @@
 package es.deusto.arquiSW.REST.gui;
 
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import java.awt.Color;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.BevelBorder;
 
 import es.deusto.arquiSW.REST.Controller.Controller;
 import es.deusto.arquiSW.REST.DTO.ClienteDTO;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JCheckBox;
-import javax.swing.JButton;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class FormularioDatosCliente {
 
@@ -32,6 +30,8 @@ public class FormularioDatosCliente {
 	private Controller controller;
 	private JTextField textFieldDireccion;
 	private JTextField textFieldPIN;
+	private JCheckBox checkBox;
+	private JButton btnGuardar;
 
 	/**
 	 * Launch the application.
@@ -52,10 +52,73 @@ public class FormularioDatosCliente {
 	/**
 	 * Create the application.
 	 */
-
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public FormularioDatosCliente() {
 		initialize();
 		this.controller = new Controller();
+		frmAniadir.setTitle("A\u00F1adir clientes");
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				int dialogbutton = JOptionPane.showConfirmDialog(null,
+						"¿Desea añadir realmente el cliente especificado ?", "Confirmación", JOptionPane.YES_NO_OPTION);
+				if (dialogbutton == JOptionPane.YES_OPTION) {
+					String dni = textFieldDNI.getText();
+					String nombre = textFieldNombre.getText();
+					String apellidos = textFieldApellidos.getText();
+					String direccion = textFieldDireccion.getText();
+					String correo = textFieldEmail.getText();
+					int movil = Integer.valueOf(textFieldMovil.getText());
+					boolean empleado = checkBox.isSelected();
+					int pin = Integer.valueOf(textFieldPIN.getText());
+					ClienteDTO c = new ClienteDTO(dni, nombre, apellidos, direccion, correo, movil, empleado, pin);
+					controller.crearCliente(c);
+					setVisible(false);
+
+				}
+
+			}
+		});
+	}
+
+	public FormularioDatosCliente(Controller co) {
+		initialize();
+		frmAniadir.setTitle("Modificar clientes");
+		this.controller = co;
+		ClienteDTO cli = this.controller.getColeccionClientes().get(0);
+		textFieldNombre.setText(cli.getNombre());
+		textFieldApellidos.setText(cli.getApellidos());
+		textFieldDNI.setText(cli.getDNI());
+		textFieldEmail.setText(cli.getEmail());
+		textFieldMovil.setText(Integer.toString(cli.getMovil()));
+		textFieldPIN.setText(Integer.toString(cli.getPIN()));
+		textFieldDireccion.setText(cli.getDireccion());
+		if (cli.isEmpleado()) {
+			checkBox.setSelected(true);
+		}
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int dialogbutton = JOptionPane.showConfirmDialog(null,
+						"¿Desea modificar realmente el cliente especificado ?", "Confirmación",
+						JOptionPane.YES_NO_OPTION);
+				if (dialogbutton == JOptionPane.YES_OPTION) {
+					String dni = textFieldDNI.getText();
+					String nombre = textFieldNombre.getText();
+					String apellidos = textFieldApellidos.getText();
+					String direccion = textFieldDireccion.getText();
+					String correo = textFieldEmail.getText();
+					int movil = Integer.valueOf(textFieldMovil.getText());
+					boolean empleado = checkBox.isSelected();
+					int pin = Integer.valueOf(textFieldPIN.getText());
+					ClienteDTO c = new ClienteDTO(dni, nombre, apellidos, direccion, correo, movil, empleado, pin);
+					controller.modificarCliente(c);
+					setVisible(false);
+				}
+			}
+		});
+
 	}
 
 	public void setVisible(boolean b) {
@@ -68,7 +131,7 @@ public class FormularioDatosCliente {
 	private void initialize() {
 
 		frmAniadir = new JFrame();
-		frmAniadir.setTitle("A\u00F1adir clientes");
+
 		frmAniadir.setBounds(100, 100, 511, 361);
 
 		JPanel panel = new JPanel();
@@ -96,33 +159,11 @@ public class FormularioDatosCliente {
 		textFieldMovil = new JTextField();
 		textFieldMovil.setColumns(10);
 
-		JCheckBox checkBox = new JCheckBox("Empleado");
+		checkBox = new JCheckBox("Empleado");
 		checkBox.setForeground(Color.BLACK);
 		checkBox.setBackground((Color) null);
 
-		JButton btnGuardar = new JButton("Guardar");
-		btnGuardar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				int dialogbutton = JOptionPane.showConfirmDialog(null,
-						"¿Desea añadir realmente el cliente especificado ?", "Confirmación", JOptionPane.YES_NO_OPTION);
-				if (dialogbutton == JOptionPane.YES_OPTION) {
-					String dni = textFieldDNI.getText();
-					String nombre = textFieldNombre.getText();
-					String apellidos = textFieldApellidos.getText();
-					String direccion = textFieldDireccion.getText();
-					String correo = textFieldEmail.getText();
-					int movil = Integer.valueOf(textFieldMovil.getText());
-					boolean empleado = checkBox.isSelected();
-					int pin = Integer.valueOf(textFieldPIN.getText());
-					ClienteDTO c = new ClienteDTO(dni, nombre, apellidos, direccion, correo, movil, empleado, pin);
-					controller.crearCliente(c);
-					setVisible(false);
-
-				}
-
-			}
-		});
+		btnGuardar = new JButton("Guardar");
 
 		textFieldDNI = new JTextField();
 		textFieldDNI.setColumns(10);

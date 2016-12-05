@@ -108,7 +108,7 @@ public class CuentaDTO {
 	public void setInteres(float interes) {
 		this.interes = interes;
 	}
-	@XmlElementWrapper(name = "lista_operaciones")
+	@XmlElementWrapper(name = "operaciones")
 	@XmlElement(name = "operacion") // XmlElement especifica el nombre de las entidades
 	public ArrayList<OperacionDTO> getOperaciones() {
 		return operaciones;
