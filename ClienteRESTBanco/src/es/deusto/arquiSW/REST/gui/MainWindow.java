@@ -4,6 +4,10 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -112,30 +116,31 @@ public class MainWindow {
 			for (ClienteDTO c : controller.getColeccionClientes()) {
 				model.addRow(new Object[] { c.getDNI(), c.getNombre(), c.getApellidos(), c.getDireccion(), c.getEmail(),
 						c.getMovil(), (c.isEmpleado()) ? "Si" : "No" });
-			}		
+			}
 		}
 	}
 
-	 public void loadCuentas() {
-		 DefaultTableModel model = (DefaultTableModel) tableCuentas.getModel();
-		 limpiarJTable(model);
-		 if (controller.getColeccionCuentas() != null) {
-			 for (CuentaDTO cu : controller.getColeccionCuentas()) {
-				 model.addRow(new Object[] { cu.getIBAN(), cu.getSWIFT(),
-						 cu.getFechaApertura(),
-						 (cu.isActiva()) ? "Si" : "No", cu.getSaldoActual(), cu.getInteres(),
-								 cu.getTitular() });
-			 } 
-		 }
-	 }
+	public void loadCuentas() {
+		DefaultTableModel model = (DefaultTableModel) tableCuentas.getModel();
+		limpiarJTable(model);
+		if (controller.getColeccionCuentas() != null) {
+			for (CuentaDTO cu : controller.getColeccionCuentas()) {
+				DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+				model.addRow(new Object[] { cu.getIBAN(), cu.getSWIFT(), formatoFecha.format(cu.getFechaApertura()),
+						(cu.isActiva()) ? "Si" : "No", cu.getSaldoActual(), cu.getInteres(), cu.getTitular() });
+			}
+		}
+	}
 
 	public void loadTarjetas() {
 		DefaultTableModel model = (DefaultTableModel) tableTarjetas.getModel();
 		limpiarJTable(model);
 		if (controller.getColeccionTarjetas() != null) {
 			for (TarjetaDTO t : controller.getColeccionTarjetas()) {
-				model.addRow(new Object[] { t.getNumero(), t.getLimiteExtraccion(), t.getFechaCaducidad(), t.getProveedor(),
-						t.getTipo(), t.getFechaExpedicion(), t.getCuenta() });
+				DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+				model.addRow(new Object[] { t.getNumero(), t.getLimiteExtraccion(),
+						formatoFecha.format(t.getFechaCaducidad()), t.getProveedor(), t.getTipo(),
+						formatoFecha.format(t.getFechaExpedicion()), t.getCuenta() });
 			}
 		}
 	}
@@ -148,6 +153,8 @@ public class MainWindow {
 		}
 
 	}
+	
+	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -157,8 +164,53 @@ public class MainWindow {
 		frmDeustobankrest = new JFrame();
 		frmDeustobankrest.setTitle("DeustoBank(REST)");
 		frmDeustobankrest.setBounds(100, 100, 837, 610);
-		frmDeustobankrest.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		frmDeustobankrest.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
+		frmDeustobankrest.addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				loadClientes();
+				loadCuentas();
+				loadTarjetas();
+			}
+		});
 		JLabel lblDeustobankrest = new JLabel("DeustoBank (REST)");
 		lblDeustobankrest.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDeustobankrest.setFont(new Font("Dialog", Font.BOLD, 23));
@@ -176,8 +228,8 @@ public class MainWindow {
 					if (o instanceof String) {
 						String dni = (String) o;
 						int dialogbutton = JOptionPane.showConfirmDialog(null,
-								"Â¿Desea eliminar realmente el cliente con DNI " + dni + " ?",
-								"Eliminar cliente", JOptionPane.YES_NO_OPTION);
+								"¿Desea eliminar realmente el cliente con DNI " + dni + " ?", "Eliminar cliente",
+								JOptionPane.YES_NO_OPTION);
 						if (dialogbutton == JOptionPane.YES_OPTION) {
 							controller.eliminarCliente(dni);
 							textField_DNI.setText(null);
@@ -195,8 +247,8 @@ public class MainWindow {
 					if (o instanceof Integer) {
 						int iban = (Integer) o;
 						int dialogbutton = JOptionPane.showConfirmDialog(null,
-								"Â¿Desea eliminar realmente la cuenta con IBAN " + iban + " ?",
-								"Eliminar cuenta", JOptionPane.YES_NO_OPTION);
+								"¿Desea eliminar realmente la cuenta con IBAN " + iban + " ?", "Eliminar cuenta",
+								JOptionPane.YES_NO_OPTION);
 						if (dialogbutton == JOptionPane.YES_OPTION) {
 							controller.eliminarCuenta(String.valueOf(iban));
 							textField_IBAN.setText(null);
@@ -212,8 +264,8 @@ public class MainWindow {
 					if (o instanceof Integer) {
 						int numero = (Integer) o;
 						int dialogbutton = JOptionPane.showConfirmDialog(null,
-								"Â¿Desea eliminar realmente la tarjeta con nÃºmero " + numero + " ?",
-								"Eliminar tarjeta", JOptionPane.YES_NO_OPTION);
+								"¿Desea eliminar realmente la tarjeta con numero " + numero + " ?", "Eliminar tarjeta",
+								JOptionPane.YES_NO_OPTION);
 						if (dialogbutton == JOptionPane.YES_OPTION) {
 							controller.eliminarTarjeta(String.valueOf(numero));
 							textField_NumeroTarjeta.setText(null);
@@ -227,19 +279,62 @@ public class MainWindow {
 		});
 
 		JButton btnModificar = new JButton("Modificar");
+		btnModificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// formCliente = new FormularioDatosCliente();
+				// formCuentas = new FormularioDatosCuentas();
+				// formTarjetas = new FormularioDatosTarjetas();
+				Object o = null;
+				switch (tabbedPane.getSelectedIndex()) {
+				// Modificar clientes
+				case 0:
+					o = tableClientes.getValueAt(tableClientes.getSelectedRow(), 0);
+					if (o instanceof String) {
+						String dni = (String) o;
+						controller.obtenerCliente(dni);
+						formCliente = new FormularioDatosCliente(controller);
+						formCliente.setVisible(true);
+
+					}
+					break;
+				// Modificar Cuentas
+				case 1:
+					o = tableCuentas.getValueAt(tableCuentas.getSelectedRow(), 0);
+					if (o instanceof Integer) {
+						int iban = (Integer) o;
+						controller.obtenerCuenta(Integer.toString(iban));
+						formCuentas = new FormularioDatosCuentas(controller);
+						formCuentas.setVisible(true);
+					}
+
+					break;
+
+				// Modificar tarjetas
+				default:
+					o = tableTarjetas.getValueAt(tableTarjetas.getSelectedRow(), 0);
+					if (o instanceof Integer) {
+						int num = (Integer) o;
+						controller.obtenerTarjeta(Integer.toString(num));	
+						formTarjetas = new FormularioDatosTarjetas(controller);
+						formTarjetas.setVisible(true);
+					}
+					break;
+				}
+			}
+		});
 
 		JButton btnAniadir = new JButton("A\u00F1adir");
 		btnAniadir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				formCliente=new FormularioDatosCliente();
-				formCuentas= new FormularioDatosCuentas();
-				formTarjetas= new FormularioDatosTarjetas();
+				formCliente = new FormularioDatosCliente();
+				formCuentas = new FormularioDatosCuentas();
+				formTarjetas = new FormularioDatosTarjetas();
 				switch (tabbedPane.getSelectedIndex()) {
 
 				// Annadir clientes
 				case 0:
 					formCliente.setVisible(true);
-					
+
 					break;
 
 				// Annadir Cuentas
@@ -352,7 +447,13 @@ public class MainWindow {
 
 		tableClientes = new JTable();
 		tableClientes.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "DNI", "Nombre", "Apellidos", "Direccion", "Email", "Movil", "Empleado" }));
+				new String[] { "DNI", "Nombre", "Apellidos", "Direccion", "Email", "Movil", "Empleado" }) {
+			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false };
+
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		scrollPane_1.setViewportView(tableClientes);
 		panel.setLayout(gl_panel);
 		panel_clientes.setLayout(gl_panel_clientes);
@@ -415,7 +516,13 @@ public class MainWindow {
 
 		tableCuentas = new JTable();
 		tableCuentas.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "IBAN", "SWIFT", "Fecha apertura",
-				"Activa", "Saldo actual", "Interes", "DNI titular" }));
+				"Activa", "Saldo actual", "Interes", "DNI titular" }) {
+			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false };
+
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		scrollPane_3.setViewportView(tableCuentas);
 		panel_1.setLayout(gl_panel_1);
 		panel_cuentas.setLayout(gl_panel_cuentas);
@@ -487,8 +594,14 @@ public class MainWindow {
 								.addContainerGap()));
 
 		tableTarjetas = new JTable();
-		tableTarjetas.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "NÃºmero", "Limite extraccion",
-				"Fecha caducidad", "Proveedor", "Tipo", "Fecha expedicion", "Cuenta vinculada" }));
+		tableTarjetas.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Numero", "Limite extraccion",
+				"Fecha caducidad", "Proveedor", "Tipo", "Fecha expedicion", "Cuenta vinculada" }) {
+			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false };
+
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		scrollPane_5.setViewportView(tableTarjetas);
 		panel_2.setLayout(gl_panel_2);
 		panel_tarjetas.setLayout(gl_panel_tarjetas);

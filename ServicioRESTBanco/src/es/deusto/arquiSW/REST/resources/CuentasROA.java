@@ -2,6 +2,7 @@ package es.deusto.arquiSW.REST.resources;
 
 import java.net.URI;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.ws.rs.Consumes;
@@ -48,7 +49,10 @@ public class CuentasROA {
 		} catch (SQLException e) {
 			System.out.println("ERROR getting Cuentas in 'CuentasROA'");
 			e.printStackTrace();
-		}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		return resul;
 	}
 	
@@ -69,6 +73,9 @@ public class CuentasROA {
 			System.out.println("ERROR getting a single Cuenta in 'CuentasROA'");
 //			e.printStackTrace();
 			return null;
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return resul;
 	}

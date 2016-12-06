@@ -29,7 +29,7 @@ public class TarjetaDTO {
 	public enum TiposTarjeta {
 		Credito,Debito; 
 	}
-	private int cuenta;
+	private int cuenta;	
 	
 	/**
 	 * Constructor vacio
