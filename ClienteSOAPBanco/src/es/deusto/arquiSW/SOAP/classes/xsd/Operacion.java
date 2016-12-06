@@ -45,7 +45,7 @@
 
                            /**
                            * Auto generated getter method
-                           * @return es.deusto.arquisw.classes.xsd.Cuenta
+                           * @return es.deusto.arquiSW.SOAP.classes.xsd.Cuenta
                            */
                            public  es.deusto.arquiSW.SOAP.classes.xsd.Cuenta getCuenta(){
                                return localCuenta;

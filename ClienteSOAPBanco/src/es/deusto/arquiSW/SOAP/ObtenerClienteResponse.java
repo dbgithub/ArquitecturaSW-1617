@@ -47,7 +47,7 @@
 
                            /**
                            * Auto generated getter method
-                           * @return es.deusto.arquisw.classes.xsd.Cliente[]
+                           * @return es.deusto.arquiSW.SOAP.classes.xsd.Cliente[]
                            */
                            public  es.deusto.arquiSW.SOAP.classes.xsd.Cliente[] get_return(){
                                return local_return;
@@ -83,7 +83,7 @@
                              
                              /**
                              * Auto generated add method for the array for convenience
-                             * @param param es.deusto.arquisw.classes.xsd.Cliente
+                             * @param param es.deusto.arquiSW.SOAP.classes.xsd.Cliente
                              */
                              public void add_return(es.deusto.arquiSW.SOAP.classes.xsd.Cliente param){
                                    if (local_return == null){

@@ -107,7 +107,11 @@ public class InicializacionThread implements Runnable {
 						obtOperacion.setIBAN(Integer.toString(cu.getIBAN()));
 						obtOperacionRes = service.obtenerOperacion(obtOperacion);
 						arrayOperacion = obtOperacionRes.get_return();
-						cu.setOperaciones(arrayOperacion);
+						if (arrayOperacion != null) {
+							cu.setOperaciones(arrayOperacion);
+						} else {
+							cu.setOperaciones(new Operacion[0]);
+						}
 					}		
 					mw.setTempCuentas(conversor.convertFromSOAPcuentaToJAXBcuenta(arrayCuentas));
 					mw.loadCuentas();

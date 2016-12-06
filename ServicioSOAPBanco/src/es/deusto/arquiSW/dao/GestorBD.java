@@ -214,7 +214,7 @@ public class GestorBD {
 	 */
 	public void importar(ArrayList<Cliente> clientes, ArrayList<Cuenta> cuentas, ArrayList<Tarjeta> tarjetas) throws SQLException {
 		if (!clientes.isEmpty()) {insertarClientes(clientes);}
-		if (!cuentas.isEmpty()) {insertarCuentas(cuentas);}
+		if (!cuentas.isEmpty()) {insertarCuentas(cuentas); for (Cuenta cu : cuentas) {if (cu.getOperaciones().size() != 0) {insertarOperaciones(cu.getOperaciones());}}}
 		if (!tarjetas.isEmpty()) {insertarTarjetas(tarjetas);}
 	}
 	
@@ -228,7 +228,7 @@ public class GestorBD {
 		Statement statement = con.createStatement();
 		while (it.hasNext()) {
 			Cliente temp = it.next();
-			String sqlString = "INSERT INTO Cliente " +
+			String sqlString = "INSERT INTO cliente " +
 					"(DNI, Nombre, Apellidos, Direccion, email, movil, empleado, PIN) " +
 					"VALUES ('" + temp.getDNI() +
 					"','" + temp.getNombre() +
@@ -253,7 +253,7 @@ public class GestorBD {
 		Statement statement = con.createStatement();
 		while (it.hasNext()) {
 			Cuenta temp = it.next();
-			String sqlString = "INSERT INTO Cuenta " +
+			String sqlString = "INSERT INTO cuenta " +
 					"(IBAN, SWIFT, FechaApertura, Activa, SaldoActual, Interes, Cliente) " +
 					"VALUES (" + temp.getIBAN() +
 					",'" + temp.getSWIFT() +
@@ -261,7 +261,7 @@ public class GestorBD {
 					"'," + ((temp.isActiva()) ? 1:0) +
 					"," + temp.getSaldoActual() +
 					"," + temp.getInteres() +
-					",'" + temp.getTitular().getDNI() + ")";                        
+					",'" + temp.getTitular().getDNI() + "')";                        
 			statement.executeUpdate(sqlString);
 		}
 		statement.close(); 
@@ -277,7 +277,7 @@ public class GestorBD {
 		Statement statement = con.createStatement();
 		while (it.hasNext()) {
 			Operacion temp = it.next();
-			String sqlString = "INSERT INTO Operacion " +
+			String sqlString = "INSERT INTO operacion " +
 					"(ID, Fecha, Tipo, Importe, Cuenta) " +
 					"VALUES (" + temp.getId() +
 					",'" + temp.getFecha().toString() +
@@ -299,7 +299,7 @@ public class GestorBD {
 		Statement statement = con.createStatement();
 		while (it.hasNext()) {
 			Tarjeta temp = it.next();
-			String sqlString = "INSERT INTO Tarjeta " +
+			String sqlString = "INSERT INTO tarjeta " +
 					"(Numero, LimiteExtraccion, FechaCaducidad, Proveedor, Tipo, FechaExpedicion, Cuenta) " +
 					"VALUES (" + temp.getNumero() +
 					"," + temp.getLimiteExtraccion() +
@@ -332,10 +332,10 @@ public class GestorBD {
 		PreparedStatement statement;
 		String sqlString = "SELECT * FROM cliente" +
 			" WHERE @1 AND @2 AND @3 AND @4 AND @5 AND @6";
-		if (DNI!=null) {sqlString = sqlString.replace("@1", "Dni="+DNI);} else {sqlString = sqlString.replace("@1", "Dni = Dni");}
-		if (Nombre!=null) {sqlString = sqlString.replace("@2", "Nombre="+Nombre);} else {sqlString = sqlString.replace("@2", "Nombre = Nombre");}
-		if (Apellidos!=null) {sqlString = sqlString.replace("@3", "Apellidos="+Apellidos);} else {sqlString = sqlString.replace("@3", "Apellidos = Apellidos");}
-		if (email!=null) {sqlString = sqlString.replace("@4", "Email="+email);} else {sqlString = sqlString.replace("@4", "Email = Email");}
+		if (DNI!=null) {sqlString = sqlString.replace("@1", "DNI="+DNI);} else {sqlString = sqlString.replace("@1", "DNI = DNI");}
+		if (Nombre!=null) {sqlString = sqlString.replace("@2", "Nombre='"+Nombre+"'");} else {sqlString = sqlString.replace("@2", "Nombre = Nombre");}
+		if (Apellidos!=null) {sqlString = sqlString.replace("@3", "Apellidos='"+Apellidos+"'");} else {sqlString = sqlString.replace("@3", "Apellidos = Apellidos");}
+		if (email!=null) {sqlString = sqlString.replace("@4", "Email='"+email+"'");} else {sqlString = sqlString.replace("@4", "Email = Email");}
 		if (movil!=null) {sqlString = sqlString.replace("@5", "Movil="+movil);} else {sqlString = sqlString.replace("@5", "Movil = Movil");}
 		if (empleado!=null) {sqlString = sqlString.replace("@6", (empleado)? "Empleado=1":"Empleado=0");} else {sqlString = sqlString.replace("@6", "Empleado = Empleado");}
 		statement = con.prepareStatement(sqlString);	
@@ -373,10 +373,10 @@ public class GestorBD {
 		String sqlString = "SELECT * FROM cuenta" +
 			" WHERE @1 AND @2 AND @3 AND @4 AND @5";
 		if (IBAN!=null) {sqlString = sqlString.replace("@1", "IBAN="+IBAN);} else {sqlString = sqlString.replace("@1", "IBAN = IBAN");}
-		if (DNI!=null) {sqlString = sqlString.replace("@2", "Cliente="+DNI);} else {sqlString = sqlString.replace("@2", "Cliente = Cliente");}
-		if (fechaApertura!=null) {sqlString = sqlString.replace("@3", "FechaApertura="+fechaApertura);} else {sqlString = sqlString.replace("@3", "FechaApertura = FechaApertura");}
+		if (DNI!=null) {sqlString = sqlString.replace("@2", "Cliente='"+DNI+"'");} else {sqlString = sqlString.replace("@2", "Cliente = Cliente");}
+		if (fechaApertura!=null) {sqlString = sqlString.replace("@3", "FechaApertura='"+fechaApertura+"'");} else {sqlString = sqlString.replace("@3", "FechaApertura = FechaApertura");}
 		if (activa!=null) {sqlString = sqlString.replace("@4", (activa)? "Activa=1":"Activa=0");} else {sqlString = sqlString.replace("@4", "Activa = Activa");}
-		if (interes!=null) {sqlString = sqlString.replace("@5", "Interes="+Float.parseFloat(interes));} else {sqlString = sqlString.replace("@5", "Interes = Interes");}
+		if (interes!=null) {sqlString = sqlString.replace("@5", "cast(Interes as decimal(3,2))="+Float.parseFloat(interes));} else {sqlString = sqlString.replace("@5", "Interes = Interes");}
 		statement = con.prepareStatement(sqlString);	
 		System.out.println("sql string: " + sqlString);
 		ResultSet rs = statement.executeQuery();
@@ -436,13 +436,13 @@ public class GestorBD {
 		ArrayList<Tarjeta> tarjetas = new ArrayList<Tarjeta>();
 		PreparedStatement statement;
 		String sqlString = "SELECT newtable.Numero, newtable.LimiteExtraccion, newtable.FechaCaducidad, newtable.Proveedor, newtable.Tipo, " +
-							"newtable.FechaExpedicion, newtable.Cliente FROM" +
+							"newtable.FechaExpedicion, newtable.Cliente, newtable.Cuenta FROM" +
 							"(SELECT * FROM tarjeta INNER JOIN cuenta ON tarjeta.Cuenta = cuenta.IBAN) as newtable" +
 							" WHERE @1 AND @2 AND @3 AND @4";
 		if (Numero!=null) {sqlString = sqlString.replace("@1", "Numero="+Numero);} else {sqlString = sqlString.replace("@1", "Numero = Numero");}
-		if (DNI!=null) {sqlString = sqlString.replace("@2", "Cliente="+Numero);} else {sqlString = sqlString.replace("@2", "Cliente = Cliente");}
-		if (proveedor!=null) {sqlString = sqlString.replace("@3", "Proveedor="+proveedor);} else {sqlString = sqlString.replace("@3", "Proveedor = Proveedor");}
-		if (tipo!=null) {sqlString = sqlString.replace("@4", "Tipo="+tipo);} else {sqlString = sqlString.replace("@4", "Tipo = Tipo");}
+		if (DNI!=null) {sqlString = sqlString.replace("@2", "Cliente='"+DNI+"'");} else {sqlString = sqlString.replace("@2", "Cliente = Cliente");}
+		if (proveedor!=null) {sqlString = sqlString.replace("@3", "Proveedor='"+proveedor+"'");} else {sqlString = sqlString.replace("@3", "Proveedor = Proveedor");}
+		if (tipo!=null) {sqlString = sqlString.replace("@4", "Tipo='"+tipo+"'");} else {sqlString = sqlString.replace("@4", "Tipo = Tipo");}
 		statement = con.prepareStatement(sqlString);	
 		System.out.println("sql string: " + sqlString);
 		ResultSet rs = statement.executeQuery(sqlString);
@@ -455,7 +455,7 @@ public class GestorBD {
         	tarjeta.setTipo(TiposTarjeta.valueOf(rs.getString("Tipo")));
         	tarjeta.setFechaExpedicion(rs.getDate("FechaExpedicion"));
         	Cuenta c = new Cuenta();
-        	c.setIBAN(rs.getInt("cuenta"));
+        	c.setIBAN(rs.getInt("Cuenta"));
         	tarjeta.setCuenta(c);
         	tarjetas.add(tarjeta);
         }
@@ -465,21 +465,20 @@ public class GestorBD {
 	}	
 	
 	
-//	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-//		GestorBD gbd=new GestorBD();
-//		gbd.conectar();
-//		ArrayList<Cliente> po = gbd.obtenerCliente("8656565", "Pepe", "Perez", "pepe.perez@pepe.com", "69696", false);
-//		ArrayList<Cliente> po = gbd.obtenerCliente("8656565", null, null, null, null, null);
-//		System.out.println(po.get(0).getNombre());
-//		if (po.size() > 1) {System.out.println(po.get(1).getNombre());}
-//		if (po.size() > 2) {System.out.println(po.get(2).getNombre());}
-//		ArrayList<Cuenta> cu = gbd.obtenerCuentas();
-//		System.out.println("Cuantas cuentas?" + cu.size());
-//		System.out.println("Cuenta: " + cu.get(0).getIBAN());
-//		ArrayList<Cliente> hola = gbd.obtenerCliente("123456789", null, null, null, null, null);
-//		System.out.println(hola.get(0).getDNI());
-//		gbd.desconectar();
-//	}
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		GestorBD gbd=new GestorBD();
+		gbd.conectar();
+		ArrayList<Cliente> hola = gbd.obtenerCliente("2525252", "Pepe", "Perez", "pepe", "123", false);
+		System.out.println("cliente: " + hola.get(0).getDNI());
+		ArrayList<Operacion> operaciones = gbd.obtenerOperacion("5555555");
+		System.out.println("operacion:" + operaciones.get(0).getId());
+		ArrayList<Cuenta> hola2 = gbd.obtenerCuenta("5555555", "1660000", "2003-02-18", false, "0.03");
+		System.out.println("cuenta: " + hola2.get(0).getIBAN());
+		ArrayList<Tarjeta> hola3 = gbd.obtenerTarjeta("1616626", "2525252", "Visa", "Credito");
+		System.out.println("tarjeta: " + hola3.get(0).getNumero());
+		
+		gbd.desconectar();
+	}
 
 
 }

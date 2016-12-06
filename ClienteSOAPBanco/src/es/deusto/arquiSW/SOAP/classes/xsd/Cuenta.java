@@ -265,7 +265,7 @@
 
                            /**
                            * Auto generated getter method
-                           * @return es.deusto.arquisw.classes.xsd.Operacion[]
+                           * @return es.deusto.arquiSW.SOAP.classes.xsd.Operacion[]
                            */
                            public  es.deusto.arquiSW.SOAP.classes.xsd.Operacion[] getOperaciones(){
                                return localOperaciones;
@@ -301,7 +301,7 @@
                              
                              /**
                              * Auto generated add method for the array for convenience
-                             * @param param es.deusto.arquisw.classes.xsd.Operacion
+                             * @param param es.deusto.arquiSW.SOAP.classes.xsd.Operacion
                              */
                              public void addOperaciones(es.deusto.arquiSW.SOAP.classes.xsd.Operacion param){
                                    if (localOperaciones == null){
@@ -389,7 +389,7 @@
 
                            /**
                            * Auto generated getter method
-                           * @return es.deusto.arquisw.classes.xsd.Tarjeta
+                           * @return es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta
                            */
                            public  es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta getTarjeta(){
                                return localTarjeta;
@@ -431,7 +431,7 @@
 
                            /**
                            * Auto generated getter method
-                           * @return es.deusto.arquisw.classes.xsd.Cliente
+                           * @return es.deusto.arquiSW.SOAP.classes.xsd.Cliente
                            */
                            public  es.deusto.arquiSW.SOAP.classes.xsd.Cliente getTitular(){
                                return localTitular;

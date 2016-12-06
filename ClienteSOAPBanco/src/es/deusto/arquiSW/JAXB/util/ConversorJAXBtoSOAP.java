@@ -4,10 +4,10 @@ import es.deusto.arquiSW.JAXB.classes.ClienteJAXB;
 import es.deusto.arquiSW.JAXB.classes.CuentaJAXB;
 import es.deusto.arquiSW.JAXB.classes.OperacionJAXB;
 import es.deusto.arquiSW.JAXB.classes.TarjetaJAXB;
-import es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta;
 import es.deusto.arquiSW.SOAP.classes.xsd.Cliente;
 import es.deusto.arquiSW.SOAP.classes.xsd.Cuenta;
 import es.deusto.arquiSW.SOAP.classes.xsd.Operacion;
+import es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta;
 
 public class ConversorJAXBtoSOAP {
 	/**
@@ -52,6 +52,16 @@ public class ConversorJAXBtoSOAP {
 			aux.setFechaApertura(cuentas[i].getFechaApertura());
 			aux.setSaldoActual(cuentas[i].getSaldoActual());
 			aux.setInteres(cuentas[i].getInteres());
+			if (cuentas[i].getOperaciones().size() != 0) {
+				int size = cuentas[i].getOperaciones().size();
+				OperacionJAXB[] temp = new OperacionJAXB[size];
+				for (int l = 0; l < size; l++) {
+					temp[l] = cuentas[i].getOperaciones().get(l);
+				}
+				aux.setOperaciones(this.convertFromJAXBoperacionToSOAPoperacion(temp));
+				} else {
+					aux.setOperaciones(new Operacion[0]);
+				}
 			for(ClienteJAXB c: clientes){
 				if(cuentas[i].getTitular()== c.getDNI()){
 					Cliente auxc= new Cliente();
@@ -66,12 +76,6 @@ public class ConversorJAXBtoSOAP {
 					aux.setTitular(auxc);
 				}
 			}
-			
-			Operacion[] operaciones= new Operacion[cuentas[i].getOperaciones().size()];
-			int j=0;
-//			for(Operacion o: cuentas[i].getOperaciones()){
-//				operaciones[j]=;
-//			}
 			colleccion[i]=aux;	
 		}
 		return colleccion;
@@ -83,8 +87,7 @@ public class ConversorJAXBtoSOAP {
 	 * @param operaciones
 	 * @return
 	 */
-	public Operacion[] convertFromJAXBoperacionToSOAPoperacion(
-			OperacionJAXB[] operaciones) {
+	public Operacion[] convertFromJAXBoperacionToSOAPoperacion(OperacionJAXB[] operaciones) {
 
 		Operacion[] colleccion = new Operacion[operaciones.length];
 
@@ -98,7 +101,6 @@ public class ConversorJAXBtoSOAP {
 			cu.setIBAN(operaciones[i].getCuenta());
 			aux.setCuenta(cu);
 			colleccion[i]= aux;
-
 		}
 		return colleccion;
 

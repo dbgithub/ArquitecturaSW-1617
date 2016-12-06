@@ -47,7 +47,7 @@
 
                            /**
                            * Auto generated getter method
-                           * @return es.deusto.arquisw.classes.xsd.Tarjeta[]
+                           * @return es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[]
                            */
                            public  es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[] get_return(){
                                return local_return;
@@ -83,7 +83,7 @@
                              
                              /**
                              * Auto generated add method for the array for convenience
-                             * @param param es.deusto.arquisw.classes.xsd.Tarjeta
+                             * @param param es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta
                              */
                              public void add_return(es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta param){
                                    if (local_return == null){

@@ -53,6 +53,7 @@ import es.deusto.arquiSW.SOAP.classes.xsd.Cliente;
 import es.deusto.arquiSW.SOAP.classes.xsd.Cuenta;
 import es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta;
 import es.deusto.arquiSW.threads.InicializacionThread;
+
 import javax.swing.DefaultComboBoxModel;
 
 @SuppressWarnings("serial")
@@ -230,14 +231,12 @@ public class Mainwindow extends JFrame {
 					ClienteJAXB[] arrayClientes = new ClienteJAXB[bnc.getListaClientes().size()];
 					int i = 0;
 					for (ClienteJAXB c : bnc.getListaClientes()) {
-						System.out.println("cliente metido");
 						arrayClientes[i] = c;
 						i++;
 					}
 					CuentaJAXB[] arrayCuentas = new CuentaJAXB[bnc.getListaCuentas().size()];
 					i = 0;
 					for (CuentaJAXB c : bnc.getListaCuentas()) {
-						System.out.println("cuenta metido");
 						arrayCuentas[i] = c;
 						i++;
 					}
@@ -245,7 +244,6 @@ public class Mainwindow extends JFrame {
 					TarjetaJAXB[] arrayTarjetas = new TarjetaJAXB[bnc.getListaTarjetas().size()];
 					i = 0;
 					for (TarjetaJAXB t : bnc.getListaTarjetas()) {
-						System.out.println("tarjeta metido");
 						arrayTarjetas[i] = t;
 						i++;
 					}
@@ -531,6 +529,7 @@ public class Mainwindow extends JFrame {
 					arrayCliente = obtCienteRes.get_return();
 					DefaultTableModel model = (DefaultTableModel) table.getModel();
 					limpiarJTable(model);
+					System.out.println(arrayCliente[0].getDNI());
 					for (Cliente c : arrayCliente) {
 						model.addRow(new Object[] { c.getDNI(), c.getNombre(), c.getApellidos(), c.getDireccion(),
 								c.getEmail(), c.getMovil(), (c.getEmpleado()) ? "Si" : "No" });
@@ -841,7 +840,7 @@ public class Mainwindow extends JFrame {
 		JScrollPane scrollPaneForTableTarjetasFiltro = new JScrollPane();
 		table_2 = new JTable();
 		table_2.setRowSelectionAllowed(false);
-		table_2.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "N�mero", "Fecha caducidad",
+		table_2.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Número", "Fecha caducidad",
 				"Proveedor", "Tipo", "Limite extraccion", "Fecha expedicion", "Cuenta vinculada" }) {
 			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false };
 

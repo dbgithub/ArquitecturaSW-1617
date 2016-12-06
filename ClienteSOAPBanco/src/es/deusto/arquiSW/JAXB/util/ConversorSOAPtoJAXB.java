@@ -9,6 +9,7 @@ import es.deusto.arquiSW.JAXB.classes.OperacionJAXB;
 import es.deusto.arquiSW.JAXB.classes.TarjetaJAXB;
 import es.deusto.arquiSW.SOAP.classes.xsd.Cliente;
 import es.deusto.arquiSW.SOAP.classes.xsd.Cuenta;
+import es.deusto.arquiSW.SOAP.classes.xsd.Operacion;
 import es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta;
 
 public class ConversorSOAPtoJAXB {
@@ -37,31 +38,15 @@ public class ConversorSOAPtoJAXB {
 	 * @return
 	 */
 	public CuentaJAXB[] convertFromSOAPcuentaToJAXBcuenta(Cuenta[] cuentas) {
-		// ArrayList<Cuenta> tempcoleccion = new
-		// ArrayList<Cuenta>();
-		// for (Cuenta c : cuentas) {
-		// Operacion[] operaciones =
-		// convertFromSOAPoperacionToJAXBoperacion(
-		// c.getOperaciones());
-		// tempcoleccion.add(new
-		// Cuenta(c.getIBAN(), c.getSWIFT(),
-		// c.getFechaApertura(),
-		// c.getActiva(), c.getSaldoActual(), c.getInteres(),
-		// c.getTitular().getDNI(),
-		// new
-		// ArrayList<Operacion>(Arrays.asList(operaciones))));
-		// }
-		// return (Cuenta[])
-		// tempcoleccion.toArray();
 		CuentaJAXB[] colleccion = new CuentaJAXB[cuentas.length];
 		for (int i = 0; i < cuentas.length; i++) {
-			OperacionJAXB[] operaciones = convertFromSOAPoperacionToJAXBoperacion(
-					cuentas[i].getOperaciones());
+			OperacionJAXB[] operaciones = new OperacionJAXB[0];
+			if (cuentas[i].getOperaciones().length != 0) {
+				operaciones = convertFromSOAPoperacionToJAXBoperacion(cuentas[i].getOperaciones());
+			}
 			colleccion[i] = new CuentaJAXB(cuentas[i].getIBAN(), cuentas[i].getSWIFT(),
 					cuentas[i].getFechaApertura(), cuentas[i].getActiva(), cuentas[i].getSaldoActual(),
-					cuentas[i].getInteres(), cuentas[i].getTitular().getDNI(),
-					new ArrayList<OperacionJAXB>(Arrays.asList(operaciones)));
-			
+					cuentas[i].getInteres(), cuentas[i].getTitular().getDNI(), new ArrayList<OperacionJAXB>(Arrays.asList(operaciones)));	
 		}
 		return colleccion;
 
@@ -73,21 +58,8 @@ public class ConversorSOAPtoJAXB {
 	 * @param operaciones
 	 * @return
 	 */
-	public OperacionJAXB[] convertFromSOAPoperacionToJAXBoperacion(
-			es.deusto.arquiSW.SOAP.classes.xsd.Operacion[] operaciones) {
-		// ArrayList<Operacion> tempcoleccion =
-		// new ArrayList<Operacion>();
-		// for (Operacion o : operaciones) {
-		// tempcoleccion.add(new
-		// Operacion(o.getId(), o.getFecha(),
-		// Operacion.EnumTipoOperacion.valueOf(o.getTipo().getValue()),
-		// o.getImporte(), o.getCuenta().getIBAN()));
-		// }
-		// return (Operacion[])
-		// tempcoleccion.toArray();
-
+	public OperacionJAXB[] convertFromSOAPoperacionToJAXBoperacion(Operacion[] operaciones) {
 		OperacionJAXB[] colleccion = new OperacionJAXB[operaciones.length];
-
 		for (int i = 0; i < operaciones.length; i++) {
 
 			colleccion[i] = new OperacionJAXB(operaciones[i].getId(),
@@ -107,19 +79,6 @@ public class ConversorSOAPtoJAXB {
 	 * @return
 	 */
 	public TarjetaJAXB[] convertFromSOAPtarjetaToJAXBtarjeta(Tarjeta[] tarjetas) {
-		// ArrayList<Tarjeta> tempcoleccion = new
-		// ArrayList<Tarjeta>();
-		// for (Tarjeta t : tarjetas) {
-		// tempcoleccion.add(new
-		// Tarjeta(t.getNumero(),
-		// t.getCuenta().getIBAN(),
-		// t.getLimiteExtraccion(), t.getFechaCaducidad(),
-		// Tarjeta.EnumProveedores.valueOf(t.getProveedor().getValue()),
-		// Tarjeta.TiposTarjeta.valueOf(t.getTipo().getValue()),
-		// t.getFechaExpedicion()));
-		// }
-		// return (Tarjeta[])
-		// tempcoleccion.toArray();
 		TarjetaJAXB[] colleccion = new TarjetaJAXB[tarjetas.length];
 
 		for (int i = 0; i < tarjetas.length; i++) {

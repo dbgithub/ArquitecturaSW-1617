@@ -175,7 +175,7 @@
 
                            /**
                            * Auto generated getter method
-                           * @return es.deusto.arquisw.classes.xsd.Cuenta[]
+                           * @return es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[]
                            */
                            public  es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[] getCuentas(){
                                return localCuentas;
@@ -211,7 +211,7 @@
                              
                              /**
                              * Auto generated add method for the array for convenience
-                             * @param param es.deusto.arquisw.classes.xsd.Cuenta
+                             * @param param es.deusto.arquiSW.SOAP.classes.xsd.Cuenta
                              */
                              public void addCuentas(es.deusto.arquiSW.SOAP.classes.xsd.Cuenta param){
                                    if (localCuentas == null){
