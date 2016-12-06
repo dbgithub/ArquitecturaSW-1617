@@ -7,7 +7,7 @@
  */
 
             
-                package es.deusto.arquiSW.SOAP;
+                package es.deusto.arquiSW.SOAP2;
             
 
             /**

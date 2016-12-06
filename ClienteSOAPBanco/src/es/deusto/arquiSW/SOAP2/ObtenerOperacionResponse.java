@@ -7,7 +7,7 @@
  */
 
             
-                package es.deusto.arquiSW.SOAP;
+                package es.deusto.arquiSW.SOAP2;
             
 
             /**
@@ -47,7 +47,7 @@
 
                            /**
                            * Auto generated getter method
-                           * @return es.deusto.arquisw.classes.xsd.Operacion[]
+                           * @return es.deusto.arquiSW.SOAP.classes.xsd.Operacion[]
                            */
                            public  es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[] get_return(){
                                return local_return;
@@ -83,7 +83,7 @@
                              
                              /**
                              * Auto generated add method for the array for convenience
-                             * @param param es.deusto.arquisw.classes.xsd.Operacion
+                             * @param param es.deusto.arquiSW.SOAP.classes.xsd.Operacion
                              */
                              public void add_return(es.deusto.arquiSW.SOAP2.classes.xsd.Operacion param){
                                    if (local_return == null){

@@ -7,7 +7,7 @@
  */
 
             
-                package es.deusto.arquiSW.SOAP.classes.xsd;
+                package es.deusto.arquiSW.SOAP2.classes.xsd;
             
 
             /**
@@ -159,7 +159,7 @@
                         */
 
                         
-                                    protected es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[] localCuentas ;
+                                    protected es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta[] localCuentas ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -175,9 +175,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[]
+                           * @return es.deusto.arquisw.classes.xsd.Cuenta[]
                            */
-                           public  es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[] getCuentas(){
+                           public  es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta[] getCuentas(){
                                return localCuentas;
                            }
 
@@ -189,7 +189,7 @@
                               /**
                                * validate the array for Cuentas
                                */
-                              protected void validateCuentas(es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[] param){
+                              protected void validateCuentas(es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta[] param){
                              
                               }
 
@@ -198,7 +198,7 @@
                               * Auto generated setter method
                               * @param param Cuentas
                               */
-                              public void setCuentas(es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[] param){
+                              public void setCuentas(es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta[] param){
                               
                                    validateCuentas(param);
 
@@ -211,11 +211,11 @@
                              
                              /**
                              * Auto generated add method for the array for convenience
-                             * @param param es.deusto.arquiSW.SOAP.classes.xsd.Cuenta
+                             * @param param es.deusto.arquisw.classes.xsd.Cuenta
                              */
-                             public void addCuentas(es.deusto.arquiSW.SOAP.classes.xsd.Cuenta param){
+                             public void addCuentas(es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta param){
                                    if (localCuentas == null){
-                                   localCuentas = new es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[]{};
+                                   localCuentas = new es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta[]{};
                                    }
 
                             
@@ -227,8 +227,8 @@
                             org.apache.axis2.databinding.utils.ConverterUtil.toList(localCuentas);
                                list.add(param);
                                this.localCuentas =
-                             (es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[])list.toArray(
-                            new es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[list.size()]);
+                             (es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta[])list.toArray(
+                            new es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta[list.size()]);
 
                              }
                              
@@ -883,7 +883,7 @@
                             if (!"Cliente".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (Cliente)es.deusto.arquiSW.SOAP.ws.namespaces.axis2.Enum.ExtensionMapper.getTypeObject(
+                                return (Cliente)es.deusto.arquiSW.SOAP2.ws.namespaces.axis2.Enum.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -1004,7 +1004,7 @@
                                                               list4.add(null);
                                                               reader.next();
                                                           } else {
-                                                        list4.add(es.deusto.arquiSW.SOAP.classes.xsd.Cuenta.Factory.parse(reader));
+                                                        list4.add(es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta.Factory.parse(reader));
                                                                 }
                                                         //loop until we find a start element that is not part of this array
                                                         boolean loopDone4 = false;
@@ -1028,7 +1028,7 @@
                                                                           list4.add(null);
                                                                           reader.next();
                                                                       } else {
-                                                                    list4.add(es.deusto.arquiSW.SOAP.classes.xsd.Cuenta.Factory.parse(reader));
+                                                                    list4.add(es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta.Factory.parse(reader));
                                                                         }
                                                                 }else{
                                                                     loopDone4 = true;
@@ -1037,9 +1037,9 @@
                                                         }
                                                         // call the converter utility  to convert and set the array
                                                         
-                                                        object.setCuentas((es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[])
+                                                        object.setCuentas((es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta[])
                                                             org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                                                                es.deusto.arquiSW.SOAP.classes.xsd.Cuenta.class,
+                                                                es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta.class,
                                                                 list4));
                                                             
                               }  // End of if for expected property start element

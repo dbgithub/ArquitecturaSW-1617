@@ -1,45 +1,45 @@
 
 /**
- * ObtenerTarjeta.java
+ * ObtenerCuenta.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.7.3  Built on : May 30, 2016 (04:09:26 BST)
  */
 
             
-                package es.deusto.arquiSW.SOAP;
+                package es.deusto.arquiSW.SOAP2;
             
 
             /**
-            *  ObtenerTarjeta bean class
+            *  ObtenerCuenta bean class
             */
             @SuppressWarnings({"unchecked","unused"})
         
-        public  class ObtenerTarjeta
+        public  class ObtenerCuenta
         implements org.apache.axis2.databinding.ADBBean{
         
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
                 "http://SOAP.arquiSW.deusto.es",
-                "obtenerTarjeta",
+                "obtenerCuenta",
                 "ns3");
 
             
 
                         /**
-                        * field for Numero
+                        * field for IBAN
                         */
 
                         
-                                    protected java.lang.String localNumero ;
+                                    protected java.lang.String localIBAN ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
                            *   in the serialized XML
                            */
-                           protected boolean localNumeroTracker = false ;
+                           protected boolean localIBANTracker = false ;
 
-                           public boolean isNumeroSpecified(){
-                               return localNumeroTracker;
+                           public boolean isIBANSpecified(){
+                               return localIBANTracker;
                            }
 
                            
@@ -48,20 +48,20 @@
                            * Auto generated getter method
                            * @return java.lang.String
                            */
-                           public  java.lang.String getNumero(){
-                               return localNumero;
+                           public  java.lang.String getIBAN(){
+                               return localIBAN;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param Numero
+                               * @param param IBAN
                                */
-                               public void setNumero(java.lang.String param){
-                            localNumeroTracker = true;
+                               public void setIBAN(java.lang.String param){
+                            localIBANTracker = true;
                                    
-                                            this.localNumero=param;
+                                            this.localIBAN=param;
                                        
 
                                }
@@ -110,20 +110,20 @@
                             
 
                         /**
-                        * field for Proveedor
+                        * field for FechaApertura
                         */
 
                         
-                                    protected java.lang.String localProveedor ;
+                                    protected java.lang.String localFechaApertura ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
                            *   in the serialized XML
                            */
-                           protected boolean localProveedorTracker = false ;
+                           protected boolean localFechaAperturaTracker = false ;
 
-                           public boolean isProveedorSpecified(){
-                               return localProveedorTracker;
+                           public boolean isFechaAperturaSpecified(){
+                               return localFechaAperturaTracker;
                            }
 
                            
@@ -132,40 +132,70 @@
                            * Auto generated getter method
                            * @return java.lang.String
                            */
-                           public  java.lang.String getProveedor(){
-                               return localProveedor;
+                           public  java.lang.String getFechaApertura(){
+                               return localFechaApertura;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param Proveedor
+                               * @param param FechaApertura
                                */
-                               public void setProveedor(java.lang.String param){
-                            localProveedorTracker = true;
+                               public void setFechaApertura(java.lang.String param){
+                            localFechaAperturaTracker = true;
                                    
-                                            this.localProveedor=param;
+                                            this.localFechaApertura=param;
                                        
 
                                }
                             
 
                         /**
-                        * field for Tipo
+                        * field for Activa
                         */
 
                         
-                                    protected java.lang.String localTipo ;
+                                    protected boolean localActiva ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return boolean
+                           */
+                           public  boolean getActiva(){
+                               return localActiva;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param Activa
+                               */
+                               public void setActiva(boolean param){
+                            
+                                            this.localActiva=param;
+                                       
+
+                               }
+                            
+
+                        /**
+                        * field for Interes
+                        */
+
+                        
+                                    protected java.lang.String localInteres ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
                            *   in the serialized XML
                            */
-                           protected boolean localTipoTracker = false ;
+                           protected boolean localInteresTracker = false ;
 
-                           public boolean isTipoSpecified(){
-                               return localTipoTracker;
+                           public boolean isInteresSpecified(){
+                               return localInteresTracker;
                            }
 
                            
@@ -174,20 +204,20 @@
                            * Auto generated getter method
                            * @return java.lang.String
                            */
-                           public  java.lang.String getTipo(){
-                               return localTipo;
+                           public  java.lang.String getInteres(){
+                               return localInteres;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param Tipo
+                               * @param param Interes
                                */
-                               public void setTipo(java.lang.String param){
-                            localTipoTracker = true;
+                               public void setInteres(java.lang.String param){
+                            localInteresTracker = true;
                                    
-                                            this.localTipo=param;
+                                            this.localInteres=param;
                                        
 
                                }
@@ -239,22 +269,22 @@
                    java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://SOAP.arquiSW.deusto.es");
                    if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           namespacePrefix+":obtenerTarjeta",
+                           namespacePrefix+":obtenerCuenta",
                            xmlWriter);
                    } else {
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           "obtenerTarjeta",
+                           "obtenerCuenta",
                            xmlWriter);
                    }
 
                
                    }
-                if (localNumeroTracker){
+                if (localIBANTracker){
                                     namespace = "http://SOAP.arquiSW.deusto.es";
-                                    writeStartElement(null, namespace, "numero", xmlWriter);
+                                    writeStartElement(null, namespace, "IBAN", xmlWriter);
                              
 
-                                          if (localNumero==null){
+                                          if (localIBAN==null){
                                               // write the nil attribute
                                               
                                                      writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","nil","1",xmlWriter);
@@ -262,7 +292,7 @@
                                           }else{
 
                                         
-                                                   xmlWriter.writeCharacters(localNumero);
+                                                   xmlWriter.writeCharacters(localIBAN);
                                             
                                           }
                                     
@@ -285,12 +315,12 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             } if (localProveedorTracker){
+                             } if (localFechaAperturaTracker){
                                     namespace = "http://SOAP.arquiSW.deusto.es";
-                                    writeStartElement(null, namespace, "proveedor", xmlWriter);
+                                    writeStartElement(null, namespace, "fechaApertura", xmlWriter);
                              
 
-                                          if (localProveedor==null){
+                                          if (localFechaApertura==null){
                                               // write the nil attribute
                                               
                                                      writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","nil","1",xmlWriter);
@@ -298,17 +328,30 @@
                                           }else{
 
                                         
-                                                   xmlWriter.writeCharacters(localProveedor);
+                                                   xmlWriter.writeCharacters(localFechaApertura);
                                             
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             } if (localTipoTracker){
+                             }
                                     namespace = "http://SOAP.arquiSW.deusto.es";
-                                    writeStartElement(null, namespace, "tipo", xmlWriter);
+                                    writeStartElement(null, namespace, "activa", xmlWriter);
+                             
+                                               if (false) {
+                                           
+                                                         throw new org.apache.axis2.databinding.ADBException("activa cannot be null!!");
+                                                      
+                                               } else {
+                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localActiva));
+                                               }
+                                    
+                                   xmlWriter.writeEndElement();
+                              if (localInteresTracker){
+                                    namespace = "http://SOAP.arquiSW.deusto.es";
+                                    writeStartElement(null, namespace, "interes", xmlWriter);
                              
 
-                                          if (localTipo==null){
+                                          if (localInteres==null){
                                               // write the nil attribute
                                               
                                                      writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","nil","1",xmlWriter);
@@ -316,7 +359,7 @@
                                           }else{
 
                                         
-                                                   xmlWriter.writeCharacters(localTipo);
+                                                   xmlWriter.writeCharacters(localInteres);
                                             
                                           }
                                     
@@ -513,9 +556,9 @@
         * Postcondition: If this object is an element, the reader is positioned at its end element
         *                If this object is a complex type, the reader is positioned at the end element of its outer element
         */
-        public static ObtenerTarjeta parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
-            ObtenerTarjeta object =
-                new ObtenerTarjeta();
+        public static ObtenerCuenta parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
+            ObtenerCuenta object =
+                new ObtenerCuenta();
 
             int event;
             javax.xml.namespace.QName currentQName = null;
@@ -541,10 +584,10 @@
 
                     java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":")+1);
                     
-                            if (!"obtenerTarjeta".equals(type)){
+                            if (!"obtenerCuenta".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (ObtenerTarjeta)es.deusto.arquiSW.SOAP2.ws.namespaces.axis2.Enum.ExtensionMapper.getTypeObject(
+                                return (ObtenerCuenta)es.deusto.arquiSW.SOAP2.ws.namespaces.axis2.Enum.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -569,7 +612,7 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://SOAP.arquiSW.deusto.es","numero").equals(reader.getName()) || new javax.xml.namespace.QName("","numero").equals(reader.getName()) ){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://SOAP.arquiSW.deusto.es","IBAN").equals(reader.getName()) || new javax.xml.namespace.QName("","IBAN").equals(reader.getName()) ){
                                 
                                        nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
                                        if (!"true".equals(nillableValue) && !"1".equals(nillableValue)){
@@ -577,7 +620,7 @@
 
                                     java.lang.String content = reader.getElementText();
                                     
-                                              object.setNumero(
+                                              object.setIBAN(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
                                             
                                        } else {
@@ -625,7 +668,7 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://SOAP.arquiSW.deusto.es","proveedor").equals(reader.getName()) || new javax.xml.namespace.QName("","proveedor").equals(reader.getName()) ){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://SOAP.arquiSW.deusto.es","fechaApertura").equals(reader.getName()) || new javax.xml.namespace.QName("","fechaApertura").equals(reader.getName()) ){
                                 
                                        nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
                                        if (!"true".equals(nillableValue) && !"1".equals(nillableValue)){
@@ -633,7 +676,7 @@
 
                                     java.lang.String content = reader.getElementText();
                                     
-                                              object.setProveedor(
+                                              object.setFechaApertura(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
                                             
                                        } else {
@@ -653,7 +696,32 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://SOAP.arquiSW.deusto.es","tipo").equals(reader.getName()) || new javax.xml.namespace.QName("","tipo").equals(reader.getName()) ){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://SOAP.arquiSW.deusto.es","activa").equals(reader.getName()) || new javax.xml.namespace.QName("","activa").equals(reader.getName()) ){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"activa" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setActiva(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                else{
+                                    // 1 - A start element we are not expecting indicates an invalid parameter was passed
+                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                                }
+                            
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://SOAP.arquiSW.deusto.es","interes").equals(reader.getName()) || new javax.xml.namespace.QName("","interes").equals(reader.getName()) ){
                                 
                                        nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
                                        if (!"true".equals(nillableValue) && !"1".equals(nillableValue)){
@@ -661,7 +729,7 @@
 
                                     java.lang.String content = reader.getElementText();
                                     
-                                              object.setTipo(
+                                              object.setInteres(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
                                             
                                        } else {

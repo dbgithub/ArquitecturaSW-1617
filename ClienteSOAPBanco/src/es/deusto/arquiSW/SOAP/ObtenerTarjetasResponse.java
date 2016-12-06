@@ -31,7 +31,7 @@
                         */
 
                         
-                                    protected es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[] local_return ;
+                                    protected es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[] local_return ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -47,9 +47,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[]
+                           * @return es.deusto.arquisw.classes.xsd.Tarjeta[]
                            */
-                           public  es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[] get_return(){
+                           public  es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[] get_return(){
                                return local_return;
                            }
 
@@ -61,7 +61,7 @@
                               /**
                                * validate the array for _return
                                */
-                              protected void validate_return(es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[] param){
+                              protected void validate_return(es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[] param){
                              
                               }
 
@@ -70,7 +70,7 @@
                               * Auto generated setter method
                               * @param param _return
                               */
-                              public void set_return(es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[] param){
+                              public void set_return(es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[] param){
                               
                                    validate_return(param);
 
@@ -83,11 +83,11 @@
                              
                              /**
                              * Auto generated add method for the array for convenience
-                             * @param param es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta
+                             * @param param es.deusto.arquisw.classes.xsd.Tarjeta
                              */
-                             public void add_return(es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta param){
+                             public void add_return(es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta param){
                                    if (local_return == null){
-                                   local_return = new es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[]{};
+                                   local_return = new es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[]{};
                                    }
 
                             
@@ -99,8 +99,8 @@
                             org.apache.axis2.databinding.utils.ConverterUtil.toList(local_return);
                                list.add(param);
                                this.local_return =
-                             (es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[])list.toArray(
-                            new es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[list.size()]);
+                             (es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[])list.toArray(
+                            new es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[list.size()]);
 
                              }
                              
@@ -410,7 +410,7 @@
                             if (!"obtenerTarjetasResponse".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (ObtenerTarjetasResponse)es.deusto.arquiSW.SOAP.ws.namespaces.axis2.Enum.ExtensionMapper.getTypeObject(
+                                return (ObtenerTarjetasResponse)es.deusto.arquiSW.SOAP2.ws.namespaces.axis2.Enum.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -449,7 +449,7 @@
                                                               list1.add(null);
                                                               reader.next();
                                                           } else {
-                                                        list1.add(es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta.Factory.parse(reader));
+                                                        list1.add(es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta.Factory.parse(reader));
                                                                 }
                                                         //loop until we find a start element that is not part of this array
                                                         boolean loopDone1 = false;
@@ -473,7 +473,7 @@
                                                                           list1.add(null);
                                                                           reader.next();
                                                                       } else {
-                                                                    list1.add(es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta.Factory.parse(reader));
+                                                                    list1.add(es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta.Factory.parse(reader));
                                                                         }
                                                                 }else{
                                                                     loopDone1 = true;
@@ -482,9 +482,9 @@
                                                         }
                                                         // call the converter utility  to convert and set the array
                                                         
-                                                        object.set_return((es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[])
+                                                        object.set_return((es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[])
                                                             org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                                                                es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta.class,
+                                                                es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta.class,
                                                                 list1));
                                                             
                               }  // End of if for expected property start element

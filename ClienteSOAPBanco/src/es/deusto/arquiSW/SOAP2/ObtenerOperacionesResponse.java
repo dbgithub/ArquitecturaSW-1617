@@ -1,26 +1,26 @@
 
 /**
- * ObtenerOperacionResponse.java
+ * ObtenerOperacionesResponse.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.7.3  Built on : May 30, 2016 (04:09:26 BST)
  */
 
             
-                package es.deusto.arquiSW.SOAP;
+                package es.deusto.arquiSW.SOAP2;
             
 
             /**
-            *  ObtenerOperacionResponse bean class
+            *  ObtenerOperacionesResponse bean class
             */
             @SuppressWarnings({"unchecked","unused"})
         
-        public  class ObtenerOperacionResponse
+        public  class ObtenerOperacionesResponse
         implements org.apache.axis2.databinding.ADBBean{
         
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
                 "http://SOAP.arquiSW.deusto.es",
-                "obtenerOperacionResponse",
+                "obtenerOperacionesResponse",
                 "ns3");
 
             
@@ -47,7 +47,7 @@
 
                            /**
                            * Auto generated getter method
-                           * @return es.deusto.arquisw.classes.xsd.Operacion[]
+                           * @return es.deusto.arquiSW.SOAP.classes.xsd.Operacion[]
                            */
                            public  es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[] get_return(){
                                return local_return;
@@ -83,7 +83,7 @@
                              
                              /**
                              * Auto generated add method for the array for convenience
-                             * @param param es.deusto.arquisw.classes.xsd.Operacion
+                             * @param param es.deusto.arquiSW.SOAP.classes.xsd.Operacion
                              */
                              public void add_return(es.deusto.arquiSW.SOAP2.classes.xsd.Operacion param){
                                    if (local_return == null){
@@ -151,11 +151,11 @@
                    java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://SOAP.arquiSW.deusto.es");
                    if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           namespacePrefix+":obtenerOperacionResponse",
+                           namespacePrefix+":obtenerOperacionesResponse",
                            xmlWriter);
                    } else {
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           "obtenerOperacionResponse",
+                           "obtenerOperacionesResponse",
                            xmlWriter);
                    }
 
@@ -379,9 +379,9 @@
         * Postcondition: If this object is an element, the reader is positioned at its end element
         *                If this object is a complex type, the reader is positioned at the end element of its outer element
         */
-        public static ObtenerOperacionResponse parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
-            ObtenerOperacionResponse object =
-                new ObtenerOperacionResponse();
+        public static ObtenerOperacionesResponse parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
+            ObtenerOperacionesResponse object =
+                new ObtenerOperacionesResponse();
 
             int event;
             javax.xml.namespace.QName currentQName = null;
@@ -407,10 +407,10 @@
 
                     java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":")+1);
                     
-                            if (!"obtenerOperacionResponse".equals(type)){
+                            if (!"obtenerOperacionesResponse".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (ObtenerOperacionResponse)es.deusto.arquiSW.SOAP2.ws.namespaces.axis2.Enum.ExtensionMapper.getTypeObject(
+                                return (ObtenerOperacionesResponse)es.deusto.arquiSW.SOAP2.ws.namespaces.axis2.Enum.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         

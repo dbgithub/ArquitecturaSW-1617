@@ -4,10 +4,10 @@ import es.deusto.arquiSW.JAXB.classes.ClienteJAXB;
 import es.deusto.arquiSW.JAXB.classes.CuentaJAXB;
 import es.deusto.arquiSW.JAXB.classes.OperacionJAXB;
 import es.deusto.arquiSW.JAXB.classes.TarjetaJAXB;
-import es.deusto.arquiSW.SOAP.classes.xsd.Cliente;
-import es.deusto.arquiSW.SOAP.classes.xsd.Cuenta;
-import es.deusto.arquiSW.SOAP.classes.xsd.Operacion;
-import es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta;
+import es.deusto.arquiSW.SOAP2.classes.xsd.Cliente;
+import es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta;
+import es.deusto.arquiSW.SOAP2.classes.xsd.Operacion;
+import es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta;
 
 public class ConversorJAXBtoSOAP {
 	/**
@@ -96,7 +96,7 @@ public class ConversorJAXBtoSOAP {
 			aux.setId(operaciones[i].getId());
 			aux.setFecha(operaciones[i].getFecha());
 			aux.setImporte(operaciones[i].getImporte());
-			aux.setTipo(es.deusto.arquiSW.SOAP.ws.namespaces.axis2.Enum.EnumTipoOperacion.Factory.fromValue(operaciones[i].getTipo().name()));
+			aux.setTipo(es.deusto.arquiSW.SOAP2.ws.namespaces.axis2.Enum.EnumTipoOperacion.Factory.fromValue(operaciones[i].getTipo().name()));
 			Cuenta cu= new Cuenta();
 			cu.setIBAN(operaciones[i].getCuenta());
 			aux.setCuenta(cu);
@@ -120,8 +120,8 @@ public class ConversorJAXBtoSOAP {
 			aux.setNumero(tarjetas[i].getNumero());
 			aux.setLimiteExtraccion(tarjetas[i].getLimiteExtraccion());
 			aux.setFechaCaducidad(tarjetas[i].getFechaCaducidad());
-			aux.setProveedor(es.deusto.arquiSW.SOAP.ws.namespaces.axis2.Enum.EnumProveedores.Factory.fromValue(tarjetas[i].getProveedor().name()));
-			aux.setTipo(es.deusto.arquiSW.SOAP.ws.namespaces.axis2.Enum.TiposTarjeta.Factory.fromValue(tarjetas[i].getTipo().name()));
+			aux.setProveedor(es.deusto.arquiSW.SOAP2.ws.namespaces.axis2.Enum.EnumProveedores.Factory.fromValue(tarjetas[i].getProveedor().name()));
+			aux.setTipo(es.deusto.arquiSW.SOAP2.ws.namespaces.axis2.Enum.TiposTarjeta.Factory.fromValue(tarjetas[i].getTipo().name()));
 			aux.setFechaExpedicion(tarjetas[i].getFechaExpedicion());
 			Cuenta cu= new Cuenta();
 			cu.setIBAN(tarjetas[i].getCuenta());

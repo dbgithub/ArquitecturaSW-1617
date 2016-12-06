@@ -1,71 +1,77 @@
+package es.deusto.arquiSW.SOAP2.ws.namespaces.axis2.Enum;
 
 /**
- * ObtenerOperacion.java
+ * TiposTarjeta.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.7.3  Built on : May 30, 2016 (04:09:26 BST)
  */
 
             
-                package es.deusto.arquiSW.SOAP;
+                
             
 
             /**
-            *  ObtenerOperacion bean class
+            *  TiposTarjeta bean class
             */
             @SuppressWarnings({"unchecked","unused"})
         
-        public  class ObtenerOperacion
+        public  class TiposTarjeta
         implements org.apache.axis2.databinding.ADBBean{
         
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://SOAP.arquiSW.deusto.es",
-                "obtenerOperacion",
-                "ns3");
+                "http://ws.apache.org/namespaces/axis2/enum",
+                "TiposTarjeta",
+                "ns1");
 
             
 
                         /**
-                        * field for IBAN
+                        * field for TiposTarjeta
                         */
 
                         
-                                    protected java.lang.String localIBAN ;
+                                    protected java.lang.String localTiposTarjeta ;
                                 
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localIBANTracker = false ;
+                            private static java.util.HashMap _table_ = new java.util.HashMap();
 
-                           public boolean isIBANSpecified(){
-                               return localIBANTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getIBAN(){
-                               return localIBAN;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param IBAN
-                               */
-                               public void setIBAN(java.lang.String param){
-                            localIBANTracker = true;
-                                   
-                                            this.localIBAN=param;
-                                       
-
-                               }
+                            // Constructor
                             
+                                protected TiposTarjeta(java.lang.String value, boolean isRegisterValue) {
+                                    localTiposTarjeta = value;
+                                    if (isRegisterValue){
+                                        
+                                               _table_.put(localTiposTarjeta, this);
+                                           
+                                    }
+
+                                }
+                            
+                                    public static final java.lang.String _Credito =
+                                        org.apache.axis2.databinding.utils.ConverterUtil.convertToString("Credito");
+                                
+                                    public static final java.lang.String _Debito =
+                                        org.apache.axis2.databinding.utils.ConverterUtil.convertToString("Debito");
+                                
+                                public static final TiposTarjeta Credito =
+                                    new TiposTarjeta(_Credito,true);
+                            
+                                public static final TiposTarjeta Debito =
+                                    new TiposTarjeta(_Debito,true);
+                            
+
+                                public java.lang.String getValue() { return localTiposTarjeta;}
+
+                                public boolean equals(java.lang.Object obj) {return (obj == this);}
+                                public int hashCode() { return toString().hashCode();}
+                                public java.lang.String toString() {
+                                
+                                        return localTiposTarjeta.toString();
+                                    
+
+                                }
+
+                        
 
      
      
@@ -97,59 +103,45 @@
             throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException{
             
                 
-
-
-                java.lang.String prefix = null;
-                java.lang.String namespace = null;
+                //We can safely assume an element has only one type associated with it
                 
+                            java.lang.String namespace = parentQName.getNamespaceURI();
+                            java.lang.String _localName = parentQName.getLocalPart();
+                        
+                            writeStartElement(null, namespace, _localName, xmlWriter);
 
-                    prefix = parentQName.getPrefix();
-                    namespace = parentQName.getNamespaceURI();
-                    writeStartElement(prefix, namespace, parentQName.getLocalPart(), xmlWriter);
-                
-                  if (serializeType){
-               
-
-                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://SOAP.arquiSW.deusto.es");
-                   if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
-                       writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           namespacePrefix+":obtenerOperacion",
-                           xmlWriter);
-                   } else {
-                       writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           "obtenerOperacion",
-                           xmlWriter);
-                   }
-
-               
-                   }
-                if (localIBANTracker){
-                                    namespace = "http://SOAP.arquiSW.deusto.es";
-                                    writeStartElement(null, namespace, "IBAN", xmlWriter);
-                             
-
-                                          if (localIBAN==null){
-                                              // write the nil attribute
-                                              
-                                                     writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","nil","1",xmlWriter);
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localIBAN);
+                            // add the type details if this is used in a simple type
+                               if (serializeType){
+                                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://ws.apache.org/namespaces/axis2/enum");
+                                   if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
+                                       writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
+                                           namespacePrefix+":TiposTarjeta",
+                                           xmlWriter);
+                                   } else {
+                                       writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
+                                           "TiposTarjeta",
+                                           xmlWriter);
+                                   }
+                               }
+                            
+                                          if (localTiposTarjeta==null){
                                             
-                                          }
+                                                     throw new org.apache.axis2.databinding.ADBException("TiposTarjeta cannot be null !!");
+                                                
+                                         }else{
+                                        
+                                                       xmlWriter.writeCharacters(localTiposTarjeta);
+                                            
+                                         }
                                     
-                                   xmlWriter.writeEndElement();
-                             }
-                    xmlWriter.writeEndElement();
-               
+                            xmlWriter.writeEndElement();
+                         
 
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
-            if(namespace.equals("http://SOAP.arquiSW.deusto.es")){
-                return "ns3";
+            if(namespace.equals("http://ws.apache.org/namespaces/axis2/enum")){
+                return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -325,6 +317,44 @@
 
         
         
+                public static TiposTarjeta fromValue(java.lang.String value)
+                      throws java.lang.IllegalArgumentException {
+                    TiposTarjeta enumeration = (TiposTarjeta)
+                       
+                               _table_.get(value);
+                           
+
+                    // handle unexpected enumeration values properly
+                    
+                        if (enumeration == null  ) {
+                            throw new java.lang.IllegalArgumentException();
+                        }
+                        return enumeration;
+                    
+                }
+                public static TiposTarjeta fromString(java.lang.String value,java.lang.String namespaceURI)
+                      throws java.lang.IllegalArgumentException {
+                    try {
+                       
+                                       return fromValue(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(value));
+                                   
+
+                    } catch (java.lang.Exception e) {
+                        throw new java.lang.IllegalArgumentException();
+                    }
+                }
+
+                public static TiposTarjeta fromString(javax.xml.stream.XMLStreamReader xmlStreamReader,
+                                                                    java.lang.String content) {
+                    if (content.indexOf(":") > -1){
+                        java.lang.String prefix = content.substring(0,content.indexOf(":"));
+                        java.lang.String namespaceUri = xmlStreamReader.getNamespaceContext().getNamespaceURI(prefix);
+                        return TiposTarjeta.Factory.fromString(content,namespaceUri);
+                    } else {
+                       return TiposTarjeta.Factory.fromString(content,"");
+                    }
+                }
+            
 
         /**
         * static method to create the object
@@ -333,9 +363,12 @@
         * Postcondition: If this object is an element, the reader is positioned at its end element
         *                If this object is a complex type, the reader is positioned at the end element of its outer element
         */
-        public static ObtenerOperacion parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
-            ObtenerOperacion object =
-                new ObtenerOperacion();
+        public static TiposTarjeta parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
+            TiposTarjeta object = null;
+                // initialize a hash map to keep values
+                java.util.Map attributeMap = new java.util.HashMap();
+                java.util.List extraAttributeList = new java.util.ArrayList<org.apache.axiom.om.OMAttribute>();
+            
 
             int event;
             javax.xml.namespace.QName currentQName = null;
@@ -349,32 +382,6 @@
 
                 currentQName = reader.getName();
                 
-                if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","type")!=null){
-                  java.lang.String fullTypeName = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                        "type");
-                  if (fullTypeName!=null){
-                    java.lang.String nsPrefix = null;
-                    if (fullTypeName.indexOf(":") > -1){
-                        nsPrefix = fullTypeName.substring(0,fullTypeName.indexOf(":"));
-                    }
-                    nsPrefix = nsPrefix==null?"":nsPrefix;
-
-                    java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":")+1);
-                    
-                            if (!"obtenerOperacion".equals(type)){
-                                //find namespace for the prefix
-                                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (ObtenerOperacion)es.deusto.arquiSW.SOAP2.ws.namespaces.axis2.Enum.ExtensionMapper.getTypeObject(
-                                     nsUri,type,reader);
-                              }
-                        
-
-                  }
-                
-
-                }
-
-                
 
                 
                 // Note all attributes that were handled. Used to differ normal attributes
@@ -382,46 +389,35 @@
                 java.util.Vector handledAttributes = new java.util.Vector();
                 
 
+                   
+                while(!reader.isEndElement()) {
+                    if (reader.isStartElement()  || reader.hasText()){
                 
-                    
-                    reader.next();
-                
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://SOAP.arquiSW.deusto.es","IBAN").equals(reader.getName()) || new javax.xml.namespace.QName("","IBAN").equals(reader.getName()) ){
-                                
-                                       nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                       if (!"true".equals(nillableValue) && !"1".equals(nillableValue)){
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"TiposTarjeta" +"  cannot be null");
+                                    }
                                     
 
                                     java.lang.String content = reader.getElementText();
                                     
-                                              object.setIBAN(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                            
-                                       } else {
-                                           
-                                           
-                                           reader.getElementText(); // throw away text nodes if any.
-                                       }
-                                      
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                    else {
+                                        if (content.indexOf(":") > 0) {
+                                            // this seems to be a Qname so find the namespace and send
+                                            prefix = content.substring(0, content.indexOf(":"));
+                                            namespaceuri = reader.getNamespaceURI(prefix);
+                                            object = TiposTarjeta.Factory.fromString(content,namespaceuri);
+                                        } else {
+                                            // this seems to be not a qname send and empty namespace incase of it is
+                                            // check is done in fromString method
+                                            object = TiposTarjeta.Factory.fromString(content,"");
+                                        }
                                         
-                                    }
-                                  
-                            while (!reader.isStartElement() && !reader.isEndElement())
+                                        
+                             } else {
                                 reader.next();
-                            
-                                if (reader.isStartElement())
-                                // 2 - A start element we are not expecting indicates a trailing invalid property
-                                
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                
+                             }  
+                           }  // end of while loop
+                        
 
 
 

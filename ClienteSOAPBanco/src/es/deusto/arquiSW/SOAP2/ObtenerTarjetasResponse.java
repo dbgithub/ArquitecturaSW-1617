@@ -1,26 +1,26 @@
 
 /**
- * ObtenerOperacionResponse.java
+ * ObtenerTarjetasResponse.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.7.3  Built on : May 30, 2016 (04:09:26 BST)
  */
 
             
-                package es.deusto.arquiSW.SOAP;
+                package es.deusto.arquiSW.SOAP2;
             
 
             /**
-            *  ObtenerOperacionResponse bean class
+            *  ObtenerTarjetasResponse bean class
             */
             @SuppressWarnings({"unchecked","unused"})
         
-        public  class ObtenerOperacionResponse
+        public  class ObtenerTarjetasResponse
         implements org.apache.axis2.databinding.ADBBean{
         
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
                 "http://SOAP.arquiSW.deusto.es",
-                "obtenerOperacionResponse",
+                "obtenerTarjetasResponse",
                 "ns3");
 
             
@@ -31,7 +31,7 @@
                         */
 
                         
-                                    protected es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[] local_return ;
+                                    protected es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[] local_return ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -47,9 +47,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return es.deusto.arquisw.classes.xsd.Operacion[]
+                           * @return es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[]
                            */
-                           public  es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[] get_return(){
+                           public  es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[] get_return(){
                                return local_return;
                            }
 
@@ -61,7 +61,7 @@
                               /**
                                * validate the array for _return
                                */
-                              protected void validate_return(es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[] param){
+                              protected void validate_return(es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[] param){
                              
                               }
 
@@ -70,7 +70,7 @@
                               * Auto generated setter method
                               * @param param _return
                               */
-                              public void set_return(es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[] param){
+                              public void set_return(es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[] param){
                               
                                    validate_return(param);
 
@@ -83,11 +83,11 @@
                              
                              /**
                              * Auto generated add method for the array for convenience
-                             * @param param es.deusto.arquisw.classes.xsd.Operacion
+                             * @param param es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta
                              */
-                             public void add_return(es.deusto.arquiSW.SOAP2.classes.xsd.Operacion param){
+                             public void add_return(es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta param){
                                    if (local_return == null){
-                                   local_return = new es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[]{};
+                                   local_return = new es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[]{};
                                    }
 
                             
@@ -99,8 +99,8 @@
                             org.apache.axis2.databinding.utils.ConverterUtil.toList(local_return);
                                list.add(param);
                                this.local_return =
-                             (es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[])list.toArray(
-                            new es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[list.size()]);
+                             (es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[])list.toArray(
+                            new es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[list.size()]);
 
                              }
                              
@@ -151,11 +151,11 @@
                    java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://SOAP.arquiSW.deusto.es");
                    if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           namespacePrefix+":obtenerOperacionResponse",
+                           namespacePrefix+":obtenerTarjetasResponse",
                            xmlWriter);
                    } else {
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           "obtenerOperacionResponse",
+                           "obtenerTarjetasResponse",
                            xmlWriter);
                    }
 
@@ -379,9 +379,9 @@
         * Postcondition: If this object is an element, the reader is positioned at its end element
         *                If this object is a complex type, the reader is positioned at the end element of its outer element
         */
-        public static ObtenerOperacionResponse parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
-            ObtenerOperacionResponse object =
-                new ObtenerOperacionResponse();
+        public static ObtenerTarjetasResponse parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
+            ObtenerTarjetasResponse object =
+                new ObtenerTarjetasResponse();
 
             int event;
             javax.xml.namespace.QName currentQName = null;
@@ -407,10 +407,10 @@
 
                     java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":")+1);
                     
-                            if (!"obtenerOperacionResponse".equals(type)){
+                            if (!"obtenerTarjetasResponse".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (ObtenerOperacionResponse)es.deusto.arquiSW.SOAP2.ws.namespaces.axis2.Enum.ExtensionMapper.getTypeObject(
+                                return (ObtenerTarjetasResponse)es.deusto.arquiSW.SOAP2.ws.namespaces.axis2.Enum.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -449,7 +449,7 @@
                                                               list1.add(null);
                                                               reader.next();
                                                           } else {
-                                                        list1.add(es.deusto.arquiSW.SOAP2.classes.xsd.Operacion.Factory.parse(reader));
+                                                        list1.add(es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta.Factory.parse(reader));
                                                                 }
                                                         //loop until we find a start element that is not part of this array
                                                         boolean loopDone1 = false;
@@ -473,7 +473,7 @@
                                                                           list1.add(null);
                                                                           reader.next();
                                                                       } else {
-                                                                    list1.add(es.deusto.arquiSW.SOAP2.classes.xsd.Operacion.Factory.parse(reader));
+                                                                    list1.add(es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta.Factory.parse(reader));
                                                                         }
                                                                 }else{
                                                                     loopDone1 = true;
@@ -482,9 +482,9 @@
                                                         }
                                                         // call the converter utility  to convert and set the array
                                                         
-                                                        object.set_return((es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[])
+                                                        object.set_return((es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[])
                                                             org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                                                                es.deusto.arquiSW.SOAP2.classes.xsd.Operacion.class,
+                                                                es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta.class,
                                                                 list1));
                                                             
                               }  // End of if for expected property start element

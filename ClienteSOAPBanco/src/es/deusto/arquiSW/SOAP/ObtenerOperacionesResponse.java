@@ -31,7 +31,7 @@
                         */
 
                         
-                                    protected es.deusto.arquiSW.SOAP.classes.xsd.Operacion[] local_return ;
+                                    protected es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[] local_return ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -47,9 +47,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return es.deusto.arquiSW.SOAP.classes.xsd.Operacion[]
+                           * @return es.deusto.arquisw.classes.xsd.Operacion[]
                            */
-                           public  es.deusto.arquiSW.SOAP.classes.xsd.Operacion[] get_return(){
+                           public  es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[] get_return(){
                                return local_return;
                            }
 
@@ -61,7 +61,7 @@
                               /**
                                * validate the array for _return
                                */
-                              protected void validate_return(es.deusto.arquiSW.SOAP.classes.xsd.Operacion[] param){
+                              protected void validate_return(es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[] param){
                              
                               }
 
@@ -70,7 +70,7 @@
                               * Auto generated setter method
                               * @param param _return
                               */
-                              public void set_return(es.deusto.arquiSW.SOAP.classes.xsd.Operacion[] param){
+                              public void set_return(es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[] param){
                               
                                    validate_return(param);
 
@@ -83,11 +83,11 @@
                              
                              /**
                              * Auto generated add method for the array for convenience
-                             * @param param es.deusto.arquiSW.SOAP.classes.xsd.Operacion
+                             * @param param es.deusto.arquisw.classes.xsd.Operacion
                              */
-                             public void add_return(es.deusto.arquiSW.SOAP.classes.xsd.Operacion param){
+                             public void add_return(es.deusto.arquiSW.SOAP2.classes.xsd.Operacion param){
                                    if (local_return == null){
-                                   local_return = new es.deusto.arquiSW.SOAP.classes.xsd.Operacion[]{};
+                                   local_return = new es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[]{};
                                    }
 
                             
@@ -99,8 +99,8 @@
                             org.apache.axis2.databinding.utils.ConverterUtil.toList(local_return);
                                list.add(param);
                                this.local_return =
-                             (es.deusto.arquiSW.SOAP.classes.xsd.Operacion[])list.toArray(
-                            new es.deusto.arquiSW.SOAP.classes.xsd.Operacion[list.size()]);
+                             (es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[])list.toArray(
+                            new es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[list.size()]);
 
                              }
                              
@@ -410,7 +410,7 @@
                             if (!"obtenerOperacionesResponse".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (ObtenerOperacionesResponse)es.deusto.arquiSW.SOAP.ws.namespaces.axis2.Enum.ExtensionMapper.getTypeObject(
+                                return (ObtenerOperacionesResponse)es.deusto.arquiSW.SOAP2.ws.namespaces.axis2.Enum.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -449,7 +449,7 @@
                                                               list1.add(null);
                                                               reader.next();
                                                           } else {
-                                                        list1.add(es.deusto.arquiSW.SOAP.classes.xsd.Operacion.Factory.parse(reader));
+                                                        list1.add(es.deusto.arquiSW.SOAP2.classes.xsd.Operacion.Factory.parse(reader));
                                                                 }
                                                         //loop until we find a start element that is not part of this array
                                                         boolean loopDone1 = false;
@@ -473,7 +473,7 @@
                                                                           list1.add(null);
                                                                           reader.next();
                                                                       } else {
-                                                                    list1.add(es.deusto.arquiSW.SOAP.classes.xsd.Operacion.Factory.parse(reader));
+                                                                    list1.add(es.deusto.arquiSW.SOAP2.classes.xsd.Operacion.Factory.parse(reader));
                                                                         }
                                                                 }else{
                                                                     loopDone1 = true;
@@ -482,9 +482,9 @@
                                                         }
                                                         // call the converter utility  to convert and set the array
                                                         
-                                                        object.set_return((es.deusto.arquiSW.SOAP.classes.xsd.Operacion[])
+                                                        object.set_return((es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[])
                                                             org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                                                                es.deusto.arquiSW.SOAP.classes.xsd.Operacion.class,
+                                                                es.deusto.arquiSW.SOAP2.classes.xsd.Operacion.class,
                                                                 list1));
                                                             
                               }  // End of if for expected property start element

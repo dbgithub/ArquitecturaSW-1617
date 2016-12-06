@@ -1,3 +1,4 @@
+package es.deusto.arquiSW.SOAP2.ws.namespaces.axis2.Enum;
 
 /**
  * ExtensionMapper.java
@@ -7,7 +8,7 @@
  */
 
         
-            package es.deusto.arquiSW.SOAP.ws.namespaces.axis2.Enum;
+            
         
             /**
             *  ExtensionMapper class
@@ -25,7 +26,7 @@
                   "http://classes.arquiSW.deusto.es/xsd".equals(namespaceURI) &&
                   "Cliente".equals(typeName)){
                    
-                            return  es.deusto.arquiSW.SOAP.classes.xsd.Cliente.Factory.parse(reader);
+                            return  es.deusto.arquiSW.SOAP2.classes.xsd.Cliente.Factory.parse(reader);
                         
 
                   }
@@ -35,7 +36,7 @@
                   "http://classes.arquiSW.deusto.es/xsd".equals(namespaceURI) &&
                   "Operacion".equals(typeName)){
                    
-                            return  es.deusto.arquiSW.SOAP.classes.xsd.Operacion.Factory.parse(reader);
+                            return  es.deusto.arquiSW.SOAP2.classes.xsd.Operacion.Factory.parse(reader);
                         
 
                   }
@@ -45,7 +46,7 @@
                   "http://classes.arquiSW.deusto.es/xsd".equals(namespaceURI) &&
                   "Cuenta".equals(typeName)){
                    
-                            return  es.deusto.arquiSW.SOAP.classes.xsd.Cuenta.Factory.parse(reader);
+                            return  es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta.Factory.parse(reader);
                         
 
                   }
@@ -55,7 +56,7 @@
                   "http://ws.apache.org/namespaces/axis2/enum".equals(namespaceURI) &&
                   "TiposTarjeta".equals(typeName)){
                    
-                            return  es.deusto.arquiSW.SOAP.ws.namespaces.axis2.Enum.TiposTarjeta.Factory.parse(reader);
+                            return  es.deusto.arquiSW.SOAP2.ws.namespaces.axis2.Enum.TiposTarjeta.Factory.parse(reader);
                         
 
                   }
@@ -65,7 +66,7 @@
                   "http://classes.arquiSW.deusto.es/xsd".equals(namespaceURI) &&
                   "Tarjeta".equals(typeName)){
                    
-                            return  es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta.Factory.parse(reader);
+                            return  es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta.Factory.parse(reader);
                         
 
                   }
@@ -75,7 +76,7 @@
                   "http://ws.apache.org/namespaces/axis2/enum".equals(namespaceURI) &&
                   "EnumProveedores".equals(typeName)){
                    
-                            return  es.deusto.arquiSW.SOAP.ws.namespaces.axis2.Enum.EnumProveedores.Factory.parse(reader);
+                            return  es.deusto.arquiSW.SOAP2.ws.namespaces.axis2.Enum.EnumProveedores.Factory.parse(reader);
                         
 
                   }
@@ -85,7 +86,7 @@
                   "http://ws.apache.org/namespaces/axis2/enum".equals(namespaceURI) &&
                   "EnumTipoOperacion".equals(typeName)){
                    
-                            return  es.deusto.arquiSW.SOAP.ws.namespaces.axis2.Enum.EnumTipoOperacion.Factory.parse(reader);
+                            return  es.deusto.arquiSW.SOAP2.ws.namespaces.axis2.Enum.EnumTipoOperacion.Factory.parse(reader);
                         
 
                   }

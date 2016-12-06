@@ -7,23 +7,23 @@ import java.util.Arrays;
 import org.apache.axis2.AxisFault;
 
 import es.deusto.arquiSW.JAXB.util.ConversorSOAPtoJAXB;
-import es.deusto.arquiSW.SOAP.DeustoBankServiceStub;
-import es.deusto.arquiSW.SOAP.ObtenerClientes;
-import es.deusto.arquiSW.SOAP.ObtenerClientesResponse;
-import es.deusto.arquiSW.SOAP.ObtenerCuentas;
-import es.deusto.arquiSW.SOAP.ObtenerCuentasResponse;
-import es.deusto.arquiSW.SOAP.ObtenerOperacion;
-import es.deusto.arquiSW.SOAP.ObtenerOperacionResponse;
-import es.deusto.arquiSW.SOAP.ObtenerOperaciones;
-import es.deusto.arquiSW.SOAP.ObtenerOperacionesResponse;
-import es.deusto.arquiSW.SOAP.ObtenerTarjetas;
-import es.deusto.arquiSW.SOAP.ObtenerTarjetasResponse;
-import es.deusto.arquiSW.SOAP.classes.xsd.Cliente;
-import es.deusto.arquiSW.SOAP.classes.xsd.Cuenta;
-import es.deusto.arquiSW.SOAP.classes.xsd.Operacion;
-import es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta;
-import es.deusto.arquiSW.SOAP.gui.Mainwindow;
-import es.deusto.arquiSW.SOAP.ws.namespaces.axis2.Enum.EnumTipoOperacion;
+import es.deusto.arquiSW.SOAP2.DeustoBankServiceStub;
+import es.deusto.arquiSW.SOAP2.ObtenerClientes;
+import es.deusto.arquiSW.SOAP2.ObtenerClientesResponse;
+import es.deusto.arquiSW.SOAP2.ObtenerCuentas;
+import es.deusto.arquiSW.SOAP2.ObtenerCuentasResponse;
+import es.deusto.arquiSW.SOAP2.ObtenerOperacion;
+import es.deusto.arquiSW.SOAP2.ObtenerOperacionResponse;
+import es.deusto.arquiSW.SOAP2.ObtenerOperaciones;
+import es.deusto.arquiSW.SOAP2.ObtenerOperacionesResponse;
+import es.deusto.arquiSW.SOAP2.ObtenerTarjetas;
+import es.deusto.arquiSW.SOAP2.ObtenerTarjetasResponse;
+import es.deusto.arquiSW.SOAP2.classes.xsd.Cliente;
+import es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta;
+import es.deusto.arquiSW.SOAP2.classes.xsd.Operacion;
+import es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta;
+import es.deusto.arquiSW.SOAP2.gui.Mainwindow;
+import es.deusto.arquiSW.SOAP2.ws.namespaces.axis2.Enum.EnumTipoOperacion;
 
 /**
  * Clase runnable que ejecuta una serie de instrucciones y metodos relacionados

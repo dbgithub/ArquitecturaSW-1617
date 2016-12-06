@@ -1,76 +1,29 @@
 
 /**
- * EnumTipoOperacion.java
+ * ObtenerTarjetas.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.7.3  Built on : May 30, 2016 (04:09:26 BST)
  */
 
             
-                package es.deusto.arquiSW.SOAP.ws.namespaces.axis2.Enum;
+                package es.deusto.arquiSW.SOAP2;
             
 
             /**
-            *  EnumTipoOperacion bean class
+            *  ObtenerTarjetas bean class
             */
             @SuppressWarnings({"unchecked","unused"})
         
-        public  class EnumTipoOperacion
+        public  class ObtenerTarjetas
         implements org.apache.axis2.databinding.ADBBean{
         
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://ws.apache.org/namespaces/axis2/enum",
-                "EnumTipoOperacion",
-                "ns1");
+                "http://SOAP.arquiSW.deusto.es",
+                "obtenerTarjetas",
+                "ns3");
 
             
-
-                        /**
-                        * field for EnumTipoOperacion
-                        */
-
-                        
-                                    protected java.lang.String localEnumTipoOperacion ;
-                                
-                            private static java.util.HashMap _table_ = new java.util.HashMap();
-
-                            // Constructor
-                            
-                                protected EnumTipoOperacion(java.lang.String value, boolean isRegisterValue) {
-                                    localEnumTipoOperacion = value;
-                                    if (isRegisterValue){
-                                        
-                                               _table_.put(localEnumTipoOperacion, this);
-                                           
-                                    }
-
-                                }
-                            
-                                    public static final java.lang.String _Ingreso =
-                                        org.apache.axis2.databinding.utils.ConverterUtil.convertToString("Ingreso");
-                                
-                                    public static final java.lang.String _Extraccion =
-                                        org.apache.axis2.databinding.utils.ConverterUtil.convertToString("Extraccion");
-                                
-                                public static final EnumTipoOperacion Ingreso =
-                                    new EnumTipoOperacion(_Ingreso,true);
-                            
-                                public static final EnumTipoOperacion Extraccion =
-                                    new EnumTipoOperacion(_Extraccion,true);
-                            
-
-                                public java.lang.String getValue() { return localEnumTipoOperacion;}
-
-                                public boolean equals(java.lang.Object obj) {return (obj == this);}
-                                public int hashCode() { return toString().hashCode();}
-                                public java.lang.String toString() {
-                                
-                                        return localEnumTipoOperacion.toString();
-                                    
-
-                                }
-
-                        
 
      
      
@@ -102,45 +55,41 @@
             throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException{
             
                 
-                //We can safely assume an element has only one type associated with it
-                
-                            java.lang.String namespace = parentQName.getNamespaceURI();
-                            java.lang.String _localName = parentQName.getLocalPart();
-                        
-                            writeStartElement(null, namespace, _localName, xmlWriter);
 
-                            // add the type details if this is used in a simple type
-                               if (serializeType){
-                                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://ws.apache.org/namespaces/axis2/enum");
-                                   if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
-                                       writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                                           namespacePrefix+":EnumTipoOperacion",
-                                           xmlWriter);
-                                   } else {
-                                       writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                                           "EnumTipoOperacion",
-                                           xmlWriter);
-                                   }
-                               }
-                            
-                                          if (localEnumTipoOperacion==null){
-                                            
-                                                     throw new org.apache.axis2.databinding.ADBException("EnumTipoOperacion cannot be null !!");
-                                                
-                                         }else{
-                                        
-                                                       xmlWriter.writeCharacters(localEnumTipoOperacion);
-                                            
-                                         }
-                                    
-                            xmlWriter.writeEndElement();
-                         
+
+                java.lang.String prefix = null;
+                java.lang.String namespace = null;
+                
+
+                    prefix = parentQName.getPrefix();
+                    namespace = parentQName.getNamespaceURI();
+                    writeStartElement(prefix, namespace, parentQName.getLocalPart(), xmlWriter);
+                
+                  if (serializeType){
+               
+
+                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://SOAP.arquiSW.deusto.es");
+                   if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
+                       writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
+                           namespacePrefix+":obtenerTarjetas",
+                           xmlWriter);
+                   } else {
+                       writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
+                           "obtenerTarjetas",
+                           xmlWriter);
+                   }
+
+               
+                   }
+               
+                    xmlWriter.writeEndElement();
+               
 
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
-            if(namespace.equals("http://ws.apache.org/namespaces/axis2/enum")){
-                return "ns1";
+            if(namespace.equals("http://SOAP.arquiSW.deusto.es")){
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -316,44 +265,6 @@
 
         
         
-                public static EnumTipoOperacion fromValue(java.lang.String value)
-                      throws java.lang.IllegalArgumentException {
-                    EnumTipoOperacion enumeration = (EnumTipoOperacion)
-                       
-                               _table_.get(value);
-                           
-
-                    // handle unexpected enumeration values properly
-                    
-                        if (enumeration == null  ) {
-                            throw new java.lang.IllegalArgumentException();
-                        }
-                        return enumeration;
-                    
-                }
-                public static EnumTipoOperacion fromString(java.lang.String value,java.lang.String namespaceURI)
-                      throws java.lang.IllegalArgumentException {
-                    try {
-                       
-                                       return fromValue(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(value));
-                                   
-
-                    } catch (java.lang.Exception e) {
-                        throw new java.lang.IllegalArgumentException();
-                    }
-                }
-
-                public static EnumTipoOperacion fromString(javax.xml.stream.XMLStreamReader xmlStreamReader,
-                                                                    java.lang.String content) {
-                    if (content.indexOf(":") > -1){
-                        java.lang.String prefix = content.substring(0,content.indexOf(":"));
-                        java.lang.String namespaceUri = xmlStreamReader.getNamespaceContext().getNamespaceURI(prefix);
-                        return EnumTipoOperacion.Factory.fromString(content,namespaceUri);
-                    } else {
-                       return EnumTipoOperacion.Factory.fromString(content,"");
-                    }
-                }
-            
 
         /**
         * static method to create the object
@@ -362,12 +273,9 @@
         * Postcondition: If this object is an element, the reader is positioned at its end element
         *                If this object is a complex type, the reader is positioned at the end element of its outer element
         */
-        public static EnumTipoOperacion parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
-            EnumTipoOperacion object = null;
-                // initialize a hash map to keep values
-                java.util.Map attributeMap = new java.util.HashMap();
-                java.util.List extraAttributeList = new java.util.ArrayList<org.apache.axiom.om.OMAttribute>();
-            
+        public static ObtenerTarjetas parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
+            ObtenerTarjetas object =
+                new ObtenerTarjetas();
 
             int event;
             javax.xml.namespace.QName currentQName = null;
@@ -381,6 +289,32 @@
 
                 currentQName = reader.getName();
                 
+                if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","type")!=null){
+                  java.lang.String fullTypeName = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
+                        "type");
+                  if (fullTypeName!=null){
+                    java.lang.String nsPrefix = null;
+                    if (fullTypeName.indexOf(":") > -1){
+                        nsPrefix = fullTypeName.substring(0,fullTypeName.indexOf(":"));
+                    }
+                    nsPrefix = nsPrefix==null?"":nsPrefix;
+
+                    java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":")+1);
+                    
+                            if (!"obtenerTarjetas".equals(type)){
+                                //find namespace for the prefix
+                                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+                                return (ObtenerTarjetas)es.deusto.arquiSW.SOAP2.ws.namespaces.axis2.Enum.ExtensionMapper.getTypeObject(
+                                     nsUri,type,reader);
+                              }
+                        
+
+                  }
+                
+
+                }
+
+                
 
                 
                 // Note all attributes that were handled. Used to differ normal attributes
@@ -388,35 +322,18 @@
                 java.util.Vector handledAttributes = new java.util.Vector();
                 
 
-                   
-                while(!reader.isEndElement()) {
-                    if (reader.isStartElement()  || reader.hasText()){
                 
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"EnumTipoOperacion" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                        if (content.indexOf(":") > 0) {
-                                            // this seems to be a Qname so find the namespace and send
-                                            prefix = content.substring(0, content.indexOf(":"));
-                                            namespaceuri = reader.getNamespaceURI(prefix);
-                                            object = EnumTipoOperacion.Factory.fromString(content,namespaceuri);
-                                        } else {
-                                            // this seems to be not a qname send and empty namespace incase of it is
-                                            // check is done in fromString method
-                                            object = EnumTipoOperacion.Factory.fromString(content,"");
-                                        }
-                                        
-                                        
-                             } else {
+                    
+                    reader.next();
+                  
+                            while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
-                             }  
-                           }  // end of while loop
-                        
+                            
+                                if (reader.isStartElement())
+                                // 2 - A start element we are not expecting indicates a trailing invalid property
+                                
+                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                                
 
 
 

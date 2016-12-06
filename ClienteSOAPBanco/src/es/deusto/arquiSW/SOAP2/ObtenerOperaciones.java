@@ -1,109 +1,29 @@
 
 /**
- * ObtenerOperacionResponse.java
+ * ObtenerOperaciones.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.7.3  Built on : May 30, 2016 (04:09:26 BST)
  */
 
             
-                package es.deusto.arquiSW.SOAP;
+                package es.deusto.arquiSW.SOAP2;
             
 
             /**
-            *  ObtenerOperacionResponse bean class
+            *  ObtenerOperaciones bean class
             */
             @SuppressWarnings({"unchecked","unused"})
         
-        public  class ObtenerOperacionResponse
+        public  class ObtenerOperaciones
         implements org.apache.axis2.databinding.ADBBean{
         
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
                 "http://SOAP.arquiSW.deusto.es",
-                "obtenerOperacionResponse",
+                "obtenerOperaciones",
                 "ns3");
 
             
-
-                        /**
-                        * field for _return
-                        * This was an Array!
-                        */
-
-                        
-                                    protected es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[] local_return ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean local_returnTracker = false ;
-
-                           public boolean is_returnSpecified(){
-                               return local_returnTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return es.deusto.arquisw.classes.xsd.Operacion[]
-                           */
-                           public  es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[] get_return(){
-                               return local_return;
-                           }
-
-                           
-                        
-
-
-                               
-                              /**
-                               * validate the array for _return
-                               */
-                              protected void validate_return(es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[] param){
-                             
-                              }
-
-
-                             /**
-                              * Auto generated setter method
-                              * @param param _return
-                              */
-                              public void set_return(es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[] param){
-                              
-                                   validate_return(param);
-
-                               local_returnTracker = true;
-                                      
-                                      this.local_return=param;
-                              }
-
-                               
-                             
-                             /**
-                             * Auto generated add method for the array for convenience
-                             * @param param es.deusto.arquisw.classes.xsd.Operacion
-                             */
-                             public void add_return(es.deusto.arquiSW.SOAP2.classes.xsd.Operacion param){
-                                   if (local_return == null){
-                                   local_return = new es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[]{};
-                                   }
-
-                            
-                                 //update the setting tracker
-                                local_returnTracker = true;
-                            
-
-                               java.util.List list =
-                            org.apache.axis2.databinding.utils.ConverterUtil.toList(local_return);
-                               list.add(param);
-                               this.local_return =
-                             (es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[])list.toArray(
-                            new es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[list.size()]);
-
-                             }
-                             
 
      
      
@@ -151,43 +71,17 @@
                    java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://SOAP.arquiSW.deusto.es");
                    if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           namespacePrefix+":obtenerOperacionResponse",
+                           namespacePrefix+":obtenerOperaciones",
                            xmlWriter);
                    } else {
                        writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           "obtenerOperacionResponse",
+                           "obtenerOperaciones",
                            xmlWriter);
                    }
 
                
                    }
-                if (local_returnTracker){
-                                       if (local_return!=null){
-                                            for (int i = 0;i < local_return.length;i++){
-                                                if (local_return[i] != null){
-                                                 local_return[i].serialize(new javax.xml.namespace.QName("http://SOAP.arquiSW.deusto.es","return"),
-                                                           xmlWriter);
-                                                } else {
-                                                   
-                                                            writeStartElement(null, "http://SOAP.arquiSW.deusto.es", "return", xmlWriter);
-
-                                                           // write the nil attribute
-                                                           writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","nil","1",xmlWriter);
-                                                           xmlWriter.writeEndElement();
-                                                    
-                                                }
-
-                                            }
-                                     } else {
-                                        
-                                                writeStartElement(null, "http://SOAP.arquiSW.deusto.es", "return", xmlWriter);
-
-                                               // write the nil attribute
-                                               writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","nil","1",xmlWriter);
-                                               xmlWriter.writeEndElement();
-                                        
-                                    }
-                                 }
+               
                     xmlWriter.writeEndElement();
                
 
@@ -379,9 +273,9 @@
         * Postcondition: If this object is an element, the reader is positioned at its end element
         *                If this object is a complex type, the reader is positioned at the end element of its outer element
         */
-        public static ObtenerOperacionResponse parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
-            ObtenerOperacionResponse object =
-                new ObtenerOperacionResponse();
+        public static ObtenerOperaciones parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception{
+            ObtenerOperaciones object =
+                new ObtenerOperaciones();
 
             int event;
             javax.xml.namespace.QName currentQName = null;
@@ -407,10 +301,10 @@
 
                     java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":")+1);
                     
-                            if (!"obtenerOperacionResponse".equals(type)){
+                            if (!"obtenerOperaciones".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (ObtenerOperacionResponse)es.deusto.arquiSW.SOAP2.ws.namespaces.axis2.Enum.ExtensionMapper.getTypeObject(
+                                return (ObtenerOperaciones)es.deusto.arquiSW.SOAP2.ws.namespaces.axis2.Enum.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -431,68 +325,7 @@
                 
                     
                     reader.next();
-                
-                        java.util.ArrayList list1 = new java.util.ArrayList();
-                    
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://SOAP.arquiSW.deusto.es","return").equals(reader.getName()) || new javax.xml.namespace.QName("","return").equals(reader.getName()) ){
-                                
-                                    
-                                    
-                                    // Process the array and step past its final element's end.
-                                    
-                                    
-                                                          nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                                          if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                                              list1.add(null);
-                                                              reader.next();
-                                                          } else {
-                                                        list1.add(es.deusto.arquiSW.SOAP2.classes.xsd.Operacion.Factory.parse(reader));
-                                                                }
-                                                        //loop until we find a start element that is not part of this array
-                                                        boolean loopDone1 = false;
-                                                        while(!loopDone1){
-                                                            // We should be at the end element, but make sure
-                                                            while (!reader.isEndElement())
-                                                                reader.next();
-                                                            // Step out of this element
-                                                            reader.next();
-                                                            // Step to next element event.
-                                                            while (!reader.isStartElement() && !reader.isEndElement())
-                                                                reader.next();
-                                                            if (reader.isEndElement()){
-                                                                //two continuous end elements means we are exiting the xml structure
-                                                                loopDone1 = true;
-                                                            } else {
-                                                                if (new javax.xml.namespace.QName("http://SOAP.arquiSW.deusto.es","return").equals(reader.getName())){
-                                                                    
-                                                                      nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                                                      if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                                                          list1.add(null);
-                                                                          reader.next();
-                                                                      } else {
-                                                                    list1.add(es.deusto.arquiSW.SOAP2.classes.xsd.Operacion.Factory.parse(reader));
-                                                                        }
-                                                                }else{
-                                                                    loopDone1 = true;
-                                                                }
-                                                            }
-                                                        }
-                                                        // call the converter utility  to convert and set the array
-                                                        
-                                                        object.set_return((es.deusto.arquiSW.SOAP2.classes.xsd.Operacion[])
-                                                            org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                                                                es.deusto.arquiSW.SOAP2.classes.xsd.Operacion.class,
-                                                                list1));
-                                                            
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                    }
-                                  
+                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

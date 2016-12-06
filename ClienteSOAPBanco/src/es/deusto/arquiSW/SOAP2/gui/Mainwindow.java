@@ -1,4 +1,4 @@
-package es.deusto.arquiSW.SOAP.gui;
+package es.deusto.arquiSW.SOAP2.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -36,22 +36,23 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+
 import es.deusto.arquiSW.JAXB.classes.BancoJAXB;
 import es.deusto.arquiSW.JAXB.classes.ClienteJAXB;
 import es.deusto.arquiSW.JAXB.classes.CuentaJAXB;
 import es.deusto.arquiSW.JAXB.classes.TarjetaJAXB;
 import es.deusto.arquiSW.JAXB.util.ConversorJAXBtoSOAP;
-import es.deusto.arquiSW.SOAP.DeustoBankServiceStub;
-import es.deusto.arquiSW.SOAP.Importar;
-import es.deusto.arquiSW.SOAP.ObtenerCliente;
-import es.deusto.arquiSW.SOAP.ObtenerClienteResponse;
-import es.deusto.arquiSW.SOAP.ObtenerCuenta;
-import es.deusto.arquiSW.SOAP.ObtenerCuentaResponse;
-import es.deusto.arquiSW.SOAP.ObtenerTarjeta;
-import es.deusto.arquiSW.SOAP.ObtenerTarjetaResponse;
-import es.deusto.arquiSW.SOAP.classes.xsd.Cliente;
-import es.deusto.arquiSW.SOAP.classes.xsd.Cuenta;
-import es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta;
+import es.deusto.arquiSW.SOAP2.DeustoBankServiceStub;
+import es.deusto.arquiSW.SOAP2.Importar;
+import es.deusto.arquiSW.SOAP2.ObtenerCliente;
+import es.deusto.arquiSW.SOAP2.ObtenerClienteResponse;
+import es.deusto.arquiSW.SOAP2.ObtenerCuenta;
+import es.deusto.arquiSW.SOAP2.ObtenerCuentaResponse;
+import es.deusto.arquiSW.SOAP2.ObtenerTarjeta;
+import es.deusto.arquiSW.SOAP2.ObtenerTarjetaResponse;
+import es.deusto.arquiSW.SOAP2.classes.xsd.Cliente;
+import es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta;
+import es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta;
 import es.deusto.arquiSW.threads.InicializacionThread;
 
 import javax.swing.DefaultComboBoxModel;
@@ -527,12 +528,14 @@ public class Mainwindow extends JFrame {
 				try {
 					obtCienteRes = SOAPservice.obtenerCliente(obtCliente);
 					arrayCliente = obtCienteRes.get_return();
-					DefaultTableModel model = (DefaultTableModel) table.getModel();
-					limpiarJTable(model);
-					System.out.println(arrayCliente[0].getDNI());
-					for (Cliente c : arrayCliente) {
-						model.addRow(new Object[] { c.getDNI(), c.getNombre(), c.getApellidos(), c.getDireccion(),
-								c.getEmail(), c.getMovil(), (c.getEmpleado()) ? "Si" : "No" });
+					if (arrayCliente != null) {
+						DefaultTableModel model = (DefaultTableModel) table.getModel();
+						limpiarJTable(model);
+						System.out.println(arrayCliente[0].getDNI());
+						for (Cliente c : arrayCliente) {
+							model.addRow(new Object[] { c.getDNI(), c.getNombre(), c.getApellidos(), c.getDireccion(),
+									c.getEmail(), c.getMovil(), (c.getEmpleado()) ? "Si" : "No" });
+						}
 					}
 				} catch (RemoteException e1) {
 					// TODO Auto-generated catch block
@@ -715,22 +718,24 @@ public class Mainwindow extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				Cuenta[] arrayCuenta;
 				ObtenerCuenta obtCuenta = new ObtenerCuenta();
-				obtCuenta.setIBAN((textFieldIBAN.getText() != "") ? textFieldIBAN.getText() : null);
-				obtCuenta.setDNI((textFieldDNICliente.getText() != "") ? textFieldDNICliente.getText() : null);
-				obtCuenta.setFechaApertura(
-						(textFieldFechaApertura.getText() != "") ? textFieldFechaApertura.getText() : null);
-				obtCuenta.setInteres((comboBox.getSelectedItem() != "") ? (String) comboBox.getSelectedItem() : null);
-				obtCuenta.setActiva((chckbxActiva.isSelected()) ? chckbxActiva.isSelected() : false);
+//				if (textFieldIBAN.getText() != "") {obtCuenta.setIBAN(textFieldIBAN.getText());}
+//				if (textFieldDNICliente.getText() != "") {obtCuenta.setDNI(textFieldDNICliente.getText());}
+//				if (textFieldFechaApertura.getText() != "") {obtCuenta.setFechaApertura(textFieldFechaApertura.getText());}
+//				if (comboBox.getSelectedItem() != "") {obtCuenta.setInteres((String) comboBox.getSelectedItem());}
+//				if (chckbxActiva.isSelected()) {chckbxActiva.isSelected();}
 				ObtenerCuentaResponse obtCuentaRes;
 				try {
 					obtCuentaRes = SOAPservice.obtenerCuenta(obtCuenta);
 					arrayCuenta = obtCuentaRes.get_return();
-					DefaultTableModel model = (DefaultTableModel) table_1.getModel();
-					limpiarJTable(model);
-					for (Cuenta cu : arrayCuenta) {
-						model.addRow(new Object[] { cu.getIBAN(), cu.getSWIFT(), cu.getFechaApertura(),
-								(cu.getActiva()) ? "Si" : "No", cu.getSaldoActual(), cu.getInteres(),
-								cu.getTitular() });
+					System.out.println("es null ?" + (arrayCuenta == null));
+					if (arrayCuenta != null) {
+						DefaultTableModel model = (DefaultTableModel) table_1.getModel();
+						limpiarJTable(model);
+						for (Cuenta cu : arrayCuenta) {
+							model.addRow(new Object[] { cu.getIBAN(), cu.getSWIFT(), cu.getFechaApertura(),
+									(cu.getActiva()) ? "Si" : "No", cu.getSaldoActual(), cu.getInteres(),
+											cu.getTitular() });
+						}
 					}
 				} catch (RemoteException e1) {
 					// TODO Auto-generated catch block
@@ -897,11 +902,13 @@ public class Mainwindow extends JFrame {
 				try {
 					obtTarjetaRes = SOAPservice.obtenerTarjeta(obtTarjeta);
 					arrayTarjeta = obtTarjetaRes.get_return();
-					DefaultTableModel model = (DefaultTableModel) table_2.getModel();
-					limpiarJTable(model);
-					for (Tarjeta t : arrayTarjeta) {
-						model.addRow(new Object[] { t.getNumero(), t.getLimiteExtraccion(), t.getFechaCaducidad(),
-								t.getProveedor(), t.getTipo(), t.getFechaExpedicion(), t.getCuenta() });
+					if (arrayTarjeta != null) {
+						DefaultTableModel model = (DefaultTableModel) table_2.getModel();
+						limpiarJTable(model);
+						for (Tarjeta t : arrayTarjeta) {
+							model.addRow(new Object[] { t.getNumero(), t.getLimiteExtraccion(), t.getFechaCaducidad(),
+									t.getProveedor(), t.getTipo(), t.getFechaExpedicion(), t.getCuenta() });
+						}
 					}
 				} catch (RemoteException e1) {
 					// TODO Auto-generated catch block
