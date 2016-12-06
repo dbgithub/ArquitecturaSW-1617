@@ -1,4 +1,4 @@
-package es.deusto.arquiSW.SOAP2.gui;
+package es.deusto.arquiSW.SOAP.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -42,17 +42,17 @@ import es.deusto.arquiSW.JAXB.classes.ClienteJAXB;
 import es.deusto.arquiSW.JAXB.classes.CuentaJAXB;
 import es.deusto.arquiSW.JAXB.classes.TarjetaJAXB;
 import es.deusto.arquiSW.JAXB.util.ConversorJAXBtoSOAP;
-import es.deusto.arquiSW.SOAP2.DeustoBankServiceStub;
-import es.deusto.arquiSW.SOAP2.Importar;
-import es.deusto.arquiSW.SOAP2.ObtenerCliente;
-import es.deusto.arquiSW.SOAP2.ObtenerClienteResponse;
-import es.deusto.arquiSW.SOAP2.ObtenerCuenta;
-import es.deusto.arquiSW.SOAP2.ObtenerCuentaResponse;
-import es.deusto.arquiSW.SOAP2.ObtenerTarjeta;
-import es.deusto.arquiSW.SOAP2.ObtenerTarjetaResponse;
-import es.deusto.arquiSW.SOAP2.classes.xsd.Cliente;
-import es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta;
-import es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta;
+import es.deusto.arquiSW.SOAP.DeustoBankServiceStub;
+import es.deusto.arquiSW.SOAP.Importar;
+import es.deusto.arquiSW.SOAP.ObtenerCliente;
+import es.deusto.arquiSW.SOAP.ObtenerClienteResponse;
+import es.deusto.arquiSW.SOAP.ObtenerCuenta;
+import es.deusto.arquiSW.SOAP.ObtenerCuentaResponse;
+import es.deusto.arquiSW.SOAP.ObtenerTarjeta;
+import es.deusto.arquiSW.SOAP.ObtenerTarjetaResponse;
+import es.deusto.arquiSW.SOAP.classes.xsd.Cliente;
+import es.deusto.arquiSW.SOAP.classes.xsd.Cuenta;
+import es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta;
 import es.deusto.arquiSW.threads.InicializacionThread;
 
 import javax.swing.DefaultComboBoxModel;
@@ -510,6 +510,7 @@ public class Mainwindow extends JFrame {
 		textField_1.setColumns(10);
 
 		JCheckBox checkBox = new JCheckBox("Empleado");
+		checkBox.setVisible(false);
 		checkBox.setForeground(Color.WHITE);
 		checkBox.setBackground((Color) null);
 
@@ -518,25 +519,29 @@ public class Mainwindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Cliente[] arrayCliente;
 				ObtenerCliente obtCliente = new ObtenerCliente();
-				obtCliente.setDNI((textField_2.getText() != "") ? textField_2.getText() : null);
-				obtCliente.setNombre((textField_3.getText() != "") ? textField_3.getText() : null);
-				obtCliente.setApellidos((textField_4.getText() != "") ? textField_4.getText() : null);
-				obtCliente.setEmail((textField.getText() != "") ? textField.getText() : null);
-				obtCliente.setMovil((textField_1.getText() != "") ? textField_1.getText() : null);
-				obtCliente.setEmpleado((checkBox.isSelected()) ? checkBox.isSelected() : false);
+				obtCliente.setDNI((textField_2.getText() != "") ? textField_2.getText() : "");
+				obtCliente.setNombre((textField_3.getText() != "") ? textField_3.getText() : "");
+				obtCliente.setApellidos((textField_4.getText() != "") ? textField_4.getText() : "");
+				obtCliente.setEmail((textField.getText() != "") ? textField.getText() : "");
+				obtCliente.setMovil((textField_1.getText() != "") ? textField_1.getText() : "");
+//				obtCliente.setEmpleado((checkBox.isSelected()) ? checkBox.isSelected() : false);
 				ObtenerClienteResponse obtCienteRes;
 				try {
 					obtCienteRes = SOAPservice.obtenerCliente(obtCliente);
 					arrayCliente = obtCienteRes.get_return();
 					if (arrayCliente != null) {
+						System.out.println("Clientes obtenidos del servicio mediante el filtro: " + arrayCliente.length);
 						DefaultTableModel model = (DefaultTableModel) table.getModel();
 						limpiarJTable(model);
-						System.out.println(arrayCliente[0].getDNI());
 						for (Cliente c : arrayCliente) {
 							model.addRow(new Object[] { c.getDNI(), c.getNombre(), c.getApellidos(), c.getDireccion(),
 									c.getEmail(), c.getMovil(), (c.getEmpleado()) ? "Si" : "No" });
 						}
-					}
+					} else {
+						System.out.println("Cliente(s) no encontrado(s)");
+						DefaultTableModel model = (DefaultTableModel) table.getModel();
+						limpiarJTable(model);
+						loadClientes();}
 				} catch (RemoteException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -718,10 +723,10 @@ public class Mainwindow extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				Cuenta[] arrayCuenta;
 				ObtenerCuenta obtCuenta = new ObtenerCuenta();
-//				if (textFieldIBAN.getText() != "") {obtCuenta.setIBAN(textFieldIBAN.getText());}
-//				if (textFieldDNICliente.getText() != "") {obtCuenta.setDNI(textFieldDNICliente.getText());}
-//				if (textFieldFechaApertura.getText() != "") {obtCuenta.setFechaApertura(textFieldFechaApertura.getText());}
-//				if (comboBox.getSelectedItem() != "") {obtCuenta.setInteres((String) comboBox.getSelectedItem());}
+				obtCuenta.setIBAN((textFieldIBAN.getText() != "") ? textFieldIBAN.getText() : "");
+				obtCuenta.setDNI((textFieldDNICliente.getText() != "") ? textFieldDNICliente.getText() : "");
+				obtCuenta.setFechaApertura((textFieldFechaApertura.getText() != "") ? textFieldFechaApertura.getText() : "");
+				obtCuenta.setInteres((comboBox.getSelectedItem() != "") ? (String) comboBox.getSelectedItem() : "");
 //				if (chckbxActiva.isSelected()) {chckbxActiva.isSelected();}
 				ObtenerCuentaResponse obtCuentaRes;
 				try {
@@ -729,14 +734,19 @@ public class Mainwindow extends JFrame {
 					arrayCuenta = obtCuentaRes.get_return();
 					System.out.println("es null ?" + (arrayCuenta == null));
 					if (arrayCuenta != null) {
+						System.out.println("Cuentas obtenidas del servicio mediante el filtro: " + arrayCuenta.length);
 						DefaultTableModel model = (DefaultTableModel) table_1.getModel();
 						limpiarJTable(model);
 						for (Cuenta cu : arrayCuenta) {
 							model.addRow(new Object[] { cu.getIBAN(), cu.getSWIFT(), cu.getFechaApertura(),
 									(cu.getActiva()) ? "Si" : "No", cu.getSaldoActual(), cu.getInteres(),
-											cu.getTitular() });
+											cu.getTitular().getDNI() });
 						}
-					}
+					} else {
+						System.out.println("Cuentas(s) no encontrada(s)");
+						DefaultTableModel model = (DefaultTableModel) table_1.getModel();
+						limpiarJTable(model);
+						loadCuentas();}
 				} catch (RemoteException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -892,24 +902,29 @@ public class Mainwindow extends JFrame {
 				Tarjeta[] arrayTarjeta;
 				ObtenerTarjeta obtTarjeta = new ObtenerTarjeta();
 				obtTarjeta
-						.setNumero((textFieldNumeroTarjeta.getText() != "") ? textFieldNumeroTarjeta.getText() : null);
+						.setNumero((textFieldNumeroTarjeta.getText() != "") ? textFieldNumeroTarjeta.getText() : "");
 				obtTarjeta.setDNI(
-						(textFieldDNIClienteTarjeta.getText() != "") ? textFieldDNIClienteTarjeta.getText() : null);
+						(textFieldDNIClienteTarjeta.getText() != "") ? textFieldDNIClienteTarjeta.getText() : "");
 				obtTarjeta.setProveedor((comboBoxProveedor.getSelectedItem() != "")
 						? (String) comboBoxProveedor.getSelectedItem() : null);
-				obtTarjeta.setTipo((comboBox_1.getSelectedItem() != "") ? (String) comboBox_1.getSelectedItem() : null);
+				obtTarjeta.setTipo((comboBox_1.getSelectedItem() != "") ? (String) comboBox_1.getSelectedItem() : "");
 				ObtenerTarjetaResponse obtTarjetaRes;
 				try {
 					obtTarjetaRes = SOAPservice.obtenerTarjeta(obtTarjeta);
 					arrayTarjeta = obtTarjetaRes.get_return();
 					if (arrayTarjeta != null) {
+						System.out.println("Tarjetas obtenidas del servicio mediante el filtro: " + arrayTarjeta.length);
 						DefaultTableModel model = (DefaultTableModel) table_2.getModel();
 						limpiarJTable(model);
 						for (Tarjeta t : arrayTarjeta) {
 							model.addRow(new Object[] { t.getNumero(), t.getLimiteExtraccion(), t.getFechaCaducidad(),
 									t.getProveedor(), t.getTipo(), t.getFechaExpedicion(), t.getCuenta() });
-						}
-					}
+						} 
+					} else {
+						System.out.println("Tarjetas(s) no encontrada(s)");
+						DefaultTableModel model = (DefaultTableModel) table_2.getModel();
+						limpiarJTable(model);
+						loadTarjetas();}
 				} catch (RemoteException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

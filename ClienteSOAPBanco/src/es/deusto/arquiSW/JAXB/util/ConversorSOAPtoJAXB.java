@@ -7,10 +7,10 @@ import es.deusto.arquiSW.JAXB.classes.ClienteJAXB;
 import es.deusto.arquiSW.JAXB.classes.CuentaJAXB;
 import es.deusto.arquiSW.JAXB.classes.OperacionJAXB;
 import es.deusto.arquiSW.JAXB.classes.TarjetaJAXB;
-import es.deusto.arquiSW.SOAP2.classes.xsd.Cliente;
-import es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta;
-import es.deusto.arquiSW.SOAP2.classes.xsd.Operacion;
-import es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta;
+import es.deusto.arquiSW.SOAP.classes.xsd.Cliente;
+import es.deusto.arquiSW.SOAP.classes.xsd.Cuenta;
+import es.deusto.arquiSW.SOAP.classes.xsd.Operacion;
+import es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta;
 
 public class ConversorSOAPtoJAXB {
 	/**

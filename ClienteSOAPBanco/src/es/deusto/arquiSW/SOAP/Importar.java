@@ -31,7 +31,7 @@
                         */
 
                         
-                                    protected es.deusto.arquiSW.SOAP2.classes.xsd.Cliente[] localClientes ;
+                                    protected es.deusto.arquiSW.SOAP.classes.xsd.Cliente[] localClientes ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -49,7 +49,7 @@
                            * Auto generated getter method
                            * @return es.deusto.arquisw.classes.xsd.Cliente[]
                            */
-                           public  es.deusto.arquiSW.SOAP2.classes.xsd.Cliente[] getClientes(){
+                           public  es.deusto.arquiSW.SOAP.classes.xsd.Cliente[] getClientes(){
                                return localClientes;
                            }
 
@@ -61,7 +61,7 @@
                               /**
                                * validate the array for Clientes
                                */
-                              protected void validateClientes(es.deusto.arquiSW.SOAP2.classes.xsd.Cliente[] param){
+                              protected void validateClientes(es.deusto.arquiSW.SOAP.classes.xsd.Cliente[] param){
                              
                               }
 
@@ -70,7 +70,7 @@
                               * Auto generated setter method
                               * @param param Clientes
                               */
-                              public void setClientes(es.deusto.arquiSW.SOAP2.classes.xsd.Cliente[] param){
+                              public void setClientes(es.deusto.arquiSW.SOAP.classes.xsd.Cliente[] param){
                               
                                    validateClientes(param);
 
@@ -85,9 +85,9 @@
                              * Auto generated add method for the array for convenience
                              * @param param es.deusto.arquisw.classes.xsd.Cliente
                              */
-                             public void addClientes(es.deusto.arquiSW.SOAP2.classes.xsd.Cliente param){
+                             public void addClientes(es.deusto.arquiSW.SOAP.classes.xsd.Cliente param){
                                    if (localClientes == null){
-                                   localClientes = new es.deusto.arquiSW.SOAP2.classes.xsd.Cliente[]{};
+                                   localClientes = new es.deusto.arquiSW.SOAP.classes.xsd.Cliente[]{};
                                    }
 
                             
@@ -99,8 +99,8 @@
                             org.apache.axis2.databinding.utils.ConverterUtil.toList(localClientes);
                                list.add(param);
                                this.localClientes =
-                             (es.deusto.arquiSW.SOAP2.classes.xsd.Cliente[])list.toArray(
-                            new es.deusto.arquiSW.SOAP2.classes.xsd.Cliente[list.size()]);
+                             (es.deusto.arquiSW.SOAP.classes.xsd.Cliente[])list.toArray(
+                            new es.deusto.arquiSW.SOAP.classes.xsd.Cliente[list.size()]);
 
                              }
                              
@@ -111,7 +111,7 @@
                         */
 
                         
-                                    protected es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta[] localCuentas ;
+                                    protected es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[] localCuentas ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -129,7 +129,7 @@
                            * Auto generated getter method
                            * @return es.deusto.arquisw.classes.xsd.Cuenta[]
                            */
-                           public  es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta[] getCuentas(){
+                           public  es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[] getCuentas(){
                                return localCuentas;
                            }
 
@@ -141,7 +141,7 @@
                               /**
                                * validate the array for Cuentas
                                */
-                              protected void validateCuentas(es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta[] param){
+                              protected void validateCuentas(es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[] param){
                              
                               }
 
@@ -150,7 +150,7 @@
                               * Auto generated setter method
                               * @param param Cuentas
                               */
-                              public void setCuentas(es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta[] param){
+                              public void setCuentas(es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[] param){
                               
                                    validateCuentas(param);
 
@@ -165,9 +165,9 @@
                              * Auto generated add method for the array for convenience
                              * @param param es.deusto.arquisw.classes.xsd.Cuenta
                              */
-                             public void addCuentas(es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta param){
+                             public void addCuentas(es.deusto.arquiSW.SOAP.classes.xsd.Cuenta param){
                                    if (localCuentas == null){
-                                   localCuentas = new es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta[]{};
+                                   localCuentas = new es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[]{};
                                    }
 
                             
@@ -179,8 +179,8 @@
                             org.apache.axis2.databinding.utils.ConverterUtil.toList(localCuentas);
                                list.add(param);
                                this.localCuentas =
-                             (es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta[])list.toArray(
-                            new es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta[list.size()]);
+                             (es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[])list.toArray(
+                            new es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[list.size()]);
 
                              }
                              
@@ -191,7 +191,7 @@
                         */
 
                         
-                                    protected es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[] localTarjetas ;
+                                    protected es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[] localTarjetas ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -209,7 +209,7 @@
                            * Auto generated getter method
                            * @return es.deusto.arquisw.classes.xsd.Tarjeta[]
                            */
-                           public  es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[] getTarjetas(){
+                           public  es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[] getTarjetas(){
                                return localTarjetas;
                            }
 
@@ -221,7 +221,7 @@
                               /**
                                * validate the array for Tarjetas
                                */
-                              protected void validateTarjetas(es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[] param){
+                              protected void validateTarjetas(es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[] param){
                              
                               }
 
@@ -230,7 +230,7 @@
                               * Auto generated setter method
                               * @param param Tarjetas
                               */
-                              public void setTarjetas(es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[] param){
+                              public void setTarjetas(es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[] param){
                               
                                    validateTarjetas(param);
 
@@ -245,9 +245,9 @@
                              * Auto generated add method for the array for convenience
                              * @param param es.deusto.arquisw.classes.xsd.Tarjeta
                              */
-                             public void addTarjetas(es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta param){
+                             public void addTarjetas(es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta param){
                                    if (localTarjetas == null){
-                                   localTarjetas = new es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[]{};
+                                   localTarjetas = new es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[]{};
                                    }
 
                             
@@ -259,8 +259,8 @@
                             org.apache.axis2.databinding.utils.ConverterUtil.toList(localTarjetas);
                                list.add(param);
                                this.localTarjetas =
-                             (es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[])list.toArray(
-                            new es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[list.size()]);
+                             (es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[])list.toArray(
+                            new es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[list.size()]);
 
                              }
                              
@@ -622,7 +622,7 @@
                             if (!"importar".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (Importar)es.deusto.arquiSW.SOAP2.ws.namespaces.axis2.Enum.ExtensionMapper.getTypeObject(
+                                return (Importar)es.deusto.arquiSW.SOAP.ws.namespaces.axis2.Enum.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -665,7 +665,7 @@
                                                               list1.add(null);
                                                               reader.next();
                                                           } else {
-                                                        list1.add(es.deusto.arquiSW.SOAP2.classes.xsd.Cliente.Factory.parse(reader));
+                                                        list1.add(es.deusto.arquiSW.SOAP.classes.xsd.Cliente.Factory.parse(reader));
                                                                 }
                                                         //loop until we find a start element that is not part of this array
                                                         boolean loopDone1 = false;
@@ -689,7 +689,7 @@
                                                                           list1.add(null);
                                                                           reader.next();
                                                                       } else {
-                                                                    list1.add(es.deusto.arquiSW.SOAP2.classes.xsd.Cliente.Factory.parse(reader));
+                                                                    list1.add(es.deusto.arquiSW.SOAP.classes.xsd.Cliente.Factory.parse(reader));
                                                                         }
                                                                 }else{
                                                                     loopDone1 = true;
@@ -698,9 +698,9 @@
                                                         }
                                                         // call the converter utility  to convert and set the array
                                                         
-                                                        object.setClientes((es.deusto.arquiSW.SOAP2.classes.xsd.Cliente[])
+                                                        object.setClientes((es.deusto.arquiSW.SOAP.classes.xsd.Cliente[])
                                                             org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                                                                es.deusto.arquiSW.SOAP2.classes.xsd.Cliente.class,
+                                                                es.deusto.arquiSW.SOAP.classes.xsd.Cliente.class,
                                                                 list1));
                                                             
                               }  // End of if for expected property start element
@@ -724,7 +724,7 @@
                                                               list2.add(null);
                                                               reader.next();
                                                           } else {
-                                                        list2.add(es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta.Factory.parse(reader));
+                                                        list2.add(es.deusto.arquiSW.SOAP.classes.xsd.Cuenta.Factory.parse(reader));
                                                                 }
                                                         //loop until we find a start element that is not part of this array
                                                         boolean loopDone2 = false;
@@ -748,7 +748,7 @@
                                                                           list2.add(null);
                                                                           reader.next();
                                                                       } else {
-                                                                    list2.add(es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta.Factory.parse(reader));
+                                                                    list2.add(es.deusto.arquiSW.SOAP.classes.xsd.Cuenta.Factory.parse(reader));
                                                                         }
                                                                 }else{
                                                                     loopDone2 = true;
@@ -757,9 +757,9 @@
                                                         }
                                                         // call the converter utility  to convert and set the array
                                                         
-                                                        object.setCuentas((es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta[])
+                                                        object.setCuentas((es.deusto.arquiSW.SOAP.classes.xsd.Cuenta[])
                                                             org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                                                                es.deusto.arquiSW.SOAP2.classes.xsd.Cuenta.class,
+                                                                es.deusto.arquiSW.SOAP.classes.xsd.Cuenta.class,
                                                                 list2));
                                                             
                               }  // End of if for expected property start element
@@ -783,7 +783,7 @@
                                                               list3.add(null);
                                                               reader.next();
                                                           } else {
-                                                        list3.add(es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta.Factory.parse(reader));
+                                                        list3.add(es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta.Factory.parse(reader));
                                                                 }
                                                         //loop until we find a start element that is not part of this array
                                                         boolean loopDone3 = false;
@@ -807,7 +807,7 @@
                                                                           list3.add(null);
                                                                           reader.next();
                                                                       } else {
-                                                                    list3.add(es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta.Factory.parse(reader));
+                                                                    list3.add(es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta.Factory.parse(reader));
                                                                         }
                                                                 }else{
                                                                     loopDone3 = true;
@@ -816,9 +816,9 @@
                                                         }
                                                         // call the converter utility  to convert and set the array
                                                         
-                                                        object.setTarjetas((es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta[])
+                                                        object.setTarjetas((es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta[])
                                                             org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                                                                es.deusto.arquiSW.SOAP2.classes.xsd.Tarjeta.class,
+                                                                es.deusto.arquiSW.SOAP.classes.xsd.Tarjeta.class,
                                                                 list3));
                                                             
                               }  // End of if for expected property start element
