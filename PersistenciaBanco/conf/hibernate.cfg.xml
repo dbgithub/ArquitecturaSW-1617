@@ -2,6 +2,11 @@
         PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN"
         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 
+<!-- Tutoriales y documentacion sobre Hibernate:
+	· http://docs.jboss.org/hibernate/orm/current/quickstart/html_single/
+	· https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html
+	· https://www.tutorialspoint.com/hibernate/index.htm
+	· http://www.javatpoint.com/hibernate-tutorial -->
 <hibernate-configuration>
 
     <session-factory>
@@ -11,7 +16,7 @@
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
         
-        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property> <!-- Para que Hibernate converse correctamente con la BD, has de especificar un 'dialect' -->
         <property name="hbm2ddl.auto">create</property>
         
 		<!-- C3p0 pool connection manager
@@ -22,8 +27,8 @@
         <property name="hibernate.c3p0.idle_test_period">3000</property>
         -->
 
-        <!-- SQL to stdout logging
-        <property name="show_sql">true</property>
+        <!-- SQL to stdout logging ("show_sql" = Echo all executed SQL to stdout)
+        <property name="show_sql">true</property> 
         <property name="format_sql">true</property>
         <property name="use_sql_comments">true</property>
         -->

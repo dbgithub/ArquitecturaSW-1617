@@ -3,28 +3,34 @@
     "-//Hibernate/Hibernate Mapping DTD//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
+<!-- Tutoriales y documentacion sobre Hibernate:
+	· http://docs.jboss.org/hibernate/orm/current/quickstart/html_single/
+	· https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html
+	· https://www.tutorialspoint.com/hibernate/index.htm
+	· http://www.javatpoint.com/hibernate-tutorial -->
+<!-- Documentacion sobre tipo de datos en Hibernate: https://www.tutorialspoint.com/hibernate/hibernate_mapping_types.htm -->
+<!-- Documentacion sobre diferencias entre Set, Bag, List etc. : https://www.tutorialspoint.com/hibernate/hibernate_or_mappings.htm -->
 <hibernate-mapping>
 
-    <class name="es.deusto.hibernate.example.plus.model.Direccion" table="DIRECCION">
+    <class name="es.deusto.arquiSW.classes.Cuenta" table="cuenta">
 
-        <id name="id" column="DIR_ID">
-            <generator class="native"/>
+        <id name="iban" column="IBAN" type="int" not-null="true">
+            <generator class="native"/> <!-- This is used to automatically generate the primary key values in the DB. Mas info sobre 'generators' en: http://www.javatpoint.com/generator-classes -->
         </id>
 
-        <property name="desc" column="DIR_DESC" not-null="true"/>
-		<property name="cp" column="DIR_CP" not-null="true"/>
+		<property name="swift" column="SWIFT" type="string" />
+		<property name="fechaapertura" column="FechaApertura" type="string" />
+		<property name="activa" column="Activa" type="boolean" />
+		<property name="saldoactual" column="SaldoActual" type="float" />
+		<property name="interes" column="Interes" type="float" />
+		<!-- <property name="cliente" column="Cliente" type="string" />-->
 		
-		<set name="empleados" table="DOMICILIOS" lazy="true" inverse="true">
-			<key column="DIR_ID"/>
-			<many-to-many column="EM_NIF" class="es.deusto.hibernate.example.plus.model.Empleado"/>
-		</set>
+		<many-to-one name="cliente" column="DNI" not-null="true"/>
 		
-		<!-- Esto estaba en otro .xml -->
-		<set name="empleados" lazy="true" cascade="all" inverse="true">
-			<key column="DEP_ID"/>
-			<one-to-many class="es.deusto.hibernate.example.plus.model.Empleado"/>
-		</set>
-
+		<bag name="operaciones" inverse="true" lazy="true" cascade="true">
+			<key column="ID"/>
+			<one-to-many class="es.deusto.arquiSW.classes.Operacion"/>
+		</bag>
     </class>
 
 </hibernate-mapping>
