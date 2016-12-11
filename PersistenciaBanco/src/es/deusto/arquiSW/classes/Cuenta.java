@@ -15,7 +15,7 @@ public class Cuenta {
 	private boolean activa;
 	private float saldoActual;
 	private float interes;
-	private String titular;
+	private String cliente;
 	
 	private ArrayList<Operacion> operaciones;
 	
@@ -46,18 +46,18 @@ public class Cuenta {
 		this.activa = activa;
 		this.saldoActual = saldoActual;
 		this.interes = interes;
-		this.titular = titular;
+		this.cliente = titular;
 		
 		this.operaciones = operaciones;
 	}
 	
 	// METHODS & OPERATIONS:
 	
-	public String getTitular() {
-		return titular;
+	public String getCliente() {
+		return cliente;
 	}
-	public void setTitular(String titular) {
-		this.titular = titular;
+	public void setCliente(String titular) {
+		this.cliente = titular;
 	}
 	public int getIBAN() {
 		return IBAN;

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<!-- Tutoriales y documentacion sobre Hibernate:
+	· http://docs.jboss.org/hibernate/orm/current/quickstart/html_single/
+	· https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html
+	· https://www.tutorialspoint.com/hibernate/index.htm
+	· http://www.javatpoint.com/hibernate-tutorial -->
+<!-- Documentacion sobre tipo de datos en Hibernate: https://www.tutorialspoint.com/hibernate/hibernate_mapping_types.htm -->
+<!-- Documentacion sobre diferencias entre Set, Bag, List etc. : https://www.tutorialspoint.com/hibernate/hibernate_or_mappings.htm -->
+<hibernate-mapping>
+
+    <class name="es.deusto.arquiSW.classes.Operacion" table="operacion">
+
+        <id name="id" column="ID" type="int">
+            <generator class="native"/> <!-- This is used to automatically generate the primary key values in the DB. Mas info sobre 'generators' en: http://www.javatpoint.com/generator-classes -->
+        </id>
+
+        <property name="fecha" column="Fecha" type="string"/>
+		<property name="tipo" column="Tipo" type="character">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">es.deusto.arquiSW.classes.Operacion$EnumTipoOperacion</param>
+				<param name="type">12</param>
+			</type>
+		</property>
+		<property name="importe" column="Importe" type="float"/>
+		<!--  <property name="cuenta" column="Cuenta" type="int"/> --> 
+		
+		<many-to-one name="cuenta" column="Cuenta" not-null="true" class="es.deusto.arquiSW.classes.Cuenta"/>
+   </class>
+   
+</hibernate-mapping>

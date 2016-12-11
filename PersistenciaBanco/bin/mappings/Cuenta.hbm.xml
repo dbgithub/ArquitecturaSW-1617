@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<!-- Tutoriales y documentacion sobre Hibernate:
+	· http://docs.jboss.org/hibernate/orm/current/quickstart/html_single/
+	· https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html
+	· https://www.tutorialspoint.com/hibernate/index.htm
+	· http://www.javatpoint.com/hibernate-tutorial -->
+<!-- Documentacion sobre tipo de datos en Hibernate: https://www.tutorialspoint.com/hibernate/hibernate_mapping_types.htm -->
+<!-- Documentacion sobre diferencias entre Set, Bag, List etc. : https://www.tutorialspoint.com/hibernate/hibernate_or_mappings.htm -->
+<hibernate-mapping>
+
+    <class name="es.deusto.arquiSW.classes.Cuenta" table="cuenta">
+
+        <id name="IBAN" column="IBAN" type="int">
+            <generator class="native"/> <!-- This is used to automatically generate the primary key values in the DB. Mas info sobre 'generators' en: http://www.javatpoint.com/generator-classes -->
+        </id>
+
+		<property name="SWIFT" column="SWIFT" type="string" />
+		<property name="fechaApertura" column="FechaApertura" type="string" />
+		<property name="activa" column="Activa" type="boolean" />
+		<property name="saldoActual" column="SaldoActual" type="float" />
+		<property name="interes" column="Interes" type="float" />
+		<!-- <property name="cliente" column="Cliente" type="string" />-->
+		
+		<many-to-one name="cliente" column="Cliente" not-null="true" class="es.deusto.arquiSW.classes.Cliente"/>
+		
+		<bag name="operaciones" inverse="true" lazy="true" cascade="all">
+			<key column="ID"/>
+			<one-to-many class="es.deusto.arquiSW.classes.Operacion"/>
+		</bag>
+    </class>
+
+</hibernate-mapping>

@@ -1,12 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?> <!DOCTYPE hibernate-configuration
         PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN"
-        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+        <!-- ATENCION! He tenido que bajarme la ultima version de Hibernate e importar el contenido del lib/required a este proyecto -->
+        <!-- Aparte, he tenido que importar tambien:  "slf4j-api-1.5.8.jar" y "slf4j-simple-1.5.8" -->
+        <!-- ¿¿Si importo tambien "hibernate3.jar", entonces eclipse ejecuta la aplicacion con hibernate3.jar, si no, con la que viene en la ultima release?? -->
 
 <!-- Tutoriales y documentacion sobre Hibernate:
 	· http://docs.jboss.org/hibernate/orm/current/quickstart/html_single/
 	· https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html
 	· https://www.tutorialspoint.com/hibernate/index.htm
-	· http://www.javatpoint.com/hibernate-tutorial -->
+	· http://www.javatpoint.com/hibernate-tutorial
+	· https://docs.jboss.org/hibernate/orm/3.3/reference/en/html/ -->
 <hibernate-configuration>
 
     <session-factory>
@@ -17,7 +21,7 @@
         <property name="hibernate.connection.password">root</property>
         
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property> <!-- Para que Hibernate converse correctamente con la BD, has de especificar un 'dialect' -->
-        <property name="hbm2ddl.auto">create</property>
+        <property name="hbm2ddl.auto">validate</property> <!-- Otras opciones: https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#configurations-hbmddl -->
         
 		<!-- C3p0 pool connection manager
         <property name="hibernate.c3p0.min_size">5</property>
@@ -27,8 +31,8 @@
         <property name="hibernate.c3p0.idle_test_period">3000</property>
         -->
 
-        <!-- SQL to stdout logging ("show_sql" = Echo all executed SQL to stdout)
         <property name="show_sql">true</property> 
+        <!-- SQL to stdout logging ("show_sql" -> Echo all executed SQL to stdout)
         <property name="format_sql">true</property>
         <property name="use_sql_comments">true</property>
         -->

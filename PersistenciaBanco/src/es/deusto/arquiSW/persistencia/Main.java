@@ -1,22 +1,24 @@
 package es.deusto.arquiSW.persistencia;
 
+import es.deusto.arquiSW.DAO.HibernateDAO;
+import es.deusto.arquiSW.classes.Cliente;
+
+/**
+ * Clase para probar los metodos del DAO de Hibernate contra la base de datos
+ * @author aitor & daniel
+ *
+ */
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Hacer pruebas con Hibernate
-
-		// A SessionFactory is set up once for an application!
-		// .configure() // configures settings from hibernate.cfg.xml
+		// Declaramos e instanciamos el DAO para la comunicación con la base de datos:
+		HibernateDAO miDAO = new HibernateDAO();
 		
-		// A Session is used to get a physical connection with a database.
+		// A continnuación llamamos a metodos y hacemos pruebas con los datos obtenidos y enviados:
 		
-		// A Transaction represents a unit of work with the database and most of the RDBMS supports transaction functionality.
-		
-		// Dentro de un catch(Exception e) {
-		// The registry would be destroyed by the SessionFactory, but we had trouble building the SessionFactory
-				// so destroy it manually.
-				//StandardServiceRegistryBuilder.destroy( registry );
-				//}
+		// Obtener cliente:
+		Cliente c = miDAO.obtenerCliente("58485442", 25784);
+		System.out.println("To string cliente: " + c.getNombre());
 	}
 
 }
