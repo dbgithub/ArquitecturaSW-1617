@@ -17,9 +17,9 @@ import es.deusto.arquiSW.classes.Tarjeta;
  * This class gathers methods that will be used to communicate with the database through Hibernate.
  * It is necessary to determine and use properly a SessionFactory, a Session and the corresponding Transactions.
  * *Nota: Informacion sobre las diferencias y buenas practicas ente los componentes de HIbernate (Session, Transaction etc.): https://docs.jboss.org/hibernate/orm/3.3/reference/en-US/html/transactions.html
- * *Nota#2: Diferencias entre get y load: Use get method to determine if an instance exists or not because it can return null.
+ * *Nota#2: Diferencias entre 'get' y 'load': Use get method to determine if an instance exists or not because it can return null.
  *  Use load method to retrieve instance only if you think that instance should exists and non availability is an error condition
- *  Mas info sobre get vs. load en: http://stackoverflow.com/questions/608947/hibernate-difference-between-session-get-and-session-load
+ *  Mas info sobre 'get' vs. 'load' en: http://stackoverflow.com/questions/608947/hibernate-difference-between-session-get-and-session-load
  *  *Nota#3: dom4j is an easy to use library for working with XML, XPath and XSLT on the Java platform. Hibernate usesdom4j as API for manipulating XML trees. ¡Es necesario importar la libreria!
  * @author aitor & daniel
  *
@@ -80,12 +80,17 @@ public class HibernateDAO {
 		try {
 			System.out.println("[HibernateDAO]: actualizando Cliente (DNI="+DNI+")...");
 			tx = s.beginTransaction();
-					
-					
+			// You can perform updates with s.update(Object) or making a query:
+			s.createQuery("update cliente c set email = :nemail and movil = :nmovil and PIN = :npin where DNI = :DNI") 
+				.setString("nemail", email)
+				.setInteger("nmovil", movil)
+				.setInteger("npin", PIN)
+				.setString("DNI", DNI)
+				.executeUpdate();
 			tx.commit();
-			System.out.println("[HibernateDAO]: Cliente obtenido con exito!");
+			System.out.println("[HibernateDAO]: Cliente actualizado con exito!");
 		} catch (Exception e) {
-			System.err.println("[HibernateDAO]: Error en la transaccion 'obtenerCliente'");
+			System.err.println("[HibernateDAO]: Error en la transaccion 'actualizarCliente'");
 			tx.rollback();
 			e.printStackTrace();
 		} finally {

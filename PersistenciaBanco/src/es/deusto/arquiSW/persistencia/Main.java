@@ -14,11 +14,13 @@ public class Main {
 		// Declaramos e instanciamos el DAO para la comunicación con la base de datos:
 		HibernateDAO miDAO = new HibernateDAO();
 		
-		// A continnuación llamamos a metodos y hacemos pruebas con los datos obtenidos y enviados:
+		// A continnuación llamamos a los metodos expuestos y hacemos pruebas con los datos obtenidos y enviados:
 		
 		// Obtener cliente:
 		Cliente c = miDAO.obtenerCliente("58485442", 25784);
-		System.out.println("To string cliente: " + c.getNombre());
+		System.out.println("ÉXITO! Cliente obtenido: " + c.getNombre());
+		// Actualizar cliente:
+		miDAO.actualizarCliente("58485442", "tortxu@gmail.es", 665898912, 25777);
 	}
 
 }

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?> <!DOCTYPE hibernate-configuration
         PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN"
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
-        <!-- ATENCION! He tenido que bajarme la ultima version de Hibernate e importar el contenido del lib/required a este proyecto -->
+        <!-- ATENCION! He tenido que bajarme la ultima version de Hibernate (porque cambie el '.dtd' de la URL de arriba) e importar el contenido del lib/required a este proyecto -->
         <!-- Aparte, he tenido que importar tambien:  "slf4j-api-1.5.8.jar" y "slf4j-simple-1.5.8" -->
         <!-- ¿¿Si importo tambien "hibernate3.jar", entonces eclipse ejecuta la aplicacion con hibernate3.jar, si no, con la que viene en la ultima release?? -->
 
@@ -31,8 +31,8 @@
         <property name="hibernate.c3p0.idle_test_period">3000</property>
         -->
 
-        <property name="show_sql">true</property> 
         <!-- SQL to stdout logging ("show_sql" -> Echo all executed SQL to stdout)
+        <property name="show_sql">true</property> 
         <property name="format_sql">true</property>
         <property name="use_sql_comments">true</property>
         -->

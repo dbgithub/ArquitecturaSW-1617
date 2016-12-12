@@ -7,7 +7,8 @@
 	· http://docs.jboss.org/hibernate/orm/current/quickstart/html_single/
 	· https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html
 	· https://www.tutorialspoint.com/hibernate/index.htm
-	· http://www.javatpoint.com/hibernate-tutorial -->
+	· http://www.javatpoint.com/hibernate-tutorial 
+	· https://docs.jboss.org/hibernate/orm/3.3/reference/en/html/ -->
 <!-- Documentacion sobre tipo de datos en Hibernate: https://www.tutorialspoint.com/hibernate/hibernate_mapping_types.htm -->
 <!-- Documentacion sobre diferencias entre Set, Bag, List etc. : https://www.tutorialspoint.com/hibernate/hibernate_or_mappings.htm -->
 <hibernate-mapping>
@@ -34,3 +35,23 @@
     </class>
 
 </hibernate-mapping>
+
+<!-- 
+Problemas que he tenido:
+
+En un property, en el atributo "name" has de escribirlo parece que tal y como está el nombre del atributo en la clase.
+
+Si has declarado un Enum como una inner class dentro de una clase (es decir, un Enum dentro de una clase sin tener dicho Enum implementado/declarado en una clase ".java" aparte) puedes hacer referencia a ella con el signo del dolar, ej. "...dominio.Tarjeta$TiposTarjeta"
+
+El atributo not-null="true" no parece que haya que ponerlo en la etiqueta <id> de los archivos de mapping. Parece que no hace falta, me daba error.
+
+Si en el archivo de mapping has definido la ruta de las clases como un atributo en la etiqueta <class> y entonces no lo hiciste en la etiqueta "hibernate-mapping" (que es el padre), entonces en las relaciones one-to-many, many-to-one y el resto de ellas, has de definir de que clase provienen. Para eso define un atributo "class", ej. class="es.deusto.arquiSW.classes.Cuenta".
+
+Mapear tipos de datos de Enum es un dolor de cabeza. Por defecto, el tipo de dato es un Integer. Para pasarlo a VARCHAR, has de poner:
+
+<param name="type">12</param>
+
+De todos modos, al hacer la validacion del esquema, me da error. Por tanto, he optado a poner: type="character" en la etiqueta "property"
+Mas info en: http://stackoverflow.com/questions/13119656/hibernate-enumtype-instantiation-exception
+Tipos de datos de MySQL: http://docs.oracle.com/javase/7/docs/api/constant-values.html#java.sql.Types.VARCHAR
+ -->
