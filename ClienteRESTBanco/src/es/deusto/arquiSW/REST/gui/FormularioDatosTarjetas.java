@@ -7,7 +7,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -21,12 +20,9 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.BevelBorder;
 import javax.swing.text.MaskFormatter;
-
 import es.deusto.arquiSW.REST.Controller.Controller;
 import es.deusto.arquiSW.REST.DTO.CuentaDTO;
 import es.deusto.arquiSW.REST.DTO.TarjetaDTO;
-import es.deusto.arquiSW.REST.DTO.TarjetaDTO.EnumProveedores;
-import es.deusto.arquiSW.REST.DTO.TarjetaDTO.TiposTarjeta;
 
 public class FormularioDatosTarjetas {
 
@@ -65,12 +61,12 @@ public class FormularioDatosTarjetas {
 	 */
 	public FormularioDatosTarjetas() {
 		initialize();
-		frame.setTitle("Añadir tarjetas");
+		frame.setTitle("Aï¿½adir tarjetas");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				int dialogbutton = JOptionPane.showConfirmDialog(null,
-						"¿Desea añadir realmente la tarjeta especificado ?", "Confirmación", JOptionPane.YES_NO_OPTION);
+						"ï¿½Desea aï¿½adir realmente la tarjeta especificado ?", "Confirmaciï¿½n", JOptionPane.YES_NO_OPTION);
 				if (dialogbutton == JOptionPane.YES_OPTION) {
 					String numero = textFieldNumero.getText();
 					String limite = textFieldLimite.getText();
@@ -85,19 +81,16 @@ public class FormularioDatosTarjetas {
 					DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 					Date dateca;
 					Date dateex;
-					EnumProveedores proveedor = EnumProveedores.valueOf(prov);
-					TiposTarjeta tipot = TiposTarjeta.valueOf(tipo);
 					try {
 						dateca = format.parse(fechaca);
 						dateex = format.parse(fechaex);
 						TarjetaDTO tar = new TarjetaDTO(Integer.parseInt(numero), Integer.parseInt(cuenta),
-								Integer.parseInt(limite), dateca, proveedor, tipot, dateex);
+								Integer.parseInt(limite), dateca, prov, tipo, dateex);
 						controlador.crearTarjeta(tar);
 						controlador.obtenerTarjetas();
 						
 						setVisible(false);
 					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 
@@ -115,7 +108,7 @@ public class FormularioDatosTarjetas {
 		textFieldLimite.setText(Integer.toString(tar.getLimiteExtraccion()));
 		textFieldNumero.setText(Integer.toString(tar.getNumero()));
 		for (int i = 0; i < comboBoxProveedor.getItemCount(); i++) {
-			if (comboBoxProveedor.getItemAt(i).equals(tar.getProveedor().name())) {
+			if (comboBoxProveedor.getItemAt(i).equals(tar.getProveedor())) {
 				comboBoxProveedor.setSelectedIndex(i);
 			}
 		}
@@ -125,7 +118,7 @@ public class FormularioDatosTarjetas {
 			}
 		}
 		for (int i = 0; i < comboBoxTipo.getItemCount(); i++) {
-			if (comboBoxTipo.getItemAt(i).equals(tar.getTipo().name())) {
+			if (comboBoxTipo.getItemAt(i).equals(tar.getTipo())) {
 				comboBoxTipo.setSelectedIndex(i);
 			}
 		}
@@ -135,8 +128,8 @@ public class FormularioDatosTarjetas {
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				int dialogbutton = JOptionPane.showConfirmDialog(null, "¿Desea modificar realmente la tarjeta?",
-						"Confirmación", JOptionPane.YES_NO_OPTION);
+				int dialogbutton = JOptionPane.showConfirmDialog(null, "ï¿½Desea modificar realmente la tarjeta?",
+						"Confirmaciï¿½n", JOptionPane.YES_NO_OPTION);
 				if (dialogbutton == JOptionPane.YES_OPTION) {
 					String numero = textFieldNumero.getText();
 					String limite = textFieldLimite.getText();
@@ -151,18 +144,15 @@ public class FormularioDatosTarjetas {
 					DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 					Date dateca;
 					Date dateex;
-					EnumProveedores proveedor = EnumProveedores.valueOf(prov);
-					TiposTarjeta tipot = TiposTarjeta.valueOf(tipo);
 					try {
 						dateca = format.parse(fechaca);
 						dateex = format.parse(fechaex);
 						TarjetaDTO tarjeta = new TarjetaDTO(Integer.parseInt(numero), Integer.parseInt(cuenta),
-								Integer.parseInt(limite), dateca, proveedor, tipot, dateex);
+								Integer.parseInt(limite), dateca, prov, tipo, dateex);
 						controlador.modificarTarjeta(tarjeta);
 						controlador.obtenerTarjetas();
 						setVisible(false);
 					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 

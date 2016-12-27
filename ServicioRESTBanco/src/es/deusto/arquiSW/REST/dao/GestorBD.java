@@ -11,14 +11,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Locale;
-
 import es.deusto.arquiSW.REST.classes.Cliente;
 import es.deusto.arquiSW.REST.classes.Cuenta;
 import es.deusto.arquiSW.REST.classes.Operacion;
-import es.deusto.arquiSW.REST.classes.Operacion.EnumTipoOperacion;
 import es.deusto.arquiSW.REST.classes.Tarjeta;
-import es.deusto.arquiSW.REST.classes.Tarjeta.EnumProveedores;
-import es.deusto.arquiSW.REST.classes.Tarjeta.TiposTarjeta;
 
 /**
  * Esta clase gestiona el acceso a la base de datos, asi como de las operaciones
@@ -39,7 +35,6 @@ public class GestorBD {
 	private String driver = "com.mysql.jdbc.Driver";
 	private String protocol = "jdbc:mysql";
 
-	// TODO: Estaria bien implementar un Logger???
 	/**
 	 * Constructor vacio con los parametros de conexion por defecto
 	 */
@@ -186,7 +181,7 @@ public class GestorBD {
 			Operacion operacion = new Operacion();
 			operacion.setId(rs.getInt("id"));
 			operacion.setFecha(rs.getDate("fecha"));
-			operacion.setTipo(EnumTipoOperacion.valueOf(rs.getString("tipo")));
+			operacion.setTipo(rs.getString("tipo"));
 			operacion.setImporte(rs.getFloat("importe"));
 			Cuenta c = new Cuenta();
 			c.setIBAN(rs.getInt("cuenta"));
@@ -218,8 +213,8 @@ public class GestorBD {
 			String datecaducidad = rs.getString("fechacaducidad");
 			java.util.Date utildatecaducidad = formatter.parse(datecaducidad);
 			tarjeta.setFechaCaducidad(utildatecaducidad);
-			tarjeta.setProveedor(EnumProveedores.valueOf(rs.getString("proveedor")));
-			tarjeta.setTipo(TiposTarjeta.valueOf(rs.getString("tipo")));
+			tarjeta.setProveedor(rs.getString("proveedor"));
+			tarjeta.setTipo(rs.getString("tipo"));
 			String dateexpedicion = rs.getString("fechaexpedicion");
 			java.util.Date utildateexpedicion = formatter.parse(dateexpedicion);
 			tarjeta.setFechaExpedicion(utildateexpedicion);
@@ -317,7 +312,7 @@ public class GestorBD {
 		while (it.hasNext()) {
 			Operacion temp = it.next();
 			String sqlString = "INSERT INTO operacion " + "(ID, Fecha, Tipo, Importe, Cuenta) " + "VALUES ("
-					+ temp.getId() + ",'" + temp.getFecha().toString() + "','" + temp.getTipo().name() + "',"
+					+ temp.getId() + ",'" + temp.getFecha().toString() + "','" + temp.getTipo() + "',"
 					+ temp.getImporte() + "," + temp.getCuenta().getIBAN() + ")";
 			statement.executeUpdate(sqlString);
 		}
@@ -341,8 +336,8 @@ public class GestorBD {
 			String sqlString = "INSERT INTO tarjeta "
 					+ "(Numero, LimiteExtraccion, FechaCaducidad, Proveedor, Tipo, FechaExpedicion, Cuenta) "
 					+ "VALUES (" + temp.getNumero() + "," + temp.getLimiteExtraccion() + ",'"
-					+ fechaca + "','" + temp.getProveedor().name() + "','"
-					+ temp.getTipo().name() + "','" + fechaex + "',"
+					+ fechaca + "','" + temp.getProveedor() + "','"
+					+ temp.getTipo() + "','" + fechaex + "',"
 					+ temp.getCuenta().getIBAN() + ")";
 			statement.executeUpdate(sqlString);
 		}
@@ -499,7 +494,7 @@ public class GestorBD {
 			Operacion operacion = new Operacion();
 			operacion.setId(rs.getInt("id"));
 			operacion.setFecha(rs.getDate("fecha"));
-			operacion.setTipo(EnumTipoOperacion.valueOf(rs.getString("tipo")));
+			operacion.setTipo(rs.getString("tipo"));
 			operacion.setImporte(rs.getFloat("importe"));
 			Cuenta c = new Cuenta();
 			c.setIBAN(rs.getInt("cuenta"));
@@ -561,8 +556,8 @@ public class GestorBD {
 			String datecaducidad = rs.getString("fechacaducidad");
 			java.util.Date utildatecaducidad = formatter.parse(datecaducidad);
 			tarjeta.setFechaCaducidad(utildatecaducidad);
-			tarjeta.setProveedor(EnumProveedores.valueOf(rs.getString("Proveedor")));
-			tarjeta.setTipo(TiposTarjeta.valueOf(rs.getString("Tipo")));
+			tarjeta.setProveedor(rs.getString("Proveedor"));
+			tarjeta.setTipo(rs.getString("Tipo"));
 			String dateexpedicion = rs.getString("fechaexpedicion");
 			java.util.Date utildateexpedicion = formatter.parse(dateexpedicion);
 			tarjeta.setFechaExpedicion(utildateexpedicion);
@@ -639,8 +634,8 @@ public class GestorBD {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		String fechaca= df.format(t.getFechaCaducidad());
 		statement.setString(2, fechaca);
-		statement.setString(3, t.getProveedor().name());
-		statement.setString(4, t.getTipo().name());
+		statement.setString(3, t.getProveedor());
+		statement.setString(4, t.getTipo());
 		String fechaex= df.format(t.getFechaExpedicion());
 		statement.setString(5, fechaex);
 		statement.setInt(6, t.getCuenta().getIBAN());
@@ -687,9 +682,46 @@ public class GestorBD {
 		statement.executeUpdate(sqldelete);
 	}
 
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+	public static void main(String[] args) throws ClassNotFoundException, SQLException, ParseException {
+		// PRUEBAS:
 		GestorBD gbd = new GestorBD();
 		gbd.conectar();
+		ArrayList<Cliente> tempClientes;
+		ArrayList<Cuenta> tempCuentas;
+		ArrayList<Operacion> tempOperaciones;
+		ArrayList<Tarjeta> tempTarjetas;
+		
+		tempClientes = gbd.obtenerClientes();
+		tempCuentas = gbd.obtenerCuentas();
+		tempOperaciones = gbd.obtenerOperaciones();
+		tempTarjetas = gbd.obtenerTarjetas();
+		
+		Iterator<Cliente> it = tempClientes.iterator();
+		Iterator<Cuenta> it2 = tempCuentas.iterator();
+		Iterator<Operacion> it3 = tempOperaciones.iterator();
+		Iterator<Tarjeta> it4 = tempTarjetas.iterator();
+		
+		while(it.hasNext()) {
+			System.out.println("Item: " + it.next().getDNI());
+		}
+		System.out.println("Size = " + tempClientes.size());
+		
+		while(it2.hasNext()) {
+			System.out.println("Item: " + it2.next().getIBAN());
+		}
+		System.out.println("Size = " + tempCuentas.size());
+		
+		while(it3.hasNext()) {
+			System.out.println("Item: " + it3.next().getId());
+		}
+		System.out.println("Size = " + tempOperaciones.size());
+		
+		while(it4.hasNext()) {
+			System.out.println("Item: " + it4.next().getNumero());
+		}
+		System.out.println("Size = " + tempTarjetas.size());
+		
+		// ----------------------------------------------------
 		// // Variables auxiliares
 		// Cuenta aux = new Cuenta();
 		// aux.setIBAN(454545);
@@ -713,8 +745,7 @@ public class GestorBD {
 
 		// System.out.println(gbd.obtenerTarjeta("555556", null, null,
 		// null).size());
-
-		gbd.desconectar(	);
+		gbd.desconectar();
 	}
 
 }

@@ -19,15 +19,9 @@ public class TarjetaDTO {
 	private int numero;
 	private int limiteExtraccion;
 	private Date fechaCaducidad;
-	private EnumProveedores proveedor;
-	private TiposTarjeta tipo;
+	private String proveedor;
+	private String tipo;
 	private Date fechaExpedicion;
-	public enum EnumProveedores {
-		Visa,Mastercard,AmericanExpress; 
-	}
-	public enum TiposTarjeta {
-		Credito,Debito; 
-	}
 	private int cuenta;
 	
 	/**
@@ -47,8 +41,8 @@ public class TarjetaDTO {
 	 * @param tipo
 	 * @param fechaExpedicion
 	 */
-	public TarjetaDTO(int numero, int cuenta, int limiteExtraccion, Date fechaCaducidad, EnumProveedores proveedor,
-			TiposTarjeta tipo, Date fechaExpedicion) {
+	public TarjetaDTO(int numero, int cuenta, int limiteExtraccion, Date fechaCaducidad, String proveedor,
+			String tipo, Date fechaExpedicion) {
 		this.numero = numero;
 		this.cuenta = cuenta;
 		this.limiteExtraccion = limiteExtraccion;
@@ -84,16 +78,16 @@ public class TarjetaDTO {
 	public void setFechaCaducidad(Date fechaCaducidad) {
 		this.fechaCaducidad = fechaCaducidad;
 	}
-	public EnumProveedores getProveedor() {
+	public String getProveedor() {
 		return proveedor;
 	}
-	public void setProveedor(EnumProveedores proveedor) {
+	public void setProveedor(String proveedor) {
 		this.proveedor = proveedor;
 	}
-	public TiposTarjeta getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
-	public void setTipo(TiposTarjeta tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 	public Date getFechaExpedicion() {

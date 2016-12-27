@@ -8,8 +8,6 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import es.deusto.arquiSW.REST.DTO.ClienteDTO;
-
 /**
  * This DTO, represents the data that will flow between the Client and the REST service.
  * JAXB annotations are used to make the class seriazable and to be able to send it over Internet through the

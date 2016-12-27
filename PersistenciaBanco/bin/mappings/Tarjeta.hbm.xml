@@ -1,5 +1,4 @@
-<?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC
+<?xml version="1.0"?> <!DOCTYPE hibernate-mapping PUBLIC
     "-//Hibernate/Hibernate Mapping DTD//EN"
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
@@ -12,7 +11,7 @@
 <!-- Documentacion sobre tipo de datos en Hibernate: https://www.tutorialspoint.com/hibernate/hibernate_mapping_types.htm -->
 <!-- Documentacion sobre diferencias entre Set, Bag, List etc. : https://www.tutorialspoint.com/hibernate/hibernate_or_mappings.htm -->
 <hibernate-mapping>
-
+	<!-- Remember! 'name' siempre hace referencia al nombre de los atributos de las clases. Mientras que 'column' hace siempre referencia al nombre de las columnas de la BD. -->
     <class name="es.deusto.arquiSW.classes.Tarjeta" table="tarjeta">
 
         <id name="numero" column="Numero" type="int">
@@ -21,21 +20,12 @@
 
         <property name="limiteExtraccion" column="LimiteExtraccion" type="int"/>
 		<property name="fechaCaducidad" column="FechaCaducidad" type="string"/>
-		<property name="proveedor" column="Proveedor" type="character"> <!-- No estoy seguro de si 'character' va a funcionar! Antes no tenia nada puesto -->
-			<type name="org.hibernate.type.EnumType">
-				<param name="enumClass">es.deusto.arquiSW.classes.Tarjeta$EnumProveedores</param>
-				<param name="type">12</param>
-			</type>
-		</property> 
-		<property name="tipo" column="Tipo" type="character"> <!-- No estoy seguro de si 'character' va a funcionar! Antes no tenia nada puesto -->
-			<type name="org.hibernate.type.EnumType">
-				<param name="enumClass">es.deusto.arquiSW.classes.Tarjeta$TiposTarjeta</param>
-				<param name="type">12</param>
-			</type>
-		</property> 
+		<property name="proveedor" column="Proveedor" type="string"/>
+		<property name="tipo" column="Tipo" type="string"/>
 		<property name="fechaExpedicion" column="FechaExpedicion" type="string"/>
+		<property name="cuenta" column="Cuenta" type="int"/>
 		
-		<many-to-one name="cuenta" column="Cuenta" not-null="true" class="es.deusto.arquiSW.classes.Cuenta"/>
+		<!-- <many-to-one name="cuenta" column="Cuenta" not-null="true" class="es.deusto.arquiSW.classes.Cuenta"/> --> <!-- No parece que sea necesario dado que Tarjeta no sabe de Cuenta, porque no tiene ningun atributo que haga referencia a Cuenta, SALVO por el IBAN de tipo String (llamado 'cuenta'). Pero es que, este atributo no lo puedes mapear con un many-to-one, es otra cosa.. -->
    </class>
    
 </hibernate-mapping>
@@ -54,6 +44,14 @@ Si en el archivo de mapping has definido la ruta de las clases como un atributo 
 Mapear tipos de datos de Enum es un dolor de cabeza. Por defecto, el tipo de dato es un Integer. Para pasarlo a VARCHAR, has de poner:
 
 <param name="type">12</param>
+
+ej.
+<property name="proveedor" column="Proveedor" type="character">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">es.deusto.arquiSW.classes.Tarjeta$EnumProveedores</param>
+				<param name="type">12</param>
+			</type>
+</property> 
 
 De todos modos, al hacer la validacion del esquema, me da error. Por tanto, he optado a poner: type="character" en la etiqueta "property"
 Mas info en: http://stackoverflow.com/questions/13119656/hibernate-enumtype-instantiation-exception

@@ -169,43 +169,35 @@ public class MainWindow {
 			
 			@Override
 			public void windowOpened(WindowEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 			
 			@Override
 			public void windowIconified(WindowEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 			
 			@Override
 			public void windowDeiconified(WindowEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 			
 			@Override
-			public void windowDeactivated(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
+			public void windowDeactivated(WindowEvent e) {				
 			}
 			
 			@Override
 			public void windowClosing(WindowEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 			
 			@Override
 			public void windowClosed(WindowEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 			
 			@Override
 			public void windowActivated(WindowEvent e) {
-				// TODO Auto-generated method stub
 				loadClientes();
 				loadCuentas();
 				loadTarjetas();
@@ -228,7 +220,7 @@ public class MainWindow {
 					if (o instanceof String) {
 						String dni = (String) o;
 						int dialogbutton = JOptionPane.showConfirmDialog(null,
-								"¿Desea eliminar realmente el cliente con DNI " + dni + " ?", "Eliminar cliente",
+								"Â¿Desea eliminar realmente el cliente con DNI " + dni + " ?", "Eliminar cliente",
 								JOptionPane.YES_NO_OPTION);
 						if (dialogbutton == JOptionPane.YES_OPTION) {
 							controller.eliminarCliente(dni);
@@ -247,7 +239,7 @@ public class MainWindow {
 					if (o instanceof Integer) {
 						int iban = (Integer) o;
 						int dialogbutton = JOptionPane.showConfirmDialog(null,
-								"¿Desea eliminar realmente la cuenta con IBAN " + iban + " ?", "Eliminar cuenta",
+								"Â¿Desea eliminar realmente la cuenta con IBAN " + iban + " ?", "Eliminar cuenta",
 								JOptionPane.YES_NO_OPTION);
 						if (dialogbutton == JOptionPane.YES_OPTION) {
 							controller.eliminarCuenta(String.valueOf(iban));
@@ -264,7 +256,7 @@ public class MainWindow {
 					if (o instanceof Integer) {
 						int numero = (Integer) o;
 						int dialogbutton = JOptionPane.showConfirmDialog(null,
-								"¿Desea eliminar realmente la tarjeta con numero " + numero + " ?", "Eliminar tarjeta",
+								"Â¿Desea eliminar realmente la tarjeta con numero " + numero + " ?", "Eliminar tarjeta",
 								JOptionPane.YES_NO_OPTION);
 						if (dialogbutton == JOptionPane.YES_OPTION) {
 							controller.eliminarTarjeta(String.valueOf(numero));

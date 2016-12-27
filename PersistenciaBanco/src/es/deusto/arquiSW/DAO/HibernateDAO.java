@@ -54,13 +54,13 @@ public class HibernateDAO {
 			if (resul != null) {
 				if (resul.getPIN() == PIN) {
 					System.out.println("[HibernateDAO]: Cliente obtenido con exito!");
+					tx.commit();
 					return resul;
 				} else {
 					System.out.println("[HibernateDAO]: El PIN introducido no es correcto. ¡No coincide!");
+					tx.commit();
 					return null;
 				}
-			} else {
-				System.out.println("RESUL es null!!");
 			}
 			tx.commit();
 		} catch (Exception e) {
@@ -81,12 +81,19 @@ public class HibernateDAO {
 			System.out.println("[HibernateDAO]: actualizando Cliente (DNI="+DNI+")...");
 			tx = s.beginTransaction();
 			// You can perform updates with s.update(Object) or making a query:
-			s.createQuery("update cliente c set email = :nemail and movil = :nmovil and PIN = :npin where DNI = :DNI") 
-				.setString("nemail", email)
-				.setInteger("nmovil", movil)
-				.setInteger("npin", PIN)
-				.setString("DNI", DNI)
-				.executeUpdate();
+				// Using method query:
+				Cliente c = s.get(Cliente.class, DNI);
+				c.setEmail(email);
+				c.setMovil(movil);
+				c.setPIN(PIN);
+				s.update(c);
+				// Query-like:
+//				s.createQuery("update Cliente set email = :nemail, movil = :nmovil, PIN = :npin where DNI = :DNI") // Cuando usas HQL, las queries hacen referencia al nombre de la clase, no al nombre de la tabla de la base de datos! Idem para los atributos!
+//					.setParameter("nemail", email)
+//					.setParameter("nmovil", movil)
+//					.setParameter("npin", PIN)
+//					.setParameter("DNI", DNI)
+//					.executeUpdate();
 			tx.commit();
 			System.out.println("[HibernateDAO]: Cliente actualizado con exito!");
 		} catch (Exception e) {
@@ -98,19 +105,21 @@ public class HibernateDAO {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public ArrayList<Cuenta> obtenerCuentas(String DNI) {
 		s = factory.openSession();
 		Transaction tx = null;
 		
 		try {
-			System.out.println("[HibernateDAO]: obteniendo cuentas (DNI="+DNI+")...");
+			System.out.println("[HibernateDAO]: obteniendo cuentas...");
 			tx = s.beginTransaction();
-					
-			
+			ArrayList<Cuenta> resul = (ArrayList<Cuenta>) s.createQuery("from Cuenta where cliente = :DNI").setParameter("DNI", DNI).getResultList();
+
 			tx.commit(); 
-			System.out.println("[HibernateDAO]: Cliente obtenido con exito!");
+			System.out.println("[HibernateDAO]: Cuentas obtenidas con exito!");
+			return resul;
 		} catch (Exception e) {
-			System.err.println("[HibernateDAO]: Error en la transaccion 'obtenerCliente'");
+			System.err.println("[HibernateDAO]: Error en la transaccion 'obtenerCuentas'");
 			tx.rollback();
 			e.printStackTrace();
 		} finally {
@@ -119,6 +128,7 @@ public class HibernateDAO {
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public ArrayList<Operacion> obtenerOperaciones(int IBAN) {
 		s = factory.openSession();
 		Transaction tx = null;
@@ -126,12 +136,13 @@ public class HibernateDAO {
 		try {
 			System.out.println("[HibernateDAO]: obteniendo operaciones (IBAN="+IBAN+")...");
 			tx = s.beginTransaction();
-					
+			ArrayList<Operacion> resul = (ArrayList<Operacion>) s.createQuery("from Operacion where cuenta = :IBAN").setParameter("IBAN", IBAN).getResultList();
 					
 			tx.commit();
-			System.out.println("[HibernateDAO]: Cliente obtenido con exito!");
+			System.out.println("[HibernateDAO]: Operaciones obtenidas con exito!");
+			return resul;
 		} catch (Exception e) {
-			System.err.println("[HibernateDAO]: Error en la transaccion 'obtenerCliente'");
+			System.err.println("[HibernateDAO]: Error en la transaccion 'obtenerOperaciones'");
 			tx.rollback();
 			e.printStackTrace();
 		} finally {
@@ -140,6 +151,7 @@ public class HibernateDAO {
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public ArrayList<Tarjeta> obtenerTarjetas(int IBAN) {
 		s = factory.openSession();
 		Transaction tx = null;
@@ -147,12 +159,13 @@ public class HibernateDAO {
 		try {
 			System.out.println("[HibernateDAO]: obteniendo tarjetas (IBAN="+IBAN+")...");
 			tx = s.beginTransaction();
-					
+			ArrayList<Tarjeta> resul = (ArrayList<Tarjeta>) s.createQuery("from Tarjeta where cuenta = :IBAN").setParameter("IBAN", IBAN).getResultList();		
 					
 			tx.commit();
-			System.out.println("[HibernateDAO]: Cliente obtenido con exito!");
+			System.out.println("[HibernateDAO]: Tarjetas obtenidas con exito!");
+			return resul;
 		} catch (Exception e) {
-			System.err.println("[HibernateDAO]: Error en la transaccion 'obtenerCliente'");
+			System.err.println("[HibernateDAO]: Error en la transaccion 'obtenerTarjetas'");
 			tx.rollback();
 			e.printStackTrace();
 		} finally {
@@ -168,12 +181,12 @@ public class HibernateDAO {
 		try {
 			System.out.println("[HibernateDAO]: insertando Operacion...");
 			tx = s.beginTransaction();
-					
+			s.save(o);		
 					
 			tx.commit();
-			System.out.println("[HibernateDAO]: Cliente obtenido con exito!");
+			System.out.println("[HibernateDAO]: Operacion insertada con exito!");
 		} catch (Exception e) {
-			System.err.println("[HibernateDAO]: Error en la transaccion 'obtenerCliente'");
+			System.err.println("[HibernateDAO]: Error en la transaccion 'insertarOperacion'");
 			tx.rollback();
 			e.printStackTrace();
 		} finally {
@@ -188,12 +201,13 @@ public class HibernateDAO {
 		try {
 			System.out.println("[HibernateDAO]: eliminando Operacion (ID="+ID+")...");
 			tx = s.beginTransaction();
-					
+			Operacion o = (Operacion) s.get(Operacion.class, ID);
+			s.delete(o);
 					
 			tx.commit();
-			System.out.println("[HibernateDAO]: Cliente obtenido con exito!");
+			System.out.println("[HibernateDAO]: Operacion eliminada con exito!");
 		} catch (Exception e) {
-			System.err.println("[HibernateDAO]: Error en la transaccion 'obtenerCliente'");
+			System.err.println("[HibernateDAO]: Error en la transaccion 'eliminarOperacion'");
 			tx.rollback();
 			e.printStackTrace();
 		} finally {

@@ -1,23 +1,17 @@
 package es.deusto.arquiSW.classes;
 
-import java.util.ArrayList;
-import java.util.Date;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import java.util.List;
 
 public class Cuenta {
 	private int IBAN;
 	private String SWIFT;
-	private Date fechaApertura;
+	private String fechaApertura;
 	private boolean activa;
 	private float saldoActual;
 	private float interes;
 	private String cliente;
 	
-	private ArrayList<Operacion> operaciones;
+	private List<Operacion> operaciones;
 	
 	
 	/**
@@ -38,8 +32,8 @@ public class Cuenta {
 	 * @param tarjeta
 	 * @param operaciones
 	 */
-	public Cuenta(int iBAN, String sWIFT, Date fechaApertura, boolean activa, float saldoActual, float interes,
-			String titular, ArrayList<Operacion> operaciones) {
+	public Cuenta(int iBAN, String sWIFT, String fechaApertura, boolean activa, float saldoActual, float interes,
+			String titular, List<Operacion> operaciones) {
 		this.IBAN = iBAN;
 		this.SWIFT = sWIFT;
 		this.fechaApertura = fechaApertura;
@@ -71,10 +65,10 @@ public class Cuenta {
 	public void setSWIFT(String sWIFT) {
 		SWIFT = sWIFT;
 	}
-	public Date getFechaApertura() {
+	public String getFechaApertura() {
 		return fechaApertura;
 	}
-	public void setFechaApertura(Date fechaApertura) {
+	public void setFechaApertura(String fechaApertura) {
 		this.fechaApertura = fechaApertura;
 	}
 	public boolean isActiva() {
@@ -95,10 +89,10 @@ public class Cuenta {
 	public void setInteres(float interes) {
 		this.interes = interes;
 	}
-	public ArrayList<Operacion> getOperaciones() {
+	public List<Operacion> getOperaciones() {
 		return operaciones;
 	}
-	public void setOperaciones(ArrayList<Operacion> operaciones) {
+	public void setOperaciones(List<Operacion> operaciones) {
 		this.operaciones = operaciones;
 	}
 	

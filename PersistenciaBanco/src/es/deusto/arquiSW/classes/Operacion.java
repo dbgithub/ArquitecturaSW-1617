@@ -1,19 +1,11 @@
 package es.deusto.arquiSW.classes;
 
-import java.util.Date;
-
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
 public class Operacion {
 	
 	private int id;
-	private Date fecha;
-	private EnumTipoOperacion tipo;
+	private String fecha;
+	private String tipo;
 	private float importe;
-	public enum EnumTipoOperacion {
-		Ingreso,Extraccion; 
-	}
 	private int cuenta;
 	
 	/**
@@ -31,7 +23,7 @@ public class Operacion {
 	 * @param importe
 	 * @param cuenta
 	 */
-	public Operacion(int id, Date fecha, EnumTipoOperacion tipo, float importe, int cuenta) {
+	public Operacion(int id, String fecha, String tipo, float importe, int cuenta) {
 		this.id = id;
 		this.fecha = fecha;
 		this.tipo = tipo;
@@ -54,16 +46,16 @@ public class Operacion {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
-	public EnumTipoOperacion getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
-	public void setTipo(EnumTipoOperacion tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 	public float getImporte() {

@@ -1,5 +1,4 @@
-<?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC
+<?xml version="1.0"?> <!DOCTYPE hibernate-mapping PUBLIC
     "-//Hibernate/Hibernate Mapping DTD//EN"
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
@@ -12,7 +11,7 @@
 <!-- Documentacion sobre tipo de datos en Hibernate: https://www.tutorialspoint.com/hibernate/hibernate_mapping_types.htm -->
 <!-- Documentacion sobre diferencias entre Set, Bag, List etc. : https://www.tutorialspoint.com/hibernate/hibernate_or_mappings.htm -->
 <hibernate-mapping>
-
+	<!-- Remember! 'name' siempre hace referencia al nombre de los atributos de las clases. Mientras que 'column' hace siempre referencia al nombre de las columnas de la BD. -->
     <class name="es.deusto.arquiSW.classes.Cuenta" table="cuenta">
 
         <id name="IBAN" column="IBAN" type="int">
@@ -24,14 +23,15 @@
 		<property name="activa" column="Activa" type="boolean" />
 		<property name="saldoActual" column="SaldoActual" type="float" />
 		<property name="interes" column="Interes" type="float" />
-		<!-- <property name="cliente" column="Cliente" type="string" />-->
+		<property name="cliente" column="Cliente" type="string" />
 		
-		<many-to-one name="cliente" column="Cliente" not-null="true" class="es.deusto.arquiSW.classes.Cliente"/>
+		<!-- <many-to-one name="cliente" column="Cliente" not-null="true" class="es.deusto.arquiSW.classes.Cliente"/>--> <!-- No parece que sea necesario dado que Cuenta no sabe de Cliente, porque no tiene ningun atributo que haga referencia a Cliente, SALVO por el DNI de tipo String (llamado 'cliente'). -->
 		
-		<bag name="operaciones" inverse="true" lazy="true" cascade="all">
+		<list name="operaciones" inverse="true" lazy="true" cascade="all">
 			<key column="ID"/>
+			<list-index column="Cuenta"/>
 			<one-to-many class="es.deusto.arquiSW.classes.Operacion"/>
-		</bag>
+		</list>
     </class>
 
 </hibernate-mapping>
@@ -50,6 +50,14 @@ Si en el archivo de mapping has definido la ruta de las clases como un atributo 
 Mapear tipos de datos de Enum es un dolor de cabeza. Por defecto, el tipo de dato es un Integer. Para pasarlo a VARCHAR, has de poner:
 
 <param name="type">12</param>
+
+ej.
+<property name="proveedor" column="Proveedor" type="character">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">es.deusto.arquiSW.classes.Tarjeta$EnumProveedores</param>
+				<param name="type">12</param>
+			</type>
+</property> 
 
 De todos modos, al hacer la validacion del esquema, me da error. Por tanto, he optado a poner: type="character" en la etiqueta "property"
 Mas info en: http://stackoverflow.com/questions/13119656/hibernate-enumtype-instantiation-exception

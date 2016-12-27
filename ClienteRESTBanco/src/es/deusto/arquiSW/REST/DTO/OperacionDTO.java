@@ -6,8 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * This DTO, in this occasion, is identical to the real domain class. That's the reason why object of this type
- * are not converted to an original class.
+ * This DTO, represents the data that will flow between the Client and the REST service.
  * JAXB annotations are used to make the class seriazable and to be able to send it over Internet through the
  * REST architecture. 
  * @author aitor & daniel
@@ -19,11 +18,8 @@ public class OperacionDTO {
 	
 	private int id;
 	private Date fecha;
-	private EnumTipoOperacion tipo;
+	private String tipo;
 	private float importe;
-	public enum EnumTipoOperacion {
-		Ingreso,Extraccion; 
-	}
 	private int cuenta;
 	
 	/**
@@ -41,7 +37,7 @@ public class OperacionDTO {
 	 * @param importe
 	 * @param cuenta
 	 */
-	public OperacionDTO(int id, Date fecha, EnumTipoOperacion tipo, float importe, int cuenta) {
+	public OperacionDTO(int id, Date fecha, String tipo, float importe, int cuenta) {
 		this.id = id;
 		this.fecha = fecha;
 		this.tipo = tipo;
@@ -70,10 +66,10 @@ public class OperacionDTO {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public EnumTipoOperacion getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
-	public void setTipo(EnumTipoOperacion tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 	public float getImporte() {

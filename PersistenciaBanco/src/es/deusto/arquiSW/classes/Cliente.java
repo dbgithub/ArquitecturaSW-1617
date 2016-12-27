@@ -1,12 +1,5 @@
 package es.deusto.arquiSW.classes;
 
-import java.util.ArrayList;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-
 public class Cliente {
 	
 	private String DNI;

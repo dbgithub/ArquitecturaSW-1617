@@ -6,8 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * This DTO, in this occasion, is identical to the real domain class. That's the reason why object of this type
- * are not converted to an original class.
+ * This DTO, represents the data that will flow between the Client and the REST service.
  * JAXB annotations are used to make the class seriazable and to be able to send it over Internet through the
  * REST architecture. 
  * @author aitor & daniel
@@ -20,16 +19,10 @@ public class TarjetaDTO {
 	private int numero;
 	private int limiteExtraccion;
 	private Date fechaCaducidad;
-	private EnumProveedores proveedor;
-	private TiposTarjeta tipo;
+	private String proveedor;
+	private String tipo;
 	private Date fechaExpedicion;
-	public enum EnumProveedores {
-		Visa,Mastercard,AmericanExpress; 
-	}
-	public enum TiposTarjeta {
-		Credito,Debito; 
-	}
-	private int cuenta;	
+	private int cuenta;
 	
 	/**
 	 * Constructor vacio
@@ -48,8 +41,8 @@ public class TarjetaDTO {
 	 * @param tipo
 	 * @param fechaExpedicion
 	 */
-	public TarjetaDTO(int numero, int cuenta, int limiteExtraccion, Date fechaCaducidad, EnumProveedores proveedor,
-			TiposTarjeta tipo, Date fechaExpedicion) {
+	public TarjetaDTO(int numero, int cuenta, int limiteExtraccion, Date fechaCaducidad, String proveedor,
+			String tipo, Date fechaExpedicion) {
 		this.numero = numero;
 		this.cuenta = cuenta;
 		this.limiteExtraccion = limiteExtraccion;
@@ -85,16 +78,16 @@ public class TarjetaDTO {
 	public void setFechaCaducidad(Date fechaCaducidad) {
 		this.fechaCaducidad = fechaCaducidad;
 	}
-	public EnumProveedores getProveedor() {
+	public String getProveedor() {
 		return proveedor;
 	}
-	public void setProveedor(EnumProveedores proveedor) {
+	public void setProveedor(String proveedor) {
 		this.proveedor = proveedor;
 	}
-	public TiposTarjeta getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
-	public void setTipo(TiposTarjeta tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 	public Date getFechaExpedicion() {
