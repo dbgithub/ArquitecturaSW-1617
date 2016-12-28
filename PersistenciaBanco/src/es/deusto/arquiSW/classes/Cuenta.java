@@ -45,6 +45,27 @@ public class Cuenta {
 		this.operaciones = operaciones;
 	}
 	
+	/**
+	 * Otro constructor sin la lista de operaciones
+	 * @param iBAN
+	 * @param sWIFT
+	 * @param fechaApertura
+	 * @param activa
+	 * @param saldoActual
+	 * @param interes
+	 * @param titular
+	 */
+	public Cuenta(int iBAN, String sWIFT, String fechaApertura, boolean activa, float saldoActual, float interes,
+			String titular) {
+		this.IBAN = iBAN;
+		this.SWIFT = sWIFT;
+		this.fechaApertura = fechaApertura;
+		this.activa = activa;
+		this.saldoActual = saldoActual;
+		this.interes = interes;
+		this.cliente = titular;
+	}
+	
 	// METHODS & OPERATIONS:
 	
 	public String getCliente() {

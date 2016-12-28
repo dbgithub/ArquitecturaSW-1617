@@ -174,6 +174,33 @@ public class HibernateDAO {
 		return null;
 	}
 	
+//	public void insertarOperacionesEnCuenta(ArrayList opes, int IBAN) {
+//		s = factory.openSession();
+//		Transaction tx = null;
+//		
+//		try {
+//			System.out.println("[HibernateDAO]: insertando Operaciones en cuenta con IBAN='"+IBAN+"'...");
+//			tx = s.beginTransaction();
+////			Cuenta temp = s.get(Cuenta.class, 141414);
+//			Cuenta temp = new Cuenta(414141, "me da igual", "me da igual", false, 20f, 0.3f,"15155551");
+//			temp.setOperaciones(opes);
+//			s.save(temp);
+////			s.flush();
+//			System.out.println("temp.getOperaciones SIZE = " + temp.getOperaciones().size());
+////			temp.setOperaciones(opes);
+////			s.update(temp);		
+//					
+//			tx.commit();
+//			System.out.println("[HibernateDAO]: Operaciones insertadas con exito!");
+//		} catch (Exception e) {
+//			System.err.println("[HibernateDAO]: Error en la transaccion 'insertarOperacionesEnCuenta'");
+//			tx.rollback();
+//			e.printStackTrace();
+//		} finally {
+//			s.close(); // Cerramos la sesion
+//		}
+//	}
+	
 	public void insertarOperacion(Operacion o) {
 		s = factory.openSession();
 		Transaction tx = null;

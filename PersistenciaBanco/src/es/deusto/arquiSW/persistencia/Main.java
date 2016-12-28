@@ -37,9 +37,15 @@ public class Main {
 		ArrayList<Tarjeta> tarjetas = miDAO.obtenerTarjetas(15151515);
 		System.out.println("Tarjeta(s) obtenida(s): " + tarjetas.get(0).getNumero());
 		// Insertar operacion:
-		miDAO.insertarOperacion(new Operacion(4, "2016-12-12", "Ingreso", 555f, 15151515)); // NOT WORKING FOR THE MOMENT...
+		miDAO.insertarOperacion(new Operacion("2016-12-12", "Ingreso", 555f, 15151515));
 		// Eliminar operacion:
 		miDAO.eliminarOperacion(4);
+		// Insertar operaciones en cuenta dada:
+//		ArrayList<Operacion> operacioness = new ArrayList<Operacion>();
+//		operacioness.add(new Operacion("2016-12-12", "Ingreso", 555f, 15151515));
+//		operacioness.add(new Operacion("2016-12-20", "Ingreso", 25f, 15151515));
+//		operacioness.add(new Operacion("2016-12-21", "Ingreso", 5f, 15151515));
+//		operacioness.add(new Operacion("2016-12-24", "Extraccion", 500f, 15151515));
 	}
 
 }

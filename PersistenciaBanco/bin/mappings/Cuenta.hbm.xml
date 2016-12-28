@@ -15,7 +15,7 @@
     <class name="es.deusto.arquiSW.classes.Cuenta" table="cuenta">
 
         <id name="IBAN" column="IBAN" type="int">
-            <generator class="native"/> <!-- This is used to automatically generate the primary key values in the DB. Mas info sobre 'generators' en: http://www.javatpoint.com/generator-classes -->
+            <generator class="increment"/> <!-- This is used to automatically generate the primary key values in the DB. Mas info sobre 'generators' en: http://www.javatpoint.com/generator-classes -->
         </id>
 
 		<property name="SWIFT" column="SWIFT" type="string" />

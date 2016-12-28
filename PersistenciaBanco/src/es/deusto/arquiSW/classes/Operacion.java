@@ -31,6 +31,20 @@ public class Operacion {
 		this.cuenta = cuenta;
 	}
 	
+	/**
+	 * Another constructor without ID
+	 * @param fecha
+	 * @param tipo
+	 * @param importe
+	 * @param cuenta
+	 */
+	public Operacion(String fecha, String tipo, float importe, int cuenta) {
+		this.fecha = fecha;
+		this.tipo = tipo;
+		this.importe = importe;
+		this.cuenta = cuenta;
+	}
+	
 	// METHODS & OPERATIONS:
 		
 		
