@@ -6,7 +6,8 @@ public class Operacion {
 	private String fecha;
 	private String tipo;
 	private float importe;
-	private int cuenta;
+	
+	private Cuenta cuenta;
 	
 	/**
 	 * Constructor vacio
@@ -21,37 +22,21 @@ public class Operacion {
 	 * @param fecha
 	 * @param tipo
 	 * @param importe
-	 * @param cuenta
 	 */
-	public Operacion(int id, String fecha, String tipo, float importe, int cuenta) {
+	public Operacion(int id, String fecha, String tipo, float importe) {
 		this.id = id;
 		this.fecha = fecha;
 		this.tipo = tipo;
 		this.importe = importe;
-		this.cuenta = cuenta;
-	}
-	
-	/**
-	 * Another constructor without ID
-	 * @param fecha
-	 * @param tipo
-	 * @param importe
-	 * @param cuenta
-	 */
-	public Operacion(String fecha, String tipo, float importe, int cuenta) {
-		this.fecha = fecha;
-		this.tipo = tipo;
-		this.importe = importe;
-		this.cuenta = cuenta;
 	}
 	
 	// METHODS & OPERATIONS:
 		
 		
-	public int getCuenta() {
+	public Cuenta getCuenta() {
 		return cuenta;
 	}
-	public void setCuenta(int cuenta) {
+	public void setCuenta(Cuenta cuenta) {
 		this.cuenta = cuenta;
 	}
 	public int getId() {
@@ -78,7 +63,4 @@ public class Operacion {
 	public void setImporte(float importe) {
 		this.importe = importe;
 	}
-	
-	
-
 }

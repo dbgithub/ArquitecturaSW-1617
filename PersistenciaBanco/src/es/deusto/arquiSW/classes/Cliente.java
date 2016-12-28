@@ -1,5 +1,7 @@
 package es.deusto.arquiSW.classes;
 
+import java.util.Set;
+
 public class Cliente {
 	
 	private String DNI;
@@ -10,6 +12,8 @@ public class Cliente {
 	private int movil;
 	private boolean empleado;
 	private int PIN;
+	
+	private Set<Cuenta> lcuentas;
 	
 	/**
 	 * Constructor vacio
@@ -28,7 +32,6 @@ public class Cliente {
 	 * @param movil
 	 * @param empleado
 	 * @param pIN
-	 * @param cuentas
 	 */
 	public Cliente(String dNI, String nombre, String apellidos, String direccion, String email, int movil,
 			boolean empleado, int pIN) {
@@ -40,7 +43,6 @@ public class Cliente {
 		this.movil = movil;
 		this.empleado = empleado;
 		this.PIN = pIN;
-		
 	}
 	
 	// METHODS & OPERATIONS:
@@ -93,6 +95,10 @@ public class Cliente {
 	public void setPIN(int pIN) {
 		PIN = pIN;
 	}
-	
-	
+	public Set<Cuenta> getLcuentas() {
+		return lcuentas;
+	}
+	public void setLcuentas(Set<Cuenta> lcuentas) {
+		this.lcuentas = lcuentas;
+	}
 }

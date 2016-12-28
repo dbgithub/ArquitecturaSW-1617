@@ -1,12 +1,12 @@
 package es.deusto.arquiSW.DAO;
 
 import java.util.ArrayList;
-
+import java.util.Iterator;
+import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-
 import es.deusto.arquiSW.classes.Cliente;
 import es.deusto.arquiSW.classes.Cuenta;
 import es.deusto.arquiSW.classes.Operacion;
@@ -28,7 +28,7 @@ public class HibernateDAO {
 	// Hibernate related variables:
 	private SessionFactory factory; // A SessionFactory is set up once for an application!
 	private Session s; // The Session object is lightweight and designed to be instantiated each time an interaction is needed with the database
-						// The session objects should not be kept open for a long time because they are not usually thread safe.
+					   // The session objects should not be kept open for a long time because they are not usually thread safe.
 	
 	// *Note: a Transaction represents a unit of work with the database and most of the RDBMS supports transaction functionality.
 	// Actually, a transaction is associated with Session and instantiated by calling session.beginTransaction().
@@ -42,6 +42,13 @@ public class HibernateDAO {
 	      }
 	}
 	
+	/**
+	 * Obtiene un determinado cliente con DNI pasasdo por parametro. Comprueba a su vez que el PIN es correcto.
+	 * Si no es correcto devuelve null, si es correcto devuelve el Cliente.
+	 * @param DNI
+	 * @param PIN
+	 * @return
+	 */
 	public Cliente obtenerCliente(String DNI, int PIN) {
 		s = factory.openSession();
 		Transaction tx = null;
@@ -73,6 +80,13 @@ public class HibernateDAO {
 		return null;
 	}
 	
+	/**
+	 * Actualiza un cliente con los campos pasados por parametro, dado un DNI.
+	 * @param DNI
+	 * @param email
+	 * @param movil
+	 * @param PIN
+	 */
 	public void actualizarCliente(String DNI, String email, int movil, int PIN) {
 		s = factory.openSession();
 		Transaction tx = null;
@@ -105,6 +119,11 @@ public class HibernateDAO {
 		}
 	}
 	
+	/**
+	 * Obtiene todas las cuentas vinculadas a un determinado Cliente con DNI dado por parametro
+	 * @param DNI
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public ArrayList<Cuenta> obtenerCuentas(String DNI) {
 		s = factory.openSession();
@@ -113,8 +132,10 @@ public class HibernateDAO {
 		try {
 			System.out.println("[HibernateDAO]: obteniendo cuentas...");
 			tx = s.beginTransaction();
-			ArrayList<Cuenta> resul = (ArrayList<Cuenta>) s.createQuery("from Cuenta where cliente = :DNI").setParameter("DNI", DNI).getResultList();
-
+			ArrayList<Cuenta> resul = (ArrayList<Cuenta>) s.createQuery("from Cuenta where cliente.DNI = :DNI").setParameter("DNI", DNI).getResultList();
+					// Obteniendo titular de una de las cuentas (a modo de ejemplo):
+					Cliente titular = resul.get(0).getCliente();
+					System.out.println("Titular de la cuenta(IBAN="+resul.get(0).getIBAN()+"): " + titular.getNombre() + " (DNI="+titular.getDNI()+")");
 			tx.commit(); 
 			System.out.println("[HibernateDAO]: Cuentas obtenidas con exito!");
 			return resul;
@@ -128,6 +149,11 @@ public class HibernateDAO {
 		return null;
 	}
 	
+	/**
+	 * Obtiene todas las operaciones de una determinada cuenta con IBAN pasado por parametro.
+	 * @param IBAN
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public ArrayList<Operacion> obtenerOperaciones(int IBAN) {
 		s = factory.openSession();
@@ -136,7 +162,7 @@ public class HibernateDAO {
 		try {
 			System.out.println("[HibernateDAO]: obteniendo operaciones (IBAN="+IBAN+")...");
 			tx = s.beginTransaction();
-			ArrayList<Operacion> resul = (ArrayList<Operacion>) s.createQuery("from Operacion where cuenta = :IBAN").setParameter("IBAN", IBAN).getResultList();
+			ArrayList<Operacion> resul = (ArrayList<Operacion>) s.createQuery("from Operacion where cuenta.IBAN = :IBAN").setParameter("IBAN", IBAN).getResultList();
 					
 			tx.commit();
 			System.out.println("[HibernateDAO]: Operaciones obtenidas con exito!");
@@ -151,6 +177,11 @@ public class HibernateDAO {
 		return null;
 	}
 	
+	/**
+	 * Obtiene todas las tarjetas vinuladas a una determinada cuenta con IBAN pasado por parametro
+	 * @param IBAN
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public ArrayList<Tarjeta> obtenerTarjetas(int IBAN) {
 		s = factory.openSession();
@@ -159,7 +190,7 @@ public class HibernateDAO {
 		try {
 			System.out.println("[HibernateDAO]: obteniendo tarjetas (IBAN="+IBAN+")...");
 			tx = s.beginTransaction();
-			ArrayList<Tarjeta> resul = (ArrayList<Tarjeta>) s.createQuery("from Tarjeta where cuenta = :IBAN").setParameter("IBAN", IBAN).getResultList();		
+			ArrayList<Tarjeta> resul = (ArrayList<Tarjeta>) s.createQuery("from Tarjeta where cuenta.IBAN = :IBAN").setParameter("IBAN", IBAN).getResultList();		
 					
 			tx.commit();
 			System.out.println("[HibernateDAO]: Tarjetas obtenidas con exito!");
@@ -174,46 +205,31 @@ public class HibernateDAO {
 		return null;
 	}
 	
-//	public void insertarOperacionesEnCuenta(ArrayList opes, int IBAN) {
-//		s = factory.openSession();
-//		Transaction tx = null;
-//		
-//		try {
-//			System.out.println("[HibernateDAO]: insertando Operaciones en cuenta con IBAN='"+IBAN+"'...");
-//			tx = s.beginTransaction();
-////			Cuenta temp = s.get(Cuenta.class, 141414);
-//			Cuenta temp = new Cuenta(414141, "me da igual", "me da igual", false, 20f, 0.3f,"15155551");
-//			temp.setOperaciones(opes);
-//			s.save(temp);
-////			s.flush();
-//			System.out.println("temp.getOperaciones SIZE = " + temp.getOperaciones().size());
-////			temp.setOperaciones(opes);
-////			s.update(temp);		
-//					
-//			tx.commit();
-//			System.out.println("[HibernateDAO]: Operaciones insertadas con exito!");
-//		} catch (Exception e) {
-//			System.err.println("[HibernateDAO]: Error en la transaccion 'insertarOperacionesEnCuenta'");
-//			tx.rollback();
-//			e.printStackTrace();
-//		} finally {
-//			s.close(); // Cerramos la sesion
-//		}
-//	}
-	
-	public void insertarOperacion(Operacion o) {
+	/**
+	 * Inserta operaciones vinculadas a una determinada cuenta bancaria con IBAN pasado por parametro.
+	 * Las operaciones se pasan por parametro en una lista.
+	 * @param opes
+	 * @param IBAN
+	 */
+	public void insertarOperacionesEnCuenta(Set<Operacion> opes, int IBAN) {
 		s = factory.openSession();
 		Transaction tx = null;
 		
 		try {
-			System.out.println("[HibernateDAO]: insertando Operacion...");
+			System.out.println("[HibernateDAO]: insertando Operaciones en cuenta con IBAN='"+IBAN+"'...");
 			tx = s.beginTransaction();
-			s.save(o);		
-					
+			Cuenta temp = s.get(Cuenta.class, 141414);
+			s.flush();
+			Iterator<Operacion> it = opes.iterator();
+			while (it.hasNext()) {
+				Operacion o = it.next();
+				o.setCuenta(temp); 
+				s.save(o);
+				}
 			tx.commit();
-			System.out.println("[HibernateDAO]: Operacion insertada con exito!");
+			System.out.println("[HibernateDAO]: Operaciones insertadas con exito!");
 		} catch (Exception e) {
-			System.err.println("[HibernateDAO]: Error en la transaccion 'insertarOperacion'");
+			System.err.println("[HibernateDAO]: Error en la transaccion 'insertarOperacionesEnCuenta'");
 			tx.rollback();
 			e.printStackTrace();
 		} finally {
@@ -221,6 +237,10 @@ public class HibernateDAO {
 		}
 	}
 	
+	/**
+	 * Elimina una operacion dado su ID de operacion por parametro
+	 * @param ID
+	 */
 	public void eliminarOperacion(int ID) {
 		s = factory.openSession();
 		Transaction tx = null;
@@ -241,7 +261,4 @@ public class HibernateDAO {
 			s.close(); // Cerramos la sesion
 		}
 	}
-	
-	
-
 }

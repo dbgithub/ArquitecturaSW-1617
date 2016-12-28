@@ -8,7 +8,8 @@ public class Tarjeta {
 	private String proveedor;
 	private String tipo;
 	private String fechaExpedicion;
-	private int cuenta;
+	
+	private Cuenta cuenta;
 	
 	/**
 	 * Constructor vacio
@@ -20,17 +21,15 @@ public class Tarjeta {
 	/**
 	 * Constructor
 	 * @param numero
-	 * @param cuenta
 	 * @param limiteExtraccion
 	 * @param fechaCaducidad
 	 * @param proveedor
 	 * @param tipo
 	 * @param fechaExpedicion
 	 */
-	public Tarjeta(int numero, int cuenta, int limiteExtraccion, String fechaCaducidad, String proveedor,
+	public Tarjeta(int numero, int limiteExtraccion, String fechaCaducidad, String proveedor,
 			String tipo, String fechaExpedicion) {
 		this.numero = numero;
-		this.cuenta = cuenta;
 		this.limiteExtraccion = limiteExtraccion;
 		this.fechaCaducidad = fechaCaducidad;
 		this.proveedor = proveedor;
@@ -46,10 +45,10 @@ public class Tarjeta {
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-	public int getCuenta() {
+	public Cuenta getCuenta() {
 		return cuenta;
 	}
-	public void setCuenta(int cuenta) {
+	public void setCuenta(Cuenta cuenta) {
 		this.cuenta = cuenta;
 	}
 	public int getLimiteExtraccion() {
@@ -81,6 +80,5 @@ public class Tarjeta {
 	}
 	public void setFechaExpedicion(String fechaExpedicion) {
 		this.fechaExpedicion = fechaExpedicion;
-	}
-	
+	}	
 }
