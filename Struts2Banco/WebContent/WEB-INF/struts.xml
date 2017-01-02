@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <constant name="struts.devMode" value="true" />
+    <package name="default" extends="struts-default">
+		<default-interceptor-ref name="paramsPrepareParamsStack"/>
+		
+        <action name="HelloWorld" class="es.deusto.arquiSW.struts2.actions.Helloworld">
+            <result>/jsp/HelloWorld.jsp</result>
+        </action>
+
+		<!-- Login use case -->
+        <action name="showLogin">
+			<result>/jsp/login.jsp</result>
+        </action>
+
+        <action name="doLogin" class="es.deusto.struts2tutorial.Login">
+            <result  name="input">/jsp/login.jsp</result>
+			<result  name="error">/jsp/login.jsp</result>
+			<result>/jsp/loginsuccess.jsp</result>
+        </action>
+
+        <action name="showLoginClientSideValidation">
+			<result>/jsp/loginClientSideValidation.jsp</result>
+        </action>
+
+        <action name="doLoginClientSideValidation" class="es.deusto.struts2tutorial.Login">
+            <result  name="input">/jsp/loginClientSideValidation.jsp</result>
+			<result  name="error">/jsp/loginClientSideValidation.jsp</result>
+			<result>/jsp/loginsuccess.jsp</result>
+        </action>
+		
+		<action name="languageDesigners" class="es.deusto.struts2tutorial.LanguageDesignerAction" method="listing">
+			<!--<result>/jsp/languageDesignersJSP.jsp</result>-->
+			<result>/jsp/languageDesigners.jsp</result>
+			<result name="designerMarked">/jsp/languageDesignersWithMark.jsp</result>
+        </action>
+
+		<!-- This is a wildcard for any not-matching site -->
+		<action name="*">
+			<result>/jsp/404.jsp</result>
+		</action>
+
+
+
+
+
+         <!-- Add actions here -->
+    </package>
+
+
+    <!-- Add packages here -->
+
+</struts>
