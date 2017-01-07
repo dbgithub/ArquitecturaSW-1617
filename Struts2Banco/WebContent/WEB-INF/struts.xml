@@ -12,47 +12,50 @@
         <action name="HelloWorld" class="es.deusto.arquiSW.struts2.actions.Helloworld">
             <result>/jsp/HelloWorld.jsp</result>
         </action>
-
-		<!-- Login use case -->
-        <action name="showLogin">
-			<result>/jsp/login.jsp</result>
+        
+        <!--  Login use case -->
+        <action name="showLogin" class="es.deusto.arquiSW.struts2.actions.ShowLogin">
+            <result>/jsp/index.jsp</result>
+            <result name="404">/jsp/404.jsp</result>
+            <result name="ERROR">/jsp/Error.jsp</result>
         </action>
-
-        <action name="doLogin" class="es.deusto.struts2tutorial.Login">
-            <result  name="input">/jsp/login.jsp</result>
-			<result  name="error">/jsp/login.jsp</result>
-			<result>/jsp/loginsuccess.jsp</result>
+        
+        <!--  Resumen use case -->
+        <action name="showResumen" class="es.deusto.arquiSW.struts2.actions.Resumen">
+            <result name="OK">/jsp/Resumen.jsp</result>
+            <result name="404">/jsp/404.jsp</result>
+            <result name="ERROR">/jsp/Error.jsp</result>
         </action>
-
-        <action name="showLoginClientSideValidation">
-			<result>/jsp/loginClientSideValidation.jsp</result>
+        
+        <!--  Operaciones use case -->
+        <action name="showOperaciones" class="es.deusto.arquiSW.struts2.actions.Operaciones">
+            <result name="OK">/jsp/Operaciones.jsp</result>
+            <result name="404">/jsp/404.jsp</result>
+            <result name="ERROR">/jsp/Error.jsp</result>
         </action>
-
-        <action name="doLoginClientSideValidation" class="es.deusto.struts2tutorial.Login">
-            <result  name="input">/jsp/loginClientSideValidation.jsp</result>
-			<result  name="error">/jsp/loginClientSideValidation.jsp</result>
-			<result>/jsp/loginsuccess.jsp</result>
+        
+        <!--  Annadir operacion -->
+        <action name="AddOperacion" class="es.deusto.arquiSW.struts2.actions.AddOperacion">
+            <result name="OK">/jsp/AddOperacion.jsp</result>
+            <result name="404">/jsp/404.jsp</result>
+            <result name="ERROR">/jsp/Error.jsp</result>
         </action>
-		
-		<action name="languageDesigners" class="es.deusto.struts2tutorial.LanguageDesignerAction" method="listing">
-			<!--<result>/jsp/languageDesignersJSP.jsp</result>-->
-			<result>/jsp/languageDesigners.jsp</result>
-			<result name="designerMarked">/jsp/languageDesignersWithMark.jsp</result>
-        </action>
+        
+        <!-- Transferencias -->
+        <!-- <action name="Transferencias" class="es.deusto.arquiSW.struts2.actions.Transferencias">
+            <result name="OK">/jsp/Transferencias.jsp</result>
+            <result name="404">/jsp/404.jsp</result>
+            <result name="ERROR">/jsp/Error.jsp</result>
+        </action> -->
 
 		<!-- This is a wildcard for any not-matching site -->
 		<action name="*">
 			<result>/jsp/404.jsp</result>
 		</action>
 
-
-
-
-
-         <!-- Add actions here -->
+         <!-- Keep adding actions here -->
     </package>
 
-
-    <!-- Add packages here -->
+    <!-- Keep adding packages here -->
 
 </struts>

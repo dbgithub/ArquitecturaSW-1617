@@ -150,7 +150,7 @@ body{
 }
 </style>
 
-    <script src="js/prefixfree.min.js"></script>
+    <script src="../js/prefixfree.min.js"></script>
 
 </head>
 

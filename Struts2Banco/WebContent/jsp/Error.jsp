@@ -7,7 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>404 error page</title>
+<title>Error page</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
@@ -20,14 +20,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<div class="content">
 			<!-----start-logo--------->
 			<div class="logo">
-				<h1><img src="../imgs/logo.png"/></h1>
-				<span><img src="../imgs/signal.png"/>Oops! La página solicitada no se encontró!</span>
+				<h1><img width="180" src="../imgs/error.png"/></h1>
+				<span><img src="../imgs/signal.png"/>Oops! Ey, se ha producido un error en el proceso :(</span>
 			</div>
 			<!-----end-logo--------->
 			<!-----start-search-bar-section--------->
 			<div class="buttom">
 				<div class="seach_bar">
-					<p>Puedes ir atrás en la navegación para continuar donde lo dejaste</p>
+					<p>¡Contacta con el administrador para que esté al loro!</p>
 				</div>
 			</div>
 			<!-----end-sear-bar--------->
