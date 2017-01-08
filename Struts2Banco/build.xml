@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project basedir="." default="help" name="Struts2BancoHibernate">
+	<property environment="env"/>
+	<property name="tomcat.home" value="${env.TOMCAT_HOME}"/>
+	<property name="project.file" value="Struts2Banco"/>
+    <property name="src.dir" value="src"/>
+    <property name="bin.dir" value="bin"/>
+	<property name="conf.dir" value="WebContent/WEB-INF"/>
+	<property name="conf_hibernate.dir" value="conf"/>
+    <property name="lib.dir" value="lib"/>
+	<property name="lib_webinf.dir" value="WebContent/WEB-INF/lib"/>
+	<property name="lib_hibernate.dir" value="lib(hibernate)"/>
+    <property name="dist.dir" value="dist"/>
+	<property name="mappings.dir" value="mappings"/>
+    
+	<path id="classpath">
+        <pathelement path="${bin.dir}"/>
+		<pathelement path="${conf_hibernate.dir}"/>
+        <fileset dir="${lib.dir}">
+            <include name="*.jar"/>
+        </fileset>
+		<fileset dir="${lib_hibernate.dir}">
+		    <include name="*.jar"/>
+		</fileset>
+		<fileset dir="${lib_webinf.dir}">
+		    <include name="*.jar"/>
+		</fileset>
+    </path>
+	
+    <target name="clean">
+        <delete dir="${bin.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+	
+    <target name="prepare(mkdir)">
+    	<mkdir dir="${bin.dir}"/>
+    	<mkdir dir="${dist.dir}"/>
+    </target>
+ 
+    <target name="build" depends="prepare(mkdir)">
+        <javac srcdir="${src.dir}" debug="true" destdir="${bin.dir}" deprecation="true" fork="true">
+            <classpath>
+                <path refid="classpath"/>
+            </classpath>
+        </javac>
+    	<copy todir="${bin.dir}">
+ 			<fileset dir="${src.dir}">
+                <include name="**/*.xml"/>
+            	<include name="**/*.properties"/>
+            </fileset>
+			<fileset dir="${conf.dir}">
+                <include name="**/*.xml"/>
+            	<include name="**/*.properties"/>
+				<exclude name="**/web.xml"/>
+            </fileset>
+    	</copy>
+		<copy todir="${bin.dir}/mappings">
+	    	<fileset dir="${mappings.dir}">
+	    	    <include name="*.xml"/>
+	    	</fileset>
+	    </copy>
+    </target>
+	
+	<target name="jar" depends="build">
+		<jar destfile="${dist.dir}/${project.file}.jar">
+            <fileset dir="${bin.dir}"/>
+            <manifest>
+                <attribute name="Built-By" value="Aitor De Blas - University of Deusto"/>
+            </manifest>
+        </jar>
+	</target>
+	
+    <target name="war" depends="jar">
+		<copy file="${dist.dir}/${project.file}.jar" todir="${lib_webinf.dir}"/>
+		<war	
+			warfile="${dist.dir}/${project.file}.war"
+			webxml="${conf.dir}/web.xml">
+			<lib dir="${lib_webinf.dir}"/>
+			<zipfileset dir="WebContent/css" prefix="css"/>
+			<zipfileset dir="WebContent/js" prefix="js"/>
+			<zipfileset dir="WebContent/imgs" prefix="imgs"/>
+			<zipfileset dir="WebContent/fonts" prefix="fonts"/>
+			<zipfileset dir="WebContent/jsp" prefix="jsp"/>
+			<!-- <zipfileset dir="html"/> -->
+		</war>
+		 <delete file="${lib_webinf.dir}/${project.file}.jar"/>
+    </target>
+	
+	<target name="deploy(tomcat/webapps)" depends="war">
+		<copy file="${dist.dir}/${project.file}.war" todir="${tomcat.home}/webapps"/>
+    </target>
+	
+	<target name="undeploy(tomcat/webapps)">
+		<delete file="${tomcat.home}/webapps/${project.file}.war"/>
+		<delete dir="${tomcat.home}/webapps/${project.file}"/>
+    </target>
+	
+	<target name="run(Hibernate)" depends="build">
+			<java fork="true" classname="es.deusto.arquiSW.hibernate.persistencia.Main" classpathref="classpath">
+		        <classpath path="${bin.dir}"/>
+		    </java>
+	</target>
+	
+    <target name="help">
+		<echo>Usage: ant [prepare | build | jar | war | deploy | undeploy | clean]</echo>
+	</target>
+</project>

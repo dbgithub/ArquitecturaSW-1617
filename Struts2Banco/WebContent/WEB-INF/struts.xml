@@ -15,7 +15,7 @@
         
         <!--  Login use case -->
         <action name="showLogin" class="es.deusto.arquiSW.struts2.actions.ShowLogin">
-            <result>/jsp/index.jsp</result>
+            <result name="OK">/jsp/index.jsp</result>
             <result name="404">/jsp/404.jsp</result>
             <result name="ERROR">/jsp/Error.jsp</result>
         </action>

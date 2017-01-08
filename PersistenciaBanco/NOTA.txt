@@ -1,0 +1,7 @@
+Este proyecto funciona tanto ejecutandolo con la clase Main en Eclipse así como ejecutandolo con ANT.
+ Con ANT todo va fluido, el unico problema que puedas tener ejecutando el Main es que no te pille el classpath o la 
+ ubicacion de los archivos que necesita (.xml etc.). Para eso asegurate de que quitas y vuelves a añadir las carpetas
+ "conf" y "mapping" en la pestaña "Classes" de las propiedades del proyecto "PersistenciaBanco > Properties > Classes".
+ Haciendo eso, "refrescas" la ubicacion del classpath para Eclipse y asi, ejecutar el Main no dara problemas.
+ 
+ Con ANT, todo tendria que ir bien.

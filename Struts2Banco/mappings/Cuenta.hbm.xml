@@ -1,0 +1,63 @@
+<?xml version="1.0"?> <!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<!-- Tutoriales y documentacion sobre Hibernate:
+	· http://docs.jboss.org/hibernate/orm/current/quickstart/html_single/
+	· https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html
+	· https://www.tutorialspoint.com/hibernate/index.htm
+	· http://www.javatpoint.com/hibernate-tutorial 
+	· https://docs.jboss.org/hibernate/orm/3.3/reference/en/html/ -->
+<!-- Documentacion sobre tipo de datos en Hibernate: https://www.tutorialspoint.com/hibernate/hibernate_mapping_types.htm -->
+<!-- Documentacion sobre diferencias entre Set, Bag, List etc. : https://www.tutorialspoint.com/hibernate/hibernate_or_mappings.htm -->
+<hibernate-mapping>
+	<!-- Remember! 'name' siempre hace referencia al nombre de los atributos de las clases. Mientras que 'column' hace siempre referencia al nombre de las columnas de la BD. -->
+    <class name="es.deusto.arquiSW.hibernate.classes.Cuenta" table="cuenta">
+
+        <id name="IBAN" column="IBAN" type="int">
+            <generator class="native"/> <!-- This is used to automatically generate the primary key values in the DB. Mas info sobre 'generators' en: http://www.javatpoint.com/generator-classes -->
+        </id>
+
+		<property name="SWIFT" column="SWIFT" type="string" />
+		<property name="fechaApertura" column="FechaApertura" type="string" />
+		<property name="activa" column="Activa" type="boolean" />
+		<property name="saldoActual" column="SaldoActual" type="float" />
+		<property name="interes" column="Interes" type="float" />
+		
+		<many-to-one name="cliente" column="Cliente" not-null="true" class="es.deusto.arquiSW.hibernate.classes.Cliente"/> <!-- No parece que sea necesario dado que Cuenta no sabe de Cliente, porque no tiene ningun atributo que haga referencia a Cliente, SALVO por el DNI de tipo String (llamado 'cliente'). -->
+		
+		<set name="loperaciones" inverse="true" lazy="true" cascade="all">
+			<key column="Cuenta"/>
+ 			<!-- <list-index column="ID"/> --> <!-- list-index se necesita cuando utillizas estructuras de datos tipo List en las clases. Nosotros hemos utilizado 'Set'. -->
+			<one-to-many class="es.deusto.arquiSW.hibernate.classes.Operacion"/>
+		</set>
+    </class>
+
+</hibernate-mapping>
+
+<!-- 
+Problemas que he tenido:
+
+·En un property, en el atributo "name" has de escribirlo parece que tal y como está el nombre del atributo en la clase.
+·Si has declarado un Enum como una inner class dentro de una clase (es decir, un Enum dentro de una clase sin tener dicho Enum implementado/declarado en una clase ".java" aparte) puedes hacer referencia a ella con el signo del dolar, ej. "...dominio.Tarjeta$TiposTarjeta"
+·El atributo not-null="true" no parece que haya que ponerlo en la etiqueta <id> de los archivos de mapping. Parece que no hace falta, me daba error.
+·Si en el archivo de mapping has definido la ruta de las clases como un atributo en la etiqueta <class> y entonces no lo hiciste en la etiqueta "hibernate-mapping" (que es el padre), entonces en las relaciones one-to-many, many-to-one y el resto de ellas, has de definir de que clase provienen. Para eso define un atributo "class", ej. class="es.deusto.arquiSW.hibernate.classes.Cuenta".
+·Mapear tipos de datos de Enum es un dolor de cabeza. Por defecto, el tipo de dato es un Integer. Para pasarlo a VARCHAR, has de poner:
+
+	<param name="type">12</param>
+
+ej.
+	<property name="proveedor" column="Proveedor" type="character">
+				<type name="org.hibernate.type.EnumType">
+					<param name="enumClass">es.deusto.arquiSW.hibernate.classes.Tarjeta$EnumProveedores</param>
+					<param name="type">12</param>
+				</type>
+	</property> 
+
+	De todos modos, al hacer la validacion del esquema, me da error. Por tanto, opoté por poner: type="character" en la etiqueta "property"
+	Mas info en: http://stackoverflow.com/questions/13119656/hibernate-enumtype-instantiation-exception
+	Tipos de datos de MySQL: http://docs.oracle.com/javase/7/docs/api/constant-values.html#java.sql.Types.VARCHAR
+· En el archivo de mapeo Operacion, he tenido que poner el generador con valor igual a "increment", con "native" en tiempo de ejecucion me saltaban errores ("default value not set..."). Tambien se puede optar por poner "assigned". Conclusion: con Linux, Java y MySQL a mi no me funciona.
+· Recuerda que con Hibernate, siempre es mejor trabajar declarando objetos de tipo de las clases que tienes en tu dominio y hacer el mapping con todo ello. Si intentas "obligar" a Hibernate o adaptarte para que Hibernate interprete como tienes tu el dominio desplegado, te sera imposible hacerlo funcionar.
+· He tenido infinidad de problemas al hacer uso de List, ArrayList y similares en mis clases. En los archivos de mapping intenté implementarlo con las correspondientes etiquetas ("list", "bag"), pero no habia manera, cuando no te saltaba un error, te saltaba otro. Al final, tuve que implementarlo siguiendo el ejemplo del profesor.
+ -->
