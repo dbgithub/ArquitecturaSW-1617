@@ -11,7 +11,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<link href="../css/404.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/404.css" rel="stylesheet" type="text/css" media="all" />
 </head>
 <body>
 	<!-----start-wrap--------->
@@ -20,14 +20,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<div class="content">
 			<!-----start-logo--------->
 			<div class="logo">
-				<h1><img src="../imgs/logo.png"/></h1>
-				<span><img src="../imgs/signal.png"/>Oops! La p√°gina solicitada no se encontr√≥!</span>
+				<h1><img src="imgs/logo.png"/></h1>
+				<span><img src="imgs/signal.png"/>Oops! La p·gina solicitada no se encontrÛ!</span>
 			</div>
 			<!-----end-logo--------->
 			<!-----start-search-bar-section--------->
 			<div class="buttom">
 				<div class="seach_bar">
-					<p>Puedes ir atr√°s en la navegaci√≥n para continuar donde lo dejaste</p>
+					<p>Puedes ir atr·s en la navegaciÛn para continuar donde lo dejaste</p>
 				</div>
 			</div>
 			<!-----end-sear-bar--------->

@@ -6,8 +6,8 @@
 	<property name="project.file" value="Struts2Banco"/>
     <property name="src.dir" value="src"/>
     <property name="bin.dir" value="bin"/>
-	<property name="conf.dir" value="WebContent/WEB-INF"/>
-	<property name="conf_hibernate.dir" value="conf"/>
+	<property name="conf.dir" value="conf"/>
+	<property name="web.dir" value="WebContent/WEB-INF"/>
     <property name="lib.dir" value="lib"/>
 	<property name="lib_webinf.dir" value="WebContent/WEB-INF/lib"/>
 	<property name="lib_hibernate.dir" value="lib(hibernate)"/>
@@ -16,7 +16,7 @@
     
 	<path id="classpath">
         <pathelement path="${bin.dir}"/>
-		<pathelement path="${conf_hibernate.dir}"/>
+		<pathelement path="${conf.dir}"/>
         <fileset dir="${lib.dir}">
             <include name="*.jar"/>
         </fileset>
@@ -53,9 +53,10 @@
                 <include name="**/*.xml"/>
             	<include name="**/*.properties"/>
 				<exclude name="**/web.xml"/>
+				<exclude name="**/hibernate.cfg.xml"/>
             </fileset>
     	</copy>
-		<copy todir="${bin.dir}/mappings">
+		<copy todir="${bin.dir}">
 	    	<fileset dir="${mappings.dir}">
 	    	    <include name="*.xml"/>
 	    	</fileset>
@@ -75,7 +76,7 @@
 		<copy file="${dist.dir}/${project.file}.jar" todir="${lib_webinf.dir}"/>
 		<war	
 			warfile="${dist.dir}/${project.file}.war"
-			webxml="${conf.dir}/web.xml">
+			webxml="${web.dir}/web.xml">
 			<lib dir="${lib_webinf.dir}"/>
 			<zipfileset dir="WebContent/css" prefix="css"/>
 			<zipfileset dir="WebContent/js" prefix="js"/>

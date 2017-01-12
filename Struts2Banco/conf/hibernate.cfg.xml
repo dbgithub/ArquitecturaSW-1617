@@ -36,10 +36,10 @@
         <property name="use_sql_comments">true</property>
         -->
 
-        <mapping resource="mappings/Cliente.hbm.xml"/>
-        <mapping resource="mappings/Cuenta.hbm.xml"/>
-        <mapping resource="mappings/Operacion.hbm.xml"/>
-        <mapping resource="mappings/Tarjeta.hbm.xml"/>
+        <mapping resource="Cliente.hbm.xml"/>
+        <mapping resource="Cuenta.hbm.xml"/>
+        <mapping resource="Operacion.hbm.xml"/>
+        <mapping resource="Tarjeta.hbm.xml"/>
 
     </session-factory>
 </hibernate-configuration>

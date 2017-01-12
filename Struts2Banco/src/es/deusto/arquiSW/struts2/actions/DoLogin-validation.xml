@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.3//EN"
+ "http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+  		
+<validators>
+	<field name="DNI">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>Necesitas introducir un DNI</message>
+			<!-- <message key="errors.required.login.name"/>--> <!-- Acceso a archivos multilingues -->
+		</field-validator>
+	</field>
+	<field name="PIN">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>Necesitas introducir un PIN</message>
+			<!-- <message key="errors.required.login.password"/>--> <!-- Acceso a archivos multilingues -->
+		</field-validator>
+	</field>
+</validators>
+

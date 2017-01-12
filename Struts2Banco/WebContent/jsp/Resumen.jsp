@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -8,23 +10,23 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 	    <!-- css -->
-		<link rel="stylesheet" href="../css/resumen/bootstrap.min.css">
+		<link rel="stylesheet" href="css/resumen/bootstrap.min.css">
 		<!-- <link rel="stylesheet" href="css/ionicons.min.css"> -->
-		<link rel="stylesheet" href="../css/resumen/font-awesome.min.css">
-		<link rel="stylesheet" href="../css/resumen/owl.carousel.css">
-		<link rel="stylesheet" href="../css/resumen/owl.theme.css">
-		<link rel="stylesheet" href="../css/resumen/owl.transitions.css">
-	    <link rel="stylesheet" href="../css/resumen/animate.css">
-	    <link rel="stylesheet" href="../js/resumen/nivo-lightbox/nivo-lightbox.css">
-		<link rel="stylesheet" href="../js/resumen/nivo-lightbox/nivo-lightbox-theme.css">
-	    <link rel="stylesheet" href="../css/resumen/custom.css">
+		<link rel="stylesheet" href="css/resumen/font-awesome.min.css">
+		<link rel="stylesheet" href="css/resumen/owl.carousel.css">
+		<link rel="stylesheet" href="css/resumen/owl.theme.css">
+		<link rel="stylesheet" href="css/resumen/owl.transitions.css">
+	    <link rel="stylesheet" href="css/resumen/animate.css">
+	    <link rel="stylesheet" href="js/resumen/nivo-lightbox/nivo-lightbox.css">
+		<link rel="stylesheet" href="js/resumen/nivo-lightbox/nivo-lightbox-theme.css">
+	    <link rel="stylesheet" href="css/resumen/custom.css">
 
 	    <!-- js -->
-	    <script src="../js/resumen/jquery.min.js"></script>
-	    <script src="../js/resumen/bootstrap.min.js"></script>
-	    <script src="../js/resumen/owl.carousel.min.js"></script>
-		<script src="../js/resumen/wow.min.js"></script>
-		<script src="../js/resumen/jquery.actual.min.js"></script>
+	    <script src="js/resumen/jquery.min.js"></script>
+	    <script src="js/resumen/bootstrap.min.js"></script>
+	    <script src="js/resumen/owl.carousel.min.js"></script>
+		<script src="js/resumen/wow.min.js"></script>
+		<script src="js/resumen/jquery.actual.min.js"></script>
 	</head>
 
 	<body data-spy="scroll" data-target="#navbar-example">
@@ -146,27 +148,27 @@
 				</div>	<!-- row -->
 				<div class="row about-us-text">
 					<div class="col-md-12">
-						<p class="text-center">¡Esta es tu página de banca online! Aquí puedes visualizar que cuentas tienes habilitadas con DeustoBank. Puedes consultar las operaciones de las mismas y ver detalles de la cuenta. Si accedes a las operaciones de cada cuenta, podrás ingresar y extraer dinero cómodamente. :)</p>
+						<p class="text-center">¡Esta es tu página de banca online! AquÃí puedes visualizar que cuentas tienes habilitadas con DeustoBank. Puedes consultar las operaciones de las mismas y ver detalles de la cuenta. Si accedes a las operaciones de cada cuenta, podrás ingresar y extraer dinero cómodamente. :)</p>
 					</div>
 				</div>	<!-- row -->
 				<div class="row main_content">
 					<div class="col-md-4 col-sm-4 wow animated zoomIn" data-wow-delay="0.1s">
 						<figure>
-							<img class="pro img-responsive center-block" src="../imgs/3-col-icons-web.png" alt="image">
+							<img class="pro img-responsive center-block" src="imgs/3-col-icons-web.png" alt="image">
 						</figure>
 						<h5 class="text-center">VER DETALLES</h5>
 					</div>	<!-- col-md-4 -->
 
 					<div class="col-md-4 col-sm-4 wow animated zoomIn" data-wow-delay="0.1s">
 						<figure>
-							<img class="pro img-responsive center-block" src="../imgs/3-col-icons-android.png" alt="image">
+							<img class="pro img-responsive center-block" src="imgs/3-col-icons-android.png" alt="image">
 						</figure>
 						<h5 class="text-center">OPERACIONES</h5>
 					</div>	<!-- col-md-4 -->
 
 					<div class="col-md-4 col-sm-4 wow animated zoomIn" data-wow-delay="0.1s">
 						<figure>
-							<img class="pro img-responsive center-block" src="../imgs/3-col-icons-iphone.png" alt="image">
+							<img class="pro img-responsive center-block" src="imgs/3-col-icons-iphone.png" alt="image">
 						</figure>
 						<h5 class="text-center">CUENTAS</h5>
 					</div>	<!-- col-md-4 -->
@@ -189,7 +191,7 @@
 			        	<div class="row">
 			        		<div class="col-md-3 col-sm-6 idiomas1 idiomas2">
 			        			<div class="service">
-			        				<img src="../imgs/service2.png" alt="service1">
+			        				<img src="imgs/service2.png" alt="service1">
 			        				<div class="text-center">
 				        				<h4>Español</h4>
 				        				<p>
@@ -200,7 +202,7 @@
 			        		</div> <!-- .col-md-3 -->
 			        		<div class="col-md-3 col-sm-6 idiomas2">
 			        			<div class="service">
-			        				<img src="../imgs/service3.png" alt="service1">
+			        				<img src="imgs/service3.png" alt="service1">
 			        				<div class="text-center">
 				        				<h4>Inglés</h4>
 				        				<p>
@@ -209,6 +211,7 @@
 			        				</div> <!-- .text-center -->
 			        			</div> <!-- .service -->
 			        		</div> <!-- .col-md-3 -->
+			        	</div>
 					</div>	<!-- services -->
 				</div>	<!-- main_content -->
 			</div>	<!-- container -->
@@ -242,13 +245,13 @@
 			  
 			});
 		</script>
-        <script src="../js/resumen/jquery-ui-1.10.3.min.js"></script>
-        <script src="../js/resumen/jquery.knob.js"></script>
-        <script src="../js/resumen/daterangepicker.js"></script>
-        <script src="../js/resumen/bootstrap3-wysihtml5.all.min.js"></script>
-        <script src="../js/resumen/smoothscroll.js"></script>
-        <script src="../js/resumen/nivo-lightbox/nivo-lightbox.min.js"></script>
-        <script src="../js/resumen/script.js"></script>
+        <script src="js/resumen/jquery-ui-1.10.3.min.js"></script>
+        <script src="js/resumen/jquery.knob.js"></script>
+        <script src="js/resumen/daterangepicker.js"></script>
+        <script src="js/resumen/bootstrap3-wysihtml5.all.min.js"></script>
+        <script src="js/resumen/smoothscroll.js"></script>
+        <script src="js/resumen/nivo-lightbox/nivo-lightbox.min.js"></script>
+        <script src="js/resumen/script.js"></script>
        
 	</body>
 </html>

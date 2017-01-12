@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- Recuerda incluir struts.xml en el classpath. Tiene que estar incluido en el classpath si no Struts2 no funciona. -->
+<!-- Recuerda que para que el proyecto funcione bien sea con el Tomcat integrado en Eclipse como con ANT, tienes que
+ hacer que varios archivo consten en el classpath. Recuerda la pestaña 'Source' en "JavaBuildPath" de las propiedades del proyecto.
+ Actualmente, tengo incluidas: /conf, /src, y /mappings -->
+<struts>
+
+    <constant name="struts.devMode" value="true" />
+    <package name="default" namespace="/" extends="struts-default">
+		<default-interceptor-ref name="paramsPrepareParamsStack"/>
+		
+        <action name="HelloWorld" class="es.deusto.arquiSW.struts2.actions.Helloworld">
+            <result>/jsp/HelloWorld.jsp</result>
+        </action>
+        
+        <!--  Login use case -->
+        <action name="showLogin">
+            <result>/jsp/index.jsp</result>
+        </action>
+        <action name="doLogin" class="es.deusto.arquiSW.struts2.actions.DoLogin">
+        	<result name="input">/jsp/index.jsp</result> <!-- La validacion desde el lado cliente devolvera como resultado un "input". Por eso tenemos que especificarlo. -->
+            <result name="OK">/jsp/Resumen.jsp</result>
+            <result name="WRONG">/jsp/index.jsp</result>
+            <result name="404">/jsp/404.jsp</result>
+            <result name="ERROR">/jsp/Error.jsp</result>
+        </action>
+        
+        <!--  Resumen (cuentas) use case -->
+        <action name="showResumen" class="es.deusto.arquiSW.struts2.actions.Resumen">
+            <result name="OK">/jsp/Resumen.jsp</result>
+            <result name="404">/jsp/404.jsp</result>
+            <result name="ERROR">/jsp/Error.jsp</result>
+        </action>
+        
+        <!--  Operaciones use case -->
+        <action name="showOperaciones" class="es.deusto.arquiSW.struts2.actions.Operaciones">
+            <result name="OK">/jsp/Operaciones.jsp</result>
+            <result name="404">/jsp/404.jsp</result>
+            <result name="ERROR">/jsp/Error.jsp</result>
+        </action>
+        
+        <!--  Annadir operacion -->
+        <action name="AddOperacion" class="es.deusto.arquiSW.struts2.actions.AddOperacion">
+            <result name="OK">/jsp/AddOperacion.jsp</result>
+            <result name="404">/jsp/404.jsp</result>
+            <result name="ERROR">/jsp/Error.jsp</result>
+        </action>
+        
+        <!-- Transferencias -->
+        <!-- <action name="Transferencias" class="es.deusto.arquiSW.struts2.actions.Transferencias">
+            <result name="OK">/jsp/Transferencias.jsp</result>
+            <result name="404">/jsp/404.jsp</result>
+            <result name="ERROR">/jsp/Error.jsp</result>
+        </action> -->
+
+		<!-- This is a wildcard for any not-matching site -->
+		<action name="*">
+			<result>/jsp/404.jsp</result>
+		</action>
+
+         <!-- Keep adding actions here -->
+    </package>
+
+    <!-- Keep adding packages here -->
+
+</struts>

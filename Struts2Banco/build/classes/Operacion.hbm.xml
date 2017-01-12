@@ -12,7 +12,7 @@
 <!-- Documentacion sobre diferencias entre Set, Bag, List etc. : https://www.tutorialspoint.com/hibernate/hibernate_or_mappings.htm -->
 <hibernate-mapping>
 	<!-- Remember! 'name' siempre hace referencia al nombre de los atributos de las clases. Mientras que 'column' hace siempre referencia al nombre de las columnas de la BD. -->
-    <class name="es.deusto.arquiSW.classes.Operacion" table="operacion">
+    <class name="es.deusto.arquiSW.hibernate.classes.Operacion" table="operacion">
 
         <id name="id" column="ID" type="int">
             <generator class="increment"/> <!-- This is used to automatically generate the primary key values in the DB. Mas info sobre 'generators' en: http://www.javatpoint.com/generator-classes -->
@@ -22,7 +22,7 @@
 		<property name="tipo" column="Tipo" type="string"/>
 		<property name="importe" column="Importe" type="float"/>
 		
-		<many-to-one name="cuenta" column="Cuenta" not-null="true" class="es.deusto.arquiSW.classes.Cuenta"/>
+		<many-to-one name="cuenta" column="Cuenta" not-null="true" class="es.deusto.arquiSW.hibernate.classes.Cuenta"/>
    </class>
    
 </hibernate-mapping>
@@ -33,7 +33,7 @@ Problemas que he tenido:
 ·En un property, en el atributo "name" has de escribirlo parece que tal y como está el nombre del atributo en la clase.
 ·Si has declarado un Enum como una inner class dentro de una clase (es decir, un Enum dentro de una clase sin tener dicho Enum implementado/declarado en una clase ".java" aparte) puedes hacer referencia a ella con el signo del dolar, ej. "...dominio.Tarjeta$TiposTarjeta"
 ·El atributo not-null="true" no parece que haya que ponerlo en la etiqueta <id> de los archivos de mapping. Parece que no hace falta, me daba error.
-·Si en el archivo de mapping has definido la ruta de las clases como un atributo en la etiqueta <class> y entonces no lo hiciste en la etiqueta "hibernate-mapping" (que es el padre), entonces en las relaciones one-to-many, many-to-one y el resto de ellas, has de definir de que clase provienen. Para eso define un atributo "class", ej. class="es.deusto.arquiSW.classes.Cuenta".
+·Si en el archivo de mapping has definido la ruta de las clases como un atributo en la etiqueta <class> y entonces no lo hiciste en la etiqueta "hibernate-mapping" (que es el padre), entonces en las relaciones one-to-many, many-to-one y el resto de ellas, has de definir de que clase provienen. Para eso define un atributo "class", ej. class="es.deusto.arquiSW.hibernate.classes.Cuenta".
 ·Mapear tipos de datos de Enum es un dolor de cabeza. Por defecto, el tipo de dato es un Integer. Para pasarlo a VARCHAR, has de poner:
 
 	<param name="type">12</param>
@@ -41,7 +41,7 @@ Problemas que he tenido:
 ej.
 	<property name="proveedor" column="Proveedor" type="character">
 				<type name="org.hibernate.type.EnumType">
-					<param name="enumClass">es.deusto.arquiSW.classes.Tarjeta$EnumProveedores</param>
+					<param name="enumClass">es.deusto.arquiSW.hibernate.classes.Tarjeta$EnumProveedores</param>
 					<param name="type">12</param>
 				</type>
 	</property> 

@@ -1,0 +1,32 @@
+Este proyecto funciona tanto ejecutandolo con el servidor integrado de Tomcat de Ecliipse como ejecutandolo con ANT.
+ Con ANT todo va fluido, el unico problema que puedas tener ejecutando el Main es que no te pille el classpath o la 
+ ubicacion de los archivos que necesita (.xml etc.). Para eso asegurate de que quitas y vuelves a añadir las carpetas
+ "conf" y "mapping" en la pestaña "Classes" de las propiedades del proyecto "Struts2Banco > Properties > Classes".
+ Haciendo eso, "refrescas" la ubicacion del classpath para Eclipse y asi, ejecutar el Main no dara problemas.
+ 
+ Con ANT, todo tendria que ir bien.
+
+Ante todo, recuerda que como estas ejecutando un servicio web (aplicacion web) tienes que tener en cuenta que las
+librerias de Hibernate tienen que estar tambien en "Web App Libraries", que es el directorio donde busca las librerias
+cuando el proyecto es ejecutado en Eclipse. Con ANT, no se si son necesarios. Para hacer eso, tienes que meter las
+librerias (.jar) dentro del directorio "WEB-INF > lib" de tu proyecto Dynamic Web Project de Eclipse.
+En aras de distinguir las librerias que son para Hibernate y las que son para el propio Struts2, aqui tienes un listado:
+
+STRUTS2
+commons-fileupload-1.3.2..jar
+commons-io-2.4.jar
+commons-lang3-3.4.jar
+freemarker-2.3.23.jar
+javassitst-3.20.0-GA.jar
+log4j-api-2.7.jar
+ognl-3.1.12.jar
+struts2-core-2.5.8.jar
+
+HIBERNATE
+El resto de .jar, seran de Hibernate. Hay uno que tienen en comun:
+javassitst-3.20.0-GA.jar
+
+Ojo al dato! Estas librerias no tienen que ser añadidas al BuildPath si no es que quieras ejecutarlo con el Main de alguna
+clase en concreto. Solo hace falta copiarlas a ese directorio, no hay que hacer "Add-to-build-path".
+
+

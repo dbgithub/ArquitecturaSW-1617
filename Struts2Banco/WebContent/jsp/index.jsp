@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html>
 
@@ -5,7 +7,7 @@
 
   <meta charset="UTF-8">
 
-  <title>CodePen - Random Login Form</title>
+  <title>DeustoBank | Login</title>
 
     <style>
 @import url(http://fonts.googleapis.com/css?family=Exo:100,200,400);
@@ -14,8 +16,8 @@
 body{
 	margin: 0;
 	padding: 0;
-	background: #fff;
-
+	background: #000;
+	overflow: hidden;
 	color: #fff;
 	font-family: Arial;
 	font-size: 12px;
@@ -23,26 +25,27 @@ body{
 
 .body{
 	position: absolute;
-	top: -20px;
+	/*top: -20px;*/
 	left: -20px;
-	right: -40px;
-	bottom: -40px;
-	width: auto;
-	height: auto;
-	background-image: url(http://ginva.com/wp-content/uploads/2012/07/city-skyline-wallpapers-008.jpg);
+	/*right: -40px;
+	bottom: -40px;*/
+	width: 105%;
+	height: 100%;
+	background-image: url(<s:url value="imgs/university.jpg"/>); /* Ojo, si pones el tag de Struts2 's:url' entonces la URI de dentro tienes que acortarla porque coge como base otro directorio. Si no pones el tag, entonces, la URI es relativa*/
 	background-size: cover;
+	background-size: 115% 115%;
 	-webkit-filter: blur(5px);
 	z-index: 0;
 }
 
 .grad{
 	position: absolute;
-	top: -20px;
+	/*top: -20px;*/
 	left: -20px;
-	right: -40px;
-	bottom: -40px;
-	width: auto;
-	height: auto;
+	/*right: -40px;
+	bottom: -40px;*/
+	width: 105%;
+	height: 100%;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.65))); /* Chrome,Safari4+ */
 	z-index: 1;
 	opacity: 0.7;
@@ -67,6 +70,14 @@ body{
 	color: #5379fa !important;
 }
 
+.inputerror {
+	/*visibility: hidden;
+	position:absolute;*/
+	margin-top: 10px;
+	padding: 9px;
+	color: red;
+	background-color: #0a113266;
+}
 .login{
 	position: absolute;
 	top: calc(50% - 75px);
@@ -104,7 +115,7 @@ body{
 	margin-top: 10px;
 }
 
-.login input[type=button]{
+.login input[type=submit]{
 	width: 260px;
 	height: 35px;
 	background: #fff;
@@ -119,11 +130,11 @@ body{
 	margin-top: 10px;
 }
 
-.login input[type=button]:hover{
+.login input[type=submit]:hover{
 	opacity: 0.8;
 }
 
-.login input[type=button]:active{
+.login input[type=submit]:active{
 	opacity: 0.6;
 }
 
@@ -137,7 +148,7 @@ body{
 	border: 1px solid rgba(255,255,255,0.9);
 }
 
-.login input[type=button]:focus{
+.login input[type=submit]:focus{
 	outline: none;
 }
 
@@ -150,23 +161,30 @@ body{
 }
 </style>
 
-    <script src="../js/prefixfree.min.js"></script>
+    <script src="<s:url value="js/prefixfree.min.js"/>"></script> <!-- Ojo, si pones el tag de Struts2 's:url' entonces la URI de dentro tienes que acortarla porque coge como base otro directorio. Si no pones el tag, entonces, la URI es relativa-->
 
 </head>
 
 <body>
 
-  <div class="body"></div>
-		<div class="grad"></div>
-		<div class="header">
-			<div>Site<span>Random</span></div>
+ 	<div class="body"></div>
+	<div class="grad"></div>
+	<div class="header">
+		<div>Deusto<span>Bank</span></div>
+	</div>
+	<br>
+	<div class="login">
+	<s:form action="doLogin" method="POST" validate="true"> 
+		<s:textfield name="DNI" placeholder="DNI"/><br>
+		<s:password name="PIN" placeholder="PIN"/><br>
+		<s:submit type="input" value="ACCEDE"/>
+		
+	</s:form>
+		<div class="inputerror">
+			<s:actionerror />
+			<s:fielderror />
 		</div>
-		<br>
-		<div class="login">
-				<input type="text" placeholder="username" name="user"><br>
-				<input type="password" placeholder="password" name="password"><br>
-				<input type="button" value="Login">
-		</div>
+	</div>
 
   <script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
 
