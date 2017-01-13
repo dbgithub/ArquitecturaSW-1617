@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?> <!DOCTYPE hibernate-configuration
+        PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+        <!-- ATENCION! He tenido que bajarme la ultima version de Hibernate (porque cambie el '.dtd' de la URL de arriba) e importar el contenido del lib/required a este proyecto -->
+        <!-- Aparte, he tenido que importar tambien:  "slf4j-api-1.5.8.jar" y "slf4j-simple-1.5.8" -->
+
+<!-- Tutoriales y documentacion sobre Hibernate:
+	· http://docs.jboss.org/hibernate/orm/current/quickstart/html_single/
+	· https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html
+	· https://www.tutorialspoint.com/hibernate/index.htm
+	· http://www.javatpoint.com/hibernate-tutorial
+	· https://docs.jboss.org/hibernate/orm/3.3/reference/en/html/ -->
+<hibernate-configuration>
+
+    <session-factory>
+
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ArquitecturaSW</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">root</property>
+        
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property> <!-- Para que Hibernate converse correctamente con la BD, has de especificar un 'dialect' -->
+        <property name="hbm2ddl.auto">validate</property> <!-- Otras opciones: https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#configurations-hbmddl -->
+        
+		<!-- C3p0 pool connection manager
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <property name="hibernate.c3p0.timeout">300</property>
+        <property name="hibernate.c3p0.max_statements">50</property>
+        <property name="hibernate.c3p0.idle_test_period">3000</property>
+        -->
+
+        <property name="show_sql">true</property> 
+        <!-- SQL to stdout logging ("show_sql" -> Echo all executed SQL to stdout)
+        <property name="format_sql">true</property>
+        <property name="use_sql_comments">true</property>
+        -->
+
+        <mapping resource="Cliente.hbm.xml"/>
+        <mapping resource="Cuenta.hbm.xml"/>
+        <mapping resource="Operacion.hbm.xml"/>
+        <mapping resource="Tarjeta.hbm.xml"/>
+
+    </session-factory>
+</hibernate-configuration>
