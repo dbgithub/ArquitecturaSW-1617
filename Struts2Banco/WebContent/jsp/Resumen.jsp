@@ -63,7 +63,7 @@
 
 				<section id="starting">
 					<div class="text-center starting-text wow animated zoomInDown">
-						<h2>Bienvenido, X</h2>
+						<h2>Bienvenido, <s:property value="nombre"/></h2>
 						<h3 class="h3_header">Cuentas</h3>
 								<div class="cuadro_datos">
 								<p>DNI:</p>
@@ -79,54 +79,64 @@
 						    <th>Saldo</th>
 						    <th>Interes</th>
 						  </tr>
-						  <tr>
-						    <td>Alfreds Futterkiste</td>
-						    <td>Maria Anders</td>
-						    <td>Germany</td>
-						    <td>Alfreds Futterkiste</td>
-						    <td>Maria Anders</td>
-						    <td>Germany</td>
-						  </tr>
-						  <tr>
-						    <td>Centro comercial Moctezuma</td>
-						    <td>Francisco Chang</td>
-						    <td>Mexico</td>
-						    <td>Centro comercial Moctezuma</td>
-						    <td>Francisco Chang</td>
-						    <td>Mexico</td>
-						  </tr>
-						  <tr>
-						    <td>Ernst Handel</td>
-						    <td>Roland Mendel</td>
-						    <td>Austria</td>
-						    <td>Ernst Handel</td>
-						    <td>Roland Mendel</td>
-						    <td>Austria</td>
-						  </tr>
-						  <tr>
-						    <td>Island Trading</td>
-						    <td>Helen Bennett</td>
-						    <td>UK</td>
-						    <td>Island Trading</td>
-						    <td>Helen Bennett</td>
-						    <td>UK</td>
-						  </tr>
-						  <tr>
-						    <td>Laughing Bacchus Winecellars</td>
-						    <td>Yoshi Tannamuri</td>
-						    <td>Canada</td>
-						    <td>Laughing Bacchus Winecellars</td>
-						    <td>Yoshi Tannamuri</td>
-						    <td>Canada</td>
-						  </tr>
-						  <tr>
-						    <td>Magazzini Alimentari Riuniti</td>
-						    <td>Giovanni Rovelli</td>
-						    <td>Italy</td>
-						    <td>Magazzini Alimentari Riuniti</td>
-						    <td>Giovanni Rovelli</td>
-						    <td>Italy</td>
-						  </tr>
+						<s:iterator value="cuentas">
+							<tr>
+								<td><s:property value="IBAN"/></td>
+								<td><s:property value="SWIFT"/></td>
+								<td><s:property value="fechaApertura"/></td>
+								<td><s:property value="activa"/></td>
+								<td><s:property value="saldoActual"/></td>
+								<td><s:property value="interes"/></td>
+							</tr>
+						</s:iterator>
+						<!-- 						  <tr> -->
+<!-- 						    <td>Alfreds Futterkiste</td> -->
+<!-- 						    <td>Maria Anders</td> -->
+<!-- 						    <td>Germany</td> -->
+<!-- 						    <td>Alfreds Futterkiste</td> -->
+<!-- 						    <td>Maria Anders</td> -->
+<!-- 						    <td>Germany</td> -->
+<!-- 						  </tr> -->
+<!-- 						  <tr> -->
+<!-- 						    <td>Centro comercial Moctezuma</td> -->
+<!-- 						    <td>Francisco Chang</td> -->
+<!-- 						    <td>Mexico</td> -->
+<!-- 						    <td>Centro comercial Moctezuma</td> -->
+<!-- 						    <td>Francisco Chang</td> -->
+<!-- 						    <td>Mexico</td> -->
+<!-- 						  </tr> -->
+<!-- 						  <tr> -->
+<!-- 						    <td>Ernst Handel</td> -->
+<!-- 						    <td>Roland Mendel</td> -->
+<!-- 						    <td>Austria</td> -->
+<!-- 						    <td>Ernst Handel</td> -->
+<!-- 						    <td>Roland Mendel</td> -->
+<!-- 						    <td>Austria</td> -->
+<!-- 						  </tr> -->
+<!-- 						  <tr> -->
+<!-- 						    <td>Island Trading</td> -->
+<!-- 						    <td>Helen Bennett</td> -->
+<!-- 						    <td>UK</td> -->
+<!-- 						    <td>Island Trading</td> -->
+<!-- 						    <td>Helen Bennett</td> -->
+<!-- 						    <td>UK</td> -->
+<!-- 						  </tr> -->
+<!-- 						  <tr> -->
+<!-- 						    <td>Laughing Bacchus Winecellars</td> -->
+<!-- 						    <td>Yoshi Tannamuri</td> -->
+<!-- 						    <td>Canada</td> -->
+<!-- 						    <td>Laughing Bacchus Winecellars</td> -->
+<!-- 						    <td>Yoshi Tannamuri</td> -->
+<!-- 						    <td>Canada</td> -->
+<!-- 						  </tr> -->
+<!-- 						  <tr> -->
+<!-- 						    <td>Magazzini Alimentari Riuniti</td> -->
+<!-- 						    <td>Giovanni Rovelli</td> -->
+<!-- 						    <td>Italy</td> -->
+<!-- 						    <td>Magazzini Alimentari Riuniti</td> -->
+<!-- 						    <td>Giovanni Rovelli</td> -->
+<!-- 						    <td>Italy</td> -->
+<!-- 						  </tr> -->
 						</table>
 					</div>
 				</section>

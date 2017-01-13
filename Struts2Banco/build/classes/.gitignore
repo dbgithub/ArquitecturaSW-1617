@@ -1,1 +1,7 @@
+/Cliente.hbm.xml
+/Cuenta.hbm.xml
+/Operacion.hbm.xml
+/Tarjeta.hbm.xml
 /es/
+/hibernate.cfg.xml
+/struts.xml
