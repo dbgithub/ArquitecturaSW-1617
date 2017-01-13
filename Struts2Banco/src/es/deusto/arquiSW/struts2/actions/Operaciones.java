@@ -1,28 +1,37 @@
-// Struts2HelloWorld.java
 package es.deusto.arquiSW.struts2.actions;
 import com.opensymphony.xwork2.ActionSupport;
-import java.util.Date;
+
+import es.deusto.arquiSW.hibernate.DAO.HibernateDAO;
+import es.deusto.arquiSW.hibernate.classes.Operacion;
+
+import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class Operaciones extends ActionSupport {
-	public static final String MESSAGE = "Struts 2 Hello World Tutorial!";
+	private String IBAN;
+	private ArrayList<Operacion> operaciones = new ArrayList<Operacion>();
+	// Declaramos e instanciamos el DAO para la comunicación con la base de datos:
+	HibernateDAO miDAO = new HibernateDAO();
 
 	public String execute() throws Exception {
-		setMessage(MESSAGE);
-		return SUCCESS;
+		System.out.println("IBAN obtenido: " + getIBAN());
+		return "OK";
 	}
 
-	private String message;
-
-	public void setMessage(String message){
-		this.message = message;
+	public ArrayList<Operacion> getOperaciones() {
+		return operaciones;
 	}
 
-	public String getMessage() {
-		return message;
+	public void setOperaciones(ArrayList<Operacion> operaciones) {
+		this.operaciones = operaciones;
 	}
 
-	public String getCurrentTime(){
-		return new Date().toString();
+	public String getIBAN() {
+		return IBAN;
 	}
+
+	public void setIBAN(String iBAN) {
+		IBAN = iBAN;
+	}
+
 }

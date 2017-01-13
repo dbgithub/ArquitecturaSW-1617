@@ -12,6 +12,8 @@ public class DoLogin extends ActionSupport {
 	private String DNI = null;
 	private String PIN = null;
 	private String nombre;
+	private String email;
+	private int movil;
 	private ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
 	// Declaramos e instanciamos el DAO para la comunicación con la base de datos:
 	HibernateDAO miDAO = new HibernateDAO();
@@ -28,12 +30,14 @@ public class DoLogin extends ActionSupport {
 			if (resul != null) {
 				System.out.println("Login satisfactorio! :)");
 				setCuentas(miDAO.obtenerCuentas(getDNI()));
+				setNombre(resul.getNombre());
+				setEmail(resul.getEmail());
+				setMovil(resul.getMovil());
 			} else {
 			System.out.println("¡Datos erroneos introducidos (DNI, PIN)!");
 			addActionError("* Hey! Has introducido algún dato erroneo!");
 			return "WRONG";	
 			}
-			setNombre(resul.getNombre());
 			return "OK";
 		}
 	}
@@ -68,6 +72,22 @@ public class DoLogin extends ActionSupport {
 
 	public void setCuentas(ArrayList<Cuenta> cuentas) {
 		this.cuentas = cuentas;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public int getMovil() {
+		return movil;
+	}
+
+	public void setMovil(int movil) {
+		this.movil = movil;
 	}
 
 	

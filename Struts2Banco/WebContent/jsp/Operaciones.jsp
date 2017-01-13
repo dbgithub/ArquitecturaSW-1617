@@ -52,7 +52,7 @@
 					    <!-- Collect the nav links, forms, and other content for toggling -->
 					    <div class="collapse navbar-collapse" id="navbar-example">
 					      <ul class="nav navbar-nav navbar-right">
-					        <li><a href="#about" class="active">¿Qué puedo hacer?</a></li>
+					        <li><a href="#about" class="active">Ingreso/Extracción</a></li>
 	  						<li><a href="#our_service">Idioma</a></li>
 					      </ul>
 					    </div><!-- /.navbar-collapse -->
@@ -63,36 +63,23 @@
 
 				<section id="starting">
 					<div class="text-center starting-text wow animated zoomInDown">
-						<h2>Bienvenido, <s:property value="nombre"/></h2>
-						<h3 class="h3_header">Cuentas</h3>
+						<h3 class="h3_header">Operaciones</h3>
 								<div class="cuadro_datos">
-								<p>DNI: <span><s:property value="DNI"/></span></p>
-								<p>Email: <span><s:property value="Email"/></span></p>
-								<p>Móvil: <span><s:property value="Movil"/></span></p>
+								<p>IBAN: <span><s:property value="IBAN"/></span></p>
 								</div>
 						<table>
 						  <tr>
-						    <th>IBAN</th>
-						    <th>SWIFT</th> 
-						    <th>Fecha apertura</th>
-						    <th>Activa</th>
-						    <th>Saldo</th>
-						    <th>Interes</th>
+						    <th>Número</th>
+						    <th>Fecha</th> 
+						    <th>Tipo</th>
+						    <th>Importe</th>
 						  </tr>
-						<s:iterator value="cuentas">
+						<s:iterator value="operaciones">
 							<tr>
-								<td>
-								<s:url var="urlIBAN" action="showOperaciones">
-<%-- 									<s:param name="IBAN"><s:property value="IBAN"/></s:param> --%>
-									<s:param name="IBAN" value="%{IBAN}" />
-								</s:url>
-								<s:a href="%{urlIBAN}" tooltip="Ver operaciones de la cuenta"><s:property value="IBAN"/></s:a>
-								</td>
-								<td><s:property value="SWIFT"/></td>
-								<td><s:property value="fechaApertura"/></td>
-								<td><s:property value="activa"/></td>
-								<td><s:property value="saldoActual"/></td>
-								<td><s:property value="interes"/></td>
+								<td><s:property value="id"/></td>
+								<td><s:property value="fecha"/></td>
+								<td><s:property value="tipo"/></td>
+								<td><s:property value="importe"/></td>
 							</tr>
 						</s:iterator>
 						</table>
@@ -109,36 +96,29 @@
 			<div class="container">
 				<div class="row text-center heading">
 					<div class="wow animated zoomInDown heading-text">
-						<h3>¿Qué puedo hacer?</h3>
+						<h3>Ingreso/Extracción</h3>
 	                	<hr class="full">
 	                	<br/>
 					</div>
 				</div>	<!-- row -->
 				<div class="row about-us-text">
 					<div class="col-md-12">
-						<p class="text-center">¡Esta es tu página de banca online! Aquí puedes visualizar que cuentas tienes habilitadas con DeustoBank. Puedes consultar las operaciones de las mismas y ver detalles de la cuenta. Si accedes a las operaciones de cada cuenta, podrás ingresar y extraer dinero cómodamente. :)</p>
+						<p class="text-center">Haz click sobre la opción que desea llevar a cabo :)</p>
 					</div>
 				</div>	<!-- row -->
 				<div class="row main_content">
-					<div class="col-md-4 col-sm-4 wow animated zoomIn" data-wow-delay="0.1s">
+					<div class="col-md-4 col-sm-4 wow animated zoomIn opciones" data-wow-delay="0.1s">
 						<figure>
-							<img class="pro img-responsive center-block" src="imgs/3-col-icons-web.png" alt="image">
+							<img class="pro img-responsive center-block" src="imgs/ingreso.png" alt="image">
 						</figure>
-						<h5 class="text-center">VER DETALLES</h5>
+						<h5 class="text-center">INGRESO</h5>
 					</div>	<!-- col-md-4 -->
 
 					<div class="col-md-4 col-sm-4 wow animated zoomIn" data-wow-delay="0.1s">
 						<figure>
-							<img class="pro img-responsive center-block" src="imgs/3-col-icons-android.png" alt="image">
+							<img class="pro img-responsive center-block" src="imgs/extraccion.png" alt="image">
 						</figure>
-						<h5 class="text-center">OPERACIONES</h5>
-					</div>	<!-- col-md-4 -->
-
-					<div class="col-md-4 col-sm-4 wow animated zoomIn" data-wow-delay="0.1s">
-						<figure>
-							<img class="pro img-responsive center-block" src="imgs/3-col-icons-iphone.png" alt="image">
-						</figure>
-						<h5 class="text-center">CUENTAS</h5>
+						<h5 class="text-center">EXTRACCION</h5>
 					</div>	<!-- col-md-4 -->
 				</div><!-- row main_content -->
 			</div>	<!-- container -->
