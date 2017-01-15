@@ -46,7 +46,9 @@
 					        <span class="sr-only">Toggle navigation</span>
 					        <i class="fa fa-bars"></i>
 					      </button>
-					      <a class="navbar-brand" href="#">DeustoBank</a>
+					      <s:url var="urlCuentas" action="showResumen"></s:url>
+						 <s:a href="%{urlCuentas}" class="navbar-brand" tooltip="Volver a las cuentas">DeustoBank</s:a>
+<!-- 					      <a class="navbar-brand" href="#">DeustoBank</a> -->
 					    </div>
 
 					    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -63,7 +65,7 @@
 
 				<section id="starting">
 					<div class="text-center starting-text wow animated zoomInDown">
-						<h3 class="h3_header">Operaciones</h3>
+						<h3 class="h3_header operacionesHeader">Operaciones</h3>
 								<div class="cuadro_datos">
 								<p>IBAN: <span><s:property value="IBAN"/></span></p>
 								</div>
@@ -91,7 +93,7 @@
 			</div><!-- overlay-1 -->
 		</div>	<!-- wrapper -->		
 			
-		<!-- Que puedo hacer -->
+		<!-- Ingreso/Extraccion -->
 		<section id="about">
 			<div class="container">
 				<div class="row text-center heading">
@@ -109,16 +111,34 @@
 				<div class="row main_content">
 					<div class="col-md-4 col-sm-4 wow animated zoomIn opciones" data-wow-delay="0.1s">
 						<figure>
-							<img class="pro img-responsive center-block" src="imgs/ingreso.png" alt="image">
+										<!-- URL (STRUTS2) -->
+										<s:url var="urlIngreso" action="showAddOperacion">
+											<s:param name="IBAN" value="%{IBAN}" /> <%-- Otra forma: <s:param name="IBAN"><s:property value="IBAN"/></s:param> --%>
+											<s:param name="tipo">ingreso</s:param> 
+										</s:url>
+							<s:a href="%{urlIngreso}" tooltip="Ingresar dinero">
+								<img class="pro img-responsive center-block" src="imgs/ingreso.png" alt="image">
+							</s:a>
 						</figure>
-						<h5 class="text-center">INGRESO</h5>
+						<s:a href="%{urlIngreso}" tooltip="Ingresar dinero"> 
+							<h5 class="text-center">INGRESO</h5>
+						</s:a>
 					</div>	<!-- col-md-4 -->
 
 					<div class="col-md-4 col-sm-4 wow animated zoomIn" data-wow-delay="0.1s">
 						<figure>
-							<img class="pro img-responsive center-block" src="imgs/extraccion.png" alt="image">
+										<!-- URL (STRUTS2) -->
+										<s:url var="urlExtraccion" action="showAddOperacion">
+											<s:param name="IBAN" value="%{IBAN}" /> <%-- Otra forma: <s:param name="IBAN"><s:property value="IBAN"/></s:param> --%>
+											<s:param name="tipo">extraccion</s:param> 
+										</s:url>
+							<s:a href="%{urlExtraccion}" tooltip="Extraer dinero">
+								<img class="pro img-responsive center-block" src="imgs/extraccion.png" alt="image">
+							</s:a>
 						</figure>
-						<h5 class="text-center">EXTRACCION</h5>
+						<s:a href="%{urlExtraccion}" tooltip="Extraer dinero"> 
+							<h5 class="text-center">EXTRACCION</h5>
+						</s:a>
 					</div>	<!-- col-md-4 -->
 				</div><!-- row main_content -->
 			</div>	<!-- container -->

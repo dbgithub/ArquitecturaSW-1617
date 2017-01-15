@@ -46,13 +46,14 @@
 					        <span class="sr-only">Toggle navigation</span>
 					        <i class="fa fa-bars"></i>
 					      </button>
-					      <a class="navbar-brand" href="#">DeustoBank</a>
+					      <s:url var="urlCuentas" action="showResumen"></s:url>
+						 <s:a href="%{urlCuentas}" class="navbar-brand" tooltip="Volver a las cuentas">DeustoBank</s:a>
+<!-- 					      <a class="navbar-brand" href="#">DeustoBank</a> -->
 					    </div>
 
 					    <!-- Collect the nav links, forms, and other content for toggling -->
 					    <div class="collapse navbar-collapse" id="navbar-example">
 					      <ul class="nav navbar-nav navbar-right">
-					        <li><a href="#about" class="active">¿Qué puedo hacer?</a></li>
 	  						<li><a href="#our_service">Idioma</a></li>
 					      </ul>
 					    </div><!-- /.navbar-collapse -->
@@ -63,41 +64,23 @@
 
 				<section id="starting">
 					<div class="text-center starting-text wow animated zoomInDown">
-						<h2>Bienvenido, <s:if test="nombre == null"><s:property value="#session.nombre"/></s:if><s:else><s:property value="nombre"/></s:else></h2>
-						<h3 class="h3_header">Cuentas</h3>
+						<h3 class="h3_header operacionesHeader">Realizar Operación</h3>
 								<div class="cuadro_datos">
-								<!-- Dentro de un 'if' statement en Struts2 no hace falta poner un s.property, porque Struts2 entiende que estas accediendo ahi.
-								Mas info en: http://stackoverflow.com/questions/8656698/struts-property-tag-inside-struts-if-tag -->
-								<!-- No es necesario poner la almohadilla delante de la variable, pero puedes ponerlo si quieres, ej. #DNI -->
-								<p>DNI: <span><s:if test="DNI == null"><s:property value="#session.dni"/></s:if><s:else><s:property value="DNI"/></s:else></span></p>
-								<p>Email: <span><s:if test="Email == null"><s:property value="#session.email"/></s:if><s:else><s:property value="Email"/></s:else></span></p>
-								<p>Móvil: <span><s:if test="Movil == null"><s:property value="#session.movil"/></s:if><s:else><s:property value="Movil"/></s:else></span></p>
+								<p>IBAN: <span><s:property value="IBAN"/></span></p>
 								</div>
-						<table>
-						  <tr>
-						    <th>IBAN</th>
-						    <th>SWIFT</th> 
-						    <th>Fecha apertura</th>
-						    <th>Activa</th>
-						    <th>Saldo</th>
-						    <th>Interes</th>
-						  </tr>
-						<s:iterator value="cuentas">
-							<tr>
-								<td>
-								<s:url var="urlIBAN" action="showOperaciones">
-									<s:param name="IBAN" value="%{IBAN}" /> <%-- Otra forma: <s:param name="IBAN"><s:property value="IBAN"/></s:param> --%>
-								</s:url>
-								<s:a href="%{urlIBAN}" tooltip="Ver operaciones de la cuenta"><s:property value="IBAN"/></s:a>
-								</td>
-								<td><s:property value="SWIFT"/></td>
-								<td><s:property value="fechaApertura"/></td>
-								<td><s:property value="activa"/></td>
-								<td><s:property value="saldoActual"/></td>
-								<td><s:property value="interes"/></td>
-							</tr>
-						</s:iterator>
-						</table>
+								
+					<s:form action="addOperacion" method="POST" validate="true">
+						<p>Importe (Cantidad):</p><s:textfield name="importe" placeholder="Importe" tooltip="Importe en €(euros)" />
+						<br>
+						<p>Tipo:</p><s:select name="select" list="{'Ingreso', 'Extraccion'}" value="%{tipos.Ingreso}" headerKey="-1" headerValue="--- Selecciona tipo ---"></s:select>
+						<br>
+						<s:submit type="input" value="Enviar!" />
+						<s:reset value="Resetear" />
+					</s:form>
+					<div class="inputerror">
+						<s:actionerror />
+						<s:fielderror />
+					</div>
 					</div>
 				</section>
 				<div id="bottom" class="bottom text-center">
@@ -106,46 +89,6 @@
 			</div><!-- overlay-1 -->
 		</div>	<!-- wrapper -->		
 			
-		<!-- Que puedo hacer -->
-		<section id="about">
-			<div class="container">
-				<div class="row text-center heading">
-					<div class="wow animated zoomInDown heading-text">
-						<h3>¿Qué puedo hacer?</h3>
-	                	<hr class="full">
-	                	<br/>
-					</div>
-				</div>	<!-- row -->
-				<div class="row about-us-text">
-					<div class="col-md-12">
-						<p class="text-center">¡Esta es tu página de banca online! Aquí puedes visualizar que cuentas tienes habilitadas con DeustoBank. Puedes consultar las operaciones de las mismas y ver detalles de la cuenta. Si accedes a las operaciones de cada cuenta, podrás ingresar y extraer dinero cómodamente. :)</p>
-					</div>
-				</div>	<!-- row -->
-				<div class="row main_content">
-					<div class="col-md-4 col-sm-4 wow animated zoomIn" data-wow-delay="0.1s">
-						<figure>
-							<img class="pro img-responsive center-block" src="imgs/3-col-icons-web.png" alt="image">
-						</figure>
-						<h5 class="text-center">VER DETALLES</h5>
-					</div>	<!-- col-md-4 -->
-
-					<div class="col-md-4 col-sm-4 wow animated zoomIn" data-wow-delay="0.1s">
-						<figure>
-							<img class="pro img-responsive center-block" src="imgs/3-col-icons-android.png" alt="image">
-						</figure>
-						<h5 class="text-center">OPERACIONES</h5>
-					</div>	<!-- col-md-4 -->
-
-					<div class="col-md-4 col-sm-4 wow animated zoomIn" data-wow-delay="0.1s">
-						<figure>
-							<img class="pro img-responsive center-block" src="imgs/3-col-icons-iphone.png" alt="image">
-						</figure>
-						<h5 class="text-center">CUENTAS</h5>
-					</div>	<!-- col-md-4 -->
-				</div><!-- row main_content -->
-			</div>	<!-- container -->
-		</section>	<!-- about us -->
-
 		<!-- Idioma -->
 		<section id="our_service">
 			<div class="container">
@@ -177,7 +120,7 @@
 				        				<h4>Inglés</h4>
 				        				<p>
 				        					Si prefieres ver el contenido de este resumen de la banca online en inglés porque te va ese rollo 'cool', ¡haz click aquí!
-				        				</p>
+				        				</p>	
 			        				</div> <!-- .text-center -->
 			        			</div> <!-- .service -->
 			        		</div> <!-- .col-md-3 -->

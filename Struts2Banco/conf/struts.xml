@@ -43,11 +43,18 @@
             <result name="ERROR">/jsp/Error.jsp</result>
         </action>
         
-        <!--  Annadir operacion -->
-        <action name="AddOperacion" class="es.deusto.arquiSW.struts2.actions.AddOperacion">
+        <!--  Formulario annadir operacion -->
+        <action name="showAddOperacion" class="es.deusto.arquiSW.struts2.actions.ShowAddOperacion">
             <result name="OK">/jsp/AddOperacion.jsp</result>
             <result name="404">/jsp/404.jsp</result>
             <result name="ERROR">/jsp/Error.jsp</result>
+        </action>
+        
+        <!--  Annadir operacion -->
+        <action name="addOperacion" class="es.deusto.arquiSW.struts2.actions.AddOperacion">
+<!--             <result name="OK">/jsp/AddOperacion.jsp</result> -->
+<!--             <result name="404">/jsp/404.jsp</result> -->
+<!--             <result name="ERROR">/jsp/Error.jsp</result> -->
         </action>
         
         <!-- Transferencias -->

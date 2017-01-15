@@ -14,7 +14,14 @@ public class Operaciones extends ActionSupport {
 	HibernateDAO miDAO = new HibernateDAO();
 
 	public String execute() throws Exception {
-		System.out.println("IBAN obtenido: " + getIBAN());
+		System.out.println("Obteniendo operaciones en Operaciones.java... (IBAN:" + getIBAN()+")");
+		ArrayList<Operacion> opes = miDAO.obtenerOperaciones(Integer.parseInt(getIBAN()));
+		if (opes != null) {
+			setOperaciones(opes);
+		} else {
+			System.out.println("NULL value al obtener Operaciones del DAO en Operaciones.java");
+			return "ERROR";
+		}
 		return "OK";
 	}
 
