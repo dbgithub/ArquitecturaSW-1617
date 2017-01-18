@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.3//EN"
+ "http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+  		
+<validators>
+	<field name="importe">
+		<field-validator type="double">
+			 <param name="minExclusive">0</param>
+            <param name="maxInclusive">1000</param>
+            <message>¡Ojo! No puedes hacer operaciones por importes superiores a ${maxInclusive} € o iguales a 0€</message>
+		</field-validator>
+		<field-validator type="required">
+               <message>Has de introducir un importe superior a 0€</message>
+        </field-validator>
+	</field>
+	<field name="tipo">
+		<field-validator type="requiredstring">
+			<message>Por favor, selecciona tipo de operación :)</message>
+		</field-validator>
+	</field>
+</validators>
+

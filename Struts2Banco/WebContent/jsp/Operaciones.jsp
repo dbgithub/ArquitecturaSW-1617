@@ -114,7 +114,7 @@
 										<!-- URL (STRUTS2) -->
 										<s:url var="urlIngreso" action="showAddOperacion">
 											<s:param name="IBAN" value="%{IBAN}" /> <%-- Otra forma: <s:param name="IBAN"><s:property value="IBAN"/></s:param> --%>
-											<s:param name="tipo">ingreso</s:param> 
+											<s:param name="tipooperacion">Ingreso</s:param> 
 										</s:url>
 							<s:a href="%{urlIngreso}" tooltip="Ingresar dinero">
 								<img class="pro img-responsive center-block" src="imgs/ingreso.png" alt="image">
@@ -130,7 +130,7 @@
 										<!-- URL (STRUTS2) -->
 										<s:url var="urlExtraccion" action="showAddOperacion">
 											<s:param name="IBAN" value="%{IBAN}" /> <%-- Otra forma: <s:param name="IBAN"><s:property value="IBAN"/></s:param> --%>
-											<s:param name="tipo">extraccion</s:param> 
+											<s:param name="tipooperacion">Extracción</s:param> 
 										</s:url>
 							<s:a href="%{urlExtraccion}" tooltip="Extraer dinero">
 								<img class="pro img-responsive center-block" src="imgs/extraccion.png" alt="image">

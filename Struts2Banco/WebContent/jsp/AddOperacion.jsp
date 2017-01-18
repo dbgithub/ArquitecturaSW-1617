@@ -72,10 +72,11 @@
 					<s:form action="addOperacion" method="POST" validate="true">
 						<p>Importe (Cantidad):</p><s:textfield name="importe" placeholder="Importe" tooltip="Importe en €(euros)" />
 						<br>
-						<p>Tipo:</p><s:select name="select" list="{'Ingreso', 'Extraccion'}" value="%{tipos.Ingreso}" headerKey="-1" headerValue="--- Selecciona tipo ---"></s:select>
+						<p>Tipo:</p><s:select name="tipo" list="tipos" value="tipos[tipooperacion]" headerKey="" headerValue="--- Selecciona tipo ---"></s:select>
 						<br>
 						<s:submit type="input" value="Enviar!" />
 						<s:reset value="Resetear" />
+						<s:hidden name="IBAN" value="%{IBAN}" />
 					</s:form>
 					<div class="inputerror">
 						<s:actionerror />

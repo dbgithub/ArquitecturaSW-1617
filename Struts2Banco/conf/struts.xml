@@ -52,7 +52,8 @@
         
         <!--  Annadir operacion -->
         <action name="addOperacion" class="es.deusto.arquiSW.struts2.actions.AddOperacion">
-<!--             <result name="OK">/jsp/AddOperacion.jsp</result> -->
+         	<result name="OK" type="chain">showOperaciones</result>
+<!--             <result name="OK">/jsp/Operaciones.jsp</result> -->
 <!--             <result name="404">/jsp/404.jsp</result> -->
 <!--             <result name="ERROR">/jsp/Error.jsp</result> -->
         </action>
