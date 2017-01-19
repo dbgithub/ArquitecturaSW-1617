@@ -51,11 +51,20 @@
         </action>
         
         <!-- Transferencias -->
-        <!-- <action name="Transferencias" class="es.deusto.arquiSW.struts2.actions.Transferencias">
+        <action name="Transferencias" class="es.deusto.arquiSW.struts2.actions.Transferencias">
             <result name="OK">/jsp/Transferencias.jsp</result>
             <result name="404">/jsp/404.jsp</result>
             <result name="ERROR">/jsp/Error.jsp</result>
-        </action> -->
+        </action>
+		
+		<!-- Ingresos -->
+        <action name="addIngreso" class="es.deusto.arquiSW.struts2.actions.AddIngreso">
+            <result name="OK" type="chain">showResumen</result>
+            <result name="404">/jsp/404.jsp</result>
+			<result name="WRONG">/jsp/Error.jsp</result>
+            <result name="ERROR">/jsp/Error.jsp</result>
+			
+        </action>
 
 		<!-- This is a wildcard for any not-matching site -->
 		<action name="*">
