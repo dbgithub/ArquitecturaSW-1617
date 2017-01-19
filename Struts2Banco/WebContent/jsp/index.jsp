@@ -7,7 +7,7 @@
 
   <meta charset="UTF-8">
 
-  <title>DeustoBank | Login</title>
+  <title>DeustoBank | <s:text name="application.title"/></title>
 
     <style>
 @import url(http://fonts.googleapis.com/css?family=Exo:100,200,400);
@@ -177,7 +177,7 @@ body{
 	<s:form action="doLogin" method="POST" validate="true"> 
 		<s:textfield name="DNI" placeholder="DNI"/><br>
 		<s:password name="PIN" placeholder="PIN"/><br>
-		<s:submit type="input" value="ACCEDE"/>
+		<s:submit type="input" value="%{getText('submit.value')}"/>
 		
 	</s:form>
 		<div class="inputerror">

@@ -34,17 +34,17 @@ public class AddOperacion extends ActionSupport {
 					miDAO.insertarOperacionesEnCuenta(opes, Integer.parseInt(IBAN));
 				} else {
 					System.out.println("El tipo de operacion no coinciden con ningún tipo correcto en lado serviddor, ¡no podemos admitir la operacion!");
-					addActionError("* El tipo de operacion no coinciden con ningún tipo correcto en lado serviddor, ¡no podemos admitir la operacion!");
+					addActionError(getText("err.erver.tipo"));
 					return "ERROR";
 				}
 			} else {
 				System.out.println("El importe no coincide con los limites superior (1000) e inferior (0), ¡no podemos admitir la operacion!");
-				addActionError("* Hey!El importe no coincide con los limites superior (1000) e inferior (0), ¡no podemos admitir la operacion!");
+				addActionError(getText("err.server.importe"));
 				return "ERROR";
 			}
 		} else {
 			System.out.println("Ha habido algún error en el valor del IBAN. Null o espacio en blanco");
-			addActionError("* Hey! Ha habido algún error en el valor del IBAN. Null o espacio en blanco");
+			addActionError(getText("err.server.iban"));
 			return "ERROR";				
 		} 
 		return "OK";

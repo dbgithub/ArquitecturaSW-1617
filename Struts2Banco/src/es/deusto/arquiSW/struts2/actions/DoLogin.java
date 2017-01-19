@@ -32,7 +32,8 @@ public class DoLogin extends ActionSupport implements SessionAware {
 		System.out.println("Validando login (lado servidor)...");
 		if (getDNI() == null || getPIN() == null) {
 			System.out.println("Valores Null! ("+getDNI()+","+getPIN()+")");
-			addActionError("* Hey! Has de introducir algo en los campos DNI y PIN!");
+			
+			addActionError(getText("err.server.dnipin"));
 			return "WRONG";
 		} else {
 			// Acceso a la base de datos para recuperar dicho cliente y comprobar credenciales:
@@ -50,7 +51,7 @@ public class DoLogin extends ActionSupport implements SessionAware {
 				userSession.put("movil", resul.getMovil());
 			} else {
 			System.out.println("¡Datos erroneos introducidos (DNI, PIN)!");
-			addActionError("* Hey! Has introducido algún dato erroneo!");
+			addActionError(getText("err.server.datoerroneo"));
 			return "WRONG";	
 			}
 			return "OK";

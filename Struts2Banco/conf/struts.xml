@@ -53,9 +53,18 @@
         <!--  Annadir operacion -->
         <action name="addOperacion" class="es.deusto.arquiSW.struts2.actions.AddOperacion">
          	<result name="OK" type="chain">showOperaciones</result>
-<!--             <result name="OK">/jsp/Operaciones.jsp</result> -->
-<!--             <result name="404">/jsp/404.jsp</result> -->
-<!--             <result name="ERROR">/jsp/Error.jsp</result> -->
+            <result name="404">/jsp/404.jsp</result>
+            <result name="ERROR">/jsp/Error.jsp</result>
+        </action>
+        
+        <!--  i18n -->
+        <action name="i18n" class="es.deusto.arquiSW.struts2.actions.i18n">
+         	<result name="OK_resumen" type="chain">showResumen</result>
+         	<result name="OK_operaciones" type="chain">showOperaciones</result>
+         	<result name="OK_addoperacion" type="chain">showAddOperacion</result>
+         	
+            <result name="404">/jsp/404.jsp</result>
+            <result name="ERROR">/jsp/Error.jsp</result>
         </action>
         
         <!-- Transferencias -->

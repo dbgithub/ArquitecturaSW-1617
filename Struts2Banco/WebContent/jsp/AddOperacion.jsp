@@ -54,7 +54,7 @@
 					    <!-- Collect the nav links, forms, and other content for toggling -->
 					    <div class="collapse navbar-collapse" id="navbar-example">
 					      <ul class="nav navbar-nav navbar-right">
-	  						<li><a href="#our_service">Idioma</a></li>
+	  						<li><a href="#our_service"><s:text name="li.idioma"/></a></li>
 					      </ul>
 					    </div><!-- /.navbar-collapse -->
 					  </div><!-- /.container-fluid -->
@@ -64,18 +64,18 @@
 
 				<section id="starting">
 					<div class="text-center starting-text wow animated zoomInDown">
-						<h3 class="h3_header operacionesHeader">Realizar Operación</h3>
+						<h3 class="h3_header operacionesHeader"><s:text name="header.realizaroperacion"/></h3>
 								<div class="cuadro_datos">
 								<p>IBAN: <span><s:property value="IBAN"/></span></p>
 								</div>
 								
 					<s:form action="addOperacion" method="POST" validate="true">
-						<p>Importe (Cantidad):</p><s:textfield name="importe" placeholder="Importe" tooltip="Importe en €(euros)" />
+						<s:textfield label="%{getText('p.importecantidad')}" name="importe" placeholder="Importe" tooltip="%{getText('tooltip.importeeuros')}" />
 						<br>
-						<p>Tipo:</p><s:select name="tipo" list="tipos" value="tipos[tipooperacion]" headerKey="" headerValue="--- Selecciona tipo ---"></s:select>
+						<s:select label="%{getText('p.tipo')}" name="tipo" list="tipos" value="tipos[tipooperacion]" headerKey="" headerValue="%{getText('form.select.tipo')}"></s:select>
 						<br>
-						<s:submit type="input" value="Enviar!" />
-						<s:reset value="Resetear" />
+						<s:submit type="input" value="%{getText('submit.enviar')}" />
+						<s:reset value="%{getText('submit.resetear')}" />
 						<s:hidden name="IBAN" value="%{IBAN}" />
 					</s:form>
 					<div class="inputerror">
@@ -95,7 +95,7 @@
 			<div class="container">
 				<div class="row text-center heading">
 	        		<div class="wow animated zoomInDown heading-text">
-	        			<h3>Idioma</h3>
+	        			<h3><s:text name="li.idioma"/></h3>
 	                	<hr class="full">
 	                	<br/>
 	        		</div>
@@ -105,22 +105,36 @@
 			        	<div class="row">
 			        		<div class="col-md-3 col-sm-6 idiomas1 idiomas2">
 			        			<div class="service">
-			        				<img src="imgs/service2.png" alt="service1">
+			        							<!-- URL (STRUTS2) -->
+												<s:url var="i18n_es" action="i18n">
+													<s:param name="request_locale">es</s:param>
+													<s:param name="jsp">addoperacion</s:param>
+												</s:url>
+								<s:a href="%{i18n_es}" tooltip="">
+									<img src="imgs/service2.png" alt="service1">									
+								</s:a>
 			        				<div class="text-center">
-				        				<h4>Español</h4>
+				        				<h4><s:text name="idioma.espanol"/></h4>
 				        				<p>
-				        					Si prefieres ver el contenido de este resumen de la banca online en castellano, ¡haz click aquí!
+				        					<s:text name="idioma.espanol.explicacion"/>
 				        				</p>	
 			        				</div> <!-- .text-center -->
 			        			</div> <!-- .service -->
 			        		</div> <!-- .col-md-3 -->
 			        		<div class="col-md-3 col-sm-6 idiomas2">
 			        			<div class="service">
+			        							<!-- URL (STRUTS2) -->
+												<s:url var="i18n_en" action="i18n">
+													<s:param name="request_locale">en</s:param>
+													<s:param name="jsp">addoperacion</s:param>
+												</s:url>
+								<s:a href="%{i18n_en}" tooltip="">							
 			        				<img src="imgs/service3.png" alt="service1">
+								</s:a>
 			        				<div class="text-center">
-				        				<h4>Inglés</h4>
+				        				<h4><s:text name="idioma.english"/></h4>
 				        				<p>
-				        					Si prefieres ver el contenido de este resumen de la banca online en inglés porque te va ese rollo 'cool', ¡haz click aquí!
+				        					<s:text name="idioma.english.explicacion"/>
 				        				</p>	
 			        				</div> <!-- .text-center -->
 			        			</div> <!-- .service -->

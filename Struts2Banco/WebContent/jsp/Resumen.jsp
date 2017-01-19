@@ -52,8 +52,8 @@
 					    <!-- Collect the nav links, forms, and other content for toggling -->
 					    <div class="collapse navbar-collapse" id="navbar-example">
 					      <ul class="nav navbar-nav navbar-right">
-					        <li><a href="#about" class="active">¿Qué puedo hacer?</a></li>
-	  						<li><a href="#our_service">Idioma</a></li>
+					        <li><a href="#about" class="active"><s:text name="li.quepuedo"/></a></li>
+	  						<li><a href="#our_service"><s:text name="li.idioma"/></a></li>
 					      </ul>
 					    </div><!-- /.navbar-collapse -->
 					  </div><!-- /.container-fluid -->
@@ -63,24 +63,24 @@
 
 				<section id="starting">
 					<div class="text-center starting-text wow animated zoomInDown">
-						<h2>Bienvenido, <s:if test="nombre == null"><s:property value="#session.nombre"/></s:if><s:else><s:property value="nombre"/></s:else></h2>
-						<h3 class="h3_header">Cuentas</h3>
+						<h2><s:text name="welcome"/>, <s:if test="nombre == null"><s:property value="#session.nombre"/></s:if><s:else><s:property value="nombre"/></s:else></h2>
+						<h3 class="h3_header"><s:text name="header.cuentas"/></h3>
 								<div class="cuadro_datos">
 								<!-- Dentro de un 'if' statement en Struts2 no hace falta poner un s.property, porque Struts2 entiende que estas accediendo ahi.
 								Mas info en: http://stackoverflow.com/questions/8656698/struts-property-tag-inside-struts-if-tag -->
 								<!-- No es necesario poner la almohadilla delante de la variable, pero puedes ponerlo si quieres, ej. #DNI -->
-								<p>DNI: <span><s:if test="DNI == null"><s:property value="#session.dni"/></s:if><s:else><s:property value="DNI"/></s:else></span></p>
-								<p>Email: <span><s:if test="Email == null"><s:property value="#session.email"/></s:if><s:else><s:property value="Email"/></s:else></span></p>
-								<p>Móvil: <span><s:if test="Movil == null"><s:property value="#session.movil"/></s:if><s:else><s:property value="Movil"/></s:else></span></p>
+								<p><s:text name="p.DNI"/>: <span><s:if test="DNI == null"><s:property value="#session.dni"/></s:if><s:else><s:property value="DNI"/></s:else></span></p>
+								<p><s:text name="p.Email"/>: <span><s:if test="Email == null"><s:property value="#session.email"/></s:if><s:else><s:property value="Email"/></s:else></span></p>
+								<p><s:text name="p.Movil"/>: <span><s:if test="Movil == null"><s:property value="#session.movil"/></s:if><s:else><s:property value="Movil"/></s:else></span></p>
 								</div>
 						<table>
 						  <tr>
 						    <th>IBAN</th>
 						    <th>SWIFT</th> 
-						    <th>Fecha apertura</th>
-						    <th>Activa</th>
-						    <th>Saldo</th>
-						    <th>Interes</th>
+						    <th><s:text name="th.fechaapertura"/></th>
+						    <th><s:text name="th.activa"/></th>
+						    <th><s:text name="th.saldo"/></th>
+						    <th><s:text name="th.interes"/></th>
 						  </tr>
 						<s:iterator value="cuentas">
 							<tr>
@@ -88,7 +88,7 @@
 								<s:url var="urlIBAN" action="showOperaciones">
 									<s:param name="IBAN" value="%{IBAN}" /> <%-- Otra forma: <s:param name="IBAN"><s:property value="IBAN"/></s:param> --%>
 								</s:url>
-								<s:a href="%{urlIBAN}" tooltip="Ver operaciones de la cuenta"><s:property value="IBAN"/></s:a>
+								<s:a href="%{urlIBAN}" tooltip="%{getText('tooltip.veroperaciones')}"><s:property value="IBAN"/></s:a>
 								</td>
 								<td><s:property value="SWIFT"/></td>
 								<td><s:property value="fechaApertura"/></td>
@@ -111,14 +111,14 @@
 			<div class="container">
 				<div class="row text-center heading">
 					<div class="wow animated zoomInDown heading-text">
-						<h3>¿Qué puedo hacer?</h3>
+						<h3><s:text name="li.quepuedo"/></h3>
 	                	<hr class="full">
 	                	<br/>
 					</div>
 				</div>	<!-- row -->
 				<div class="row about-us-text">
 					<div class="col-md-12">
-						<p class="text-center">¡Esta es tu página de banca online! Aquí puedes visualizar que cuentas tienes habilitadas con DeustoBank. Puedes consultar las operaciones de las mismas y ver detalles de la cuenta. Si accedes a las operaciones de cada cuenta, podrás ingresar y extraer dinero cómodamente. :)</p>
+						<p class="text-center"><s:text name="application.explicacion"/></p>
 					</div>
 				</div>	<!-- row -->
 				<div class="row main_content">
@@ -126,21 +126,21 @@
 						<figure>
 							<img class="pro img-responsive center-block" src="imgs/3-col-icons-web.png" alt="image">
 						</figure>
-						<h5 class="text-center">VER DETALLES</h5>
+						<h5 class="text-center"><s:text name="application.feature1"/></h5>
 					</div>	<!-- col-md-4 -->
 
 					<div class="col-md-4 col-sm-4 wow animated zoomIn" data-wow-delay="0.1s">
 						<figure>
 							<img class="pro img-responsive center-block" src="imgs/3-col-icons-android.png" alt="image">
 						</figure>
-						<h5 class="text-center">OPERACIONES</h5>
+						<h5 class="text-center"><s:text name="application.feature2"/></h5>
 					</div>	<!-- col-md-4 -->
 
 					<div class="col-md-4 col-sm-4 wow animated zoomIn" data-wow-delay="0.1s">
 						<figure>
 							<img class="pro img-responsive center-block" src="imgs/3-col-icons-iphone.png" alt="image">
 						</figure>
-						<h5 class="text-center">CUENTAS</h5>
+						<h5 class="text-center"><s:text name="application.feature3"/></h5>
 					</div>	<!-- col-md-4 -->
 				</div><!-- row main_content -->
 			</div>	<!-- container -->
@@ -151,7 +151,7 @@
 			<div class="container">
 				<div class="row text-center heading">
 	        		<div class="wow animated zoomInDown heading-text">
-	        			<h3>Idioma</h3>
+	        			<h3><s:text name="li.idioma"/></h3>
 	                	<hr class="full">
 	                	<br/>
 	        		</div>
@@ -161,22 +161,36 @@
 			        	<div class="row">
 			        		<div class="col-md-3 col-sm-6 idiomas1 idiomas2">
 			        			<div class="service">
-			        				<img src="imgs/service2.png" alt="service1">
+			        							<!-- URL (STRUTS2) -->
+												<s:url var="i18n_es" action="i18n">
+													<s:param name="request_locale">es</s:param>
+													<s:param name="jsp">resumen</s:param>
+												</s:url>
+								<s:a href="%{i18n_es}" tooltip="">
+									<img src="imgs/service2.png" alt="service1">									
+								</s:a>
 			        				<div class="text-center">
-				        				<h4>Español</h4>
+				        				<h4><s:text name="idioma.espanol"/></h4>
 				        				<p>
-				        					Si prefieres ver el contenido de este resumen de la banca online en castellano, ¡haz click aquí!
+				        					<s:text name="idioma.espanol.explicacion"/>
 				        				</p>	
 			        				</div> <!-- .text-center -->
 			        			</div> <!-- .service -->
 			        		</div> <!-- .col-md-3 -->
 			        		<div class="col-md-3 col-sm-6 idiomas2">
 			        			<div class="service">
+			        							<!-- URL (STRUTS2) -->
+												<s:url var="i18n_en" action="i18n">
+													<s:param name="request_locale">en</s:param>
+													<s:param name="jsp">resumen</s:param>
+												</s:url>
+								<s:a href="%{i18n_en}" tooltip="">							
 			        				<img src="imgs/service3.png" alt="service1">
+								</s:a>
 			        				<div class="text-center">
-				        				<h4>Inglés</h4>
+				        				<h4><s:text name="idioma.english"/></h4>
 				        				<p>
-				        					Si prefieres ver el contenido de este resumen de la banca online en inglés porque te va ese rollo 'cool', ¡haz click aquí!
+				        					<s:text name="idioma.english.explicacion"/>
 				        				</p>
 			        				</div> <!-- .text-center -->
 			        			</div> <!-- .service -->

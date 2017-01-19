@@ -54,8 +54,8 @@
 					    <!-- Collect the nav links, forms, and other content for toggling -->
 					    <div class="collapse navbar-collapse" id="navbar-example">
 					      <ul class="nav navbar-nav navbar-right">
-					        <li><a href="#about" class="active">Ingreso/Extracción</a></li>
-	  						<li><a href="#our_service">Idioma</a></li>
+					        <li><a href="#about" class="active"><s:text name="li.ingresoextraccion"/></a></li>
+	  						<li><a href="#our_service"><s:text name="li.idioma"/></a></li>
 					      </ul>
 					    </div><!-- /.navbar-collapse -->
 					  </div><!-- /.container-fluid -->
@@ -65,16 +65,16 @@
 
 				<section id="starting">
 					<div class="text-center starting-text wow animated zoomInDown">
-						<h3 class="h3_header operacionesHeader">Operaciones</h3>
+						<h3 class="h3_header operacionesHeader"><s:text name="header.operaciones"/></h3>
 								<div class="cuadro_datos">
 								<p>IBAN: <span><s:property value="IBAN"/></span></p>
 								</div>
 						<table>
 						  <tr>
-						    <th>Número</th>
-						    <th>Fecha</th> 
-						    <th>Tipo</th>
-						    <th>Importe</th>
+						    <th><s:text name="th.numero"/></th>
+						    <th><s:text name="th.fecha"/></th> 
+						    <th><s:text name="th.tipo"/></th>
+						    <th><s:text name="th.importe"/></th>
 						  </tr>
 						<s:iterator value="operaciones">
 							<tr>
@@ -98,14 +98,14 @@
 			<div class="container">
 				<div class="row text-center heading">
 					<div class="wow animated zoomInDown heading-text">
-						<h3>Ingreso/Extracción</h3>
+						<h3><s:text name="application.ingresoextraccion"/></h3>
 	                	<hr class="full">
 	                	<br/>
 					</div>
 				</div>	<!-- row -->
 				<div class="row about-us-text">
 					<div class="col-md-12">
-						<p class="text-center">Haz click sobre la opción que desea llevar a cabo :)</p>
+						<p class="text-center"><s:text name="application.ingresoextraccion.explicacion"/></p>
 					</div>
 				</div>	<!-- row -->
 				<div class="row main_content">
@@ -121,7 +121,7 @@
 							</s:a>
 						</figure>
 						<s:a href="%{urlIngreso}" tooltip="Ingresar dinero"> 
-							<h5 class="text-center">INGRESO</h5>
+							<h5 class="text-center"><s:text name="application.ingresoextraccion.feature1"/></h5>
 						</s:a>
 					</div>	<!-- col-md-4 -->
 
@@ -137,7 +137,7 @@
 							</s:a>
 						</figure>
 						<s:a href="%{urlExtraccion}" tooltip="Extraer dinero"> 
-							<h5 class="text-center">EXTRACCION</h5>
+							<h5 class="text-center"><s:text name="application.ingresoextraccion.feature2"/></h5>
 						</s:a>
 					</div>	<!-- col-md-4 -->
 				</div><!-- row main_content -->
@@ -149,7 +149,7 @@
 			<div class="container">
 				<div class="row text-center heading">
 	        		<div class="wow animated zoomInDown heading-text">
-	        			<h3>Idioma</h3>
+	        			<h3><s:text name="li.idioma"/></h3>
 	                	<hr class="full">
 	                	<br/>
 	        		</div>
@@ -159,22 +159,36 @@
 			        	<div class="row">
 			        		<div class="col-md-3 col-sm-6 idiomas1 idiomas2">
 			        			<div class="service">
-			        				<img src="imgs/service2.png" alt="service1">
+			        							<!-- URL (STRUTS2) -->
+												<s:url var="i18n_es" action="i18n">
+													<s:param name="request_locale">es</s:param>
+													<s:param name="jsp">operaciones</s:param>
+												</s:url>
+								<s:a href="%{i18n_es}" tooltip="">
+									<img src="imgs/service2.png" alt="service1">									
+								</s:a>
 			        				<div class="text-center">
-				        				<h4>Español</h4>
+				        				<h4><s:text name="idioma.espanol"/></h4>
 				        				<p>
-				        					Si prefieres ver el contenido de este resumen de la banca online en castellano, ¡haz click aquí!
+				        					<s:text name="idioma.espanol.explicacion"/>
 				        				</p>	
 			        				</div> <!-- .text-center -->
 			        			</div> <!-- .service -->
 			        		</div> <!-- .col-md-3 -->
 			        		<div class="col-md-3 col-sm-6 idiomas2">
 			        			<div class="service">
+			        							<!-- URL (STRUTS2) -->
+												<s:url var="i18n_en" action="i18n">
+													<s:param name="request_locale">en</s:param>
+													<s:param name="jsp">operaciones</s:param>
+												</s:url>
+								<s:a href="%{i18n_en}" tooltip="">							
 			        				<img src="imgs/service3.png" alt="service1">
+								</s:a>
 			        				<div class="text-center">
-				        				<h4>Inglés</h4>
+				        				<h4><s:text name="idioma.english"/></h4>
 				        				<p>
-				        					Si prefieres ver el contenido de este resumen de la banca online en inglés porque te va ese rollo 'cool', ¡haz click aquí!
+				        					<s:text name="idioma.english.explicacion"/>
 				        				</p>	
 			        				</div> <!-- .text-center -->
 			        			</div> <!-- .service -->
