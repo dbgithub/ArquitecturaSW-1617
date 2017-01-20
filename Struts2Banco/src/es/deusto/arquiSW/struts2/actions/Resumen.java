@@ -11,7 +11,8 @@ import org.apache.struts2.interceptor.SessionAware;
 @SuppressWarnings("serial")
 public class Resumen extends ActionSupport implements SessionAware{
 	private ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
-	// Declaramos e instanciamos el DAO para la comunicación con la base de datos:
+	// Declaramos e instanciamos el DAO para la comunicaciÃ³n con la base de datos:
+
 	HibernateDAO miDAO = new HibernateDAO();
 	// HTTP Session object:
 	private SessionMap<String, Object> userSession;

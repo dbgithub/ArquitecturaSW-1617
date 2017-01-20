@@ -22,7 +22,10 @@ body{
 .opciones{
 	margin-left: 20%;
 }
-table{
+.operacionesHeader {
+	/*margin-top: -90px !important;*/
+}
+table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 75%;
@@ -44,7 +47,7 @@ tr:nth-child(even) {
 tr:nth-child(odd) {
     background-color: #426b45;
 }
-table a {
+a {
 	color: rgb(172, 195, 58);
 	text-decoration: underline;
 	cursor:pointer;

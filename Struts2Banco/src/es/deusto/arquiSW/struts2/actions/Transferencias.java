@@ -1,43 +1,47 @@
 package es.deusto.arquiSW.struts2.actions;
 
 import java.util.ArrayList;
+
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
 
 import com.opensymphony.xwork2.ActionSupport;
 
 import es.deusto.arquiSW.hibernate.DAO.HibernateDAO;
 import es.deusto.arquiSW.hibernate.classes.Cuenta;
+import org.apache.struts2.dispatcher.SessionMap;
+import org.apache.struts2.interceptor.SessionAware;
 
 @SuppressWarnings("serial")
-public class Transferencias extends ActionSupport {
-	private String DNI;
+public class Transferencias extends ActionSupport implements SessionAware {
+ 
 	private List<Integer> todosibanes;
 	private List<Integer> ibanescliente ;
 	// Declaramos e instanciamos el DAO para la comunicación con la base de
 	// datos:
 	HibernateDAO miDAO = new HibernateDAO();
+	private SessionMap<String, Object> userSession;
 
 	public String execute() throws Exception {
-		System.out.println("DNI obtenido: " + getDNI());
-		todosibanes= new ArrayList<Integer>();
-		ibanescliente = new ArrayList<Integer>();
-		for (Cuenta cuenta : miDAO.obtenerCuentas()) {
-			todosibanes.add(cuenta.getIBAN());
+		String DNI;
+		if ((DNI = (String) userSession.get("dni")) != null){
+			todosibanes= new ArrayList<Integer>();
+			ibanescliente = new ArrayList<Integer>();
+			for (Cuenta cuenta : miDAO.obtenerCuentas()) {
+				todosibanes.add(cuenta.getIBAN());
+			}
+			
+			for (Cuenta cuenta : miDAO.obtenerCuentas(DNI)) {
+				ibanescliente.add(cuenta.getIBAN());
+			}
+			return "OK";
+		}else{
+			System.out.println("NULL value al obtener el DNI del userSession (HTTP Session)");
+			return "ERROR";
 		}
 		
-		for (Cuenta cuenta : miDAO.obtenerCuentas(DNI)) {
-			ibanescliente.add(cuenta.getIBAN());
-		}
-		return "OK";
-	}
-
-	public String getDNI() {
-		return DNI;
-	}
-
-	public void setDNI(String dNI) {
-		DNI = dNI;
 	}
 
 	public List<Integer> getTodosibanes() {
@@ -55,6 +59,15 @@ public class Transferencias extends ActionSupport {
 	public void setIbanescliente(List<Integer> ibanescliente) {
 		this.ibanescliente = ibanescliente;
 	}
+
+	@Override
+	public void setSession(Map<String, Object> arg0) {
+		// TODO Auto-generated method stub
+		userSession = (SessionMap<String, Object>) arg0;
+		
+	}
+	
+	
 
 	
 	

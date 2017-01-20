@@ -54,7 +54,6 @@
 					    <!-- Collect the nav links, forms, and other content for toggling -->
 					    <div class="collapse navbar-collapse" id="navbar-example">
 					      <ul class="nav navbar-nav navbar-right">
-					        <li><a href="#about" class="active"><s:text name="li.ingresoextraccion"/></a></li>
 	  						<li><a href="#our_service"><s:text name="li.idioma"/></a></li>
 					      </ul>
 					    </div><!-- /.navbar-collapse -->
@@ -65,26 +64,24 @@
 
 				<section id="starting">
 					<div class="text-center starting-text wow animated zoomInDown">
-						<h3 class="h3_header operacionesHeader"><s:text name="header.operaciones"/></h3>
+						<h3 class="h3_header operacionesHeader"><s:text name="header.realizaroperacion"/></h3>
 								<div class="cuadro_datos">
 								<p>IBAN: <span><s:property value="IBAN"/></span></p>
 								</div>
-						<table>
-						  <tr>
-						    <th><s:text name="th.numero"/></th>
-						    <th><s:text name="th.fecha"/></th> 
-						    <th><s:text name="th.tipo"/></th>
-						    <th><s:text name="th.importe"/></th>
-						  </tr>
-						<s:iterator value="operaciones">
-							<tr>
-								<td><s:property value="id"/></td>
-								<td><s:property value="fecha"/></td>
-								<td><s:property value="tipo"/></td>
-								<td><s:property value="importe"/></td>
-							</tr>
-						</s:iterator>
-						</table>
+								
+					<s:form action="addOperacion" method="POST" validate="true">
+						<s:textfield label="%{getText('p.importecantidad')}" name="importe" placeholder="Importe" tooltip="%{getText('tooltip.importeeuros')}" />
+						<br>
+						<s:select label="%{getText('p.tipo')}" name="tipo" list="tipos" value="tipos[tipooperacion]" headerKey="" headerValue="%{getText('form.select.tipo')}"></s:select>
+						<br>
+						<s:submit type="input" value="%{getText('submit.enviar')}" />
+						<s:reset value="%{getText('submit.resetear')}" />
+						<s:hidden name="IBAN" value="%{IBAN}" />
+					</s:form>
+					<div class="inputerror">
+						<s:actionerror />
+						<s:fielderror />
+					</div>
 					</div>
 				</section>
 				<div id="bottom" class="bottom text-center">
@@ -93,57 +90,6 @@
 			</div><!-- overlay-1 -->
 		</div>	<!-- wrapper -->		
 			
-		<!-- Ingreso/Extraccion -->
-		<section id="about">
-			<div class="container">
-				<div class="row text-center heading">
-					<div class="wow animated zoomInDown heading-text">
-						<h3><s:text name="application.ingresoextraccion"/></h3>
-	                	<hr class="full">
-	                	<br/>
-					</div>
-				</div>	<!-- row -->
-				<div class="row about-us-text">
-					<div class="col-md-12">
-						<p class="text-center"><s:text name="application.ingresoextraccion.explicacion"/></p>
-					</div>
-				</div>	<!-- row -->
-				<div class="row main_content">
-					<div class="col-md-4 col-sm-4 wow animated zoomIn opciones" data-wow-delay="0.1s">
-						<figure>
-										<!-- URL (STRUTS2) -->
-										<s:url var="urlIngreso" action="showAddOperacion">
-											<s:param name="IBAN" value="%{IBAN}" /> <%-- Otra forma: <s:param name="IBAN"><s:property value="IBAN"/></s:param> --%>
-											<s:param name="tipooperacion">Ingreso</s:param> 
-										</s:url>
-							<s:a href="%{urlIngreso}" tooltip="Ingresar dinero">
-								<img class="pro img-responsive center-block" src="imgs/ingreso.png" alt="image">
-							</s:a>
-						</figure>
-						<s:a href="%{urlIngreso}" tooltip="Ingresar dinero"> 
-							<h5 class="text-center"><s:text name="application.ingresoextraccion.feature1"/></h5>
-						</s:a>
-					</div>	<!-- col-md-4 -->
-
-					<div class="col-md-4 col-sm-4 wow animated zoomIn" data-wow-delay="0.1s">
-						<figure>
-										<!-- URL (STRUTS2) -->
-										<s:url var="urlExtraccion" action="showAddOperacion">
-											<s:param name="IBAN" value="%{IBAN}" /> <%-- Otra forma: <s:param name="IBAN"><s:property value="IBAN"/></s:param> --%>
-											<s:param name="tipooperacion">Extracción</s:param> 
-										</s:url>
-							<s:a href="%{urlExtraccion}" tooltip="Extraer dinero">
-								<img class="pro img-responsive center-block" src="imgs/extraccion.png" alt="image">
-							</s:a>
-						</figure>
-						<s:a href="%{urlExtraccion}" tooltip="Extraer dinero"> 
-							<h5 class="text-center"><s:text name="application.ingresoextraccion.feature2"/></h5>
-						</s:a>
-					</div>	<!-- col-md-4 -->
-				</div><!-- row main_content -->
-			</div>	<!-- container -->
-		</section>	<!-- about us -->
-
 		<!-- Idioma -->
 		<section id="our_service">
 			<div class="container">
@@ -162,7 +108,7 @@
 			        							<!-- URL (STRUTS2) -->
 												<s:url var="i18n_es" action="i18n">
 													<s:param name="request_locale">es</s:param>
-													<s:param name="jsp">operaciones</s:param>
+													<s:param name="jsp">addoperacion</s:param>
 												</s:url>
 								<s:a href="%{i18n_es}" tooltip="">
 									<img src="imgs/service2.png" alt="service1">									
@@ -180,7 +126,7 @@
 			        							<!-- URL (STRUTS2) -->
 												<s:url var="i18n_en" action="i18n">
 													<s:param name="request_locale">en</s:param>
-													<s:param name="jsp">operaciones</s:param>
+													<s:param name="jsp">addoperacion</s:param>
 												</s:url>
 								<s:a href="%{i18n_en}" tooltip="">							
 			        				<img src="imgs/service3.png" alt="service1">

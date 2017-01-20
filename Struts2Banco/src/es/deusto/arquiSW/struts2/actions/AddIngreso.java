@@ -9,8 +9,8 @@ import es.deusto.arquiSW.hibernate.classes.Cuenta;
 @SuppressWarnings("serial")
 public class AddIngreso extends ActionSupport{
 	
-	private String cuentaorigen;
-	private String cuentadestino;
+	private String cuentaorigen = null;
+	private String cuentadestino = null;
 	private String importe;
 	// Declaramos e instanciamos el DAO para la comunicación con la base de datos:
 		HibernateDAO miDAO = new HibernateDAO();
@@ -19,7 +19,7 @@ public class AddIngreso extends ActionSupport{
 		
 		System.out.println("Validando ingreso (lado servidor)...");
 		
-		if (getCuentaorigen() == null || getCuentadestino()== null || getImporte()==null) {
+		if (getCuentaorigen() == null || getCuentadestino()== null || getImporte()==null || getImporte()=="") {
 			System.out.println("Valores Null! ("+getCuentaorigen()+","+getCuentadestino()+","+getImporte()+")");
 			addActionError("* Hey! Has de seleccionar una cuenta de origen, de destino e introducir una cantidad!");
 			return "WRONG";
@@ -54,8 +54,6 @@ public class AddIngreso extends ActionSupport{
 		this.cuentadestino = cuentadestino;
 	}
 
-
-
 	public String getImporte() {
 		return importe;
 	}
@@ -63,6 +61,7 @@ public class AddIngreso extends ActionSupport{
 	public void setImporte(String importe) {
 		this.importe = importe;
 	}
-	
+
+
 
 }

@@ -44,7 +44,9 @@
 								<span class="sr-only">Toggle navigation</span> <i
 									class="fa fa-bars"></i>
 							</button>
-							<a class="navbar-brand" href="#">DeustoBank</a>
+							<s:url var="urlCuentas" action="showResumen"></s:url>
+							<s:a href="%{urlCuentas}" class="navbar-brand" tooltip="Volver a las cuentas">DeustoBank</s:a>
+							<!-- <a class="navbar-brand" href="#">DeustoBank</a> -->
 						</div>
 
 						<!-- Collect the nav links, forms, and other content for toggling -->
@@ -78,14 +80,15 @@
 
 						</s:select>
 
-						<s:textfield type="text" class="form-control"
-							id="inputImporte" placeholder="Cantidad" label="Importe" name="importe"/>
+						<s:textfield label="Importe" name="importe" />
 
 
 						<s:submit class="btn btn-primary" value="Transferir"></s:submit>
 
-						<s:actionerror />
-						<s:fielderror />
+						<div class="inputerror">
+							<s:actionerror />
+							<s:fielderror />
+						</div>
 
 					</s:form>
 				</div>
