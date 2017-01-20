@@ -5,14 +5,14 @@
 	<field name="cuentaorigen">
 		<field-validator type="requiredstring">
 			<param name="trim">true</param>
-			<message>Necesitas seleccionar una cuenta Origen</message> <!-- Antes estaba asi -->
+			<message>Necesitas seleccionar una cuenta Origen</message>
 			<!--<message key="err.DNI"/>  Acceso a archivos multilingues -->
 		</field-validator>
 	</field>
 	<field name="cuentadestino">
 		<field-validator type="requiredstring">
 			<param name="trim">true</param>
-			 <message>Necesitas seleccionar una cuetna Destino</message>
+			 <message>Necesitas seleccionar una cuenta Destino</message>
 			<!--<message key="err.PIN"/>  Acceso a archivos multilingues -->
 		</field-validator>
 	</field>

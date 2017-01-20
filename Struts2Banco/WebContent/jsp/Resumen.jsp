@@ -154,7 +154,7 @@
 		
 							</s:url>
 							<s:a href="%{urlDNI}" class="btn btn-primary btn-lg active"
-								role="button" aria-pressed="true">Transferencias</s:a>
+								role="button" aria-pressed="true"><s:text name="button.transferencias" /></s:a>
 						</div>
 
 					</s:else>
@@ -166,118 +166,6 @@
 			</div>
 		</div>
 		<!-- overlay-1 -->
-	</div>
-	<!-- wrapper -->
-
-	<!-- Que puedo hacer -->
-	<section id="about">
-		<div class="container">
-			<div class="row text-center heading">
-				<div class="wow animated zoomInDown heading-text">
-					<h3>¿Qué puedo hacer?</h3>
-					<hr class="full">
-					<br />
-				</div>
-			</div>
-			<!-- row -->
-			<div class="row about-us-text">
-				<div class="col-md-12">
-					<p class="text-center">¡Esta es tu página de banca online! Aquí
-						puedes visualizar que cuentas tienes habilitadas con DeustoBank.
-						Puedes consultar las operaciones de las mismas y ver detalles de
-						la cuenta. Si accedes a las operaciones de cada cuenta, podrás
-						ingresar y extraer dinero cómodamente. :)</p>
-				</div>
-			</div>
-			<!-- row -->
-			<div class="row main_content">
-				<div class="col-md-4 col-sm-4 wow animated zoomIn"
-					data-wow-delay="0.1s">
-					<figure>
-						<img class="pro img-responsive center-block"
-							src="imgs/3-col-icons-web.png" alt="image">
-					</figure>
-					<h5 class="text-center">VER DETALLES</h5>
-				</div>
-				<!-- col-md-4 -->
-
-				<div class="col-md-4 col-sm-4 wow animated zoomIn"
-					data-wow-delay="0.1s">
-					<figure>
-						<img class="pro img-responsive center-block"
-							src="imgs/3-col-icons-android.png" alt="image">
-					</figure>
-					<h5 class="text-center">OPERACIONES</h5>
-				</div>
-				<!-- col-md-4 -->
-
-				<div class="col-md-4 col-sm-4 wow animated zoomIn"
-					data-wow-delay="0.1s">
-					<figure>
-						<img class="pro img-responsive center-block"
-							src="imgs/3-col-icons-iphone.png" alt="image">
-					</figure>
-					<h5 class="text-center">CUENTAS</h5>
-				</div>
-				<!-- col-md-4 -->
-			</div>
-			<!-- row main_content -->
-		</div>
-		<!-- container -->
-	</section>
-	<!-- about us -->
-
-	<!-- Idioma -->
-	<section id="our_service">
-		<div class="container">
-			<div class="row text-center heading">
-				<div class="wow animated zoomInDown heading-text">
-					<h3>Idioma</h3>
-					<hr class="full">
-					<br />
-				</div>
-			</div>
-			<div class="main_content">
-				<div class="services">
-					<div class="row">
-						<div class="col-md-3 col-sm-6 idiomas1 idiomas2">
-							<div class="service">
-								<img src="imgs/service2.png" alt="service1">
-								<div class="text-center">
-									<h4>Español</h4>
-									<p>Si prefieres ver el contenido de este resumen de la
-										banca online en castellano, ¡haz click aquí!</p>
-								</div>
-								<!-- .text-center -->
-							</div>
-							<!-- .service -->
-						</div>
-						<!-- .col-md-3 -->
-						<div class="col-md-3 col-sm-6 idiomas2">
-							<div class="service">
-								<img src="imgs/service3.png" alt="service1">
-								<div class="text-center">
-									<h4>Inglés</h4>
-									<p>Si prefieres ver el contenido de este resumen de la
-										banca online en inglés porque te va ese rollo 'cool', ¡haz
-										click aquí!</p>
-								</div>
-								<!-- .text-center -->
-							</div>
-							<!-- .service -->
-						</div>
-						<!-- .col-md-3 -->
-					</div>
-					
-				</div>
-				<!-- services -->
-				=======
-	</section>
-	<div id="bottom" class="bottom text-center">
-		<a href="#about"><i class="ion-ios7-arrow-down"></i></a>
-	</div>
-	</div>
-	<!-- overlay-1 -->
 	</div>
 	<!-- wrapper -->
 
@@ -411,18 +299,6 @@
 				<!-- services -->
 			</div>
 			<!-- main_content -->
-		</div>
-		<!-- container -->
-	</section>
-	<!-- our_service -->
-
-	<!-- footer -->
-	<section id="footer" class="main-footer">
-		<div class="container">
-			<p>&copy; 2015 themewagon.com</p>
-			<a href="#starting" class="up">&uarr;</a> >>>>>>> origin/master
-		</div>
-		<!-- main_content -->
 		</div>
 		<!-- container -->
 	</section>

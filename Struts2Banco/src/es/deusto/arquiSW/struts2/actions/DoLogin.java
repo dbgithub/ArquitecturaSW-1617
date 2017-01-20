@@ -23,7 +23,7 @@ public class DoLogin extends ActionSupport implements SessionAware {
 	private String email;
 	private int movil;
 	private ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
-	// Declaramos e instanciamos el DAO para la comunicación con la base de datos:
+	// Declaramos e instanciamos el DAO para la comunicaciï¿½n con la base de datos:
 	HibernateDAO miDAO = new HibernateDAO();
 	// HTTP Session object:
 	private SessionMap<String, Object> userSession;
@@ -50,7 +50,7 @@ public class DoLogin extends ActionSupport implements SessionAware {
 				userSession.put("email", resul.getEmail());
 				userSession.put("movil", resul.getMovil());
 			} else {
-			System.out.println("¡Datos erroneos introducidos (DNI, PIN)!");
+			System.out.println("Â¡Datos erroneos introducidos (DNI, PIN)!");
 			addActionError(getText("err.server.datoerroneo"));
 			return "WRONG";	
 			}
